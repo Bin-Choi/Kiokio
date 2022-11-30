@@ -26,6 +26,6 @@ export default {
 #app {
   height: 100vh;
   text-align: center;
-  background-color: #0d6dfd1e;
+  background-color: #2b64aa1e;
 }
 </style>
