@@ -36,7 +36,6 @@ export default {
 
 #scroll-view{
   box-shadow: 5px 5px 7px rgb(198, 207, 226); 
-
 }
 
 #scroll-box{
