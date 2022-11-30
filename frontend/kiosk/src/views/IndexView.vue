@@ -21,7 +21,8 @@
       <button type="button" class="btn btn-primary btn-lg btn-block"
       @click="$router.push('inbody')">인바디 등록/조회</button>
 
-      <button type="button" class="btn btn-primary btn-lg btn-block">운동기구</button>
+      <button type="button" class="btn btn-primary btn-lg btn-block"
+      @click="$router.push('gym')">운동기구</button>
     </div>
   </div>
 </template>
