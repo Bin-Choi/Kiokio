@@ -1,23 +1,50 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+
+import IndexView from '@/views/IndexView'
+import AdminView from '@/views/AdminView'
+import AttendView from '@/views/AttendView'
+import InbodyView from '@/views/InbodyView'
+import GymView from '@/views/GymView'
+
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'index',
+    component: IndexView
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/admin',
+    name: 'admin',
+    component: AdminView
+  },
+  {
+    path: '/attend',
+    name: 'attend',
+    component: AttendView
+  },
+  {
+    path: '/inbody',
+    name: 'inbody',
+    component: InbodyView
+  },
+  {
+    path: '/gym',
+    name: 'gym',
+    component: GymView
+  },
+
+  // {
+  //   path: '/about',
+  //   name: 'about',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  // }
 ]
 
 const router = new VueRouter({

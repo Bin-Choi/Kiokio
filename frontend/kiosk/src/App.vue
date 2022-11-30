@@ -1,32 +1,31 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
+    
     <router-view/>
+
+    <footer style="height: 150px;"
+    class="bg-light w-100 fixed-bottom d-flex justify-content-center align-items-center" >
+      <img src="#" alt="Logo">
+      <span>딩초초등학교</span>
+    </footer>
   </div>
 </template>
 
+<script>
+
+export default {
+  name: 'AppView',
+}
+</script>
+
 <style>
+* {
+  font-size: 50px;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
   text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+  background-color: #0d6dfd1e;
 }
 </style>
