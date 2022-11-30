@@ -35,6 +35,7 @@ button {
   padding: 35px;
   margin-bottom: 100px;
   font-size: 80px;
+  box-shadow: 0 7px 7px rgb(6, 43, 116); 
 }
 
 </style>
