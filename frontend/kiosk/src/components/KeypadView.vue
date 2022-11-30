@@ -8,10 +8,15 @@
     </div>
 
     <!-- Submit Button -->
-    <button type="button" class="btn btn-primary ">Primary</button>
+    <button type="button" class="btn btn-primary "></button>
+
+    <!-- Back -->
+    <div class="w-25 d-flex mx-2 align-items-center" @click="$router.go(-1)">
+      <font-awesome-icon icon="fa-solid fa-arrow-left" /> 뒤로가기
+    </div>
 
     <!-- Keypad -->
-    <table class="w-100 fixed-bottom mb-5">
+    <table class="w-100 fixed-bottom">
       <tr class="row">
         <td class="col">1</td>
         <td class="col">2</td>
@@ -43,7 +48,17 @@ export default {
     return {
       number:null,
     }
+  },
+  // Button InnerText
+  mounted(){
+    const btn = document.querySelector('button')
+    if (this.$route.name == 'inbody'){
+      btn.innerText = '조회하기'
+    } else {
+      btn.innerText = '출석하기'
+    }
   }
+  
 }
 </script>
 
@@ -72,5 +87,9 @@ input{
 
 input:focus{
   outline:none;
+}
+
+button {
+  box-shadow: 0 7px 7px rgba(17, 61, 147, 0.987); 
 }
 </style>

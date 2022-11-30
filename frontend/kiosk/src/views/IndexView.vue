@@ -1,5 +1,6 @@
 <template>
   <div class="p-4">
+
     <!-- Admin -->
     <div class="d-flex flex-column align-items-end m-2">
       <font-awesome-icon icon="fa-solid fa-user" class="fa-2x m-2 mb-0"/>
@@ -16,7 +17,10 @@
     <div class="d-flex flex-column m-4">
       <button type="button" class="btn btn-primary btn-lg btn-block "
       @click="$router.push('attend')">출석체크</button>
-      <button type="button" class="btn btn-primary btn-lg btn-block">인바디</button>
+
+      <button type="button" class="btn btn-primary btn-lg btn-block"
+      @click="$router.push('inbody')">인바디 등록/조회</button>
+
       <button type="button" class="btn btn-primary btn-lg btn-block">운동기구</button>
     </div>
   </div>
@@ -29,13 +33,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 button {
   padding: 35px;
   margin-bottom: 100px;
   font-size: 80px;
-  box-shadow: 0 7px 7px rgba(16, 60, 149, 0.987); 
+  box-shadow: 0 7px 7px rgba(17, 61, 147, 0.987); 
 }
 
 </style>
