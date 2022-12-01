@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pt-5">
     <div
       id="title"
       class="w-75 m-auto bg-primary rounded text-light p-1"
@@ -8,35 +8,42 @@
       인바디 정보
     </div>
 
-    <div id="info-box" class="w-75 bg-light m-auto p-2 mt-3 rounded">
-      <div class="font-weight-bold">0 학년 0 반 이름 000</div>
-    </div>
-    <InbodyDetail></InbodyDetail>
-    <div class="d-flex flex-column w-50">
-      <button
-        type="button"
-        class="btn btn-primary mb-2"
-        @click="$router.push('inbodyForm')"
-      >
-        인바디 등록하기
-      </button>
-      <!-- <button type="button" class="btn btn-primary" @click="goList">
-        지난 기록 조회
-      </button> -->
+    <!-- INBODY DETAIL CONTENT -->
+    <scroll-view> </scroll-view>
+
+    <!-- BUTTONS -->
+    <button
+      type="button"
+      class="btn btn-primary m-1"
+      @click="$router.push({ name: 'inbodyForm' })"
+    >
+      인바디 등록하기
+    </button>
+
+    <button type="button" class="btn btn-primary m-1" @click="goList">
+      지난 기록 조회
+    </button>
+
+    <div class="w-25 d-flex m-2 align-items-center" @click="$router.go(-1)">
+      <font-awesome-icon icon="fa-solid fa-arrow-left" /> 뒤로가기
     </div>
   </div>
 </template>
 
 <script>
-import InbodyDetail from "../components/InbodyDetail.vue"
+import ScrollView from "@/components/ScrollView.vue"
 
 export default {
   name: "InbodyDetailView",
   components: {
-    InbodyDetail,
+    ScrollView,
   },
   methods: {},
 }
 </script>
 
-<style></style>
+<style scoped>
+button {
+  box-shadow: 0 7px 7px rgba(17, 61, 147, 0.987);
+}
+</style>

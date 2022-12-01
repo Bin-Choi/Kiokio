@@ -7,7 +7,7 @@ import AttendView from "@/views/AttendView"
 import InbodyView from "@/views/InbodyView"
 import GymView from "@/views/GymView"
 import InbodyDetailView from "@/views/InbodyDetailView"
-import InbodyFormView from "@/components/InbodyFormView"
+import InbodyFormView from "@/views/InbodyFormView"
 
 Vue.use(VueRouter)
 
@@ -43,7 +43,7 @@ const routes = [
     component: InbodyDetailView,
   },
   {
-    path: "/inbody/detail/inbodyform",
+    path: "/inbody/form",
     name: "inbodyForm",
     component: InbodyFormView,
   },
