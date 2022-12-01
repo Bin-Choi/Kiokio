@@ -1,9 +1,11 @@
 <template>
   <div id="scroll-view" class="w-75 bg-light rounded m-auto my-5 py-3 px-2">
     <div id="scroll-box">
+
       <!-- display gym list if the router name is gym -->
       <span v-if="$route.name === 'gym'" class="d-flex flex-wrap justify-content-center m-auto">
-        <gym-item v-for="(gym, idx) in this.gyms" :key="idx" :gym="gym"/>
+        <gym-item v-for="(gym, idx) in this.gyms" :key="idx" :gym="gym"
+        @show-modal="$emit('show-modal')"/>
       </span>
 
       <!-- display inbody record history if the router name is record history -->
@@ -28,7 +30,7 @@ export default {
         "gym1", "gym2", "gym3", "gym4", "gym5", "gym6", "gym7"
       ]
     }
-  }
+  },
 }
 </script>
 

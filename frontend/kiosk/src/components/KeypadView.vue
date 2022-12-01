@@ -3,12 +3,12 @@
     <!-- Display Input -->
     <div class="my-3">
       <span>학년/반/번호</span>
-      <input type="text" v-model="number" maxlength="6" minlength="6"
+      <input type="text" v-model.trim="number" maxlength="6" minlength="6"
        class="rounded bg-light m-2">
     </div>
 
     <!-- Submit Button -->
-    <button type="button" class="btn btn-primary "></button>
+    <button type="button" class="btn btn-primary" @click="submit"></button>
 
     <!-- Back -->
     <div class="w-25 d-flex mx-2 align-items-center" @click="$router.go(-1)">
@@ -56,6 +56,25 @@ export default {
       btn.innerText = '조회하기'
     } else {
       btn.innerText = '출석하기'
+    }
+  },
+  methods:{
+    // Submit Event
+    submit(){
+      // check the input length
+      if (!this.number || this.number.length != 6){
+        alert('학년 반 번호를 정확히 입력해주세요')
+        return false
+      }
+
+      // emit show-(pw)-modal event to parent
+      if (this.$route.name == 'inbody'){
+        this.$emit('show-pw-modal')
+      } else {
+        console.log(this.number)
+        this.$emit('show-modal')
+      }
+
     }
   }
   

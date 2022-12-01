@@ -1,5 +1,5 @@
 <template>
-  <div class="item rounded m-2 p-auto">
+  <div class="item rounded m-2 p-auto" @click="$emit('show-modal')">
       <img src="#" alt="img">
       <div>{{this.gym}}</div>
   </div>
@@ -13,6 +13,8 @@ export default {
   props:{
     gym:String,
   },
+  methods:{
+  }
 }
 </script>
 
