@@ -1,14 +1,14 @@
 <template>
   <div>
     <!-- Display Input -->
-    <div class="my-3">
+    <div class="m-4">
       <span>학년/반/번호</span>
       <input type="text" v-model.trim="number" maxlength="6" minlength="6"
        class="rounded bg-light m-2">
     </div>
 
-    <!-- Submit Button -->
-    <button type="button" class="btn btn-primary" @click="submit"></button>
+    <!-- SUBMIT BUTTON-->
+    <button type="button" class="btn btn-primary " @click="submit"></button>
 
     <!-- Back -->
     <div class="w-25 d-flex mx-2 align-items-center" @click="$router.go(-1)">
@@ -18,24 +18,24 @@
     <!-- Keypad -->
     <table class="w-100 fixed-bottom">
       <tr class="row">
-        <td class="col">1</td>
-        <td class="col">2</td>
-        <td class="col">3</td>
+        <td class="col" @click="input(1)">1</td>
+        <td class="col" @click="input(2)">2</td>
+        <td class="col" @click="input(3)">3</td>
       </tr>
       <tr class="row">
-        <td class="col">4</td>
-        <td class="col">5</td>
-        <td class="col">6</td>
+        <td class="col" @click="input(4)">4</td>
+        <td class="col" @click="input(5)">5</td>
+        <td class="col" @click="input(6)">6</td>
       </tr>
       <tr class="row">
-        <td class="col">7</td>
-        <td class="col">8</td>
-        <td class="col">9</td>
+        <td class="col" @click="input(7)">7</td>
+        <td class="col" @click="input(8)">8</td>
+        <td class="col" @click="input(9)">9</td>
       </tr>
       <tr class="row">
-        <td class="col">.</td>
-        <td class="col">0</td>
-        <td class="col">지우기</td>
+        <td class="col" @click="input('.')">.</td>
+        <td class="col" @click="input(0)">0</td>
+        <td class="col" @click="del">지우기</td>
       </tr>
     </table>
   </div>
@@ -46,7 +46,8 @@ export default {
   name:"KeypadView",
   data(){
     return {
-      number:null,
+      number:'',
+      password:null,
     }
   },
   // Button InnerText
@@ -67,7 +68,7 @@ export default {
         return false
       }
 
-      // emit show-(pw)-modal event to parent
+      // submit logic according to route name
       if (this.$route.name == 'inbody'){
         this.$emit('show-pw-modal')
       } else {
@@ -75,6 +76,18 @@ export default {
         this.$emit('show-modal')
       }
 
+    },
+    // INPUT NUMBER
+    input(num){
+      if (this.number.length < 6) {
+        this.number += `${num}`
+      }
+    },
+    // DELETE NUMBER
+    del(){
+      if (this.number.length > 0){
+        this.number = this.number.slice(0, -1)
+      }
     }
   }
   

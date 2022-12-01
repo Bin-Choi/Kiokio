@@ -6,7 +6,7 @@ import AdminView from '@/views/AdminView'
 import AttendView from '@/views/AttendView'
 import InbodyView from '@/views/InbodyView'
 import GymView from '@/views/GymView'
-
+import InbodyDetailView from '@/views/InbodyDetailView'
 
 Vue.use(VueRouter)
 
@@ -35,6 +35,11 @@ const routes = [
     path: '/gym',
     name: 'gym',
     component: GymView
+  },
+  {
+    path: '/inbody/detail',
+    name: 'inbodyDetail',
+    component: InbodyDetailView
   },
 
   // {
