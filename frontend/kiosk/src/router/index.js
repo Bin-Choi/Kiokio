@@ -1,45 +1,51 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue"
+import VueRouter from "vue-router"
 
-import IndexView from '@/views/IndexView'
-import AdminView from '@/views/AdminView'
-import AttendView from '@/views/AttendView'
-import InbodyView from '@/views/InbodyView'
-import GymView from '@/views/GymView'
-import InbodyDetailView from '@/views/InbodyDetailView'
+import IndexView from "@/views/IndexView"
+import AdminView from "@/views/AdminView"
+import AttendView from "@/views/AttendView"
+import InbodyView from "@/views/InbodyView"
+import GymView from "@/views/GymView"
+import InbodyDetailView from "@/views/InbodyDetailView"
+import InbodyFormView from "@/components/InbodyFormView"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'index',
-    component: IndexView
+    path: "/",
+    name: "index",
+    component: IndexView,
   },
   {
-    path: '/admin',
-    name: 'admin',
-    component: AdminView
+    path: "/admin",
+    name: "admin",
+    component: AdminView,
   },
   {
-    path: '/attend',
-    name: 'attend',
-    component: AttendView
+    path: "/attend",
+    name: "attend",
+    component: AttendView,
   },
   {
-    path: '/inbody',
-    name: 'inbody',
-    component: InbodyView
+    path: "/inbody",
+    name: "inbody",
+    component: InbodyView,
   },
   {
-    path: '/gym',
-    name: 'gym',
-    component: GymView
+    path: "/gym",
+    name: "gym",
+    component: GymView,
   },
   {
-    path: '/inbody/detail',
-    name: 'inbodyDetail',
-    component: InbodyDetailView
+    path: "/inbody/detail",
+    name: "inbodyDetail",
+    component: InbodyDetailView,
+  },
+  {
+    path: "/inbody/detail/inbodyform",
+    name: "inbodyForm",
+    component: InbodyFormView,
   },
 
   // {
@@ -53,9 +59,9 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 export default router
