@@ -20,7 +20,11 @@
       인바디 등록하기
     </button>
 
-    <button type="button" class="btn btn-primary m-1" @click="goList">
+    <button
+      type="button"
+      class="btn btn-primary m-1"
+      @click="$router.push({ name: 'inbodyList' })"
+    >
       지난 기록 조회
     </button>
 
