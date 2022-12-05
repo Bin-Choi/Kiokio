@@ -1,43 +1,28 @@
 <template>
   <div>
-    <!-- Display Input -->
-    <div class="m-4">
-      <span>학년/반/번호</span>
-      <input type="text" v-model.trim="number" maxlength="6" minlength="6"
-       class="rounded bg-light m-2">
-    </div>
-
-    <!-- SUBMIT BUTTON-->
-    <button type="button" class="btn btn-primary " @click="submit"></button>
-
-    <!-- Back -->
-    <div class="w-25 d-flex mx-2 align-items-center" @click="$router.go(-1)">
-      <font-awesome-icon icon="fa-solid fa-arrow-left" /> 뒤로가기
-    </div>
-
     <!-- Keypad -->
-    <table class="w-100 fixed-bottom">
-      <tr class="row">
-        <td class="col" @click="input(1)">1</td>
-        <td class="col" @click="input(2)">2</td>
-        <td class="col" @click="input(3)">3</td>
-      </tr>
-      <tr class="row">
-        <td class="col" @click="input(4)">4</td>
-        <td class="col" @click="input(5)">5</td>
-        <td class="col" @click="input(6)">6</td>
-      </tr>
-      <tr class="row">
-        <td class="col" @click="input(7)">7</td>
-        <td class="col" @click="input(8)">8</td>
-        <td class="col" @click="input(9)">9</td>
-      </tr>
-      <tr class="row">
-        <td class="col" @click="input('.')">.</td>
-        <td class="col" @click="input(0)">0</td>
-        <td class="col" @click="del">지우기</td>
-      </tr>
-    </table>
+    <div class="d-flex flex-column keypad">
+      <div class="row">
+        <div class="col" @click="input(1)">1</div>
+        <div class="col" @click="input(2)">2</div>
+        <div class="col" @click="input(3)">3</div>
+      </div>
+      <div class="row">
+        <div class="col" @click="input(4)">4</div>
+        <div class="col" @click="input(5)">5</div>
+        <div class="col" @click="input(6)">6</div>
+      </div>
+      <div class="row">
+        <div class="col" @click="input(7)">7</div>
+        <div class="col" @click="input(8)">8</div>
+        <div class="col" @click="input(9)">9</div>
+      </div>
+      <div class="row">
+        <div class="col" @click="input('.')">.</div>
+        <div class="col" @click="input(0)">0</div>
+        <div class="col" @click="del">지우기</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -95,30 +80,13 @@ export default {
 </script>
 
 <style scoped>
-table {
+.keypad {
   background-color: #D9D9D9;
 }
 
-table td{
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid white;
-  font-size: 60px;
-  font-weight: bold;
-  height: 180px;
-}
-
-input{
-  text-align:center;
-  width: 500px;
-  height: 120px;
-  box-shadow: 5px 5px 7px rgb(198, 207, 226); 
-  border: none;
-}
-
-input:focus{
-  outline:none;
+.col {
+  font-size: 1.65em;
+  padding: 0.5em;
 }
 
 button {

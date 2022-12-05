@@ -13,10 +13,11 @@ export default {
 
 <style>
 * {
-  font-size: 50px;
+  font-size: 1.2em;
 }
 
 #app {
+  width: 100vw;
   height: 100vh;
   text-align: center;
   background-color: #2b64aa1e;

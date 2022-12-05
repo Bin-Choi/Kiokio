@@ -1,8 +1,8 @@
 <template>
-  <div class="p-4">
+  <div class="p-5">
 
     <!-- Admin -->
-    <div class="d-flex flex-column align-items-end m-2">
+    <div class="d-flex flex-column align-items-end m-5">
       <font-awesome-icon icon="fa-solid fa-user" class="fa-2x m-2 mb-0"/>
       <span >관리자</span>
     </div>
@@ -14,7 +14,7 @@
     </div>
 
     <!-- Buttons -->
-    <div class="d-flex flex-column m-4">
+    <div class="d-flex flex-column m-5">
       <button type="button" class="btn btn-primary btn-lg btn-block "
       @click="$router.push('attend')">출석체크</button>
 
@@ -37,9 +37,9 @@ export default {
 <style scoped>
 
 button {
-  padding: 35px;
-  margin-bottom: 100px;
-  font-size: 80px;
+  padding: 0.7em;
+  margin: 1em 0;
+  font-size: 2.2em;
   box-shadow: 0 7px 7px rgba(17, 61, 147, 0.987); 
 }
 
