@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-5">
+  <div class="h-100 d-flex flex-column justify-content-between">
     <div
       id="title"
       class="w-75 m-auto bg-primary rounded text-light p-1"
@@ -7,7 +7,9 @@
     >
       지난 기록 조회
     </div>
-    <div class="w-75 bg-light rounded m-auto my-3 py-3 px-2"></div>
+
+    <scroll-view/>
+
     <!-- BUTTONS
     <button
       type="button"
@@ -16,15 +18,22 @@
     >
       확인
     </button> -->
-    <div class="w-25 d-flex m-2 align-items-center" @click="$router.go(-1)">
+
+    <div class="d-flex m-5 align-items-center" style="font-size:2em;"
+    @click="$router.go(-1)">
       <font-awesome-icon icon="fa-solid fa-arrow-left" /> 뒤로가기
     </div>
   </div>
 </template>
 
 <script>
+import ScrollView from '@/components/ScrollView.vue'
+
 export default {
-  name: "InbodyListView",
+  name: "InbodyHistoryView",
+  components: {
+    ScrollView,
+  }
 }
 </script>
 

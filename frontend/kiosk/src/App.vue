@@ -22,8 +22,4 @@ export default {
   text-align: center;
   background-color: #2b64aa1e;
 }
-
-#title{
-  box-shadow: 0 7px 7px rgba(17, 61, 147, 0.987); 
-}
 </style>

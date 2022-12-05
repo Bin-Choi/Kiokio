@@ -1,10 +1,11 @@
 <template>
-  <div id="scroll-view" class="w-75 bg-light rounded m-auto my-3 py-3 px-2">
+  <div class="w-75 bg-light rounded m-auto my-3 py-3 px-2 shadow">
     <div id="scroll-box">
+
       <!-- display gym list if the router name is gym -->
       <span
         v-if="$route.name === 'gym'"
-        class="d-flex flex-wrap justify-content-center m-auto"
+        class="d-flex flex-wrap justify-content-center m-auto p-5"
       >
         <gym-item
           v-for="(gym, idx) in this.gyms"
@@ -44,9 +45,6 @@ export default {
 </script>
 
 <style scoped>
-#scroll-view {
-  box-shadow: 5px 5px 7px rgb(198, 207, 226);
-}
 
 #scroll-box {
   height: 60vh;

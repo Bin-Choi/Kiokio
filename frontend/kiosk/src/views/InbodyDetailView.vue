@@ -1,9 +1,8 @@
 <template>
-  <div class="pt-5">
+  <div class="h-100 d-flex flex-column justify-content-between">
     <div
-      id="title"
-      class="w-75 m-auto bg-primary rounded text-light p-1"
-      style="font-size: 90px"
+      class="w-75 m-auto bg-primary rounded text-light p-1 shadow"
+      style="font-size: 3em"
     >
       인바디 정보
     </div>
@@ -12,23 +11,27 @@
     <scroll-view> </scroll-view>
 
     <!-- BUTTONS -->
-    <button
-      type="button"
-      class="btn btn-primary m-1"
-      @click="$router.push({ name: 'inbodyForm' })"
-    >
-      인바디 등록하기
-    </button>
+    <div class="w-75 d-flex justify-content-around m-auto">
+      <button
+        type="button"
+        class="btn btn-primary shadow p-3" style="font-size: 1.5em;"
+        @click="$router.push({ name: 'inbodyForm' })"
+      >
+        인바디 등록하기
+      </button>
 
-    <button
-      type="button"
-      class="btn btn-primary m-1"
-      @click="$router.push({ name: 'inbodyList' })"
-    >
-      지난 기록 조회
-    </button>
+      <button
+        type="button"
+        class="btn btn-primary shadow p-3" style="font-size: 1.5em;"
+        @click="$router.push({ name: 'inbodyHistory' })"
+      >
+        지난 기록 조회
+      </button>
+    </div>
 
-    <div class="w-25 d-flex m-2 align-items-center" @click="$router.go(-1)">
+    <!-- BACK -->
+    <div class="d-flex m-5 align-items-center" style="font-size:2em;"
+    @click="$router.go(-1)">
       <font-awesome-icon icon="fa-solid fa-arrow-left" /> 뒤로가기
     </div>
   </div>
@@ -46,8 +49,6 @@ export default {
 }
 </script>
 
-<style scoped>
-button {
-  box-shadow: 0 7px 7px rgba(17, 61, 147, 0.987);
-}
+<style>
+
 </style>

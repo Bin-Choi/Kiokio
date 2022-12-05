@@ -8,7 +8,7 @@ import InbodyView from "@/views/InbodyView"
 import GymView from "@/views/GymView"
 import InbodyDetailView from "@/views/InbodyDetailView"
 import InbodyFormView from "@/views/InbodyFormView"
-import InbodyListView from "@/views/InbodyListView"
+import InbodyHistoryView from "@/views/InbodyHistoryView"
 
 Vue.use(VueRouter)
 
@@ -49,9 +49,9 @@ const routes = [
     component: InbodyFormView,
   },
   {
-    path: "/inbody/list",
-    name: "inbodyList",
-    component: InbodyListView,
+    path: "/inbody/history",
+    name: "inbodyHistory",
+    component: InbodyHistoryView,
   },
 
   // {

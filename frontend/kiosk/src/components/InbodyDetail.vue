@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <p class="font-weight-bold">0 학년 0 반 이름 000</p>
+  <div class="p-5">
     <p>검사일시</p>
     <p>키</p>
     <p>나이</p>
