@@ -41,4 +41,6 @@ export default {
   margin: 1em 0;
   font-size: 2.2em;
 }
+
+
 </style>
