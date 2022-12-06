@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="d-flex flex-column">
     <router-view/>
   </div>
 </template>
@@ -17,7 +17,6 @@ export default {
 }
 
 #app {
-  width: 100vw;
   height: 100vh;
   text-align: center;
   background-color: #2b64aa1e;
