@@ -66,7 +66,10 @@ SITE_ID = 1
 REST_FRAMEWORK = {
     # Authentication. simplejwt 토큰 사용
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html#requirements
         # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+        # https://dj-rest-auth.readthedocs.io/en/latest/installation.html
         # 브라우저에서 구동할 경우, JWTCookie 인증방식을 사용
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
@@ -84,8 +87,10 @@ JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(day=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(day=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
 }
 
 
