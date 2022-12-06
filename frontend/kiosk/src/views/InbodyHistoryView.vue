@@ -1,5 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column justify-content-between">
+    
     <div
       id="title"
       class="w-75 m-auto bg-primary rounded text-light p-1"

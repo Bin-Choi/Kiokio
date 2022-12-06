@@ -1,32 +1,36 @@
 <template>
+  <div class="h-100 d-flex flex-column justify-content-between">
+    <!-- MODAL -->
+    <modal-view v-if="showModal" @close-modal="showModal=false" :student="this.student"/>
 
-  <div id="attend" class="w-100 h-100 d-flex flex-column justify-content-end">
-    <modal-view v-if="showModal" @close-modal="showModal=false"/>
-
-    <!-- PAGE TITLE -->
-    <div id="title" class="w-75 bg-primary m-auto rounded text-light p-1 shadow" style="font-size: 3em;">
-      출석체크
+    <!-- BACK -->
+    <div class="d-flex" @click="$router.go(-1)" style="font-size:4.5vh; margin: 3vh; margin-bottom:0;">
+        <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
     </div>
 
-    <!-- INFO -->
-    <info-view/>
+    <div class="h-50 d-flex flex-column align-items-center justify-content-around">
 
-    <div class="d-flex align-items-center justify-content-center my-5">
-      <!-- INPUT -->
-      <input type="text" v-model.trim="num" maxlength="6" minlength="6"
-        class="w-50 rounded bg-light p-4 m-3" style="font-size:2em">
-      
-      <!-- SUBMIT -->
-      <button type="button" class="btn btn-primary btn-sm px-3 py-2 shadow m-3" 
-      @click="submit">확인</button>
-    </div>
+      <!-- PAGE TITLE -->
+      <div class="w-75 bg-primary rounded text-light shadow" style="font-size: 5vh;">
+        출석체크
+      </div>
 
-    <div class="w-25 d-flex m-4 align-items-center" @click="$router.go(-1)" style="font-size:1.7em;">
-      <font-awesome-icon icon="fa-solid fa-arrow-left" /> 뒤로가기
+      <!-- INFO -->
+      <info-view/>            
+
+      <div class="d-flex align-items-center justify-content-center">
+        <!-- INPUT -->
+        <input type="text" v-model.trim="num" maxlength="5" minlength="5"
+          class="w-50 rounded bg-light" style=" padding: 1vh; margin-right: 2vh; font-size:3vh;">
+        
+        <!-- SUBMIT -->
+        <button type="button" class="btn btn-primary shadow" style="font-size:3vh;"
+        @click="submit">확인</button>
+      </div>
     </div>
 
     <!-- KEYPAD -->
-    <keypad-view @val='modifyNum'/>
+    <keypad-view/>
   
   </div>
 </template>
@@ -35,6 +39,8 @@
 import InfoView from '@/components/InfoView.vue'
 import KeypadView from '@/components/KeypadView.vue'
 import ModalView from '@/components/ModalView.vue'
+
+import axios from 'axios'
 
 export default {
   name:'AttendView',
@@ -46,6 +52,7 @@ export default {
   data(){
     return {
       num: '',
+      student:'',
       showModal:false,
     }
   },
@@ -53,21 +60,43 @@ export default {
     // Submit Event
     submit(){
       // check the input length
-      if (!this.num || this.num.length != 6){
+      if (!this.num || this.num.length != 5){
         alert('학년 반 번호를 정확히 입력해주세요')
         return false
       }
 
-      this.showModal = true
+      // Check Num
+      const URL = "http://127.0.0.1:8000"
+
+      axios({
+        method: 'get',
+        url: `${URL}/students/${this.num}/attendance/`,
+        data: {
+          num: this.num,
+        }
+      })
+
+      .then((res)=>{
+        this.student = res.data
+        this.showModal = true
+      })
+
+      .catch((err)=>{
+        alert('없는 번호입니다.')
+        console.log(err)
+      })
+      
+      this.num = ''
+
+      
     },
-    modifyNum(params){
-      console.log(params)
-    }
+
   }
 }
 </script>
 
 <style >
+
 input{
   text-align:center;
   border: none;
@@ -77,8 +106,4 @@ input:focus{
   outline:none;
 }
 
-#attend button,
-#inbody button{
-  font-size: 2em;
-}
 </style>

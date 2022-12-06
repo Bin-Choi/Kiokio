@@ -6,8 +6,9 @@
       비밀번호 입력
       </div>
 
+      <!-- PASSWORD INPUT -->
       <div class="w-75 h-75 py-5 m-auto rounded shadow bg-light d-flex flex-column justify-content-evenly align-items-center">
-        <input type="password" v-model.trim="number" maxlength="4" minlength="4"
+        <input type="password" v-model.trim="password" maxlength="4" minlength="4"
         class="w-50 rounded p-3" style="font-size:1.5em">
 
         <button type="button" class="w-50 btn btn-primary btn-sm shadow" style="font-size:1.5em;"
@@ -21,11 +22,33 @@
 
 export default {
   name:'ModalPwView',
+  data(){
+    return {
+      password: '',
+    }
+  },
+  computed:{
+    student(){
+      return this.$store.state.student
+    }
+  },
   methods:{
     // SUBMIT PASSWORD
     submit(){
-      
-      this.$router.push({name:'inbodyDetail'})
+
+      // CHECK PASSWORD FORM
+      if (!this.password || this.password.length != 4){
+        alert('비밀번호를 정확히 입력해주세요')
+        return false
+      }
+
+      // PASSWORD VALIDATION
+      if (this.password == this.student.password){
+        this.$router.push({name:'inbodyDetail'})
+      }
+      else {
+        alert('비밀번호가 틀렸습니다.')
+      }
     }
   }
 }

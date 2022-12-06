@@ -1,5 +1,5 @@
 <template>
-  <div class="item rounded m-2 p-auto" @click="$emit('show-modal')">
+  <div class="item rounded shadow" @click="$emit('show-modal')">
       <img src="#" alt="img">
       <div>{{this.gym}}</div>
   </div>
@@ -20,10 +20,10 @@ export default {
 
 <style scoped>
 .item{
-  width: 300px;
-  height: 300px;
-  border: 3px solid #2b64aa30;
-  box-shadow: 2px 2px 3px #2b64aa30; 
+  width: 15vh;
+  height: 15vh;
+  border: 0.2vh solid #2b64aa30;
+  margin: 0.8vh;
 }
 
 </style>
