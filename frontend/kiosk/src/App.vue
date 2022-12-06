@@ -12,9 +12,6 @@ export default {
 </script>
 
 <style>
-* {
-  font-size: 1.2em;
-}
 
 #app {
   height: 100vh;

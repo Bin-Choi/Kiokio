@@ -1,6 +1,6 @@
 <template>
     <!-- Keypad -->
-  <div class="d-flex flex-column keypad">
+  <div class="d-flex flex-column keypad" >
     <div class="row">
       <div class="col" @click="input(1)">1</div>
       <div class="col" @click="input(2)">2</div>
@@ -53,15 +53,22 @@ export default {
 
 <style scoped>
 .keypad {
-  height:30%;
   background-color: #D9D9D9;
+  font-size: 3vh;
+  font-weight:bold;
+  border: 0.1vh solid white;
 
 }
-
 .row {
-
+  margin: auto;
   width:100%;
   height: 100%;
+}
+
+.col{
+  margin: auto;
+  border: 0.1vh solid white;
+  padding: 2vh;
 }
 
 
