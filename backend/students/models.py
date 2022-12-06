@@ -22,7 +22,8 @@ class Student(models.Model):
             MinValueValidator(1),
             ]
         )
-    password = models.CharField(verbose_name="비밀번호", max_length=4,
+    gender = models.CharField(max_length=10, verbose_name="성별")
+    password = models.CharField(verbose_name="비밀번호", max_length=4, default="0000",
         validators=[
             MinLengthValidator(4)
             ]
@@ -39,7 +40,6 @@ class Inbody(models.Model):
     # 기본 정보
     height = models.IntegerField(verbose_name="키")
     age = models.IntegerField(verbose_name="나이")
-    gender = models.CharField(verbose_name="성별", max_length=10)
     test_date = models.DateField(verbose_name="검사일시")
     # 체성분 분석(body compositioin analysis)
     total_body_water = models.FloatField(verbose_name="체수분(L)")
@@ -56,6 +56,6 @@ class Inbody(models.Model):
     inbody_score = models.IntegerField(verbose_name="인바디 점수")
 
 class Attendance(models.Model):
-    student = models.ForeignKey(Student, verbose_name=("학생번호"), on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, verbose_name=("학생ID"), on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
