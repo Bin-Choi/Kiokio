@@ -13,13 +13,12 @@
     </div>
 
     <div
-      class="h-50 d-flex flex-column align-items-center justify-conent-around"
+      class="h-50 d-flex flex-column align-items-center justify-content-around"
     >
       <!-- PAGE TITLE -->
       <div
-        id="title"
         v-if="!showModal"
-        class="w-75 m-auto bg-primary rounded text-light p-1 shadow"
+        class="w-75 bg-primary rounded text-light shadow"
         style="font-size: 5vh"
       >
         인바디 등록/조회
