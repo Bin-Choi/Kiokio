@@ -5,6 +5,7 @@
 
     <!-- BACK -->
     <div
+      v-if="!showModal"
       class="d-flex"
       @click="$router.go(-1)"
       style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0"
@@ -63,7 +64,7 @@ import InfoView from '@/components/InfoView.vue'
 import TheKeypad from '@/components/TheKeypad.vue'
 import ModalPwView from '../components/ModalPwView.vue'
 
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   name: 'InbodyView',
@@ -76,19 +77,19 @@ export default {
     return {
       num: '',
       showModal: false,
-    };
+    }
   },
   computed: {
     axios_URL() {
-      return this.$store.state.axios_URL;
+      return this.$store.state.axios_URL
     },
   },
   methods: {
     submit() {
       // CHECK INPUT FORM
       if (!this.num || this.num.length != 5) {
-        alert('학년 반 번호를 정확히 입력해주세요');
-        return false;
+        alert('학년 반 번호를 정확히 입력해주세요')
+        return false
       }
 
       axios({
@@ -96,17 +97,17 @@ export default {
         url: `${this.axios_URL}/students/${this.num}/inbody/`,
       })
         .then((res) => {
-          this.$store.commit('STUDENT_INFO', res.data.pk);
-          this.showModal = true;
+          this.$store.commit('STUDENT_INFO', res.data.pk)
+          this.showModal = true
         })
 
         .catch((err) => {
-          alert('없는 번호입니다.');
-          console.log(err);
-        });
+          alert('없는 번호입니다.')
+          console.log(err)
+        })
     },
   },
-};
+}
 </script>
 
 <style></style>

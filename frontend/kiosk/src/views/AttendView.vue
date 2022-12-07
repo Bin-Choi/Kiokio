@@ -40,7 +40,8 @@
           minlength="5"
           class="w-50 rounded bg-light"
           @focus="focusChange"
-          style="padding: 1vh; margin-right: 2vh; font-size: 3vh" />
+          style="padding: 1vh; margin-right: 2vh; font-size: 3vh"
+        />
 
         <!-- SUBMIT -->
         <button
@@ -64,7 +65,7 @@ import InfoView from '@/components/InfoView.vue'
 import TheKeypad from '@/components/TheKeypad.vue'
 import ModalView from '@/components/ModalView.vue'
 
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   name: 'AttendView',
@@ -120,7 +121,7 @@ export default {
       this.focusElem = event.target
     },
     input(value) {
-      if (this.focusElem.value.length < 6) {
+      if (this.focusElem.value.length < 5) {
         this.focusElem.value += value
       }
     },
