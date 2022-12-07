@@ -1,25 +1,26 @@
 <template>
-  <div id="inbody" class="w-100 h-100 d-flex flex-column justify-content-end">
+  <div id="inbody" class="h-100 d-flex flex-column justify-content-between">
     <!-- MODAL -->
     <modal-pw-view v-if="showModal" />
 
     <!-- BACK -->
-
     <div
-      class="w-25 d-flex align-items-center"
+      class="d-flex"
       @click="$router.go(-1)"
-      style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0">
+      style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0"
+    >
       <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
     </div>
 
     <div
-      class="h-50 d-flex flex-column align-items-center justify-conent-around">
+      class="h-50 d-flex flex-column align-items-center justify-content-around"
+    >
       <!-- PAGE TITLE -->
       <div
-        id="title"
         v-if="!showModal"
-        class="w-75 m-auto bg-primary rounded text-light p-1 shadow"
-        style="font-size: 5vh">
+        class="w-75 bg-primary rounded text-light shadow"
+        style="font-size: 5vh"
+      >
         인바디 등록/조회
       </div>
 
@@ -28,21 +29,25 @@
 
       <div
         v-if="!showModal"
-        class="d-flex align-items-center justify-content-center my-5">
+        class="d-flex align-items-center justify-content-center"
+      >
         <!-- INPUT -->
         <input
           type="text"
           v-model.trim="num"
           maxlength="5"
           minlength="5"
-          class="w-50 rounded bg-light p-4"
-          style="font-size: 2em" />
+          class="w-50 rounded bg-light"
+          style="padding: 1vh; margin-right: 2vh; font-size: 3vh"
+        />
 
         <!-- SUBMIT -->
         <button
           type="button"
-          class="btn btn-primary btn-sm px-3 py-2 shadow m-3"
-          @click="submit">
+          class="btn btn-primary shadow"
+          style="font-size: 3vh"
+          @click="submit"
+        >
           확인
         </button>
       </div>
@@ -58,7 +63,7 @@ import InfoView from '@/components/InfoView.vue'
 import TheKeypad from '@/components/TheKeypad.vue'
 import ModalPwView from '../components/ModalPwView.vue'
 
-import axios from 'axios'
+import axios from "axios"
 
 export default {
   name: 'InbodyView',
