@@ -35,11 +35,12 @@
         <input
           type="text"
           v-model.trim="num"
+          ref="num"
           maxlength="5"
           minlength="5"
           class="w-50 rounded bg-light"
-          style="padding: 1vh; margin-right: 2vh; font-size: 3vh"
-        />
+          @focus="focusChange"
+          style="padding: 1vh; margin-right: 2vh; font-size: 3vh" />
 
         <!-- SUBMIT -->
         <button
@@ -54,14 +55,14 @@
     </div>
 
     <!-- KEYPAD -->
-    <keypad-view />
+    <TheKeypad @input="input" @del="del" />
   </div>
 </template>
 
 <script>
-import InfoView from '@/components/InfoView.vue';
-import KeypadView from '@/components/KeypadView.vue';
-import ModalView from '@/components/ModalView.vue';
+import InfoView from '@/components/InfoView.vue'
+import TheKeypad from '@/components/TheKeypad.vue'
+import ModalView from '@/components/ModalView.vue'
 
 import axios from 'axios';
 
@@ -69,49 +70,67 @@ export default {
   name: 'AttendView',
   components: {
     InfoView,
-    KeypadView,
     ModalView,
+    TheKeypad,
   },
   data() {
     return {
-      num: '',
-      student: '',
+      num: null,
+      student: null,
       showModal: false,
-    };
+      focusElem: null,
+    }
   },
   computed: {
     axios_URL() {
-      return this.$store.state.axios_URL;
+      return this.$store.state.axios_URL
     },
+  },
+  mounted() {
+    this.$refs.num.focus()
   },
   methods: {
     // Submit Event
     submit() {
       // check the input length
       if (!this.num || this.num.length != 5) {
-        alert('학년 반 번호를 정확히 입력해주세요');
-        return false;
+        alert('학년 반 번호를 정확히 입력해주세요')
+        return false
       }
-
-      // Check Num
       axios({
         method: 'get',
         url: `${this.axios_URL}/students/${this.num}/attendance/`,
+        data: {
+          num: this.num,
+        },
       })
         .then((res) => {
-          this.student = res.data;
-          this.showModal = true;
+          this.student = res.data
+          this.showModal = true
         })
 
         .catch((err) => {
-          alert('없는 번호입니다.');
-          console.log(err);
-        });
+          alert('없는 번호입니다.')
+          console.log(err)
+        })
 
-      this.num = '';
+      this.num = null
+    },
+    focusChange(event) {
+      this.focusElem = event.target
+    },
+    input(value) {
+      if (this.focusElem.value.length < 6) {
+        this.focusElem.value += value
+      }
+    },
+    del() {
+      if (this.focusElem.value.length > 0) {
+        this.focusElem.value = this.focusElem.value.slice(0, -1)
+      }
     },
   },
-};
+}
 </script>
 
 <style>

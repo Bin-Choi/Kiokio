@@ -54,14 +54,14 @@
     </div>
 
     <!-- KEYPAD -->
-    <keypad-view @show-pw-modal="showModal = true" />
+    <TheKeypad @show-pw-modal="showModal = true" />
   </div>
 </template>
 
 <script>
-import InfoView from '@/components/InfoView.vue';
-import KeypadView from '@/components/KeypadView.vue';
-import ModalPwView from '../components/ModalPwView.vue';
+import InfoView from '@/components/InfoView.vue'
+import TheKeypad from '@/components/TheKeypad.vue'
+import ModalPwView from '../components/ModalPwView.vue'
 
 import axios from 'axios';
 
@@ -69,7 +69,7 @@ export default {
   name: 'InbodyView',
   components: {
     InfoView,
-    KeypadView,
+    TheKeypad,
     ModalPwView,
   },
   data() {

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 
-    # Auth
+    # auth
     'rest_framework_simplejwt',
     'dj_rest_auth',
 
@@ -66,11 +66,12 @@ SITE_ID = 1
 REST_FRAMEWORK = {
     # Authentication. simplejwt 토큰 사용
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html#requirements
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # simplejwt 기본 인증방식
+        # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html#requirements#usage
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
 
-        # https://dj-rest-auth.readthedocs.io/en/latest/installation.html
-        # 브라우저에서 구동할 경우, JWTCookie 인증방식을 사용
+        # HttpOnly Cookie 인증방식
+        # https://dj-rest-auth.readthedocs.io/en/latest/installation.html#json-web-token-jwt-support-optional
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
 
@@ -81,17 +82,17 @@ REST_FRAMEWORK = {
     ],
 }
 
+# simplejwt config
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+# dj_rest_auth: simplejwt cookie config
 REST_USE_JWT = True
 
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-}
 
 
 MIDDLEWARE = [
@@ -108,9 +109,12 @@ MIDDLEWARE = [
 ]
 
 # 선택적 필터링 가능
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8080",
+# ]
+
+# 모두허용
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'kiosk.urls'
 
@@ -166,7 +170,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-KR'
 
 TIME_ZONE = 'UTC'
 
