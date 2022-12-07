@@ -1,56 +1,74 @@
-import Vue from "vue"
-import VueRouter from "vue-router"
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-import IndexView from "@/views/IndexView"
-import AdminView from "@/views/AdminView"
-import AttendView from "@/views/AttendView"
-import InbodyView from "@/views/InbodyView"
-import GymView from "@/views/GymView"
-import InbodyDetailView from "@/views/InbodyDetailView"
-import InbodyFormView from "@/views/InbodyFormView"
-import InbodyHistoryView from "@/views/InbodyHistoryView"
+import IndexView from '@/views/IndexView'
+import AdminView from '@/views/AdminView'
+import LoginView from '@/views/LoginView'
+import StudentView from '@/views/StudentView'
+import StudentCreateView from '@/views/StudentCreateView'
+import AttendView from '@/views/AttendView'
+import InbodyView from '@/views/InbodyView'
+import GymView from '@/views/GymView'
+import InbodyDetailView from '@/views/InbodyDetailView'
+import InbodyFormView from '@/views/InbodyFormView'
+import InbodyHistoryView from '@/views/InbodyHistoryView'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/",
-    name: "index",
+    path: '/',
+    name: 'index',
     component: IndexView,
   },
   {
-    path: "/admin",
-    name: "admin",
+    path: '/login',
+    name: 'login',
+    component: LoginView,
+  },
+  {
+    path: '/admin',
+    name: 'admin',
     component: AdminView,
   },
   {
-    path: "/attend",
-    name: "attend",
+    path: '/student',
+    name: 'student',
+    component: StudentView,
+  },
+  {
+    path: '/student/create',
+    name: 'studentCreate',
+    component: StudentCreateView,
+  },
+  {
+    path: '/attend',
+    name: 'attend',
     component: AttendView,
   },
   {
-    path: "/inbody",
-    name: "inbody",
+    path: '/inbody',
+    name: 'inbody',
     component: InbodyView,
   },
   {
-    path: "/gym",
-    name: "gym",
+    path: '/gym',
+    name: 'gym',
     component: GymView,
   },
   {
-    path: "/inbody/detail",
-    name: "inbodyDetail",
+    path: '/inbody/detail',
+    name: 'inbodyDetail',
     component: InbodyDetailView,
   },
   {
-    path: "/inbody/form",
-    name: "inbodyForm",
+    path: '/inbody/form',
+    name: 'inbodyForm',
     component: InbodyFormView,
   },
   {
-    path: "/inbody/history",
-    name: "inbodyHistory",
+    path: '/inbody/history',
+    name: 'inbodyHistory',
     component: InbodyHistoryView,
   },
 
@@ -65,7 +83,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes,
 })

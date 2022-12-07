@@ -1,19 +1,18 @@
 <template>
-  <div id="index" style="padding: 7vh;">
+  <div id="index" style="padding: 7vh">
     <!-- Admin -->
     <div
       class="d-flex flex-column align-items-end"
-      @click="$router.push('admin')"
-    >
-      <font-awesome-icon icon="fa-solid fa-user" style="font-size:4vh;"/>
-      <span style="font-size:1.3vh;">관리자</span>
+      @click="$router.push({ name: 'login' })">
+      <font-awesome-icon icon="fa-solid fa-user" style="font-size: 4vh" />
+      <span style="font-size: 1.3vh">관리자</span>
     </div>
 
     <div class="d-flex flex-column justify-content-between">
       <!-- LOGO -->
       <div>
         <img src="#" alt="Logo" />
-        <p style="font-size:4vh;">홍0초등학교</p>
+        <p style="font-size: 4vh">홍0초등학교</p>
       </div>
 
       <!-- Buttons -->
@@ -21,24 +20,21 @@
         <button
           type="button"
           class="btn btn-primary btn-block shadow"
-          @click="$router.push('attend')"
-        >
+          @click="$router.push('attend')">
           출석체크
         </button>
 
         <button
           type="button"
           class="btn btn-primary btn-block shadow"
-          @click="$router.push('inbody')"
-        >
+          @click="$router.push('inbody')">
           인바디
         </button>
 
         <button
           type="button"
           class="btn btn-primary btn-block shadow"
-          @click="$router.push('gym')"
-        >
+          @click="$router.push('gym')">
           운동기구
         </button>
       </div>
@@ -48,7 +44,7 @@
 
 <script>
 export default {
-  name: "IndexView",
+  name: 'IndexView',
 }
 </script>
 
