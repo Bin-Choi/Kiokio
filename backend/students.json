@@ -1,1 +1,14 @@
-[{"model": "students.student", "pk": 1, "fields": {"name": "È«±æµ¿", "grade": 1, "room": 1, "number": 1, "gender": "³²¼º", "password": "0000"}}]
+[
+  {
+    "model": "students.student",
+    "pk": 1,
+    "fields": {
+      "name": "í™ê¸¸ë™",
+      "grade": 1,
+      "room": 1,
+      "number": 1,
+      "gender": "ë‚¨ì„±",
+      "password": "0000"
+    }
+  }
+]
