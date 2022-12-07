@@ -7,10 +7,10 @@ from rest_framework import status
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Student, Attendance
+from .models import Student, Attendance, Inbody
 from datetime import datetime
 
-from .serializers import InbodySerializer
+from .serializers import InbodySerializer, InbodyListSerializer
 
 # Create your views here.
 @api_view(['GET', 'POST'])
@@ -59,10 +59,34 @@ def inbody(request, num):
     if request.method == 'POST':
 
         pw = request.data['password']
-        print(pw)
-        print(student.password)
+        pk = request.data['pk']
 
         if student.password == pw:
-            serializer = InbodySerializer(student)
+            inbodylist = Inbody.objects.filter(student=pk)
+            inbody = inbodylist.order_by('-pk')[0]
+            serializer = InbodySerializer(inbody)
             data = serializer.data
             return Response(data)
+
+
+@api_view(['GET'])
+def inbody_list(request, pk):
+
+    if request.method == 'GET':
+        pk = pk
+        inbodylist = Inbody.objects.filter(student=pk)
+        serializer = InbodyListSerializer(inbodylist, many=True)
+        data = serializer.data
+        return Response(data)
+
+
+@api_view(['GET'])
+def inbody_detail(request,inbody_pk):
+
+    if request.method == 'GET':
+        inbody_pk = inbody_pk
+        inbody = Inbody.objects.get(pk=inbody_pk)
+        serializer = InbodySerializer(inbody)
+        data = serializer.data
+        return Response(data)
+
