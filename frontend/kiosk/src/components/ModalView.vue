@@ -1,8 +1,8 @@
 <template>
   <div class="modal-bg">
-    <div class="modal-content rounded shadow m-auto" style="padding: 2vh;">
+    <div class="modal-content rounded shadow m-auto" style="padding: 2vh">
       <div
-        id="title" 
+        id="title"
         class="w-75 bg-primary rounded text-light shadow m-auto"
         style="font-size: 5vh"
       ></div>
@@ -10,12 +10,18 @@
       <!-- ATTEND CONTENT -->
       <span
         v-if="$route.name === 'attend'"
-        class="w-75 h-75 m-auto bg-light rounded shadow d-flex flex-column align-items-center justify-content-around"
+        class="w-75 h-75 m-auto bg-light rounded shadow d-flex flex-column align-items-center justify-content-evenly"
       >
-        <div style="font-size:2.5vh;">
-          <div>{{student.date}} {{student.time.split('.')[0]}}</div>
-          <div>{{student.grade}}학년 {{student.room}}반 {{student.number}}번</div>
-          <div>{{student.name}}</div>
+        <div style="font-size: 2.5vh">
+          <div style="font-size: 3vh">{{ student.name }}</div>
+          <div>
+            {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번
+          </div>
+
+          <div>
+            {{ student.date }} <br />
+            {{ student.time.split('.')[0] }}
+          </div>
         </div>
 
         <div class="d-flex flex-column">
@@ -36,7 +42,7 @@
       <span
         v-if="$route.name === 'gym'"
         class="w-75 h-75 bg-light m-auto rounded d-flex flex-column align-items-center justify-content-between shadow"
-        style="padding: 2vh;"
+        style="padding: 2vh"
       >
         <img src="#" alt="IMG" />
         <div>description</div>
@@ -53,41 +59,40 @@
 </template>
 
 <script>
-import axios from 'axios'
-const URL = "http://127.0.0.1:8000"
+import axios from 'axios';
+const URL = 'http://127.0.0.1:8000';
 
 export default {
-  name: "ModalView",
-  props:{
+  name: 'ModalView',
+  props: {
     student: Object,
   },
   methods: {
     // ATTEND
     attend() {
       axios({
-        method:'post',
+        method: 'post',
         url: `${URL}/students/${this.student.num}/attendance/`,
         data: this.student,
       })
-      .then(()=>{
-        // close modal
-        this.$emit("close-modal")
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
-      
+        .then(() => {
+          // close modal
+          this.$emit('close-modal');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   mounted() {
-    const title = document.querySelector(".modal-content #title")
-    if (this.$route.name == "gym") {
-      title.innerText = "운동기구"
+    const title = document.querySelector('.modal-content #title');
+    if (this.$route.name == 'gym') {
+      title.innerText = '운동기구';
     } else {
-      title.innerText = "출석 확인"
+      title.innerText = '출석 확인';
     }
   },
-}
+};
 </script>
 
 <style scoped>
@@ -109,7 +114,6 @@ export default {
 
 button {
   margin: 1vh;
-  font-size:3vh;
+  font-size: 3vh;
 }
-
 </style>
