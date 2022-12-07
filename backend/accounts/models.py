@@ -3,4 +3,4 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class User(AbstractUser):
-    pass
+    refresh_token = models.CharField(max_length=513, blank=True, default='')

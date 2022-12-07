@@ -54,27 +54,27 @@
     </div>
 
     <!-- KEYPAD -->
-    <keypad-view @show-pw-modal="showModal = true" />
+    <TheKeypad @show-pw-modal="showModal = true" />
   </div>
 </template>
 
 <script>
-import InfoView from "@/components/InfoView.vue"
-import KeypadView from "@/components/KeypadView.vue"
-import ModalPwView from "../components/ModalPwView.vue"
+import InfoView from '@/components/InfoView.vue'
+import TheKeypad from '@/components/TheKeypad.vue'
+import ModalPwView from '../components/ModalPwView.vue'
 
 import axios from "axios"
 
 export default {
-  name: "InbodyView",
+  name: 'InbodyView',
   components: {
     InfoView,
-    KeypadView,
+    TheKeypad,
     ModalPwView,
   },
   data() {
     return {
-      num: "",
+      num: '',
       showModal: false,
     }
   },
@@ -82,29 +82,29 @@ export default {
     submit() {
       // CHECK INPUT FORM
       if (!this.num || this.num.length != 5) {
-        alert("학년 반 번호를 정확히 입력해주세요")
+        alert('학년 반 번호를 정확히 입력해주세요')
         return false
       }
 
-      const URL = "http://127.0.0.1:8000"
+      const URL = 'http://127.0.0.1:8000'
       axios({
-        method: "get",
+        method: 'get',
         url: `${URL}/students/inbody/`,
         data: {
           number: this.num,
         },
       })
         .then((res) => {
-          this.$store.commit("STUDENT_INFO", res.data)
+          this.$store.commit('STUDENT_INFO', res.data)
           this.showModal = true
         })
 
         .catch((err) => {
-          alert("없는 번호입니다.")
+          alert('없는 번호입니다.')
           console.log(err)
         })
 
-      this.num = ""
+      this.num = ''
     },
   },
 }
