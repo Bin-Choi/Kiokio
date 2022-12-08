@@ -32,7 +32,7 @@
         class="w-75 bg-primary rounded text-light shadow"
         style="font-size: 5vh"
       >
-        인바디 등록/조회
+        인바디
       </div>
 
       <!-- INFO -->
@@ -109,7 +109,7 @@ export default {
       // Check the input length
       if (!this.$refs.num.value || this.$refs.num.value.length != 5) {
         alert('학년 반 번호를 정확히 입력해주세요')
-        return false
+        return
       }
 
       axios({

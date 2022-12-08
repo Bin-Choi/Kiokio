@@ -12,6 +12,13 @@ from datetime import datetime
 
 from .serializers import InbodySerializer, InbodyListSerializer
 
+# simplejwt
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model, authenticate, login
+
+
 # Create your views here.
 @api_view(['GET', 'POST'])
 def attendance(request, num):
@@ -72,6 +79,7 @@ def inbody(request, num):
             return Response(data)
 
 
+
 @api_view(['GET'])
 def inbody_list(request, pk):
 
@@ -81,6 +89,7 @@ def inbody_list(request, pk):
         serializer = InbodyListSerializer(inbodylist, many=True)
         data = serializer.data
         return Response(data)
+
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -107,10 +116,6 @@ def inbody_detail(request,inbody_pk):
 
 
 
-        
-
-
-
 @api_view(['POST'])
 def inbody_create(request):
     if request.method == 'POST':
@@ -119,3 +124,46 @@ def inbody_create(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+# ### 로그인 토큰발급
+@api_view(['POST'])
+def inbody_login(request):
+    student_pk = request.data['pk']
+    student = Student.objects.get(pk=student_pk)
+    password = request.data['password']
+    # 인증된 경우 사용자 객체 반환, 없을 경우 None 반환.
+    if student.password == password:
+        print("pass_ok")
+        refresh = RefreshToken.for_user(student)
+        refresh_token = str(refresh)
+        access_token = str(refresh.access_token)
+        # 사용자 DB에 refresh_token 저장
+        student.refresh_token = refresh_token
+        student.save()
+        # access_token 반환
+        data = {
+            'access': access_token
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
+    elif student.password != password:
+        print("pass_fail")
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+        # simple jwt token
+
+
+
+# # @api_view(['POST'])
+# # @permission_classes([IsAuthenticated])
+# # def logout(request):
+# #     User = get_user_model()
+# #     user = get_object_or_404(User, pk=request.user.pk)
+# #     print(user)
+
+# #     if request.method == 'POST':
+# #         # 사용자 DB에 refresh_token 삭제
+# #         user.refresh_token = ''
+# #         user.save()
+# #         return Response(status=status.HTTP_200_OK)

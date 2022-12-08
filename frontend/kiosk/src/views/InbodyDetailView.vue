@@ -1,51 +1,59 @@
 <template>
-  <div>
+  <div
+    class="h-100 d-flex flex-column justify-content-between align-items-center"
+    style="padding: 2vh 0"
+  >
     <!-- BACK -->
     <div
-      class="d-flex"
-      @click="$router.go(-1)"
-      style="font-size: 4.5vh; margin: 2.5vh; margin-bottom: 1vh"
+      class="w-100 d-flex justify-content-between"
+      style="
+        font-size: 4.5vh;
+        margin: 1.5vh;
+        margin-bottom: 0;
+        padding: 0 2.2vh;
+      "
     >
-      <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
+      <font-awesome-icon
+        icon="fa-solid fa-circle-arrow-left"
+        @click="$router.go(-1)"
+      />
+      <font-awesome-icon
+        icon="fa-solid fa-house"
+        @click="$router.push({ name: 'index' })"
+      />
+    </div>
+    <div
+      class="w-75 bg-primary rounded text-light shadow"
+      style="font-size: 5vh"
+    >
+      인바디 정보
     </div>
 
-    <div
-      class="h-100 d-flex flex-column justify-content-between align-items-center"
-      style="padding: 2vh 0"
-    >
-      <div
-        class="w-75 bg-primary rounded text-light shadow"
-        style="font-size: 5vh"
+    <div style="font-size: 3vh">
+      {{ student.grade }}학년 {{ student.room }}반 {{ student.name }}
+    </div>
+
+    <!-- INBODY CONTENT -->
+    <inbody-detail />
+
+    <!-- BUTTONS -->
+    <div class="w-75 d-flex">
+      <button
+        type="button"
+        class="btn btn-success shadow w-50"
+        style="font-size: 2.5vh; margin: 0 1vh; padding: 1vh"
+        @click="$router.push({ name: 'inbodyUpdate' })"
       >
-        인바디 정보
-      </div>
-
-      <div style="font-size: 3vh">
-        {{ student.grade }}학년 {{ student.room }}반 {{ student.name }}
-      </div>
-
-      <!-- INBODY CONTENT -->
-      <inbody-detail />
-
-      <!-- BUTTONS -->
-      <div class="w-75 d-flex">
-        <button
-          type="button"
-          class="btn btn-success shadow w-50"
-          style="font-size: 2.5vh; margin: 0 1vh; padding: 1vh"
-          @click="$router.push({ name: 'inbodyUpdate' })"
-        >
-          수정하기
-        </button>
-        <button
-          type="button"
-          class="btn btn-danger shadow w-50"
-          style="font-size: 2.5vh; margin: 0 1vh; padding: 1vh"
-          @click="del"
-        >
-          삭제하기
-        </button>
-      </div>
+        수정하기
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger shadow w-50"
+        style="font-size: 2.5vh; margin: 0 1vh; padding: 1vh"
+        @click="del"
+      >
+        삭제하기
+      </button>
     </div>
   </div>
 </template>

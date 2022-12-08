@@ -13,6 +13,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model, authenticate
 
+
 # Create your views here.
 @api_view(['POST'])
 def login(request):
