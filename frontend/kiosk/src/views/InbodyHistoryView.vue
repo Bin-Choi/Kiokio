@@ -2,20 +2,30 @@
   <div class="h-100 d-flex flex-column">
     <!-- BACK -->
     <div
-      class="d-flex"
-      @click="$router.go(-1)"
+      class="d-flex justify-content-between"
       style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0"
     >
-      <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
+      <font-awesome-icon
+        icon="fa-solid fa-circle-arrow-left"
+        @click="$router.go(-1)"
+      />
+      <font-awesome-icon
+        icon="fa-solid fa-house"
+        @click="$router.push({ name: 'index' })"
+      />
     </div>
 
     <!-- PAGE TITLE -->
     <div
       id="title"
-      class="w-75 m-auto mb-0 bg-primary rounded text-light shadow"
+      class="w-75 m-auto bg-primary rounded text-light shadow"
       style="font-size: 5vh"
     >
-      지난 기록 조회
+      인바디 목록
+    </div>
+
+    <div style="font-size: 3vh">
+      {{ student.grade }}학년 {{ student.room }}반 {{ student.name }}
     </div>
 
     <!-- INBODY HISTORY -->
@@ -35,6 +45,15 @@
         />
       </div>
     </div>
+
+    <button
+      type="button"
+      class="btn btn-primary shadow m-auto"
+      style="font-size: 2.5vh; padding: 1.5vh"
+      @click="$router.push({ name: 'inbodyCreate' })"
+    >
+      등록하기
+    </button>
   </div>
 </template>
 
@@ -55,14 +74,14 @@ export default {
     axios_URL() {
       return this.$store.state.axios_URL
     },
-    pk() {
-      return this.$store.state.studentPk
+    student() {
+      return this.$store.state.student
     },
   },
   created() {
     axios({
       method: 'get',
-      url: `${this.axios_URL}/students/${this.pk}/inbody/list/`,
+      url: `${this.axios_URL}/students/${this.student.pk}/inbody/list/`,
     })
       .then((res) => {
         this.inbodyList = res.data

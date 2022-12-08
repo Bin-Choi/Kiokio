@@ -20,7 +20,9 @@
         인바디 정보
       </div>
 
-      <div style="font-size: 3vh">0학년 0반 학생이름</div>
+      <div style="font-size: 3vh">
+        {{ student.grade }}학년 {{ student.room }}반 {{ student.name }}
+      </div>
 
       <!-- INBODY CONTENT -->
       <inbody-detail />
@@ -29,20 +31,19 @@
       <div class="w-75 d-flex">
         <button
           type="button"
-          class="btn btn-primary shadow w-50"
-          style="font-size: 2.5vh; margin: 0 1vh; padding: 1.5vh"
-          @click="$router.push({ name: 'inbodyForm' })"
+          class="btn btn-success shadow w-50"
+          style="font-size: 2.5vh; margin: 0 1vh; padding: 1vh"
+          @click="$router.push({ name: 'inbodyUpdate' })"
         >
-          인바디 등록
+          수정하기
         </button>
-
         <button
           type="button"
-          class="btn btn-primary shadow w-50"
-          style="font-size: 2.5vh; margin: 0 1vh; padding: 1.5vh"
-          @click="$router.push({ name: 'inbodyHistory' })"
+          class="btn btn-danger shadow w-50"
+          style="font-size: 2.5vh; margin: 0 1vh; padding: 1vh"
+          @click="del"
         >
-          지난기록 조회
+          삭제하기
         </button>
       </div>
     </div>
@@ -52,10 +53,39 @@
 <script>
 import InbodyDetail from '@/components/InbodyDetail.vue'
 
+import axios from 'axios'
+
 export default {
   name: 'InbodyDetailView',
   components: {
     InbodyDetail,
+  },
+  computed: {
+    student() {
+      return this.$store.state.student
+    },
+    inbodyPk() {
+      return this.$store.state.inbody.id
+    },
+    axios_URL() {
+      return this.$store.state.axios_URL
+    },
+  },
+  methods: {
+    del() {
+      if (confirm('정말 삭제하시겠습니까?')) {
+        axios({
+          method: 'delete',
+          url: `${this.axios_URL}/students/inbody/${this.inbodyPk}/`,
+        })
+          .then(() => {
+            this.$router.push({ name: 'inbodyHistory' })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+    },
   },
 }
 </script>

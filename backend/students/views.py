@@ -51,8 +51,11 @@ def inbody(request, num):
 
     if request.method == 'GET':
         data = {
-            'pk': student.pk
-            
+            'pk': student.pk,
+            'grade': student.grade,
+            'room': student.room,
+            'number': number,
+            'name': student.name,     
         }
         return Response(data)
 
@@ -80,13 +83,39 @@ def inbody_list(request, pk):
         return Response(data)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def inbody_detail(request,inbody_pk):
 
+    inbody_pk = inbody_pk
+    inbody = Inbody.objects.get(pk=inbody_pk)
+
     if request.method == 'GET':
-        inbody_pk = inbody_pk
-        inbody = Inbody.objects.get(pk=inbody_pk)
         serializer = InbodySerializer(inbody)
         data = serializer.data
         return Response(data)
+
+    elif request.method == 'PUT':
+        serializer = InbodySerializer(inbody, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+        return Response(status=status.HTTP_403_FORBIDDEN)
+
+    elif request.method == 'DELETE':
+        inbody.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+        
+
+
+
+@api_view(['POST'])
+def inbody_create(request):
+    if request.method == 'POST':
+        serializer = InbodySerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 

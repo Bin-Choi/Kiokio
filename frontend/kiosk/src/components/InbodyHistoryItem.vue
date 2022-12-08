@@ -2,7 +2,7 @@
   <div
     @click="goDetail()"
     class="row rounded"
-    style="margin: 1vh 0; font-size: 1.4vh"
+    style="margin: 1vh 0; font-size: 1.5vh"
   >
     <p class="col">{{ date[0].slice(-2) }}/{{ date[1] }}/{{ date[2] }}</p>
     <p class="col">{{ inbody.age }} 세</p>
@@ -37,7 +37,7 @@ export default {
         url: `${this.axios_URL}/students/inbody/${this.inbody.pk}/`,
       })
         .then((res) => {
-          this.$store.commit('INBODY_DETAIL', res.data)
+          this.$store.commit('INBODY_INFO', res.data)
           this.$router.push({ name: 'inbodyDetail' })
         })
 

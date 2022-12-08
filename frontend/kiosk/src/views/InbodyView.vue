@@ -10,11 +10,17 @@
     <!-- BACK -->
     <div
       v-if="!showModal"
-      class="d-flex"
-      @click="$router.go(-1)"
+      class="d-flex justify-content-between"
       style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0"
     >
-      <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
+      <font-awesome-icon
+        icon="fa-solid fa-circle-arrow-left"
+        @click="$router.go(-1)"
+      />
+      <font-awesome-icon
+        icon="fa-solid fa-house"
+        @click="$router.push({ name: 'index' })"
+      />
     </div>
 
     <div
@@ -111,7 +117,7 @@ export default {
         url: `${this.axios_URL}/students/${this.$refs.num.value}/inbody/`,
       })
         .then((res) => {
-          this.$store.commit('STUDENT_INFO', res.data.pk)
+          this.$store.commit('STUDENT_INFO', res.data)
           this.showModal = true
         })
 
