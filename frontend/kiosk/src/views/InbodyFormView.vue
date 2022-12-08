@@ -1,170 +1,125 @@
 <template>
-  <div class="h-100 d-flex flex-column justify-content-between">
-    <nav>    <div class="w-25 d-flex align-items-center" @click="$router.go(-1)" style="font-size:4vh;">
-      <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
-    </div></nav>
+  <div>
+    <!-- BACK -->
     <div
-      class="w-75 m-auto bg-primary rounded text-light p-1 shadow"
-      style="font-size: 3em"
+      class="d-flex"
+      @click="$router.go(-1)"
+      style="font-size: 4.5vh; margin: 3vh; margin-bottom: 1vh"
     >
-      인바디 등록하기
+      <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
     </div>
 
-    <div>0 학년 0 반 이름 000</div>
-
-    <div class="w-75 bg-light rounded m-auto shadow container p-5">
-
-      <div class="row">
-        <p class="col">검사일시</p>
-        <input
-          type="text"
-          id="datepicker_init_day"
-          placeholder="검사일시"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-
-      <div class="row">
-        <p class="col">키</p>
-        <input
-          type="text"
-          placeholder="키"
-          v-model.trim="number"
-          class="rounded bg-light m-2 col"
-        />
-      </div>
-
-      <div class="row">
-        <p class="col">나이</p>
-        <input
-          type="text"
-          placeholder="나이"
-          v-model.trim="number"
-          class="rounded bg-light m-2 col"
-        />
-      </div>
-      
-      <div class="row">
-        <p class="col">체수분</p>
-        <input
-          type="text"
-          placeholder="체수분"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-
-      <div class="row">
-        <p class="col">단백질</p>
-        <input
-          type="text"
-          placeholder="단백질"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-
-      <div class="row">
-        <p class="col">무기질</p>
-        <input
-          type="text"
-          placeholder="무기질"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-
-      <div class="row">
-        <p class="col">체지방량</p>
-        <input
-          type="text"
-          placeholder="키"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-
-      <div class="row">
-        <p class="col">체중</p>
-        <input
-          type="text"
-          placeholder="체중"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-
-      <div class="row">
-        <p class="col">골격근량</p>
-        <input
-          type="text"
-          placeholder="골격근량"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-
-      <div class="row">
-        <p class="col">체지방량</p>
-        <input
-          type="text"
-          placeholder="체지방량"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-
-      <div class="d-flex">
-        <p class="col">BMI</p>
-        <input
-          type="text"
-          placeholder="BMI"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-
-      <div class="d-flex">
-        <P class="col">체지방률</P>
-        <input
-          type="text"
-          placeholder="체지방률"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-
-      <div class="row">
-        <p class="col">인바디점수</p>
-        <input
-          type="text"
-          placeholder="인바디점수"
-          v-model.trim="number"
-          class="rounded bg-light col"
-        />
-      </div>
-    </div>
-
-    <!-- BUTTON -->
-    <button
-      type="button"
-      class="btn btn-primary m-auto p-3 shadow" style="font-size:2em;"
-      @click="$router.push({ name: 'inbodyForm' })"
+    <div
+      class="h-100 d-flex flex-column justify-content-between align-items-center"
+      style="padding: 2vh 0"
     >
-      등록하기
-    </button>
+      <!-- PAGE TITLE -->
+      <div
+        class="w-75 bg-primary rounded text-light shadow"
+        style="font-size: 5vh"
+      >
+        인바디 등록
+      </div>
 
+      <div style="font-size: 3vh">0학년 0반 학생이름</div>
 
+      <!-- INBODY FORM -->
+      <div
+        class="w-75 bg-light rounded shadow"
+        style="font-size: 2.5vh; padding: 2.5vh 2vh; height: 60vh"
+      >
+        <div id="scroll-box" class="container" style="height: 100%">
+          <div class="row">
+            <p class="col">검사일시</p>
+            <input type="date" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <p class="col">키</p>
+            <input type="text" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <p class="col">나이</p>
+            <input type="text" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <p class="col">체수분</p>
+            <input type="text" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <p class="col">단백질</p>
+            <input type="text" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <p class="col">무기질</p>
+            <input type="text" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <p class="col">체지방량</p>
+            <input type="text" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <p class="col">체중</p>
+            <input type="text" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <p class="col">골격근량</p>
+            <input type="text" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <p class="col">BMI</p>
+            <input type="text" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <P class="col">체지방률</P>
+            <input type="text" class="rounded col" />
+          </div>
+
+          <div class="row">
+            <p class="col">인바디점수</p>
+            <input type="text" class="rounded col" />
+          </div>
+        </div>
+      </div>
+      <!-- BUTTON -->
+      <button
+        type="button"
+        class="btn btn-primary shadow"
+        style="font-size: 3vh; padding: 0.5vh"
+        @click="$router.push({ name: 'inbodyForm' })"
+      >
+        등록하기
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "InbodyFormView",
+  name: 'InbodyFormView',
 }
 </script>
 
-<style>
+<style scoped>
+.row {
+  margin: 1vh 0;
+}
 
+input {
+  margin-right: 1.5vh;
+  height: 5vh;
+  background: none;
+  border: 0.2vh solid #2b64aa1e;
+  border-radius: 0.5vh;
+  box-shadow: 0.1vh 0.1vh 0.1vh #2b64aa1e;
+}
 </style>

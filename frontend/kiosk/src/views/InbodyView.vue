@@ -1,10 +1,15 @@
 <template>
   <div id="inbody" class="h-100 d-flex flex-column justify-content-between">
     <!-- MODAL -->
-    <modal-pw-view v-if="showModal" :num="this.num" />
+    <modal-pw-view
+      v-if="showModal"
+      :num="this.$refs.num.value"
+      @close-modal="showModal = false"
+    />
 
     <!-- BACK -->
     <div
+      v-if="!showModal"
       class="d-flex"
       @click="$router.go(-1)"
       style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0"
@@ -34,9 +39,11 @@
         <!-- INPUT -->
         <input
           type="text"
-          v-model.trim="num"
           maxlength="5"
           minlength="5"
+          ref="num"
+          @focus="focusChange"
+          @input="(event) => (text = event.target.value)"
           class="w-50 rounded bg-light"
           style="padding: 1vh; margin-right: 2vh; font-size: 3vh"
         />
@@ -54,7 +61,12 @@
     </div>
 
     <!-- KEYPAD -->
-    <TheKeypad @show-pw-modal="showModal = true" />
+    <TheKeypad
+      v-if="!showModal"
+      @show-pw-modal="showModal = true"
+      @input="input"
+      @del="del"
+    />
   </div>
 </template>
 
@@ -63,7 +75,7 @@ import InfoView from '@/components/InfoView.vue'
 import TheKeypad from '@/components/TheKeypad.vue'
 import ModalPwView from '../components/ModalPwView.vue'
 
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   name: 'InbodyView',
@@ -74,39 +86,55 @@ export default {
   },
   data() {
     return {
-      num: '',
       showModal: false,
-    };
+    }
   },
   computed: {
     axios_URL() {
-      return this.$store.state.axios_URL;
+      return this.$store.state.axios_URL
     },
   },
+  mounted() {
+    this.$refs.num.focus()
+  },
   methods: {
+    // Submit Event
     submit() {
-      // CHECK INPUT FORM
-      if (!this.num || this.num.length != 5) {
-        alert('학년 반 번호를 정확히 입력해주세요');
-        return false;
+      // Check the input length
+      if (!this.$refs.num.value || this.$refs.num.value.length != 5) {
+        alert('학년 반 번호를 정확히 입력해주세요')
+        return false
       }
 
       axios({
         method: 'get',
-        url: `${this.axios_URL}/students/${this.num}/inbody/`,
+        url: `${this.axios_URL}/students/${this.$refs.num.value}/inbody/`,
       })
         .then((res) => {
-          this.$store.commit('STUDENT_INFO', res.data.pk);
-          this.showModal = true;
+          this.$store.commit('STUDENT_INFO', res.data.pk)
+          this.showModal = true
         })
 
         .catch((err) => {
-          alert('없는 번호입니다.');
-          console.log(err);
-        });
+          alert('없는 번호입니다.')
+          console.log(err)
+        })
+    },
+    focusChange(event) {
+      this.focusElem = event.target
+    },
+    input(value) {
+      if (this.focusElem.value.length < 5) {
+        this.focusElem.value += value
+      }
+    },
+    del() {
+      if (this.focusElem.value.length > 0) {
+        this.focusElem.value = this.focusElem.value.slice(0, -1)
+      }
     },
   },
-};
+}
 </script>
 
 <style></style>
