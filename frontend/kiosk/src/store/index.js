@@ -23,15 +23,15 @@ export default new Vuex.Store({
   state: {
     axios_URL: 'http://127.0.0.1:8000',
     access: null,
-    studentPk: null,
+    student: null,
     inbody: null,
   },
   getters: {},
   mutations: {
-    STUDENT_INFO(state, pk) {
-      state.studentPk = pk
+    STUDENT_INFO(state, payload) {
+      state.student = payload
     },
-    INBODY_DETAIL(state, payload) {
+    INBODY_INFO(state, payload) {
       state.inbody = payload
     },
     SAVE_TOKEN(state, access) {

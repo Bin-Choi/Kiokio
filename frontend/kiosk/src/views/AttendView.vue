@@ -9,11 +9,17 @@
 
     <!-- BACK -->
     <div
-      class="d-flex"
-      @click="$router.go(-1)"
+      class="d-flex justify-content-between"
       style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0"
     >
-      <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
+      <font-awesome-icon
+        icon="fa-solid fa-circle-arrow-left"
+        @click="$router.go(-1)"
+      />
+      <font-awesome-icon
+        icon="fa-solid fa-house"
+        @click="$router.push({ name: 'index' })"
+      />
     </div>
 
     <div
@@ -107,6 +113,7 @@ export default {
         .then((res) => {
           this.student = res.data
           this.showModal = true
+          this.$refs.num.value = ''
         })
 
         .catch((err) => {

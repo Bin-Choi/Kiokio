@@ -10,7 +10,7 @@
     >
       <div class="row">
         <p class="col">검사일시</p>
-        <div class="col"></div>
+        <div class="col">{{ inbody.test_date }}</div>
       </div>
 
       <div class="row">

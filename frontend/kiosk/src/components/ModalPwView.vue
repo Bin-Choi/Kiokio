@@ -3,7 +3,7 @@
     <div class="h-50 modal-content rounded shadow" style="padding: 2vh">
       <!-- CLOSE -->
       <font-awesome-icon
-        icon="fa-regular fa-circle-xmark"
+        icon="fa-solid fa-circle-xmark"
         class="align-self-end"
         style="font-size: 3.5vh; margin: 0 3vh"
         @click="$emit('close-modal')"
@@ -33,7 +33,7 @@
 
         <button
           type="button"
-          class="w-50 btn btn-primary shadow"
+          class="w-25 btn btn-primary shadow"
           style="font-size: 3vh"
           @click="submit"
         >
@@ -64,7 +64,7 @@ export default {
       return this.$store.state.axios_URL
     },
     pk() {
-      return this.$store.state.studentPk
+      return this.$store.state.student.pk
     },
   },
   mounted() {
@@ -88,8 +88,8 @@ export default {
         },
       })
         .then((res) => {
-          this.$store.commit('INBODY_DETAIL', res.data)
-          this.$router.push({ name: 'inbodyDetail' })
+          this.$store.commit('INBODY_INFO', res.data)
+          this.$router.push({ name: 'inbodyHistory' })
         })
 
         .catch((err) => {

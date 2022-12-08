@@ -10,8 +10,9 @@ import AttendView from '@/views/AttendView'
 import InbodyView from '@/views/InbodyView'
 import GymView from '@/views/GymView'
 import InbodyDetailView from '@/views/InbodyDetailView'
-import InbodyFormView from '@/views/InbodyFormView'
+import InbodyCreateView from '@/views/InbodyCreateView'
 import InbodyHistoryView from '@/views/InbodyHistoryView'
+import InbodyUpdateView from '@/views/InbodyUpdateView'
 
 Vue.use(VueRouter)
 
@@ -62,9 +63,14 @@ const routes = [
     component: InbodyDetailView,
   },
   {
-    path: '/inbody/form',
-    name: 'inbodyForm',
-    component: InbodyFormView,
+    path: '/inbody/update',
+    name: 'inbodyUpdate',
+    component: InbodyUpdateView,
+  },
+  {
+    path: '/inbody/create',
+    name: 'inbodyCreate',
+    component: InbodyCreateView,
   },
   {
     path: '/inbody/history',
