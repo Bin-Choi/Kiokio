@@ -1,10 +1,12 @@
 <template>
-  <div class="modal-bg">
-    <div class="modal-content m-auto rounded shadow" style="padding: 2vh">
+  <div class="modal-bg h-100 d-flex flex-column justify-content-between">
+    <div class="h-50 modal-content rounded shadow" style="padding: 2vh">
+      <!-- CLOSE -->
       <font-awesome-icon
         icon="fa-regular fa-circle-xmark"
         class="align-self-end"
         style="font-size: 3.5vh; margin: 0 3vh"
+        @click="$emit('close-modal')"
       />
 
       <div
@@ -14,16 +16,17 @@
       >
         비밀번호 입력
       </div>
-
       <!-- PASSWORD INPUT -->
       <div
         class="w-75 h-50 m-auto rounded shadow bg-light d-flex flex-column justify-content-evenly align-items-center"
       >
         <input
           type="password"
-          v-model.trim="password"
           maxlength="4"
           minlength="4"
+          ref="password"
+          @focus="focusChange"
+          @input="(event) => (password = event.target.value)"
           class="w-50 rounded"
           style="font-size: 3vh; padding: 1vh"
         />
@@ -38,18 +41,20 @@
         </button>
       </div>
     </div>
+    <!-- KEYPAD -->
+    <TheKeypad @input="input" @del="del" class="w-100" />
   </div>
 </template>
 
 <script>
+import TheKeypad from '@/components/TheKeypad.vue'
+
 import axios from 'axios'
 
 export default {
   name: 'ModalPwView',
-  data() {
-    return {
-      password: '',
-    }
+  components: {
+    TheKeypad,
   },
   props: {
     num: String,
@@ -62,21 +67,23 @@ export default {
       return this.$store.state.studentPk
     },
   },
+  mounted() {
+    this.$refs.password.focus()
+  },
   methods: {
-    // SUBMIT PASSWORD
+    // Submit Event
     submit() {
-      // CHECK PASSWORD FORM
-      if (!this.password || this.password.length != 4) {
+      // Check password length
+      if (!this.$refs.password.value || this.$refs.password.value.length != 4) {
         alert('비밀번호를 정확히 입력해주세요')
         return false
       }
 
-      // Check password
       axios({
         method: 'post',
         url: `${this.axios_URL}/students/${this.num}/inbody/`,
         data: {
-          password: this.password,
+          password: this.$refs.password.value,
           pk: this.pk,
         },
       })
@@ -89,8 +96,19 @@ export default {
           alert('비밀번호가 틀렸습니다.')
           console.log(err)
         })
-
-      this.password = ''
+    },
+    focusChange(event) {
+      this.focusElem = event.target
+    },
+    input(value) {
+      if (this.focusElem.value.length < 4) {
+        this.focusElem.value += value
+      }
+    },
+    del() {
+      if (this.focusElem.value.length > 0) {
+        this.focusElem.value = this.focusElem.value.slice(0, -1)
+      }
     },
   },
 }
@@ -109,7 +127,7 @@ export default {
 .modal-content {
   width: 90%;
   height: 50%;
-  bottom: 20%;
+  top: 5%;
 }
 
 input {

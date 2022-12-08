@@ -19,10 +19,10 @@
     </div>
 
     <!-- INBODY HISTORY -->
-    <div class="w-75 bg-light rounded m-auto shadow" style="padding: 2.5vh 2vh">
-      <div id="scroll-box" class="container">
-        <div class="row" style="font-weight: bold">
-          <p class="col">검사 날짜</p>
+    <div class="w-75 bg-light rounded m-auto shadow">
+      <div id="scroll-box" class="container" style="padding: 2vh">
+        <div class="row" style="font-weight: bold; font-size: 1.6vh">
+          <p class="col">검사일</p>
           <p class="col">나이</p>
           <p class="col">키</p>
           <p class="col">체중</p>

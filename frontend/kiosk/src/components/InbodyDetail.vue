@@ -79,9 +79,6 @@ export default {
       return this.$store.state.inbody
     },
   },
-  created() {
-    console.log(this.inbody)
-  },
 }
 </script>
 

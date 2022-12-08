@@ -32,7 +32,6 @@ export default new Vuex.Store({
       state.studentPk = pk
     },
     INBODY_DETAIL(state, payload) {
-      console.log(payload)
       state.inbody = payload
     },
     SAVE_TOKEN(state, access) {

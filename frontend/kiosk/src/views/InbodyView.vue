@@ -1,7 +1,11 @@
 <template>
   <div id="inbody" class="h-100 d-flex flex-column justify-content-between">
     <!-- MODAL -->
-    <modal-pw-view v-if="showModal" :num="this.num" />
+    <modal-pw-view
+      v-if="showModal"
+      :num="this.$refs.num.value"
+      @close-modal="showModal = false"
+    />
 
     <!-- BACK -->
     <div
@@ -35,9 +39,11 @@
         <!-- INPUT -->
         <input
           type="text"
-          v-model.trim="num"
           maxlength="5"
           minlength="5"
+          ref="num"
+          @focus="focusChange"
+          @input="(event) => (text = event.target.value)"
           class="w-50 rounded bg-light"
           style="padding: 1vh; margin-right: 2vh; font-size: 3vh"
         />
@@ -55,7 +61,12 @@
     </div>
 
     <!-- KEYPAD -->
-    <TheKeypad @show-pw-modal="showModal = true" />
+    <TheKeypad
+      v-if="!showModal"
+      @show-pw-modal="showModal = true"
+      @input="input"
+      @del="del"
+    />
   </div>
 </template>
 
@@ -75,7 +86,6 @@ export default {
   },
   data() {
     return {
-      num: '',
       showModal: false,
     }
   },
@@ -84,17 +94,21 @@ export default {
       return this.$store.state.axios_URL
     },
   },
+  mounted() {
+    this.$refs.num.focus()
+  },
   methods: {
+    // Submit Event
     submit() {
-      // CHECK INPUT FORM
-      if (!this.num || this.num.length != 5) {
+      // Check the input length
+      if (!this.$refs.num.value || this.$refs.num.value.length != 5) {
         alert('학년 반 번호를 정확히 입력해주세요')
         return false
       }
 
       axios({
         method: 'get',
-        url: `${this.axios_URL}/students/${this.num}/inbody/`,
+        url: `${this.axios_URL}/students/${this.$refs.num.value}/inbody/`,
       })
         .then((res) => {
           this.$store.commit('STUDENT_INFO', res.data.pk)
@@ -105,6 +119,19 @@ export default {
           alert('없는 번호입니다.')
           console.log(err)
         })
+    },
+    focusChange(event) {
+      this.focusElem = event.target
+    },
+    input(value) {
+      if (this.focusElem.value.length < 5) {
+        this.focusElem.value += value
+      }
+    },
+    del() {
+      if (this.focusElem.value.length > 0) {
+        this.focusElem.value = this.focusElem.value.slice(0, -1)
+      }
     },
   },
 }
