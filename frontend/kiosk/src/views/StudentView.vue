@@ -21,37 +21,40 @@
           <span>학년</span>
           <input
             type="number"
-            class="rounded"
+            class="student-search-form"
             ref="grade"
             v-model="grade"
-            @keyup.enter="$refs.password.focus()" />
+            @keyup.enter="$refs.room.focus()" />
           <span>반</span>
           <input
             type="number"
-            class="rounded"
-            ref="grade"
-            v-model="grade"
-            @keyup.enter="$refs.password.focus()" />
+            class="student-search-form"
+            ref="room"
+            v-model="room"
+            @keyup.enter="$refs.number.focus()" />
           <span>번호</span>
           <input
             type="number"
-            class="rounded"
-            ref="grade"
-            v-model="grade"
-            @keyup.enter="$refs.password.focus()" />
+            class="student-search-form"
+            ref="number"
+            v-model="number"
+            @keyup.enter="$refs.name.focus()" />
           <span>이름</span>
           <input
             type="text"
-            class="rounded"
-            ref="grade"
-            v-model="grade"
+            class="student-search-form"
+            ref="name"
+            v-model="name"
             @keyup.enter="$refs.password.focus()" />
+          <button class="student-search-btn" @click="searchStudents">
+            조회
+          </button>
         </div>
-        <div
+        <button
           class="student-add-btn"
           @click="$router.push({ name: 'studentCreate' })">
           + 학생 추가
-        </div>
+        </button>
       </div>
       <div></div>
     </div>
@@ -64,6 +67,9 @@ export default {
   data() {
     return {
       grade: null,
+      room: null,
+      number: null,
+      name: null,
     }
   },
   methods: {},
@@ -71,6 +77,23 @@ export default {
 </script>
 
 <style scoped>
+.student-search-btn {
+  background-color: rgb(28, 75, 163);
+  width: 10vw;
+  height: 5vh;
+  border-radius: 1vh;
+
+  color: white;
+  line-height: 5vh;
+  font-size: 2vh;
+  font-weight: bold;
+}
+.student-search-form {
+  background-color: white;
+  width: 10vw;
+  height: 4vh;
+  border-radius: 1vh;
+}
 .student-add-btn {
   background-color: rgb(109, 163, 28);
   width: 10vw;

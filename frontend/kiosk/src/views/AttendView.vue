@@ -4,26 +4,22 @@
     <modal-view
       v-if="showModal"
       @close-modal="showModal = false"
-      :student="this.student"
-    />
+      :student="this.student" />
 
     <!-- BACK -->
     <div
       class="d-flex"
       @click="$router.go(-1)"
-      style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0"
-    >
+      style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0">
       <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
     </div>
 
     <div
-      class="h-50 d-flex flex-column align-items-center justify-content-around"
-    >
+      class="h-50 d-flex flex-column align-items-center justify-content-around">
       <!-- PAGE TITLE -->
       <div
         class="w-75 bg-primary rounded text-light shadow"
-        style="font-size: 5vh"
-      >
+        style="font-size: 5vh">
         출석체크
       </div>
 
@@ -47,8 +43,7 @@
           type="button"
           class="btn btn-primary shadow"
           style="font-size: 3vh"
-          @click="submit"
-        >
+          @click="submit">
           확인
         </button>
       </div>
@@ -64,7 +59,7 @@ import InfoView from '@/components/InfoView.vue'
 import TheKeypad from '@/components/TheKeypad.vue'
 import ModalView from '@/components/ModalView.vue'
 
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   name: 'AttendView',
