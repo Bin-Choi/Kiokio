@@ -2,7 +2,7 @@
   <div
     class="d-flex flex-column align-items-center"
     style="width: 100vw; height: 100vh; padding: 7vh">
-    <div class="d-flex justify-content-start w-100">
+    <div class="d-flex justify-content-end w-100">
       <div @click="$router.push({ name: 'index' })" style="cursor: pointer">
         <font-awesome-icon icon="fa-solid fa-house" />
         <span>키오스크 홈</span>

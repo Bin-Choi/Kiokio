@@ -1,15 +1,7 @@
 <template>
   <div class="d-flex" :class="{ 'red-box': invalid === index }">
-    <div class="col-1 border box">
-      <input
-        v-if="readyDelete"
-        type="checkbox"
-        @change="
-          (event) => $emit('change-check', event.target.checked, index)
-        " />
-      <div v-if="!readyDelete">
-        {{ index + 1 }}
-      </div>
+    <div class="col-1 box border">
+      {{ index + 1 }}
     </div>
     <input
       type="text"
@@ -110,7 +102,6 @@ export default {
   props: {
     student: Object,
     index: Number,
-    readyDelete: Boolean,
     invalid: Number,
   },
   methods: {

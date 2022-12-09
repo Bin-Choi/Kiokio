@@ -11,9 +11,6 @@ export default {
 </script>
 
 <style>
-@import '~ag-grid-community/styles/ag-grid.css';
-@import '~ag-grid-community/styles/ag-theme-alpine.css';
-
 #app {
   height: 100vh;
   text-align: center;
