@@ -176,11 +176,11 @@
 </template>
 
 <script>
-import TheKeypad from '../components/TheKeypad.vue'
-import axios from 'axios'
+import TheKeypad from "../components/TheKeypad.vue"
+import axios from "axios"
 
 export default {
-  name: 'InbodyCreateView',
+  name: "InbodyCreateView",
   components: {
     TheKeypad,
   },
@@ -222,31 +222,12 @@ export default {
         !this.$refs.fatpercent.value ||
         !this.$refs.score.value
       ) {
-        alert('정보를 모두 입력해주세요')
-        return
-      }
-
-      // Check if the data is numeric
-      if (
-        isNaN(this.$refs.height.value) ||
-        isNaN(this.$refs.age.value) ||
-        isNaN(this.$refs.date.value) ||
-        isNaN(this.$refs.water.value) ||
-        isNaN(this.$refs.protein.value) ||
-        isNaN(this.$refs.minerals.value) ||
-        isNaN(this.$refs.fatmass.value) ||
-        isNaN(this.$refs.weight.value) ||
-        isNaN(this.$refs.muscle.value) ||
-        isNaN(this.$refs.bmi.value) ||
-        isNaN(this.$refs.fatpercent.value) ||
-        isNaN(this.$refs.score.value)
-      ) {
-        alert('숫자로 입력해주세요.')
+        alert("정보를 모두 입력해주세요")
         return
       }
 
       axios({
-        method: 'post',
+        method: "post",
         url: `${this.axios_URL}/students/inbody/create/`,
         data: {
           student: this.student.pk,
@@ -265,8 +246,8 @@ export default {
         },
       })
         .then((res) => {
-          this.$store.commit('INBODY_INFO', res.data)
-          this.$router.push({ name: 'inbodyDetail' })
+          this.$store.commit("INBODY_INFO", res.data)
+          this.$router.push({ name: "inbodyDetail" })
         })
         .catch((err) => {
           console.log(err)

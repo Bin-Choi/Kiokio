@@ -58,11 +58,11 @@
 </template>
 
 <script>
-import axios from 'axios'
-import InbodyHistoryItem from '../components/InbodyHistoryItem.vue'
+import axios from "axios"
+import InbodyHistoryItem from "../components/InbodyHistoryItem.vue"
 
 export default {
-  name: 'InbodyHistoryView',
+  name: "InbodyHistoryView",
   components: { InbodyHistoryItem },
 
   data() {
@@ -79,9 +79,13 @@ export default {
     },
   },
   created() {
+    console.log(this.$store.state.passwordToken)
     axios({
-      method: 'get',
+      method: "get",
       url: `${this.axios_URL}/students/${this.student.pk}/inbody/list/`,
+      headers: {
+        Authorization: `Bearer ${this.$store.state.passwordToken}`,
+      },
     })
       .then((res) => {
         this.inbodyList = res.data

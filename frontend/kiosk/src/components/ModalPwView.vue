@@ -47,12 +47,12 @@
 </template>
 
 <script>
-import TheKeypad from '@/components/TheKeypad.vue'
+import TheKeypad from "@/components/TheKeypad.vue"
 
-import axios from 'axios'
+import axios from "axios"
 
 export default {
-  name: 'ModalPwView',
+  name: "ModalPwView",
   components: {
     TheKeypad,
   },
@@ -75,7 +75,7 @@ export default {
     submit() {
       // Check password length
       if (!this.$refs.password.value || this.$refs.password.value.length != 4) {
-        alert('비밀번호 네자리를 입력해주세요')
+        alert("비밀번호 네자리를 입력해주세요")
         return
       }
 
@@ -86,7 +86,7 @@ export default {
       // }
 
       axios({
-        method: 'post',
+        method: "post",
         url: `${this.axios_URL}/students/inbody/login/`,
         data: {
           password: this.$refs.password.value,
@@ -94,12 +94,12 @@ export default {
         },
       })
         .then((res) => {
-          this.$store.commit('SAVE_PW_TOKEN', res.data.access)
-          this.$router.push({ name: 'inbodyHistory' })
+          this.$store.commit("SAVE_PW_TOKEN", res.data.password)
+          this.$router.push({ name: "inbodyHistory" })
         })
 
         .catch((err) => {
-          alert('비밀번호가 틀렸습니다.')
+          alert("비밀번호가 틀렸습니다.")
           console.log(err)
         })
     },
