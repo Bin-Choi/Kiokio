@@ -75,20 +75,26 @@ export default {
     submit() {
       // Check password length
       if (!this.$refs.password.value || this.$refs.password.value.length != 4) {
-        alert('비밀번호를 정확히 입력해주세요')
-        return false
+        alert('비밀번호 네자리를 입력해주세요')
+        return
       }
+
+      // // Check if the password is numeric
+      // if (isNaN(this.$refs.password.value)) {
+      //   alert('비밀번호를 숫자로 입력해주세요')
+      //   return
+      // }
 
       axios({
         method: 'post',
-        url: `${this.axios_URL}/students/${this.num}/inbody/`,
+        url: `${this.axios_URL}/students/inbody/login/`,
         data: {
           password: this.$refs.password.value,
           pk: this.pk,
         },
       })
         .then((res) => {
-          this.$store.commit('INBODY_INFO', res.data)
+          this.$store.commit('SAVE_PW_TOKEN', res.data.access)
           this.$router.push({ name: 'inbodyHistory' })
         })
 

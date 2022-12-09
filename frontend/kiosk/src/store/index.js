@@ -23,6 +23,9 @@ export default new Vuex.Store({
   state: {
     axios_URL: 'http://127.0.0.1:8000',
     access: null,
+
+    passwordToken: null,
+
     student: null,
     inbody: null,
   },
@@ -39,6 +42,9 @@ export default new Vuex.Store({
     },
     DELETE_TOKEN(state) {
       state.access = null
+    },
+    SAVE_PW_TOKEN(state, token) {
+      state.passwordToken = token
     },
   },
   actions: {

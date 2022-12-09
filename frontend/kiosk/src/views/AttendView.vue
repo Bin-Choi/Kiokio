@@ -101,7 +101,7 @@ export default {
       // Check the input length
       if (!this.$refs.num.value || this.$refs.num.value.length != 5) {
         alert('학년 반 번호를 정확히 입력해주세요')
-        return false
+        return
       }
       axios({
         method: 'get',
