@@ -46,7 +46,6 @@
             type="number"
             ref="height"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>
@@ -57,7 +56,6 @@
             type="number"
             ref="age"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>
@@ -68,7 +66,6 @@
             type="number"
             ref="water"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>
@@ -79,7 +76,6 @@
             type="number"
             ref="protein"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>
@@ -90,7 +86,6 @@
             type="number"
             ref="minerals"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>
@@ -101,7 +96,6 @@
             type="number"
             ref="fatmass"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>
@@ -112,7 +106,6 @@
             type="number"
             ref="weight"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>
@@ -123,7 +116,6 @@
             type="number"
             ref="muscle"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>
@@ -134,7 +126,6 @@
             type="number"
             ref="bmi"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>
@@ -145,7 +136,6 @@
             type="number"
             ref="fatpercent"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>
@@ -156,7 +146,6 @@
             type="number"
             ref="score"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
             class="rounded col"
           />
         </div>

@@ -37,7 +37,12 @@
       <div id="scroll-box" class="container" style="height: 100%">
         <div class="row">
           <p class="col">검사일시</p>
-          <input type="date" ref="date" class="rounded col" />
+          <input
+            type="date"
+            ref="date"
+            :value="inbody.test_date"
+            class="rounded col"
+          />
         </div>
 
         <div class="row">
@@ -46,7 +51,7 @@
             type="text"
             ref="height"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.height"
             class="rounded col"
           />
         </div>
@@ -57,7 +62,7 @@
             type="text"
             ref="age"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.age"
             class="rounded col"
           />
         </div>
@@ -68,7 +73,7 @@
             type="text"
             ref="water"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.total_body_water"
             class="rounded col"
           />
         </div>
@@ -79,7 +84,7 @@
             type="text"
             ref="protein"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.protein"
             class="rounded col"
           />
         </div>
@@ -90,7 +95,7 @@
             type="text"
             ref="minerals"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.minerals"
             class="rounded col"
           />
         </div>
@@ -101,7 +106,7 @@
             type="text"
             ref="fatmass"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.body_fat_mass"
             class="rounded col"
           />
         </div>
@@ -112,7 +117,7 @@
             type="text"
             ref="weight"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.weight"
             class="rounded col"
           />
         </div>
@@ -123,7 +128,7 @@
             type="text"
             ref="muscle"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.skeletal_muscle_mass"
             class="rounded col"
           />
         </div>
@@ -134,7 +139,7 @@
             type="text"
             ref="bmi"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.body_mass_index"
             class="rounded col"
           />
         </div>
@@ -145,7 +150,7 @@
             type="text"
             ref="fatpercent"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.percent_body_fat"
             class="rounded col"
           />
         </div>
@@ -156,7 +161,7 @@
             type="text"
             ref="score"
             @focus="focusChange"
-            @input="(event) => (text = event.target.value)"
+            :value="inbody.inbody_score"
             class="rounded col"
           />
         </div>
@@ -276,22 +281,6 @@ export default {
           console.log(err)
         })
     },
-  },
-  mounted() {
-    this.$refs.height.focus()
-
-    this.$refs.date.value = this.inbody.test_date
-    this.$refs.height.value = this.inbody.height
-    this.$refs.age.value = this.inbody.age
-    this.$refs.water.value = this.inbody.total_body_water
-    this.$refs.protein.value = this.inbody.protein
-    this.$refs.minerals.value = this.inbody.minerals
-    this.$refs.fatmass.value = this.inbody.body_fat_mass
-    this.$refs.weight.value = this.inbody.weight
-    this.$refs.muscle.value = this.inbody.skeletal_muscle_mass
-    this.$refs.bmi.value = this.inbody.body_mass_index
-    this.$refs.fatpercent.value = this.inbody.percent_body_fat
-    this.$refs.score.value = this.inbody.inbody_score
   },
 }
 </script>
