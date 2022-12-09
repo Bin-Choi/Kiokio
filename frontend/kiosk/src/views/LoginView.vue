@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex flex-column align-items-center"
+    class="bg-white d-flex flex-column align-items-center"
     style="padding: 7vh; height: 100vh; width: 100vw"
   >
     <div
@@ -8,7 +8,7 @@
       class="d-flex flex-column align-self-end"
       style="cursor: pointer"
     >
-      <font-awesome-icon icon="fa-solid fa-house" style="font-size: 4vh" />
+      <font-awesome-icon icon="fa-solid fa-house" style="font-size: 3vh" />
       <span>키오스크 홈</span>
     </div>
 
@@ -23,7 +23,7 @@
       <!-- 로그인 -->
       <div
         id="login"
-        class="d-flex flex-column bg-light rounded shadow justify-content-center"
+        class="d-flex flex-column rounded shadow-sm justify-content-center"
         style="
           text-align: center;
           font-size: 2.5vh;
@@ -37,7 +37,7 @@
           <div>아이디</div>
           <input
             type="text"
-            class="rounded"
+            class="rounded bg-white shadow-sm"
             ref="username"
             v-model="username"
             @keyup.enter="$refs.password.focus()"
@@ -48,7 +48,7 @@
           <div>비밀번호</div>
           <input
             type="password"
-            class="rounded"
+            class="rounded bg-white shadow-sm"
             ref="password"
             v-model="password"
             @keyup.enter="login"
@@ -58,7 +58,7 @@
         <div>
           <button
             type="button"
-            class="btn btn-primary shadow"
+            class="btn btn-primary shadow-sm"
             style="margin-top: 1vh"
             @click="login"
           >
@@ -122,9 +122,11 @@ input {
   max-width: 200px;
   width: 50%;
   padding: 0.5vh;
-  background: none;
-  border: 0.5vh solid #2b64aa1e;
   font-size: 2vh;
+}
+
+#login {
+  background-color: #2b64aa1e;
 }
 
 #login div {

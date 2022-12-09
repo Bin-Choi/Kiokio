@@ -7,17 +7,15 @@ from rest_framework import status
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Student, Attendance, Inbody
-from datetime import datetime
-
-from .serializers import InbodySerializer, InbodyListSerializer
-
 # simplejwt
 from rest_framework_simplejwt.tokens import RefreshToken
-
-from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model, authenticate, login
+from django.shortcuts import get_object_or_404
+from django.db.models import Prefetch
 
+from .serializers import InbodySerializer, InbodyListSerializer, StudentSerializer, StudentAttendanceSerializer
+from .models import Student, Attendance, Inbody
+from datetime import datetime
 
 # Create your views here.
 @api_view(['GET', 'POST'])
@@ -80,9 +78,12 @@ def inbody(request, num):
 
 
 # 헤더에 authenticate + token 담는순간 user로 넘어옴 ( 로그인한 유저 <accounts>)=> 학생 Pk와 같은 Pk를 가지는 account가 생성되어야함 
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def inbody_list(request, pk):
+
     print(request.user)
     user = request.user.pk
     print(user, pk)
@@ -122,8 +123,6 @@ def inbody_detail(request,inbody_pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
-
 @api_view(['POST'])
 def inbody_create(request):
     if request.method == 'POST':
@@ -131,8 +130,7 @@ def inbody_create(request):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
+            
 # ### 로그인 토큰발급
 @api_view(['POST'])
 def inbody_login(request):
@@ -162,8 +160,6 @@ def inbody_login(request):
 
         # simple jwt token
 
-
-
 # # @api_view(['POST'])
 # # @permission_classes([IsAuthenticated])
 # # def logout(request):
@@ -176,3 +172,82 @@ def inbody_login(request):
 # #         user.refresh_token = ''
 # #         user.save()
 # #         return Response(status=status.HTTP_200_OK)
+
+@api_view(['POST', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def students(request):
+
+    if request.method == 'POST':
+        serializer = StudentSerializer(many=True, data=request.data)
+        
+    if request.method == 'PUT':
+        # 수정리스트에 있는 학생들 조회
+        update_list = request.data
+        print(request.data)
+        students = []
+        for stu in update_list:
+            student = get_object_or_404(Student, pk=stu['id'])
+            students.append(student)
+        # serialzier 유효성 검사
+        serializers = []
+        for i in range(len(students)):
+            serializer = StudentSerializer(students[i], data=update_list[i])
+            if serializer.is_valid(raise_exception=True):
+                serializers.append(serializer)
+        # 저장
+        for serializer in serializers:
+            serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+    if request.method == 'DELETE':
+        # 삭제리스트에 있는 학생들 조회
+        delete_list = request.data
+        students = []
+        for pk in delete_list:
+            student = get_object_or_404(Student, pk=pk)
+            students.append(student)
+        # 학생 삭제
+        for student in students:
+            student.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def students_class(request, grade, room):
+    students = Student.objects.filter(grade=grade, room=room)
+
+    if request.method == 'GET':
+        serializer = StudentSerializer(students, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def students_name(request, name):
+    students = Student.objects.filter(name=name)
+
+    if request.method == 'GET':
+        serializer = StudentSerializer(students, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def attendance_class(request, year, month, grade, room):
+    students = Student.objects.prefetch_related(
+        Prefetch('attendance_set', queryset=Attendance.objects.filter(date__year=year, date__month=month))
+        ).filter(grade=grade, room=room)
+
+    if request.method == 'GET':
+        serializer = StudentAttendanceSerializer(students, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def attendance_name(request, year, month, name):
+    students = Student.objects.prefetch_related(
+        Prefetch('attendance_set', queryset=Attendance.objects.filter(date__year=year, date__month=month))
+        ).filter(name=name)
+
+    if request.method == 'GET':
+        serializer = StudentAttendanceSerializer(students, many=True)
+        return Response(serializer.data)
+     
