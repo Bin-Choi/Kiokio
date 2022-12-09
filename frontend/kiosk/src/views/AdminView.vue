@@ -8,17 +8,17 @@
       style="padding-top: 15vh; padding-bottom: 15vh"
     >
       <div
-        class="admin-view-button bg-light rounded shadow"
+        class="admin-view-button rounded shadow-sm"
         @click="$router.push({ name: 'student' })"
       >
         학생관리
       </div>
       <div
-        class="admin-view-button bg-light rounded shadow"
+        class="admin-view-button rounded shadow-sm"
         @click="$router.push({ name: 'attendance' })">
         출결관리
       </div>
-      <div class="admin-view-button bg-light rounded shadow">인바디관리</div>
+      <div class="admin-view-button rounded shadow-sm">인바디관리</div>
     </div>
   </div>
 </template>
@@ -36,6 +36,7 @@ export default {
 
 <style scoped>
 .admin-view-button {
+  background-color: #2b64aa1e;
   cursor: pointer;
   width: 40vw;
   height: 10vh;

@@ -1,9 +1,8 @@
 <template>
   <div
-    class="d-flex flex-column align-items-center"
+    class="bg-white d-flex flex-column align-items-center"
     style="width: 100vw; height: 100vh; padding: 7vh">
     <AdminHeader />
-
     <div
       class="bg-secondary rounded shadow d-flex flex-column"
       style="width: 100%; height: 80vh; padding: 3vh; margin-top: 5vh">
@@ -260,7 +259,10 @@ export default {
 
   color: white;
   font-size: 2vh;
-  font-weight: bold;
+  background-color: #2b64aa1e;
+  width: 11vh;
+  padding: 0.5vh;
+  margin: 0 1vh;
 }
 .red-btn:focus {
   outline: 2px solid black;
