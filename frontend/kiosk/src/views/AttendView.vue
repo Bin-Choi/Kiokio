@@ -4,8 +4,7 @@
     <modal-view
       v-if="showModal"
       @close-modal="showModal = false"
-      :student="this.student"
-    />
+      :student="this.student" />
 
     <!-- BACK -->
     <div
@@ -23,13 +22,11 @@
     </div>
 
     <div
-      class="h-50 d-flex flex-column align-items-center justify-content-around"
-    >
+      class="h-50 d-flex flex-column align-items-center justify-content-around">
       <!-- PAGE TITLE -->
       <div
         class="w-75 bg-primary rounded text-light shadow"
-        style="font-size: 5vh"
-      >
+        style="font-size: 5vh">
         출석체크
       </div>
 
@@ -54,8 +51,7 @@
           type="button"
           class="btn btn-primary shadow"
           style="font-size: 3vh"
-          @click="submit"
-        >
+          @click="submit">
           확인
         </button>
       </div>
