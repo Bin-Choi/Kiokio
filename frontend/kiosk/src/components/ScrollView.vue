@@ -1,8 +1,7 @@
 <template>
-  <div class="w-75 bg-light rounded m-auto shadow" style="padding: 2.5vh 2vh;">
+  <div class="w-75 bg-light rounded m-auto shadow" style="padding: 2.5vh 2vh">
     <div id="scroll-box">
-
-      <!-- display gym list if the router name is gym -->
+      <!-- GYM -->
       <span
         v-if="$route.name === 'gym'"
         class="d-flex flex-wrap justify-content-center"
@@ -15,37 +14,34 @@
         />
       </span>
 
-      <!-- display inbody record history if the router name is record history -->
+      <!-- INBODY DETAIL -->
+
+      <!-- INBODY HISTORY -->
       <!-- <span>
 
       </span> -->
-
-      <inbody-detail v-if="$route.name === 'inbodyDetail'" />
     </div>
   </div>
 </template>
 
 <script>
-import GymItem from "./GymItem.vue"
-import InbodyDetail from "@/components/InbodyDetail.vue"
+import GymItem from './GymItem.vue'
 
 export default {
-  name: "ScrollView",
+  name: 'ScrollView',
   components: {
-    InbodyDetail,
     GymItem,
   },
   data() {
     return {
       // temporary data
-      gyms: ["gym1", "gym2", "gym3", "gym4", "gym5", "gym6", "gym7"],
+      gyms: ['gym1', 'gym2', 'gym3', 'gym4', 'gym5', 'gym6', 'gym7'],
     }
   },
 }
 </script>
 
-<style scoped>
-
+<style>
 #scroll-box {
   height: 60vh;
   overflow: auto;

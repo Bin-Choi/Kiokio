@@ -13,14 +13,14 @@
         class="w-75 h-75 m-auto bg-light rounded shadow d-flex flex-column align-items-center justify-content-evenly"
       >
         <div style="font-size: 2.5vh">
-          <div style="font-size: 3vh">{{ student.name }}</div>
           <div>
             {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번
+            {{ student.name }}
           </div>
-
+          <hr />
           <div>
-            {{ student.date }} <br />
-            {{ student.time.split('.')[0] }}
+            날짜 | {{ student.date }} <br />
+            시간 | {{ student.time.split('.')[0] }}
           </div>
         </div>
 
@@ -59,8 +59,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-const URL = 'http://127.0.0.1:8000';
+import axios from 'axios'
+const URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'ModalView',
@@ -77,22 +77,22 @@ export default {
       })
         .then(() => {
           // close modal
-          this.$emit('close-modal');
+          this.$emit('close-modal')
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
   },
   mounted() {
-    const title = document.querySelector('.modal-content #title');
+    const title = document.querySelector('.modal-content #title')
     if (this.$route.name == 'gym') {
-      title.innerText = '운동기구';
+      title.innerText = '운동기구'
     } else {
-      title.innerText = '출석 확인';
+      title.innerText = '출석 확인'
     }
   },
-};
+}
 </script>
 
 <style scoped>

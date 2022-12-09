@@ -10,7 +10,8 @@ urlpatterns = [
     path('<str:name>/', views.students_name),
     path('attendance/<int:year>/<int:month>/<int:grade>/<int:room>/', views.attendance_class),
     path('attendance/<int:year>/<int:month>/<str:name>/', views.attendance_name),
-    # path('<str:num>/inbody/recent/', views.inbody),
-    # path('<str:num>/inbody/list/', views.inbody),
-    # path('<str:num>/inbody/<int:inbody_pk>/', views.inbody_detail),
+    path('inbody/create/', views.inbody_create),
+    path('<str:pk>/inbody/list/', views.inbody_list),
+    path('inbody/<int:inbody_pk>/', views.inbody_detail),
+    path('inbody/login/', views.inbody_login),
 ]

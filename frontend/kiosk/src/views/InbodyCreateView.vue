@@ -43,7 +43,7 @@
         <div class="row">
           <p class="col">키(cm)</p>
           <input
-            type="text"
+            type="number"
             ref="height"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -54,7 +54,7 @@
         <div class="row">
           <p class="col">나이(세)</p>
           <input
-            type="text"
+            type="number"
             ref="age"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -65,7 +65,7 @@
         <div class="row">
           <p class="col">체수분(L)</p>
           <input
-            type="text"
+            type="number"
             ref="water"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -76,7 +76,7 @@
         <div class="row">
           <p class="col">단백질(kg)</p>
           <input
-            type="text"
+            type="number"
             ref="protein"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -87,7 +87,7 @@
         <div class="row">
           <p class="col">무기질(kg)</p>
           <input
-            type="text"
+            type="number"
             ref="minerals"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -98,7 +98,7 @@
         <div class="row">
           <p class="col">체지방량(kg)</p>
           <input
-            type="text"
+            type="number"
             ref="fatmass"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -109,7 +109,7 @@
         <div class="row">
           <p class="col">체중(kg)</p>
           <input
-            type="text"
+            type="number"
             ref="weight"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -120,7 +120,7 @@
         <div class="row">
           <p class="col">골격근량(kg)</p>
           <input
-            type="text"
+            type="number"
             ref="muscle"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -131,7 +131,7 @@
         <div class="row">
           <p class="col">BMI(kg/m^2)</p>
           <input
-            type="text"
+            type="number"
             ref="bmi"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -142,7 +142,7 @@
         <div class="row">
           <P class="col">체지방률(%)</P>
           <input
-            type="text"
+            type="number"
             ref="fatpercent"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -153,7 +153,7 @@
         <div class="row">
           <p class="col">인바디점수(점)</p>
           <input
-            type="text"
+            type="number"
             ref="score"
             @focus="focusChange"
             @input="(event) => (text = event.target.value)"
@@ -180,7 +180,7 @@ import TheKeypad from '../components/TheKeypad.vue'
 import axios from 'axios'
 
 export default {
-  name: 'InbodyFormView',
+  name: 'InbodyCreateView',
   components: {
     TheKeypad,
   },
@@ -207,7 +207,43 @@ export default {
       }
     },
     submit() {
-      // Check input data
+      // Check if the data is null
+      if (
+        !this.$refs.height.value ||
+        !this.$refs.age.value ||
+        !this.$refs.date.value ||
+        !this.$refs.water.value ||
+        !this.$refs.protein.value ||
+        !this.$refs.minerals.value ||
+        !this.$refs.fatmass.value ||
+        !this.$refs.weight.value ||
+        !this.$refs.muscle.value ||
+        !this.$refs.bmi.value ||
+        !this.$refs.fatpercent.value ||
+        !this.$refs.score.value
+      ) {
+        alert('정보를 모두 입력해주세요')
+        return
+      }
+
+      // Check if the data is numeric
+      if (
+        isNaN(this.$refs.height.value) ||
+        isNaN(this.$refs.age.value) ||
+        isNaN(this.$refs.date.value) ||
+        isNaN(this.$refs.water.value) ||
+        isNaN(this.$refs.protein.value) ||
+        isNaN(this.$refs.minerals.value) ||
+        isNaN(this.$refs.fatmass.value) ||
+        isNaN(this.$refs.weight.value) ||
+        isNaN(this.$refs.muscle.value) ||
+        isNaN(this.$refs.bmi.value) ||
+        isNaN(this.$refs.fatpercent.value) ||
+        isNaN(this.$refs.score.value)
+      ) {
+        alert('숫자로 입력해주세요.')
+        return
+      }
 
       axios({
         method: 'post',

@@ -23,18 +23,28 @@ export default new Vuex.Store({
   state: {
     axios_URL: 'http://127.0.0.1:8000',
     access: null,
-    studentPk: null,
+
+    passwordToken: null,
+
+    student: null,
+    inbody: null,
   },
   getters: {},
   mutations: {
     STUDENT_INFO(state, payload) {
-      state.studentPk = payload
+      state.student = payload
+    },
+    INBODY_INFO(state, payload) {
+      state.inbody = payload
     },
     SAVE_TOKEN(state, access) {
       state.access = access
     },
     DELETE_TOKEN(state) {
       state.access = null
+    },
+    SAVE_PW_TOKEN(state, token) {
+      state.passwordToken = token
     },
   },
   actions: {

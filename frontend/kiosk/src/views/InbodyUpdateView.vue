@@ -22,7 +22,7 @@
       class="w-75 bg-primary rounded text-light shadow"
       style="font-size: 5vh"
     >
-      인바디 등록
+      인바디 수정
     </div>
 
     <div style="font-size: 3vh">
@@ -169,22 +169,26 @@
       style="font-size: 2.5vh"
       @click="submit"
     >
-      등록하기
+      수정하기
     </button>
     <the-keypad class="w-100 align-self-end" @input="input" @del="del" />
   </div>
 </template>
 
 <script>
-import TheKeypad from '../components/TheKeypad.vue'
+import TheKeypad from '@/components/TheKeypad.vue'
+
 import axios from 'axios'
 
 export default {
-  name: 'InbodyFormView',
+  name: 'InbodyUpdateView',
   components: {
     TheKeypad,
   },
   computed: {
+    inbody() {
+      return this.$store.state.inbody
+    },
     student() {
       return this.$store.state.student
     },
@@ -207,11 +211,47 @@ export default {
       }
     },
     submit() {
-      // Check input data
+      // Check if the data is null
+      if (
+        !this.$refs.height.value ||
+        !this.$refs.age.value ||
+        !this.$refs.date.value ||
+        !this.$refs.water.value ||
+        !this.$refs.protein.value ||
+        !this.$refs.minerals.value ||
+        !this.$refs.fatmass.value ||
+        !this.$refs.weight.value ||
+        !this.$refs.muscle.value ||
+        !this.$refs.bmi.value ||
+        !this.$refs.fatpercent.value ||
+        !this.$refs.score.value
+      ) {
+        alert('정보를 모두 입력해주세요')
+        return
+      }
+
+      // Check if the data is numeric
+      if (
+        isNaN(this.$refs.height.value) ||
+        isNaN(this.$refs.age.value) ||
+        isNaN(this.$refs.date.value) ||
+        isNaN(this.$refs.water.value) ||
+        isNaN(this.$refs.protein.value) ||
+        isNaN(this.$refs.minerals.value) ||
+        isNaN(this.$refs.fatmass.value) ||
+        isNaN(this.$refs.weight.value) ||
+        isNaN(this.$refs.muscle.value) ||
+        isNaN(this.$refs.bmi.value) ||
+        isNaN(this.$refs.fatpercent.value) ||
+        isNaN(this.$refs.score.value)
+      ) {
+        alert('숫자로 입력해주세요.')
+        return
+      }
 
       axios({
-        method: 'post',
-        url: `${this.axios_URL}/students/inbody/create/`,
+        method: 'put',
+        url: `${this.axios_URL}/students/inbody/${this.inbody.id}/`,
         data: {
           student: this.student.pk,
           height: this.$refs.height.value,
@@ -239,6 +279,19 @@ export default {
   },
   mounted() {
     this.$refs.height.focus()
+
+    this.$refs.date.value = this.inbody.test_date
+    this.$refs.height.value = this.inbody.height
+    this.$refs.age.value = this.inbody.age
+    this.$refs.water.value = this.inbody.total_body_water
+    this.$refs.protein.value = this.inbody.protein
+    this.$refs.minerals.value = this.inbody.minerals
+    this.$refs.fatmass.value = this.inbody.body_fat_mass
+    this.$refs.weight.value = this.inbody.weight
+    this.$refs.muscle.value = this.inbody.skeletal_muscle_mass
+    this.$refs.bmi.value = this.inbody.body_mass_index
+    this.$refs.fatpercent.value = this.inbody.percent_body_fat
+    this.$refs.score.value = this.inbody.inbody_score
   },
 }
 </script>

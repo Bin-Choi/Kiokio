@@ -8,10 +8,17 @@
 
     <!-- BACK -->
     <div
-      class="d-flex"
-      @click="$router.go(-1)"
-      style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0">
-      <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
+      class="d-flex justify-content-between"
+      style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0"
+    >
+      <font-awesome-icon
+        icon="fa-solid fa-circle-arrow-left"
+        @click="$router.go(-1)"
+      />
+      <font-awesome-icon
+        icon="fa-solid fa-house"
+        @click="$router.push({ name: 'index' })"
+      />
     </div>
 
     <div
@@ -30,13 +37,14 @@
         <!-- INPUT -->
         <input
           type="text"
-          v-model.trim="num"
-          ref="num"
           maxlength="5"
           minlength="5"
-          class="w-50 rounded bg-light"
+          ref="num"
           @focus="focusChange"
-          style="padding: 1vh; margin-right: 2vh; font-size: 3vh" />
+          @input="(event) => (text = event.target.value)"
+          class="w-50 rounded bg-light"
+          style="padding: 1vh; margin-right: 2vh; font-size: 3vh"
+        />
 
         <!-- SUBMIT -->
         <button
@@ -70,7 +78,6 @@ export default {
   },
   data() {
     return {
-      num: null,
       student: null,
       showModal: false,
       focusElem: null,
@@ -87,35 +94,34 @@ export default {
   methods: {
     // Submit Event
     submit() {
-      // check the input length
-      if (!this.num || this.num.length != 5) {
+      // Check the input length
+      if (!this.$refs.num.value || this.$refs.num.value.length != 5) {
         alert('학년 반 번호를 정확히 입력해주세요')
-        return false
+        return
       }
       axios({
         method: 'get',
-        url: `${this.axios_URL}/students/${this.num}/attendance/`,
+        url: `${this.axios_URL}/students/${this.$refs.num.value}/attendance/`,
         data: {
-          num: this.num,
+          num: this.$refs.num.value,
         },
       })
         .then((res) => {
           this.student = res.data
           this.showModal = true
+          this.$refs.num.value = ''
         })
 
         .catch((err) => {
           alert('없는 번호입니다.')
           console.log(err)
         })
-
-      this.num = null
     },
     focusChange(event) {
       this.focusElem = event.target
     },
     input(value) {
-      if (this.focusElem.value.length < 6) {
+      if (this.focusElem.value.length < 5) {
         this.focusElem.value += value
       }
     },

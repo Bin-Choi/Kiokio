@@ -1,88 +1,123 @@
 <template>
-  <div class="modal-bg">
-    <div class="modal-content m-auto rounded shadow py-5">
+  <div class="modal-bg h-100 d-flex flex-column justify-content-between">
+    <div class="h-50 modal-content rounded shadow" style="padding: 2vh">
+      <!-- CLOSE -->
+      <font-awesome-icon
+        icon="fa-solid fa-circle-xmark"
+        class="align-self-end"
+        style="font-size: 3.5vh; margin: 0 3vh"
+        @click="$emit('close-modal')"
+      />
+
       <div
         id="title"
-        class="w-75 m-auto bg-primary rounded text-light p-1 shadow"
-        style="font-size: 2em"
+        class="w-75 bg-primary rounded text-light shadow"
+        style="font-size: 4vh; margin: auto; margin-bottom: 2vh; padding: 1vh"
       >
         비밀번호 입력
       </div>
-
       <!-- PASSWORD INPUT -->
       <div
-        class="w-75 h-75 py-5 m-auto rounded shadow bg-light d-flex flex-column justify-content-evenly align-items-center"
+        class="w-75 h-50 m-auto rounded shadow bg-light d-flex flex-column justify-content-evenly align-items-center"
       >
         <input
           type="password"
-          v-model.trim="password"
           maxlength="4"
           minlength="4"
-          class="w-50 rounded p-3"
-          style="font-size: 1.5em"
+          ref="password"
+          @focus="focusChange"
+          @input="(event) => (password = event.target.value)"
+          class="w-50 rounded"
+          style="font-size: 3vh; padding: 1vh"
         />
 
         <button
           type="button"
-          class="w-50 btn btn-primary btn-sm shadow"
-          style="font-size: 1.5em"
+          class="w-25 btn btn-primary shadow"
+          style="font-size: 3vh"
           @click="submit"
         >
           확인
         </button>
       </div>
     </div>
+    <!-- KEYPAD -->
+    <TheKeypad @input="input" @del="del" class="w-100" />
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import TheKeypad from '@/components/TheKeypad.vue'
+
+import axios from 'axios'
 
 export default {
   name: 'ModalPwView',
-  data() {
-    return {
-      password: '',
-    };
+  components: {
+    TheKeypad,
   },
   props: {
     num: String,
   },
   computed: {
     axios_URL() {
-      return this.$store.state.axios_URL;
+      return this.$store.state.axios_URL
+    },
+    pk() {
+      return this.$store.state.student.pk
     },
   },
+  mounted() {
+    this.$refs.password.focus()
+  },
   methods: {
-    // SUBMIT PASSWORD
+    // Submit Event
     submit() {
-      // CHECK PASSWORD FORM
-      if (!this.password || this.password.length != 4) {
-        alert('비밀번호를 정확히 입력해주세요');
-        return false;
+      // Check password length
+      if (!this.$refs.password.value || this.$refs.password.value.length != 4) {
+        alert('비밀번호 네자리를 입력해주세요')
+        return
       }
 
-      // Check password
+      // // Check if the password is numeric
+      // if (isNaN(this.$refs.password.value)) {
+      //   alert('비밀번호를 숫자로 입력해주세요')
+      //   return
+      // }
+
       axios({
         method: 'post',
-        url: `${this.axios_URL}/students/${this.num}/inbody/`,
+        url: `${this.axios_URL}/students/inbody/login/`,
         data: {
-          password: this.password,
+          password: this.$refs.password.value,
+          pk: this.pk,
         },
       })
-        .then(() => {
-          console.log('success');
+        .then((res) => {
+          this.$store.commit('SAVE_PW_TOKEN', res.data.access)
+          this.$router.push({ name: 'inbodyHistory' })
         })
 
         .catch((err) => {
-          alert('비밀번호가 틀렸습니다.');
-          console.log(err);
-        });
-
-      this.password = '';
+          alert('비밀번호가 틀렸습니다.')
+          console.log(err)
+        })
+    },
+    focusChange(event) {
+      this.focusElem = event.target
+    },
+    input(value) {
+      if (this.focusElem.value.length < 4) {
+        this.focusElem.value += value
+      }
+    },
+    del() {
+      if (this.focusElem.value.length > 0) {
+        this.focusElem.value = this.focusElem.value.slice(0, -1)
+      }
     },
   },
-};
+}
 </script>
 
 <style scoped>
@@ -98,7 +133,7 @@ export default {
 .modal-content {
   width: 90%;
   height: 50%;
-  bottom: 20%;
+  top: 5%;
 }
 
 input {
