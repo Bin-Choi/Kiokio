@@ -4,7 +4,8 @@
     <modal-view
       v-if="showModal"
       @close-modal="showModal = false"
-      :student="this.student" />
+      :student="this.student"
+    />
 
     <!-- BACK -->
     <div
@@ -22,11 +23,13 @@
     </div>
 
     <div
-      class="h-50 d-flex flex-column align-items-center justify-content-around">
+      class="h-50 d-flex flex-column align-items-center justify-content-around"
+    >
       <!-- PAGE TITLE -->
       <div
         class="w-75 bg-primary rounded text-light shadow"
-        style="font-size: 5vh">
+        style="font-size: 5vh"
+      >
         출석체크
       </div>
 
@@ -41,7 +44,6 @@
           minlength="5"
           ref="num"
           @focus="focusChange"
-          @input="(event) => (text = event.target.value)"
           class="w-50 rounded bg-light"
           style="padding: 1vh; margin-right: 2vh; font-size: 3vh"
         />
@@ -51,7 +53,8 @@
           type="button"
           class="btn btn-primary shadow"
           style="font-size: 3vh"
-          @click="submit">
+          @click="submit"
+        >
           확인
         </button>
       </div>
@@ -92,10 +95,14 @@ export default {
     this.$refs.num.focus()
   },
   methods: {
-    // Submit Event
     submit() {
-      // Check the input length
-      if (!this.$refs.num.value || this.$refs.num.value.length != 5) {
+      // Num validation
+      const regInt = /^[0-9]*$/
+
+      if (
+        !regInt.test(this.$refs.num.value) ||
+        this.$refs.num.value.length != 5
+      ) {
         alert('학년 반 번호를 정확히 입력해주세요')
         return
       }

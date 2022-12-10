@@ -181,12 +181,12 @@
 </template>
 
 <script>
-import TheKeypad from "@/components/TheKeypad.vue"
+import TheKeypad from '@/components/TheKeypad.vue'
 
-import axios from "axios"
+import axios from 'axios'
 
 export default {
-  name: "InbodyUpdateView",
+  name: 'InbodyUpdateView',
   components: {
     TheKeypad,
   },
@@ -206,7 +206,6 @@ export default {
       this.focusElem = event.target
     },
     input(value) {
-      console.log("hi")
       if (this.focusElem.value.length < 5) {
         this.focusElem.value += value
       }
@@ -217,27 +216,83 @@ export default {
       }
     },
     submit() {
-      // Check if the data is null
-      if (
-        !this.$refs.height.value ||
-        !this.$refs.age.value ||
-        !this.$refs.date.value ||
-        !this.$refs.water.value ||
-        !this.$refs.protein.value ||
-        !this.$refs.minerals.value ||
-        !this.$refs.fatmass.value ||
-        !this.$refs.weight.value ||
-        !this.$refs.muscle.value ||
-        !this.$refs.bmi.value ||
-        !this.$refs.fatpercent.value ||
-        !this.$refs.score.value
-      ) {
-        alert("정보를 모두 입력해주세요")
-        return false
+      // Data validation
+      const regFloat = /(^\d+$)|(^\d{1,}.\d{1}$)/
+      const regInt = /^[0-9]*$/
+
+      if (!this.$refs.date.value) {
+        alert('검사일을 입력해주세요.')
+        return
+      }
+
+      if (!regFloat.test(this.$refs.height.value)) {
+        alert('키는 소수점 첫째자리까지 입력가능합니다.')
+        this.$refs.height.focus()
+        return
+      }
+
+      if (!regInt.test(this.$refs.age.value) || !this.$refs.age.value) {
+        alert('나이를 정확히 입력해주세요.')
+        this.$refs.age.focus()
+        return
+      }
+
+      if (!regFloat.test(this.$refs.water.value)) {
+        alert('체수분은 소수점 첫째자리까지 입력가능합니다.')
+        this.$refs.water.focus()
+        return
+      }
+
+      if (!regFloat.test(this.$refs.protein.value)) {
+        alert('단백질은 소수점 첫째자리까지 입력가능합니다.')
+        this.$refs.protein.focus()
+        return
+      }
+
+      if (!regFloat.test(this.$refs.minerals.value)) {
+        alert('무기질은 소수점 첫째자리까지 입력가능합니다.')
+        this.$refs.minerals.focus()
+        return
+      }
+
+      if (!regFloat.test(this.$refs.fatmass.value)) {
+        alert('체지방량은 소수점 첫째자리까지 입력가능합니다.')
+        this.$refs.fatmass.focus()
+        return
+      }
+
+      if (!regFloat.test(this.$refs.weight.value)) {
+        alert('체중은 소수점 첫째자리까지 입력가능합니다.')
+        this.$refs.weight.focus()
+        return
+      }
+
+      if (!regFloat.test(this.$refs.muscle.value)) {
+        alert('골격근량은 소수점 첫째자리까지 입력가능합니다.')
+        this.$refs.muscle.focus()
+        return
+      }
+
+      if (!regFloat.test(this.$refs.bmi.value)) {
+        alert('BMI은 소수점 첫째자리까지 입력가능합니다.')
+        this.$refs.bmi.focus()
+        return
+      }
+
+      if (!regFloat.test(this.$refs.fatpercent.value)) {
+        alert('체지방률은 소수점 첫째자리까지 입력가능합니다.')
+        this.$refs.fatpercent.focus()
+        return
+      }
+
+      if (!regFloat.test(this.$refs.score.value)) {
+        alert('인바디점수를는 소수점 첫째자리까지 입력가능합니다.')
+        this.$refs.score.focus()
+        return
       }
 
       axios({
-        method: "put",
+        method: 'put',
         url: `${this.axios_URL}/students/inbody/${this.inbody.id}/`,
         data: {
           student: this.student.pk,
@@ -256,8 +311,8 @@ export default {
         },
       })
         .then((res) => {
-          this.$store.commit("INBODY_INFO", res.data)
-          this.$router.push({ name: "inbodyDetail" })
+          this.$store.commit('INBODY_INFO', res.data)
+          this.$router.push({ name: 'inbodyDetail' })
         })
         .catch((err) => {
           console.log(err)
