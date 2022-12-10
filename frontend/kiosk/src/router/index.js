@@ -7,6 +7,7 @@ import LoginView from '@/views/LoginView'
 import StudentView from '@/views/StudentView'
 import AttendanceView from '@/views/AttendanceView'
 import StudentCreateView from '@/views/StudentCreateView'
+import AdminInbodyView from '@/views/AdminInbodyView'
 import AttendView from '@/views/AttendView'
 import InbodyView from '@/views/InbodyView'
 import GymView from '@/views/GymView'
@@ -39,14 +40,19 @@ const routes = [
     component: StudentView,
   },
   {
+    path: '/student/create',
+    name: 'studentCreate',
+    component: StudentCreateView,
+  },
+  {
     path: '/attendance',
     name: 'attendance',
     component: AttendanceView,
   },
   {
-    path: '/student/create',
-    name: 'studentCreate',
-    component: StudentCreateView,
+    path: '/admin/inbody',
+    name: 'adminInbody',
+    component: AdminInbodyView,
   },
   {
     path: '/attend',
