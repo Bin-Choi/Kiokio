@@ -23,6 +23,7 @@ export default new Vuex.Store({
   state: {
     axios_URL: 'http://127.0.0.1:8000',
     access: null,
+    inbodyStudents: null,
 
     passwordToken: null,
 
@@ -45,6 +46,21 @@ export default new Vuex.Store({
     },
     SAVE_PW_TOKEN(state, token) {
       state.passwordToken = token
+    },
+    SAVE_INBODY_STUDENTS(state, students) {
+      state.inbodyStudents = students
+    },
+    CHANGE_STUDENT_INBODY(state, payload) {
+      const { studentIndex, inbodyList } = payload
+      state.inbodyStudents[studentIndex].inbody_set = inbodyList
+    },
+    CHANGE_STUDENT_INBODY_DETAIL(state, payload) {
+      const { studentIndex, inbodyIndex, inbody } = payload
+      state.inbodyStudents[studentIndex].inbody_set[inbodyIndex] = inbody
+    },
+    DELETE_STUDENT_INBODY_DETAIL(state, payload) {
+      const { studentIndex, inbodyIndex } = payload
+      state.inbodyStudents[studentIndex].inbody_set.splice(inbodyIndex, 1)
     },
   },
   actions: {

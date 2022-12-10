@@ -84,13 +84,13 @@ export default {
     searchByClass(year, month, grade, room) {
       this.year = year
       this.month = month
-      const url = `${this.axios_URL}/students/attendance/${year}/${month}/${grade}/${room}/`
+      const url = `${this.axios_URL}/students/${year}/${month}/${grade}/${room}/attendance/`
       this.searchStudent(url)
     },
     searchByName(year, month, name) {
       this.year = year
       this.month = month
-      const url = `${this.axios_URL}/students/attendance/${year}/${month}/${name}/`
+      const url = `${this.axios_URL}/students/${year}/${month}/${name}/attendance/`
       this.searchStudent(url)
     },
     searchStudent(url) {

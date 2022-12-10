@@ -13,7 +13,7 @@ from django.contrib.auth import get_user_model, authenticate, login
 from django.shortcuts import get_object_or_404
 from django.db.models import Prefetch
 
-from .serializers import InbodySerializer, InbodyListSerializer, StudentSerializer, StudentAttendanceSerializer
+from .serializers import InbodySerializer, InbodyListSerializer, StudentSerializer, StudentAttendanceSerializer, StudentInbodyListSerializer
 from .models import Student, Attendance, Inbody
 from datetime import datetime
 
@@ -88,8 +88,6 @@ def inbody_list(request, pk):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def inbody_detail(request,inbody_pk):
-
-    inbody_pk = inbody_pk
     inbody = Inbody.objects.get(pk=inbody_pk)
 
     if request.method == 'GET':
@@ -235,3 +233,59 @@ def attendance_name(request, year, month, name):
         serializer = StudentAttendanceSerializer(students, many=True)
         return Response(serializer.data)
      
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def inbody_list_class(request, grade, room):
+    students = Student.objects.prefetch_related('inbody_set').filter(grade=grade, room=room)
+
+    if request.method == 'GET':
+        serializer = StudentInbodyListSerializer(students, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def inbody_list_name(request, name):
+    students = Student.objects.prefetch_related('inbody_set').filter(name=name)
+
+    if request.method == 'GET':
+        serializer = StudentInbodyListSerializer(students, many=True)
+        return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def inbody_update(request):
+
+    if request.method == 'POST':
+        inbody_list = request.data
+        serializers = []
+        for inbody_item in inbody_list:
+            # 수정일 경우
+            if inbody_item.get('id'):
+                inbody = get_object_or_404(Inbody, pk=inbody_item['id'])
+                serializer = InbodySerializer(inbody, data=inbody_item)
+            # 추가일 경우
+            else:
+                serializer = InbodySerializer(data=inbody_item)
+            # 모든 값들의 validation 먼저확인
+            if serializer.is_valid(raise_exception=True):
+                serializers.append(serializer)
+        # 저장
+        for serializer in serializers:
+            serializer.save()
+        return Response(status=status.HTTP_200_OK)
+
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def inbody_detail_admin(request, inbody_pk):
+
+    inbody = get_object_or_404(Inbody, pk=inbody_pk)
+
+    if request.method == 'PUT':
+        serializer = InbodySerializer(inbody, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        inbody.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
