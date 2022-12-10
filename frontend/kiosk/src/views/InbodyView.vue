@@ -49,7 +49,6 @@
           minlength="5"
           ref="num"
           @focus="focusChange"
-          @input="(event) => (text = event.target.value)"
           class="w-50 rounded bg-light"
           style="padding: 1vh; margin-right: 2vh; font-size: 3vh"
         />
@@ -104,10 +103,14 @@ export default {
     this.$refs.num.focus()
   },
   methods: {
-    // Submit Event
     submit() {
-      // Check the input length
-      if (!this.$refs.num.value || this.$refs.num.value.length != 5) {
+      // Num validation
+      const regInt = /^[0-9]*$/
+
+      if (
+        !regInt.test(this.$refs.num.value) ||
+        this.$refs.num.value.length != 5
+      ) {
         alert('학년 반 번호를 정확히 입력해주세요')
         return
       }

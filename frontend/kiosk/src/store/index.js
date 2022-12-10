@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
-import createPersistedState from 'vuex-persistedstate'
+import Vue from "vue"
+import Vuex from "vuex"
+import axios from "axios"
+import createPersistedState from "vuex-persistedstate"
 
-import SecureLS from 'secure-ls'
-import router from '@/router'
+import SecureLS from "secure-ls"
+import router from "@/router"
 const ls = new SecureLS({ isCompression: false })
 
 Vue.use(Vuex)
@@ -17,11 +17,11 @@ export default new Vuex.Store({
         setItem: (key, value) => ls.set(key, value),
         removeItem: (key) => ls.remove(key),
       },
-      whiteList: ['access'],
+      whiteList: ["access"],
     }),
   ],
   state: {
-    axios_URL: 'http://127.0.0.1:8000',
+    axios_URL: "http://127.0.0.1:8000",
     access: null,
     inbodyStudents: null,
 
@@ -46,6 +46,7 @@ export default new Vuex.Store({
     },
     SAVE_PW_TOKEN(state, token) {
       state.passwordToken = token
+      console.log(state.passwordToken)
     },
     SAVE_INBODY_STUDENTS(state, students) {
       state.inbodyStudents = students
@@ -66,7 +67,7 @@ export default new Vuex.Store({
   actions: {
     logout(context) {
       axios({
-        method: 'post',
+        method: "post",
         url: `${context.state.axios_URL}/accounts/logout/`,
         headers: {
           Authorization: `Bearer ${context.state.access}`,
@@ -74,8 +75,8 @@ export default new Vuex.Store({
       })
         .then((res) => {
           console.log(res)
-          context.commit('DELETE_TOKEN')
-          router.push({ name: 'login' })
+          context.commit("DELETE_TOKEN")
+          router.push({ name: "login" })
         })
         .catch((err) => {
           console.error(err)

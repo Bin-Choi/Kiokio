@@ -26,7 +26,6 @@
           minlength="4"
           ref="password"
           @focus="focusChange"
-          @input="(event) => (password = event.target.value)"
           class="w-50 rounded"
           style="font-size: 3vh; padding: 1vh"
         />
@@ -71,19 +70,17 @@ export default {
     this.$refs.password.focus()
   },
   methods: {
-    // Submit Event
     submit() {
-      // Check password length
-      if (!this.$refs.password.value || this.$refs.password.value.length != 4) {
-        alert('비밀번호 네자리를 입력해주세요')
+      // Password validation
+      const regInt = /^[0-9]*$/
+
+      if (
+        !regInt.test(this.$refs.password.value) ||
+        this.$refs.password.value.length != 4
+      ) {
+        alert('비밀번호를 정확히 입력해주세요')
         return
       }
-
-      // // Check if the password is numeric
-      // if (isNaN(this.$refs.password.value)) {
-      //   alert('비밀번호를 숫자로 입력해주세요')
-      //   return
-      // }
 
       axios({
         method: 'post',
@@ -94,13 +91,12 @@ export default {
         },
       })
         .then((res) => {
-          this.$store.commit('SAVE_PW_TOKEN', res.data.access)
+          this.$store.commit('SAVE_PW_TOKEN', res.data.password)
           this.$router.push({ name: 'inbodyHistory' })
         })
 
-        .catch((err) => {
+        .catch(() => {
           alert('비밀번호가 틀렸습니다.')
-          console.log(err)
         })
     },
     focusChange(event) {
