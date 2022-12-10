@@ -112,6 +112,8 @@ export default {
         this.$refs.num.value.length != 5
       ) {
         alert('학년 반 번호를 정확히 입력해주세요')
+        this.$refs.num.value = null
+        this.$refs.num.focus()
         return
       }
 
@@ -124,9 +126,10 @@ export default {
           this.showModal = true
         })
 
-        .catch((err) => {
+        .catch(() => {
           alert('없는 번호입니다.')
-          console.log(err)
+          this.$refs.num.value = null
+          this.$refs.num.focus()
         })
     },
     focusChange(event) {

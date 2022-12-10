@@ -21,7 +21,7 @@
         <button
           type="button"
           class="btn btn-primary btn-block shadow"
-          @click="$router.push('attend')"
+          @click="$router.push({ name: 'attend' })"
         >
           출석체크
         </button>
@@ -29,7 +29,7 @@
         <button
           type="button"
           class="btn btn-primary btn-block shadow"
-          @click="$router.push('inbody')"
+          @click="$router.push({ name: 'inbody' })"
         >
           인바디
         </button>
@@ -37,9 +37,17 @@
         <button
           type="button"
           class="btn btn-primary btn-block shadow"
-          @click="$router.push('gym')"
+          @click="$router.push({ name: 'gym' })"
         >
           운동기구
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary btn-block shadow"
+          @click="$router.push({ name: 'passwordUpdate' })"
+        >
+          비밀번호 변경
         </button>
       </div>
     </div>

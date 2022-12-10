@@ -8,13 +8,18 @@ import StudentView from '@/views/StudentView'
 import AttendanceView from '@/views/AttendanceView'
 import StudentCreateView from '@/views/StudentCreateView'
 import AdminInbodyView from '@/views/AdminInbodyView'
+
 import AttendView from '@/views/AttendView'
-import InbodyView from '@/views/InbodyView'
+
 import GymView from '@/views/GymView'
+
+import InbodyView from '@/views/InbodyView'
 import InbodyDetailView from '@/views/InbodyDetailView'
 import InbodyCreateView from '@/views/InbodyCreateView'
 import InbodyHistoryView from '@/views/InbodyHistoryView'
 import InbodyUpdateView from '@/views/InbodyUpdateView'
+
+import PasswordUpdateView from '@/views/PasswordUpdateView'
 
 Vue.use(VueRouter)
 
@@ -88,6 +93,11 @@ const routes = [
     path: '/inbody/history',
     name: 'inbodyHistory',
     component: InbodyHistoryView,
+  },
+  {
+    path: '/password/update',
+    name: 'passwordUpdate',
+    component: PasswordUpdateView,
   },
 
   // {
