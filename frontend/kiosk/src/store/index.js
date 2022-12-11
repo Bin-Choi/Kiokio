@@ -80,6 +80,7 @@ export default new Vuex.Store({
     },
     SAVE_PW_TOKEN(state, token) {
       state.passwordToken = token
+      console.log(state.passwordToken)
     },
     SAVE_INBODY_STUDENTS(state, students) {
       state.inbodyStudents = students

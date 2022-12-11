@@ -76,20 +76,34 @@ def inbody(request, num):
             data = serializer.data
             return Response(data)
 
+
+# 헤더에 authenticate + token 담는순간 user로 넘어옴 ( 로그인한 유저 <accounts>)=> 학생 Pk와 같은 Pk를 가지는 account가 생성되어야함 
+
+
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def inbody_list(request, pk):
 
-    if request.method == 'GET':
-        pk = pk
-        inbodylist = Inbody.objects.filter(student=pk)
-        serializer = InbodyListSerializer(inbodylist, many=True)
-        data = serializer.data
-        return Response(data)
+    print(request.user)
+    user = request.user.pk
+    print(user, pk)
+    
+    if user == int(pk):
+        
+        if request.method == 'GET':
+            pk = pk
+            inbodylist = Inbody.objects.filter(student=pk)
+            serializer = InbodyListSerializer(inbodylist, many=True)
+            data = serializer.data
+            return Response(data)
+        
 
 @api_view(['GET', 'PUT', 'DELETE'])
+
 def inbody_detail(request,inbody_pk):
     inbody = Inbody.objects.get(pk=inbody_pk)
-
+    # if inbody.student == request.user.pk:
+    #     print('>>>>>>1')
     if request.method == 'GET':
         serializer = InbodySerializer(inbody)
         data = serializer.data
@@ -105,6 +119,7 @@ def inbody_detail(request,inbody_pk):
     elif request.method == 'DELETE':
         inbody.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(['POST'])
 def inbody_create(request):
@@ -122,17 +137,18 @@ def inbody_login(request):
     password = request.data['password']
     # 인증된 경우 사용자 객체 반환, 없을 경우 None 반환.
     if student.password == password:
-        print("pass_ok")
         refresh = RefreshToken.for_user(student)
         refresh_token = str(refresh)
-        access_token = str(refresh.access_token)
+        password_token = str(refresh.access_token)
         # 사용자 DB에 refresh_token 저장
         student.refresh_token = refresh_token
         student.save()
         # access_token 반환
         data = {
-            'access': access_token
+            'password': password_token
         }
+        print(request.user)
+        print('>>><<<')
         return Response(data, status=status.HTTP_200_OK)
 
     elif student.password != password:
