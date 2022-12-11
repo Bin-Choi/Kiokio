@@ -8,10 +8,13 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 # simplejwt
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model, authenticate
+from django.conf import settings
+
+import jwt
 
 
 # Create your views here.
@@ -22,7 +25,7 @@ def login(request):
 
     # 인증된 경우 사용자 객체 반환, 없을 경우 None 반환.
     user = authenticate(username = username, password = password)
-
+    # 인증되지 않은 사용자라면, 회원정보 없음을 반환.
     if user is None:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -34,11 +37,43 @@ def login(request):
         # 사용자 DB에 refresh_token 저장
         user.refresh_token = refresh_token
         user.save()
-        # access_token 반환
+        # 쿠키 발행 오류. 크롬에서 쿠키저장을 막아버림 // Set-Cookie: my-app-auth=xxxxxxxxxxxxx; expires=Sat, 28 Mar 2020 18:59:00 GMT; HttpOnly; Max-Age=300; Path=/
+            # response = Response()
+            # response.set_cookie(key ='access', value= access_token, expires = settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'], httponly=True,domain = 'localhost:8080')
+            # access_token 반환
+        # access_token, refresh_token 반환
         data = {
-            'access': access_token
+            'user_id': user.pk,
+            'access': access_token,
+            'refresh': refresh_token
         }
-        return Response(data, status=status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_202_ACCEPTED)
+
+@api_view(['POST'])
+def refresh(request):
+    pk = request.data['user_id']
+    refresh = request.data['refresh']
+    # 인증하려는 유저 정보 가져오기
+    User = get_user_model()
+    user = get_object_or_404(User, pk=pk)
+
+    if request.method == 'POST':
+        # 보낸 refresh token이 해당 유저 DB의 refresh token과 동일한지 비교
+        if user.refresh_token == refresh:
+            # refresh token의 만료기간 확인. 만료되면 decode가 작동하지 않음
+            try:
+                jwt.decode(refresh, settings.SIMPLE_JWT['SIGNING_KEY'], settings.SIMPLE_JWT['ALGORITHM'],)
+            # 만료했을 경우, 401에러 반환
+            except jwt.ExpiredSignatureError:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            access = AccessToken.for_user(user)
+            data = {
+                'access': str(access)
+            }
+            return Response(data, status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+    
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -52,3 +87,5 @@ def logout(request):
         user.refresh_token = ''
         user.save()
         return Response(status=status.HTTP_200_OK)
+
+

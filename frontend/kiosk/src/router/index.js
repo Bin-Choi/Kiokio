@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store/index.js'
 
 import IndexView from '@/views/IndexView'
 import AdminView from '@/views/AdminView'
@@ -38,21 +39,53 @@ const routes = [
     path: '/student',
     name: 'student',
     component: StudentView,
+    beforeEnter(to, from, next) {
+      if (store.getters.isLogin(Date.now())) {
+        next()
+      } else {
+        alert('로그인 해주세요')
+        router.push({ name: 'login' })
+      }
+    },
   },
   {
     path: '/student/create',
     name: 'studentCreate',
     component: StudentCreateView,
+    beforeEnter(to, from, next) {
+      if (store.getters.isLogin(Date.now())) {
+        next()
+      } else {
+        alert('로그인 해주세요')
+        router.push({ name: 'login' })
+      }
+    },
   },
   {
     path: '/attendance',
     name: 'attendance',
     component: AttendanceView,
+    beforeEnter(to, from, next) {
+      if (store.getters.isLogin(Date.now())) {
+        next()
+      } else {
+        alert('로그인 해주세요')
+        router.push({ name: 'login' })
+      }
+    },
   },
   {
     path: '/admin/inbody',
     name: 'adminInbody',
     component: AdminInbodyView,
+    beforeEnter(to, from, next) {
+      if (store.getters.isLogin(Date.now())) {
+        next()
+      } else {
+        alert('로그인 해주세요')
+        router.push({ name: 'login' })
+      }
+    },
   },
   {
     path: '/attend',

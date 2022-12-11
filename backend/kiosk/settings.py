@@ -84,8 +84,10 @@ REST_FRAMEWORK = {
 
 # simplejwt config
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
 }
 
 # dj_rest_auth: simplejwt cookie config
@@ -115,6 +117,7 @@ MIDDLEWARE = [
 
 # 모두허용
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'kiosk.urls'
 
