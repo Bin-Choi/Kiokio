@@ -26,6 +26,15 @@
       >
         인바디관리
       </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary shadow-sm"
+          style="margin-top: 1vh"
+          @click="$store.dispatch('refresh')">
+          리프레쉬
+        </button>
+      </div>
     </div>
   </div>
 </template>
