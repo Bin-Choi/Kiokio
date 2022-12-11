@@ -9,7 +9,7 @@
     >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="$router.go(-1)"
+        @click="$router.push({ name: 'inbodyHistory' })"
       />
       <font-awesome-icon
         icon="fa-solid fa-house"
@@ -165,11 +165,11 @@
 </template>
 
 <script>
-import TheKeypad from '../components/TheKeypad.vue'
-import axios from 'axios'
+import TheKeypad from "../components/TheKeypad.vue"
+import axios from "axios"
 
 export default {
-  name: 'InbodyCreateView',
+  name: "InbodyCreateView",
   components: {
     TheKeypad,
   },
@@ -201,98 +201,101 @@ export default {
       const regInt = /^[0-9]*$/
 
       if (!this.$refs.date.value) {
-        alert('검사일을 입력해주세요.')
+        alert("검사일을 입력해주세요.")
         return
       }
 
       if (!regFloat.test(this.$refs.height.value)) {
-        alert('키는 소수점 첫째자리까지 입력가능합니다.')
+        alert("키는 소수점 첫째자리까지 입력가능합니다.")
         this.$refs.height.focus()
         return
       }
 
       if (!regInt.test(this.$refs.age.value) || !this.$refs.age.value) {
-        alert('나이를 정확히 입력해주세요.')
+        alert("나이를 정확히 입력해주세요.")
         this.$refs.age.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.water.value)) {
-        alert('체수분은 소수점 첫째자리까지 입력가능합니다.')
+        alert("체수분은 소수점 첫째자리까지 입력가능합니다.")
         this.$refs.water.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.protein.value)) {
-        alert('단백질은 소수점 첫째자리까지 입력가능합니다.')
+        alert("단백질은 소수점 첫째자리까지 입력가능합니다.")
         this.$refs.protein.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.minerals.value)) {
-        alert('무기질은 소수점 첫째자리까지 입력가능합니다.')
+        alert("무기질은 소수점 첫째자리까지 입력가능합니다.")
         this.$refs.minerals.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.fatmass.value)) {
-        alert('체지방량은 소수점 첫째자리까지 입력가능합니다.')
+        alert("체지방량은 소수점 첫째자리까지 입력가능합니다.")
         this.$refs.fatmass.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.weight.value)) {
-        alert('체중은 소수점 첫째자리까지 입력가능합니다.')
+        alert("체중은 소수점 첫째자리까지 입력가능합니다.")
         this.$refs.weight.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.muscle.value)) {
-        alert('골격근량은 소수점 첫째자리까지 입력가능합니다.')
+        alert("골격근량은 소수점 첫째자리까지 입력가능합니다.")
         this.$refs.muscle.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.bmi.value)) {
-        alert('BMI은 소수점 첫째자리까지 입력가능합니다.')
+        alert("BMI은 소수점 첫째자리까지 입력가능합니다.")
         this.$refs.bmi.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.fatpercent.value)) {
-        alert('체지방률은 소수점 첫째자리까지 입력가능합니다.')
+        alert("체지방률은 소수점 첫째자리까지 입력가능합니다.")
         this.$refs.fatpercent.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.score.value)) {
-        alert('인바디점수는 소수점 첫째자리까지 입력가능합니다.')
+        alert("인바디점수는 소수점 첫째자리까지 입력가능합니다.")
         this.$refs.score.focus()
         return
       }
 
       axios({
-        method: 'post',
-        url: `${this.axios_URL}/students/inbody/create/`,
+        method: "post",
+        url: `${this.axios_URL}/students/${this.student.id}/inbody/create/`,
         data: {
-          student: this.student.pk,
-          height: this.$refs.height.value,
-          age: this.$refs.age.value,
-          test_date: this.$refs.date.value,
-          total_body_water: this.$refs.water.value,
-          protein: this.$refs.protein.value,
-          minerals: this.$refs.minerals.value,
-          body_fat_mass: this.$refs.fatmass.value,
-          weight: this.$refs.weight.value,
-          skeletal_muscle_mass: this.$refs.muscle.value,
-          body_mass_index: this.$refs.bmi.value,
-          percent_body_fat: this.$refs.fatpercent.value,
-          inbody_score: this.$refs.score.value,
+          password: this.student.password,
+          inbody: {
+            student: this.student.id,
+            height: this.$refs.height.value,
+            age: this.$refs.age.value,
+            test_date: this.$refs.date.value,
+            total_body_water: this.$refs.water.value,
+            protein: this.$refs.protein.value,
+            minerals: this.$refs.minerals.value,
+            body_fat_mass: this.$refs.fatmass.value,
+            weight: this.$refs.weight.value,
+            skeletal_muscle_mass: this.$refs.muscle.value,
+            body_mass_index: this.$refs.bmi.value,
+            percent_body_fat: this.$refs.fatpercent.value,
+            inbody_score: this.$refs.score.value,
+          },
         },
       })
         .then((res) => {
-          this.$store.commit('INBODY_INFO', res.data)
-          this.$router.push({ name: 'inbodyDetail' })
+          this.$store.commit("INBODY_INFO", res.data)
+          this.$router.push({ name: "inbodyDetail" })
         })
         .catch((err) => {
           console.log(err)
