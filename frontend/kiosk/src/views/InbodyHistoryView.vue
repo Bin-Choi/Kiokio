@@ -45,15 +45,24 @@
         />
       </div>
     </div>
-
-    <button
-      type="button"
-      class="btn btn-primary shadow m-auto"
-      style="font-size: 2.5vh; padding: 1.5vh"
-      @click="$router.push({ name: 'inbodyCreate' })"
-    >
-      등록하기
-    </button>
+    <div class="w-75 m-auto d-flex justify-content-between">
+      <button
+        type="button"
+        class="btn btn-primary shadow w-50"
+        style="font-size: 2.5vh; padding: 1vh; margin-right: 1vh"
+        @click="$router.push({ name: 'passwordUpdate' })"
+      >
+        비밀번호 변경
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary shadow w-50"
+        style="font-size: 2.5vh; padding: 1vh; margin-left: 1vh"
+        @click="$router.push({ name: 'inbodyCreate' })"
+      >
+        등록하기
+      </button>
+    </div>
   </div>
 </template>
 

@@ -41,14 +41,6 @@
         >
           운동기구
         </button>
-
-        <button
-          type="button"
-          class="btn btn-primary btn-block shadow"
-          @click="$router.push({ name: 'passwordUpdate' })"
-        >
-          비밀번호 변경
-        </button>
       </div>
     </div>
   </div>
