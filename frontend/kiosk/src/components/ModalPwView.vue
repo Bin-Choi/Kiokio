@@ -79,6 +79,9 @@ export default {
         this.$refs.password.value.length != 4
       ) {
         alert('비밀번호를 정확히 입력해주세요')
+
+        this.$refs.password.value = null
+        this.$refs.password.focus()
         return
       }
 
@@ -97,6 +100,8 @@ export default {
 
         .catch(() => {
           alert('비밀번호가 틀렸습니다.')
+          this.$refs.password.value = null
+          this.$refs.password.focus()
         })
     },
     focusChange(event) {

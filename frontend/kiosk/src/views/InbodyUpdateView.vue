@@ -167,6 +167,7 @@
         </div>
       </div>
     </div>
+
     <!-- BUTTON -->
     <button
       type="button"
@@ -176,6 +177,8 @@
     >
       수정하기
     </button>
+
+    <!-- KEYPAD -->
     <the-keypad class="w-100 align-self-end" @input="input" @del="del" />
   </div>
 </template>
