@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios"
 
 export default {
-  name: 'inbodyHistoryItem',
+  name: "inbodyHistoryItem",
   data() {
     return {
-      date: this.inbody.test_date.split('-'),
+      date: this.inbody.test_date.split("-"),
     }
   },
   props: {
@@ -33,12 +33,15 @@ export default {
   methods: {
     goDetail() {
       axios({
-        method: 'get',
-        url: `${this.axios_URL}/students/inbody/${this.inbody.pk}/`,
+        method: "post",
+        url: `${this.axios_URL}/students/${this.$store.state.student.id}/inbody/${this.inbody.id}/`,
+        data: {
+          password: this.$store.state.student.password,
+        },
       })
         .then((res) => {
-          this.$store.commit('INBODY_INFO', res.data)
-          this.$router.push({ name: 'inbodyDetail' })
+          this.$store.commit("INBODY_INFO", res.data)
+          this.$router.push({ name: "inbodyDetail" })
         })
 
         .catch((err) => {

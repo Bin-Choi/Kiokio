@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
-import createPersistedState from 'vuex-persistedstate'
-import router from '@/router'
-import jwt_decode from 'jwt-decode'
-import axiosAuth from '@/axios/axios'
+import Vue from "vue"
+import Vuex from "vuex"
+import axios from "axios"
+import createPersistedState from "vuex-persistedstate"
+import router from "@/router"
+import jwt_decode from "jwt-decode"
+import axiosAuth from "@/axios/axios"
 
 // import SecureLS from 'secure-ls'
 // const ls = new SecureLS({ isCompression: false })
@@ -22,7 +22,7 @@ export default new Vuex.Store({
       // BlckList
       reducer: (persistedState) => {
         const stateFilter = Object.assign({}, persistedState)
-        const blackList = ['inbodyStudents', 'student', 'inbody']
+        const blackList = ["inbodyStudents", "student", "inbody"]
         blackList.forEach((item) => {
           delete stateFilter[item]
         })
@@ -31,7 +31,7 @@ export default new Vuex.Store({
     }),
   ],
   state: {
-    axios_URL: 'http://127.0.0.1:8000',
+    axios_URL: "http://127.0.0.1:8000",
     userId: null,
     access: null,
     refresh: null,
@@ -78,9 +78,10 @@ export default new Vuex.Store({
       state.access = null
       state.refresh = null
     },
-    SAVE_PW_TOKEN(state, token) {
-      state.passwordToken = token
-      console.log(state.passwordToken)
+    SAVE_ID_PASSWORD(state, payload) {
+      const { id, password } = payload
+      state.student.id = id
+      state.student.password = password
     },
     SAVE_INBODY_STUDENTS(state, students) {
       state.inbodyStudents = students
@@ -101,7 +102,7 @@ export default new Vuex.Store({
   actions: {
     logout(context) {
       axiosAuth({
-        method: 'post',
+        method: "post",
         url: `${context.state.axios_URL}/accounts/logout/`,
         headers: {
           Authorization: `Bearer ${context.state.access}`,
@@ -109,8 +110,8 @@ export default new Vuex.Store({
       })
         .then((res) => {
           console.log(res)
-          context.commit('DELETE_TOKENS')
-          router.push({ name: 'login' })
+          context.commit("DELETE_TOKENS")
+          router.push({ name: "login" })
         })
         .catch((err) => {
           console.error(err)
@@ -118,7 +119,7 @@ export default new Vuex.Store({
     },
     refresh(context) {
       axios({
-        method: 'post',
+        method: "post",
         url: `${context.state.axios_URL}/accounts/refresh/`,
         data: {
           user_id: context.state.userId,
@@ -128,7 +129,7 @@ export default new Vuex.Store({
         .then((res) => {
           console.log(res)
           const access = res.data.access
-          context.commit('SAVE_ACCESS_TOKEN', access)
+          context.commit("SAVE_ACCESS_TOKEN", access)
         })
         .catch((err) => {
           console.error(err)

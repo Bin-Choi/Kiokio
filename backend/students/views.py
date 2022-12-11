@@ -8,14 +8,16 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 # simplejwt
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import get_user_model, authenticate, login
 from django.shortcuts import get_object_or_404
 from django.db.models import Prefetch
 
 from .serializers import InbodySerializer, InbodyListSerializer, StudentSerializer, StudentAttendanceSerializer, StudentInbodyListSerializer
 from .models import Student, Attendance, Inbody
 from datetime import datetime
+
+# cryptography
+from cryptography.fernet import Fernet
+
 
 # Create your views here.
 @api_view(['GET', 'POST'])
@@ -51,126 +53,94 @@ def inbody(request, num):
     grade = int(num[0])
     room = int(num[1:3])
     number = int(num[3:5])
-
     student = Student.objects.get(grade=grade, room=room, number=number)
 
     if request.method == 'GET':
         data = {
-            'pk': student.pk,
             'grade': student.grade,
             'room': student.room,
             'number': number,
-            'name': student.name,     
+            'name': student.name,
         }
         return Response(data)
 
     if request.method == 'POST':
-
         pw = request.data['password']
-        pk = request.data['pk']
-
         if student.password == pw:
-            inbodylist = Inbody.objects.filter(student=pk)
-            inbody = inbodylist.order_by('-pk')[0]
+            key = Fernet.generate_key()
+
+            fernet = Fernet(key)
+            student.key = key
+            student.save()
+            password = fernet.encrypt(bytes(pw,'utf-8'))
+            data = {
+                'id': student.pk,
+                'password': password,
+            }
+            return Response(data)
+        
+        elif student.password != pw:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+            
+
+@api_view(['POST'])
+def inbody_list(request, student_pk):
+    student = Student.objects.get(pk=student_pk)
+    pw = request.data['password']
+    fernet = Fernet(student.key)
+    password = fernet.decrypt(pw).decode('utf-8')
+    
+    if password == student.password: 
+        inbodylist = Inbody.objects.filter(student=student_pk)
+        serializer = InbodyListSerializer(inbodylist, many=True)
+        data = serializer.data
+        return Response(data)
+    return Response(status=status.HTTP_401_UNAUTHRIZED)
+    
+
+@api_view(['POST', 'PUT', 'DELETE'])
+
+def inbody_detail(request,inbody_pk,student_pk):
+ 
+    student = Student.objects.get(pk=student_pk)
+    pw = request.data['password']
+    fernet = Fernet(student.key)
+    password = fernet.decrypt(pw).decode('utf-8')
+    
+    if password == student.password: 
+        inbody = Inbody.objects.get(pk=inbody_pk)
+
+        if request.method == 'POST':
             serializer = InbodySerializer(inbody)
             data = serializer.data
             return Response(data)
 
+        elif request.method == 'PUT':
+            serializer = InbodySerializer(inbody, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+            return Response(status=status.HTTP_403_FORBIDDEN)
 
-# 헤더에 authenticate + token 담는순간 user로 넘어옴 ( 로그인한 유저 <accounts>)=> 학생 Pk와 같은 Pk를 가지는 account가 생성되어야함 
-
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def inbody_list(request, pk):
-
-    print(request.user)
-    user = request.user.pk
-    print(user, pk)
-    
-    if user == int(pk):
-        
-        if request.method == 'GET':
-            pk = pk
-            inbodylist = Inbody.objects.filter(student=pk)
-            serializer = InbodyListSerializer(inbodylist, many=True)
-            data = serializer.data
-            return Response(data)
-        
-
-@api_view(['GET', 'PUT', 'DELETE'])
-
-def inbody_detail(request,inbody_pk):
-    inbody = Inbody.objects.get(pk=inbody_pk)
-    # if inbody.student == request.user.pk:
-    #     print('>>>>>>1')
-    if request.method == 'GET':
-        serializer = InbodySerializer(inbody)
-        data = serializer.data
-        return Response(data)
-
-    elif request.method == 'PUT':
-        serializer = InbodySerializer(inbody, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-        return Response(status=status.HTTP_403_FORBIDDEN)
-
-    elif request.method == 'DELETE':
-        inbody.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        elif request.method == 'DELETE':
+            inbody.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
-def inbody_create(request):
-    if request.method == 'POST':
-        serializer = InbodySerializer(data=request.data)
+def inbody_create(request, student_pk):
+    student = Student.objects.get(pk=student_pk)
+    pw = request.data['password']
+    fernet = Fernet(student.key)
+    password = fernet.decrypt(pw).decode('utf-8')
+    
+    if password == student.password: 
+        serializer = InbodySerializer(data=request.data['inbody'])
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            serializer.save(student=student_pk)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
-# ### 로그인 토큰발급
-@api_view(['POST'])
-def inbody_login(request):
-    student_pk = request.data['pk']
-    student = Student.objects.get(pk=student_pk)
-    password = request.data['password']
-    # 인증된 경우 사용자 객체 반환, 없을 경우 None 반환.
-    if student.password == password:
-        refresh = RefreshToken.for_user(student)
-        refresh_token = str(refresh)
-        password_token = str(refresh.access_token)
-        # 사용자 DB에 refresh_token 저장
-        student.refresh_token = refresh_token
-        student.save()
-        # access_token 반환
-        data = {
-            'password': password_token
-        }
-        print(request.user)
-        print('>>><<<')
-        return Response(data, status=status.HTTP_200_OK)
-
-    elif student.password != password:
-        print("pass_fail")
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-
-        # simple jwt token
-
-# # @api_view(['POST'])
-# # @permission_classes([IsAuthenticated])
-# # def logout(request):
-# #     User = get_user_model()
-# #     user = get_object_or_404(User, pk=request.user.pk)
-# #     print(user)
-
-# #     if request.method == 'POST':
-# #         # 사용자 DB에 refresh_token 삭제
-# #         user.refresh_token = ''
-# #         user.save()
-# #         return Response(status=status.HTTP_200_OK)
-
+            
 @api_view(['POST', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def students(request):
@@ -209,6 +179,7 @@ def students(request):
             student.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def students_class(request, grade, room):
@@ -218,6 +189,7 @@ def students_class(request, grade, room):
         serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def students_name(request, name):
@@ -226,6 +198,7 @@ def students_name(request, name):
     if request.method == 'GET':
         serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -238,6 +211,7 @@ def attendance_class(request, year, month, grade, room):
         serializer = StudentAttendanceSerializer(students, many=True)
         return Response(serializer.data)
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def attendance_name(request, year, month, name):
@@ -249,6 +223,7 @@ def attendance_name(request, year, month, name):
         serializer = StudentAttendanceSerializer(students, many=True)
         return Response(serializer.data)
      
+     
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def inbody_list_class(request, grade, room):
@@ -258,6 +233,7 @@ def inbody_list_class(request, grade, room):
         serializer = StudentInbodyListSerializer(students, many=True)
         return Response(serializer.data)
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def inbody_list_name(request, name):
@@ -266,6 +242,7 @@ def inbody_list_name(request, name):
     if request.method == 'GET':
         serializer = StudentInbodyListSerializer(students, many=True)
         return Response(serializer.data)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -289,6 +266,7 @@ def inbody_update(request):
         for serializer in serializers:
             serializer.save()
         return Response(status=status.HTTP_200_OK)
+
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
