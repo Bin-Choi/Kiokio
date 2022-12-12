@@ -31,6 +31,7 @@
           max-width: 500px;
           width: 60%;
           height: 60%;
+          padding: 2vh;
         "
       >
         <div class="w-75 d-flex justify-content-between">

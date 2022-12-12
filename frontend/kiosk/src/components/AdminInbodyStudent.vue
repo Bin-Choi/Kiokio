@@ -3,7 +3,8 @@
     <div
       class="d-flex"
       @click="$emit('change-mode-default')"
-      style="font-size: 4vh; cursor: pointer">
+      style="font-size: 4vh; cursor: pointer"
+    >
       <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
     </div>
 
@@ -11,13 +12,18 @@
       {{ student.name }} {{ student.grade }}학년 {{ student.room }}반
       {{ student.number }}번호 {{ student.gender }}
     </div>
-    <div v-if="mode === 'R'">
+    <div
+      v-if="mode === 'R'"
+      class="d-flex justify-content-end"
+      style="margin: 1vh 0"
+    >
       <button
         class="blue-btn"
         @click="
           inbodyCopy = JSON.parse(JSON.stringify(student.inbody_set))
           mode = 'U'
-        ">
+        "
+      >
         수정
       </button>
     </div>
@@ -27,15 +33,19 @@
       <button class="red-btn" @click="deleteInbody">삭제</button>
       <button class="blue-btn" @click="updateInbody">저장</button>
     </div>
+
     <div class="d-flex" style="overflow-x: scroll">
       <AdminInbodyStudentTableRow />
+
       <div class="d-flex" v-if="mode === 'R'">
         <AdminInbodyStudentReadItem
           v-for="(inbody, index) in student.inbody_set"
           :key="inbody.id"
           :index="index"
-          :inbody="inbody" />
+          :inbody="inbody"
+        />
       </div>
+
       <div class="d-flex" v-if="mode === 'U'">
         <AdminInbodyStudentUpdateItem
           v-for="(inbody, index) in inbodyCopy"
@@ -45,7 +55,8 @@
           :ready-delete="readyDelete"
           :invalid="invalid"
           @change-check="changeCheck"
-          @change-data="changeData" />
+          @change-data="changeData"
+        />
       </div>
     </div>
   </div>

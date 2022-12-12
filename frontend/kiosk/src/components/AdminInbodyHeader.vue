@@ -1,38 +1,49 @@
 <template>
-  <div class="d-flex flex-column">
-    <div class="d-flex justify-content-start">
-      <div
-        class="d-flex"
+  <div class="d-flex flex-column" style="margin-bottom: 1vh">
+    <div
+      class="d-flex justify-content-between"
+      style="margin: 0 0 2vh 0; font-size: 3vh"
+    >
+      <font-awesome-icon
+        icon="fa-solid fa-circle-arrow-left"
         @click="$router.push({ name: 'admin' })"
-        style="font-size: 4vh; cursor: pointer">
-        <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
-      </div>
+        style="cursor: pointer"
+      />
+      <div>인바디 관리</div>
+      <div></div>
     </div>
     <div class="d-flex justify-content-between">
-      <div class="d-flex">
-        <div>학년</div>
+      <div>
+        <span>학년</span>
         <input
           type="number"
           class="student-search-form"
           ref="grade"
           v-model.trim="grade"
-          @keyup.enter="$refs.room.focus()" />
-        <div>반</div>
+          @keyup.enter="$refs.room.focus()"
+        />
+        <span>반</span>
         <input
           type="number"
           class="student-search-form"
           ref="room"
-          v-model.trim="room" />
-        <button class="blue-btn" @click="searchByClass">학급 조회</button>
+          v-model.trim="room"
+        />
+        <button class="blue-btn shadow-sm" @click="searchByClass">
+          학급 조회
+        </button>
       </div>
-      <div class="d-flex">
-        <div>이름</div>
+      <div>
+        <span>이름</span>
         <input
           type="text"
           class="student-search-form"
           ref="name"
-          v-model.trim="name" />
-        <button class="blue-btn" @click="searchByName">이름 조회</button>
+          v-model.trim="name"
+        />
+        <button class="blue-btn shadow-sm" @click="searchByName">
+          이름 조회
+        </button>
       </div>
     </div>
   </div>
@@ -70,11 +81,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.student-search-form {
-  background-color: white;
-  width: 10vw;
-  height: 4vh;
-  border-radius: 1vh;
-}
-</style>
+<style></style>

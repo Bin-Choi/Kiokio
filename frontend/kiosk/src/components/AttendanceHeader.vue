@@ -1,51 +1,74 @@
 <template>
-  <div class="d-flex flex-column">
-    <div class="d-flex justify-content-between">
-      <div
+  <div style="margin-bottom: 1vh">
+    <div
+      class="d-flex justify-content-between"
+      style="margin: 0 0 2vh 0; font-size: 3vh"
+    >
+      <font-awesome-icon
+        icon="fa-solid fa-circle-arrow-left"
         @click="$router.push({ name: 'admin' })"
-        style="font-size: 4vh; cursor: pointer">
-        <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
-      </div>
-      <div class="d-flex">
-        <div>년</div>
+        style="cursor: pointer"
+      />
+      <div>출결 관리</div>
+      <div></div>
+    </div>
+
+    <div class="d-flex justify-content-between" style="margin-bottom: 1vh">
+      <span> ※ 필수 입력값입니다.</span>
+      <span> ※ 선택 입력값입니다.</span>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <div>
+        <span>년</span>
         <input
           type="number"
           class="student-search-form"
           ref="year"
-          v-model.trim="year" />
-        <div>월</div>
+          v-model.trim="year"
+        />
+        <span>월</span>
         <input
           type="number"
           class="student-search-form"
           ref="month"
-          v-model.trim="month" />
+          v-model.trim="month"
+        />
       </div>
-    </div>
-    <div class="d-flex justify-content-between">
+
       <div class="d-flex">
-        <div>학년</div>
-        <input
-          type="number"
-          class="student-search-form"
-          ref="grade"
-          v-model.trim="grade"
-          @keyup.enter="$refs.room.focus()" />
-        <div>반</div>
-        <input
-          type="number"
-          class="student-search-form"
-          ref="room"
-          v-model.trim="room" />
-        <button class="blue-btn" @click="searchByClass">학급 조회</button>
-      </div>
-      <div class="d-flex">
-        <div>이름</div>
-        <input
-          type="text"
-          class="student-search-form"
-          ref="name"
-          v-model.trim="name" />
-        <button class="blue-btn" @click="searchByName">이름 조회</button>
+        <div style="margin-right: 2vh">
+          <span>학년</span>
+          <input
+            type="number"
+            class="student-search-form"
+            ref="grade"
+            v-model.trim="grade"
+            @keyup.enter="$refs.room.focus()"
+          />
+          <span>반</span>
+          <input
+            type="number"
+            class="student-search-form"
+            ref="room"
+            v-model.trim="room"
+          />
+          <button class="blue-btn shadow-sm" @click="searchByClass">
+            학급 조회
+          </button>
+        </div>
+        <div>
+          <span>이름</span>
+          <input
+            type="text"
+            class="student-search-form"
+            ref="name"
+            v-model.trim="name"
+          />
+          <button class="blue-btn shadow-sm" @click="searchByName">
+            이름 조회
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -95,11 +118,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.student-search-form {
-  background-color: white;
-  width: 10vw;
-  height: 4vh;
-  border-radius: 1vh;
-}
-</style>
+<style></style>

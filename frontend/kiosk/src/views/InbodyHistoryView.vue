@@ -88,7 +88,6 @@ export default {
     },
   },
   created() {
-    console.log(this.$store.state.passwordToken)
     axios({
       method: 'get',
       url: `${this.axios_URL}/students/${this.student.pk}/inbody/list/`,
