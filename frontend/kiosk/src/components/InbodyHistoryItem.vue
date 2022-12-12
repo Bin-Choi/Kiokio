@@ -1,9 +1,5 @@
 <template>
-  <div
-    @click="goDetail()"
-    class="row rounded"
-    style="margin: 1vh 0; font-size: 1.5vh"
-  >
+  <div @click="goDetail" class="row shadow-sm">
     <p class="col">{{ date[0].slice(-2) }}/{{ date[1] }}/{{ date[2] }}</p>
     <p class="col">{{ inbody.age }} 세</p>
     <p class="col">{{ inbody.height }} cm</p>
@@ -13,13 +9,13 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from 'axios'
 
 export default {
-  name: "inbodyHistoryItem",
+  name: 'inbodyHistoryItem',
   data() {
     return {
-      date: this.inbody.test_date.split("-"),
+      date: this.inbody.test_date.split('-'),
     }
   },
   props: {
@@ -33,15 +29,15 @@ export default {
   methods: {
     goDetail() {
       axios({
-        method: "post",
+        method: 'post',
         url: `${this.axios_URL}/students/${this.$store.state.student.id}/inbody/${this.inbody.id}/`,
         data: {
           password: this.$store.state.student.password,
         },
       })
         .then((res) => {
-          this.$store.commit("INBODY_INFO", res.data)
-          this.$router.push({ name: "inbodyDetail" })
+          this.$store.commit('INBODY_INFO', res.data)
+          this.$router.push({ name: 'inbodyDetail' })
         })
 
         .catch((err) => {
@@ -54,7 +50,9 @@ export default {
 
 <style scoped>
 div {
-  border: 0.2vh solid #2b64aa2d;
-  box-shadow: 0.1vh 0.1vh 0.1vh #2b64aa1e;
+  margin: 1vh 0;
+  font-size: 1.5vh;
+  border-radius: 1vh;
+  border: 0.1vh solid #ffa946;
 }
 </style>

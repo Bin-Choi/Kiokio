@@ -1,7 +1,7 @@
 <template>
-  <div class="item rounded shadow" @click="$emit('show-modal')">
-      <img src="#" alt="img">
-      <div>{{this.gym}}</div>
+  <div class="item round shadow-sm" @click="$emit('show-modal')">
+    <img src="#" alt="img" />
+    <div>{{ this.gym }}</div>
   </div>
 </template>
 
@@ -10,20 +10,18 @@ export default {
   name: 'GymItem',
 
   // temporary data
-  props:{
-    gym:String,
+  props: {
+    gym: String,
   },
-  methods:{
-  }
+  methods: {},
 }
 </script>
 
 <style scoped>
-.item{
+.item {
   width: 15vh;
   height: 15vh;
-  border: 0.2vh solid #2b64aa30;
   margin: 0.8vh;
+  border: 0.1vh solid #ffa946;
 }
-
 </style>

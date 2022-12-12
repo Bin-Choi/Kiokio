@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-75 bg-light rounded shadow"
+    class="w-75 bg-white round shadow"
     style="padding: 2.5vh 2vh; height: 60vh"
   >
     <div
@@ -91,8 +91,8 @@ export default {
   margin-right: 1.5vh;
   height: 5vh;
   background: none;
-  border: 0.2vh solid #2b64aa1e;
-  border-radius: 0.5vh;
-  box-shadow: 0.1vh 0.1vh 0.1vh #2b64aa1e;
+  border: 0.1vh solid #ffa946;
+  border-radius: 1vh;
+  box-shadow: 0.1vh 0.1vh 0.1vh #ffa94651;
 }
 </style>

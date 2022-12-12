@@ -5,11 +5,11 @@
     <!-- BACK -->
     <div
       class="w-100 d-flex justify-content-between"
-      style="font-size: 4.5vh; margin: 1.5vh; margin-bottom: 0; padding: 2.2vh"
+      style="font-size: 4vh; margin: 1.5vh; margin-bottom: 0; padding: 2.2vh"
     >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="$router.go(-1)"
+        @click="$router.push({ name: 'inbodyDetail' })"
       />
       <font-awesome-icon
         icon="fa-solid fa-house"
@@ -18,31 +18,27 @@
     </div>
 
     <!-- PAGE TITLE -->
-    <div
-      class="w-75 bg-primary rounded text-light shadow"
-      style="font-size: 5vh"
-    >
-      인바디 수정
-    </div>
+    <div class="w-75 title shadow">인바디 수정</div>
 
-    <div style="font-size: 3vh">
+    <div
+      class="w-75 d-flex justify-content-around align-items-center"
+      style="font-size: 3vh"
+    >
       {{ student.grade }}학년 {{ student.room }}반 {{ student.name }}
+
+      <!-- BUTTON -->
+      <button class="orange-btn shadow" @click="submit">완료</button>
     </div>
 
     <!-- INBODY FORM -->
     <div
-      class="w-75 bg-light rounded shadow"
+      class="w-75 bg-white round shadow"
       style="font-size: 2.5vh; padding: 2.5% 2%; height: 32%"
     >
       <div id="scroll-box" class="container" style="height: 100%">
         <div class="row">
           <p class="col">검사일시</p>
-          <input
-            type="date"
-            ref="date"
-            :value="inbody.test_date"
-            class="rounded col"
-          />
+          <input type="date" ref="date" :value="inbody.test_date" class="col" />
         </div>
 
         <div class="row">
@@ -52,7 +48,7 @@
             ref="height"
             @focus="focusChange"
             :value="inbody.height"
-            class="rounded col"
+            class="col"
           />
         </div>
 
@@ -63,7 +59,7 @@
             ref="age"
             @focus="focusChange"
             :value="inbody.age"
-            class="rounded col"
+            class="col"
           />
         </div>
 
@@ -74,7 +70,7 @@
             ref="water"
             @focus="focusChange"
             :value="inbody.total_body_water"
-            class="rounded col"
+            class="col"
           />
         </div>
 
@@ -85,7 +81,7 @@
             ref="protein"
             @focus="focusChange"
             :value="inbody.protein"
-            class="rounded col"
+            class="col"
           />
         </div>
 
@@ -96,7 +92,7 @@
             ref="minerals"
             @focus="focusChange"
             :value="inbody.minerals"
-            class="rounded col"
+            class="col"
           />
         </div>
 
@@ -107,7 +103,7 @@
             ref="fatmass"
             @focus="focusChange"
             :value="inbody.body_fat_mass"
-            class="rounded col"
+            class="col"
           />
         </div>
 
@@ -118,7 +114,7 @@
             ref="weight"
             @focus="focusChange"
             :value="inbody.weight"
-            class="rounded col"
+            class="col"
           />
         </div>
 
@@ -129,7 +125,7 @@
             ref="muscle"
             @focus="focusChange"
             :value="inbody.skeletal_muscle_mass"
-            class="rounded col"
+            class="col"
           />
         </div>
 
@@ -140,7 +136,7 @@
             ref="bmi"
             @focus="focusChange"
             :value="inbody.body_mass_index"
-            class="rounded col"
+            class="col"
           />
         </div>
 
@@ -151,7 +147,7 @@
             ref="fatpercent"
             @focus="focusChange"
             :value="inbody.percent_body_fat"
-            class="rounded col"
+            class="col"
           />
         </div>
 
@@ -162,21 +158,11 @@
             ref="score"
             @focus="focusChange"
             :value="inbody.inbody_score"
-            class="rounded col"
+            class="col"
           />
         </div>
       </div>
     </div>
-
-    <!-- BUTTON -->
-    <button
-      type="button"
-      class="btn btn-primary shadow"
-      style="font-size: 2.5vh"
-      @click="submit"
-    >
-      수정하기
-    </button>
 
     <!-- KEYPAD -->
     <the-keypad class="w-100 align-self-end" @input="input" @del="del" />
@@ -184,12 +170,12 @@
 </template>
 
 <script>
-import TheKeypad from "@/components/TheKeypad.vue"
+import TheKeypad from '@/components/TheKeypad.vue'
 
-import axios from "axios"
+import axios from 'axios'
 
 export default {
-  name: "InbodyUpdateView",
+  name: 'InbodyUpdateView',
   components: {
     TheKeypad,
   },
@@ -224,78 +210,78 @@ export default {
       const regInt = /^[0-9]*$/
 
       if (!this.$refs.date.value) {
-        alert("검사일을 입력해주세요.")
+        alert('검사일을 입력해주세요.')
         return
       }
 
       if (!regFloat.test(this.$refs.height.value)) {
-        alert("키는 소수점 첫째자리까지 입력가능합니다.")
+        alert('키는 소수점 첫째자리까지 입력가능합니다.')
         this.$refs.height.focus()
         return
       }
 
       if (!regInt.test(this.$refs.age.value) || !this.$refs.age.value) {
-        alert("나이를 정확히 입력해주세요.")
+        alert('나이를 정확히 입력해주세요.')
         this.$refs.age.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.water.value)) {
-        alert("체수분은 소수점 첫째자리까지 입력가능합니다.")
+        alert('체수분은 소수점 첫째자리까지 입력가능합니다.')
         this.$refs.water.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.protein.value)) {
-        alert("단백질은 소수점 첫째자리까지 입력가능합니다.")
+        alert('단백질은 소수점 첫째자리까지 입력가능합니다.')
         this.$refs.protein.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.minerals.value)) {
-        alert("무기질은 소수점 첫째자리까지 입력가능합니다.")
+        alert('무기질은 소수점 첫째자리까지 입력가능합니다.')
         this.$refs.minerals.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.fatmass.value)) {
-        alert("체지방량은 소수점 첫째자리까지 입력가능합니다.")
+        alert('체지방량은 소수점 첫째자리까지 입력가능합니다.')
         this.$refs.fatmass.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.weight.value)) {
-        alert("체중은 소수점 첫째자리까지 입력가능합니다.")
+        alert('체중은 소수점 첫째자리까지 입력가능합니다.')
         this.$refs.weight.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.muscle.value)) {
-        alert("골격근량은 소수점 첫째자리까지 입력가능합니다.")
+        alert('골격근량은 소수점 첫째자리까지 입력가능합니다.')
         this.$refs.muscle.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.bmi.value)) {
-        alert("BMI은 소수점 첫째자리까지 입력가능합니다.")
+        alert('BMI은 소수점 첫째자리까지 입력가능합니다.')
         this.$refs.bmi.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.fatpercent.value)) {
-        alert("체지방률은 소수점 첫째자리까지 입력가능합니다.")
+        alert('체지방률은 소수점 첫째자리까지 입력가능합니다.')
         this.$refs.fatpercent.focus()
         return
       }
 
       if (!regFloat.test(this.$refs.score.value)) {
-        alert("인바디점수를는 소수점 첫째자리까지 입력가능합니다.")
+        alert('인바디점수를는 소수점 첫째자리까지 입력가능합니다.')
         this.$refs.score.focus()
         return
       }
 
       axios({
-        method: "put",
+        method: 'put',
         url: `${this.axios_URL}/students/inbody/${this.inbody.id}/`,
         data: {
           student: this.student.pk,
@@ -314,8 +300,8 @@ export default {
         },
       })
         .then((res) => {
-          this.$store.commit("INBODY_INFO", res.data)
-          this.$router.push({ name: "inbodyDetail" })
+          this.$store.commit('INBODY_INFO', res.data)
+          this.$router.push({ name: 'inbodyDetail' })
         })
         .catch((err) => {
           console.log(err)
@@ -325,8 +311,8 @@ export default {
           if (status === 400) {
             alert(`${err.request.responseText}`)
           } else if (status === 401) {
-            alert("다시 로그인해주세요")
-            this.$router.push({ name: "inbody" })
+            alert('다시 로그인해주세요')
+            this.$router.push({ name: 'inbody' })
           }
         })
     },
@@ -343,8 +329,8 @@ input {
   margin-right: 1.5vh;
   height: 5vh;
   background: none;
-  border: 0.2vh solid #2b64aa1e;
-  border-radius: 0.5vh;
-  box-shadow: 0.1vh 0.1vh 0.1vh #2b64aa1e;
+  border: 0.1vh solid #ffa946;
+  border-radius: 1vh;
+  box-shadow: 0.1vh 0.1vh 0.1vh #ffa94651;
 }
 </style>

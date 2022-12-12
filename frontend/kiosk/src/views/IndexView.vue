@@ -2,11 +2,14 @@
   <div style="padding: 7vh">
     <!-- Admin -->
     <div
-      class="w-100 d-flex flex-column align-items-end justify-content-center"
+      class="w-100 d-flex justify-content-between"
       @click="$router.push({ name: 'login' })"
     >
-      <font-awesome-icon icon="fa-solid fa-user" style="font-size: 4vh" />
-      <span>관리자</span>
+      <div></div>
+      <div>
+        <font-awesome-icon icon="fa-solid fa-user" style="font-size: 4vh" />
+        <div>관리자</div>
+      </div>
     </div>
 
     <div class="d-flex flex-column justify-content-between">
@@ -42,14 +45,13 @@ export default {
 
 <style scoped>
 .button {
-  width: 60%;
-  padding: 2vh;
+  width: 70%;
+  padding: 1.5vh 0;
   margin: 3.5vh 0;
   font-size: 5vh;
   font-family: 'bold';
   color: white;
   background-color: #ffa946;
   border-radius: 5vh;
-  /* border: 0.5vh double #f6f6f6; */
 }
 </style>

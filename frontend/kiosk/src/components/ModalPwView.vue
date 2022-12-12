@@ -1,44 +1,32 @@
 <template>
   <div class="modal-bg h-100 d-flex flex-column justify-content-between">
-    <div class="h-50 modal-content rounded shadow" style="padding: 2vh">
+    <div
+      class="h-50 modal-content bg-white rounded shadow"
+      style="padding: 1vh"
+    >
       <!-- CLOSE -->
       <font-awesome-icon
         icon="fa-solid fa-circle-xmark"
         class="align-self-end"
-        style="font-size: 3.5vh; margin: 0 3vh"
+        style="font-size: 4vh; margin: 3vh 3vh 0 0"
         @click="$emit('close-modal')"
       />
 
-      <div
-        id="title"
-        class="w-75 bg-primary rounded text-light shadow"
-        style="font-size: 4vh; margin: auto; margin-bottom: 2vh; padding: 1vh"
-      >
-        비밀번호 입력
-      </div>
+      <div class="w-75 title shadow m-auto">비밀번호 입력</div>
       <!-- PASSWORD INPUT -->
-      <div
-        class="w-75 h-50 m-auto rounded shadow bg-light d-flex flex-column justify-content-evenly align-items-center"
-      >
-        <input
-          type="password"
-          maxlength="4"
-          minlength="4"
-          ref="password"
-          @focus="focusChange"
-          class="w-50 rounded"
-          style="font-size: 3vh; padding: 1vh"
-        />
 
-        <button
-          type="button"
-          class="w-25 btn btn-primary shadow"
-          style="font-size: 3vh"
-          @click="submit"
-        >
-          확인
-        </button>
-      </div>
+      <input
+        type="password"
+        maxlength="4"
+        minlength="4"
+        ref="password"
+        @focus="focusChange"
+        class="w-50 shadow-sm m-auto"
+      />
+
+      <button class="w-25 orange-btn shadow m-auto" @click="submit">
+        확인
+      </button>
     </div>
     <!-- KEYPAD -->
     <TheKeypad @input="input" @del="del" class="w-100" />
@@ -46,14 +34,14 @@
 </template>
 
 <script>
-import TheKeypad from "@/components/TheKeypad.vue"
+import TheKeypad from '@/components/TheKeypad.vue'
 
-import axios from "axios"
+import axios from 'axios'
 
 // const pwKey = b"ABCD"
 
 export default {
-  name: "ModalPwView",
+  name: 'ModalPwView',
   components: {
     TheKeypad,
   },
@@ -77,7 +65,7 @@ export default {
         !regInt.test(this.$refs.password.value) ||
         this.$refs.password.value.length != 4
       ) {
-        alert("비밀번호를 정확히 입력해주세요")
+        alert('비밀번호를 정확히 입력해주세요')
 
         this.$refs.password.value = null
         this.$refs.password.focus()
@@ -86,19 +74,19 @@ export default {
       // 비밀번호 xor 연산하여 간이 암호화
 
       axios({
-        method: "post",
+        method: 'post',
         url: `${this.axios_URL}/students/${this.num}/inbody/`,
         data: {
           password: this.$refs.password.value,
         },
       })
         .then((res) => {
-          this.$store.commit("SAVE_ID_PASSWORD", res.data)
-          this.$router.push({ name: "inbodyHistory" })
+          this.$store.commit('SAVE_ID_PASSWORD', res.data)
+          this.$router.push({ name: 'inbodyHistory' })
         })
 
         .catch(() => {
-          alert("비밀번호가 틀렸습니다.")
+          alert('비밀번호가 틀렸습니다.')
           this.$refs.password.value = null
           this.$refs.password.focus()
         })
@@ -137,6 +125,10 @@ export default {
 }
 
 input {
-  background-color: #2b64aa1e;
+  border-radius: 2vh;
+  border: 0.5vh solid #ffa946;
+  background-color: #ffe8d299;
+  font-size: 3vh;
+  padding: 1vh;
 }
 </style>

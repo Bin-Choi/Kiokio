@@ -2,48 +2,60 @@
   <div>
     <modal-view v-if="showModal" @close-modal="showModal = false" />
 
-    <!-- BACK -->
-    <div
-      class="d-flex justify-content-between"
-      style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0"
-    >
-      <font-awesome-icon
-        icon="fa-solid fa-circle-arrow-left"
-        @click="$router.go(-1)"
-      />
-      <font-awesome-icon
-        icon="fa-solid fa-house"
-        @click="$router.push({ name: 'index' })"
-      />
-    </div>
+    <kiosk-header />
 
     <div
       class="h-100 d-flex flex-column justify-content-between align-items-center"
     >
+      <div class="w-75 title shadow" style="margin-top: 5vh">운동기구</div>
       <div
-        class="w-75 bg-primary rounded text-light shadow"
-        style="font-size: 5vh; margin-top: 5vh"
+        class="w-75 bg-white round m-auto shadow-sm"
+        style="padding: 2.5vh 2vh; border: 0.1vh solid #ffa946"
       >
-        운동기구
+        <div id="scroll-box">
+          <span
+            v-if="$route.name === 'gym'"
+            class="d-flex flex-wrap justify-content-center"
+          >
+            <gym-item
+              v-for="(gym, idx) in this.gyms"
+              :key="idx"
+              :gym="gym"
+              @show-modal="showModal = true"
+            />
+          </span>
+        </div>
       </div>
-      <scroll-view @show-modal="showModal = true" />
     </div>
   </div>
 </template>
 
 <script>
-import ScrollView from '../components/ScrollView.vue'
 import ModalView from '../components/ModalView.vue'
+import KioskHeader from '../components/KioskHeader.vue'
+import GymItem from '@/components/GymItem.vue'
 
 export default {
   name: 'GymView',
   components: {
-    ScrollView,
+    KioskHeader,
+    GymItem,
     ModalView,
   },
   data() {
     return {
       showModal: false,
+      gyms: [
+        'gym1',
+        'gym2',
+        'gym3',
+        'gym4',
+        'gym5',
+        'gym6',
+        'gym7',
+        'gym7',
+        'gym7',
+      ],
     }
   },
 }

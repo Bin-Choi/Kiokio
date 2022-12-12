@@ -7,31 +7,13 @@
       :student="this.student"
     />
 
-    <!-- BACK -->
-    <div
-      class="d-flex justify-content-between"
-      style="font-size: 4.5vh; margin: 3vh; margin-bottom: 0"
-    >
-      <font-awesome-icon
-        icon="fa-solid fa-circle-arrow-left"
-        @click="$router.go(-1)"
-      />
-      <font-awesome-icon
-        icon="fa-solid fa-house"
-        @click="$router.push({ name: 'index' })"
-      />
-    </div>
+    <kiosk-header />
 
     <div
       class="h-50 d-flex flex-column align-items-center justify-content-around"
     >
       <!-- PAGE TITLE -->
-      <div
-        class="w-75 bg-primary rounded text-light shadow"
-        style="font-size: 5vh"
-      >
-        출석체크
-      </div>
+      <div class="title w-75 text-light shadow">출석체크</div>
 
       <!-- INFO -->
       <info-view />
@@ -44,19 +26,12 @@
           minlength="5"
           ref="num"
           @focus="focusChange"
-          class="w-50 rounded bg-light"
+          class="w-50 round shadow-sm"
           style="padding: 1vh; margin-right: 2vh; font-size: 3vh"
         />
 
         <!-- SUBMIT -->
-        <button
-          type="button"
-          class="btn btn-primary shadow"
-          style="font-size: 3vh"
-          @click="submit"
-        >
-          확인
-        </button>
+        <div class="orange-btn shadow" @click="submit">확인</div>
       </div>
     </div>
 
@@ -66,15 +41,17 @@
 </template>
 
 <script>
-import InfoView from "@/components/InfoView.vue"
-import TheKeypad from "@/components/TheKeypad.vue"
-import ModalView from "@/components/ModalView.vue"
+import KioskHeader from '@/components/KioskHeader.vue'
+import InfoView from '@/components/InfoView.vue'
+import TheKeypad from '@/components/TheKeypad.vue'
+import ModalView from '@/components/ModalView.vue'
 
-import axios from "axios"
+import axios from 'axios'
 
 export default {
-  name: "AttendView",
+  name: 'AttendView',
   components: {
+    KioskHeader,
     InfoView,
     ModalView,
     TheKeypad,
@@ -103,7 +80,7 @@ export default {
         !regInt.test(this.$refs.num.value) ||
         this.$refs.num.value.length != 5
       ) {
-        alert("학년 반 번호를 정확히 입력해주세요")
+        alert('학년 반 번호를 정확히 입력해주세요')
 
         this.$refs.num.value = null
         this.$refs.num.focus()
@@ -111,7 +88,7 @@ export default {
         return
       }
       axios({
-        method: "get",
+        method: 'get',
         url: `${this.axios_URL}/students/${this.$refs.num.value}/attendance/`,
         data: {
           num: this.$refs.num.value,
@@ -120,11 +97,11 @@ export default {
         .then((res) => {
           this.student = res.data
           this.showModal = true
-          this.$refs.num.value = ""
+          this.$refs.num.value = ''
         })
 
         .catch(() => {
-          alert("없는 학생입니다.")
+          alert('없는 학생입니다.')
           this.$refs.num.value = null
           this.$refs.num.focus()
         })

@@ -42,19 +42,25 @@ export default {
 
 <style scoped>
 .keypad {
-  background-color: #d9d9d9;
   font-size: 3vh;
   font-weight: bold;
-  border: 0.1vh solid white;
 }
 .row {
-  margin: auto;
-  width: 100%;
+  margin: 1vh auto;
+  width: 75%;
   height: 100%;
 }
 .col {
-  margin: auto;
-  border: 0.1vh solid white;
-  padding: 2vh;
+  font-size: 3vh;
+  margin: 0 1vh;
+  border-radius: 4vh;
+  border: 0.3vh solid #ff9900;
+  color: #ff9900;
+  padding: 1vh;
+}
+
+.col:active {
+  background-color: #ff9900;
+  color: white;
 }
 </style>

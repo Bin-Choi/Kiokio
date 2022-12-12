@@ -1,16 +1,12 @@
 <template>
   <div class="modal-bg">
-    <div class="modal-content rounded shadow m-auto" style="padding: 2vh">
-      <div
-        id="title"
-        class="w-75 bg-primary rounded text-light shadow m-auto"
-        style="font-size: 5vh"
-      ></div>
+    <div class="modal-content shadow m-auto">
+      <div id="title" class="title w-75 shadow m-auto"></div>
 
       <!-- ATTEND CONTENT -->
       <span
         v-if="$route.name === 'attend'"
-        class="w-75 h-75 m-auto bg-light rounded shadow d-flex flex-column align-items-center justify-content-evenly"
+        class="w-75 h-75 m-auto bg-white round shadow d-flex flex-column align-items-center justify-content-evenly"
       >
         <div style="font-size: 2.5vh">
           <div>
@@ -24,15 +20,9 @@
           </div>
         </div>
 
-        <div class="d-flex flex-column">
-          <button type="button" class="btn btn-success shadow" @click="attend">
-            출석하기
-          </button>
-          <button
-            type="button"
-            class="btn btn-danger shadow"
-            @click="$emit('close-modal')"
-          >
+        <div class="w-50 d-flex flex-column">
+          <button class="btn btn-success shadow" @click="attend">출석</button>
+          <button class="btn btn-danger shadow" @click="$emit('close-modal')">
             취소
           </button>
         </div>
@@ -41,16 +31,12 @@
       <!-- GYM CONTENT -->
       <span
         v-if="$route.name === 'gym'"
-        class="w-75 h-75 bg-light m-auto rounded d-flex flex-column align-items-center justify-content-between shadow"
+        class="w-75 h-75 bg-white m-auto round d-flex flex-column align-items-center justify-content-between shadow"
         style="padding: 2vh"
       >
         <img src="#" alt="IMG" />
         <div>description</div>
-        <button
-          type="button"
-          class="btn btn-primary shadow"
-          @click="$emit('close-modal')"
-        >
+        <button class="orange-btn shadow-sm" @click="$emit('close-modal')">
           확인
         </button>
       </span>
@@ -109,10 +95,12 @@ export default {
 .modal-content {
   width: 80%;
   height: 60%;
-  background-color: #e7f1ff;
+  background-color: #ffe8d2;
+  padding: 2vh;
 }
 
 button {
+  border-radius: 2vh;
   margin: 1vh;
   font-size: 3vh;
 }

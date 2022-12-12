@@ -9,7 +9,7 @@
     >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="$router.go(-1)"
+        @click="$router.push({ name: 'inbodyHistory' })"
       />
       <font-awesome-icon
         icon="fa-solid fa-house"
@@ -18,16 +18,11 @@
     </div>
 
     <!-- PAGE TITLE -->
-    <div
-      class="w-75 bg-primary rounded text-light shadow"
-      style="font-size: 5vh"
-    >
-      비밀번호 변경
-    </div>
+    <div class="w-75 title shadow">비밀번호 변경</div>
 
     <!-- CONTENT -->
     <div
-      class="w-75 rounded shadow bg-light d-flex flex-column align-items-center jusity-content-between"
+      class="w-75 round shadow bg-white d-flex flex-column align-items-center jusity-content-between"
       style="padding: 2.5vh 0; font-size: 2.5vh"
     >
       <div>
@@ -38,7 +33,7 @@
           minlength="4"
           ref="password"
           @focus="focusChange"
-          class="rounded shadow-sm"
+          class="shadow-sm"
         />
       </div>
 
@@ -50,7 +45,7 @@
           minlength="4"
           ref="newPassword"
           @focus="focusChange"
-          class="rounded shadow-sm"
+          class="shadow-sm"
         />
       </div>
 
@@ -62,13 +57,12 @@
           minlength="4"
           ref="confirmPassword"
           @focus="focusChange"
-          class="rounded shadow-sm"
+          class="shadow-sm"
         />
       </div>
       <button
-        type="button"
-        class="w-25 btn btn-primary shadow"
-        style="font-size: 3vh; margin-top: 1vh"
+        class="w-25 orange-btn shadow"
+        style="margin-top: 1vh"
         @click="submit"
       >
         확인
@@ -81,13 +75,13 @@
 </template>
 
 <script>
-import TheKeypad from "../components/TheKeypad.vue"
+import TheKeypad from '../components/TheKeypad.vue'
 
-import axios from "axios"
+import axios from 'axios'
 
 export default {
   components: { TheKeypad },
-  name: "PasswordUpdateView",
+  name: 'PasswordUpdateView',
   computed: {
     axios_URL() {
       return this.$store.state.axios_URL
@@ -118,7 +112,7 @@ export default {
         !regInt.test(this.$refs.password.value) ||
         this.$refs.password.value.length != 4
       ) {
-        alert("비밀번호를 정확히 입력해주세요.")
+        alert('비밀번호를 정확히 입력해주세요.')
         this.$refs.password.value = null
         this.$refs.password.focus()
         return
@@ -128,21 +122,21 @@ export default {
         !regInt.test(this.$refs.newPassword.value) ||
         this.$refs.newPassword.value.length != 4
       ) {
-        alert("비밀번호는 숫자 네자리로 설정해주세요.")
+        alert('비밀번호는 숫자 네자리로 설정해주세요.')
         this.$refs.newPassword.value = null
         this.$refs.newPassword.focus()
         return
       }
 
       if (this.$refs.newPassword.value != this.$refs.confirmPassword.value) {
-        alert("새 비밀번호가 일치하지 않습니다.")
+        alert('새 비밀번호가 일치하지 않습니다.')
         this.$refs.confirmPassword.value = null
         this.$refs.confirmPassword.focus()
         return
       }
 
       axios({
-        method: "put",
+        method: 'put',
         url: `${this.axios_URL}/students/${this.student.id}/inbody/password/`,
         data: {
           password: this.student.password,
@@ -151,9 +145,9 @@ export default {
         },
       })
         .then((res) => {
-          alert("비밀번호가 변경되었습니다.")
-          this.$store.commit("SAVE_ID_PASSWORD", res.data)
-          this.$router.push({ name: "inbodyHistory" })
+          alert('비밀번호가 변경되었습니다.')
+          this.$store.commit('SAVE_ID_PASSWORD', res.data)
+          this.$router.push({ name: 'inbodyHistory' })
         })
 
         .catch((err) => {
@@ -161,10 +155,10 @@ export default {
             response: { status },
           } = err
           if (status === 400) {
-            alert("기존 비밀번호가 틀렸습니다.")
+            alert('기존 비밀번호가 틀렸습니다.')
           } else if (status === 401) {
-            alert("다시 로그인해주세요")
-            this.$router.push({ name: "inbody" })
+            alert('다시 로그인해주세요')
+            this.$router.push({ name: 'inbody' })
           }
         })
     },
@@ -177,7 +171,9 @@ export default {
 
 <style scoped>
 input {
-  background-color: #2b64aa1e;
+  border-radius: 1vh;
+  border: 0.2vh solid #ffa946;
+  background-color: #ffe8d299;
   width: 60%;
   padding: 0.7vh;
   margin-bottom: 1vh;

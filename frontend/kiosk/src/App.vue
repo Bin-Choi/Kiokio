@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import LoginModal from "@/components/LoginModal.vue"
-import ChangePasswordModal from "@/components/ChangePasswordModal.vue"
-import ChangeEmailModal from "@/components/ChangeEmailModal.vue"
+import LoginModal from '@/components/LoginModal.vue'
+import ChangePasswordModal from '@/components/ChangePasswordModal.vue'
+import ChangeEmailModal from '@/components/ChangeEmailModal.vue'
 
 export default {
-  name: "AppView",
+  name: 'AppView',
   components: {
     LoginModal,
     ChangePasswordModal,
@@ -52,8 +52,49 @@ export default {
   height: 100vh;
   text-align: center;
 
-  background-color: #ac863f2c;
-  font-family: "standard";
+  background-color: #ffe8d299;
+  font-family: 'standard';
   font-size: 2vh;
+}
+
+.title {
+  font-size: 5vh;
+  background-color: #ffa946;
+  border-radius: 2.5vh;
+  color: white;
+}
+
+.orange-btn {
+  background-color: #ffa946;
+  padding: 0.5vh 1vh;
+  font-size: 3vh;
+  color: white;
+  border-radius: 1.5vh;
+  border: none;
+}
+
+.round {
+  border-radius: 2vh;
+}
+
+#scroll-box {
+  height: 60vh;
+  overflow: auto;
+}
+
+#scroll-box::-webkit-scrollbar {
+  width: 1vh;
+}
+#scroll-box::-webkit-scrollbar-thumb {
+  background-color: #ffa946;
+  border-radius: 0.5vh;
+}
+#scroll-box::-webkit-scrollbar-track {
+  border-radius: 0.5vh;
+  border: 0.2vh solid #ffa94648;
+}
+
+#scroll-box::-webkit-scrollbar-corner {
+  display: none;
 }
 </style>
