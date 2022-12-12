@@ -12,6 +12,7 @@ from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model, authenticate
+from .serializers import UserEmailSerializer, UserPasswordSerializer
 from django.conf import settings
 
 import jwt
@@ -43,7 +44,7 @@ def login(request):
             # access_token 반환
         # access_token, refresh_token 반환
         data = {
-            'user_id': user.pk,
+            'user': { 'id': user.id, 'email': user.email },
             'access': access_token,
             'refresh': refresh_token
         }
@@ -65,14 +66,14 @@ def refresh(request):
                 jwt.decode(refresh, settings.SIMPLE_JWT['SIGNING_KEY'], settings.SIMPLE_JWT['ALGORITHM'],)
             # 만료했을 경우, 401에러 반환
             except jwt.ExpiredSignatureError:
-                return Response(status=status.HTTP_401_UNAUTHORIZED)
+                return Response(status=status.HTTP_403_FORBIDDEN)
             access = AccessToken.for_user(user)
             data = {
                 'access': str(access)
             }
             return Response(data, status=status.HTTP_202_ACCEPTED)
         else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_403_FORBIDDEN)
     
 
 @api_view(['POST'])
@@ -80,7 +81,6 @@ def refresh(request):
 def logout(request):
     User = get_user_model()
     user = get_object_or_404(User, pk=request.user.pk)
-    print(user)
 
     if request.method == 'POST':
         # 사용자 DB에 refresh_token 삭제
@@ -89,3 +89,30 @@ def logout(request):
         return Response(status=status.HTTP_200_OK)
 
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def change_email(request):
+    User = get_user_model()
+    user = get_object_or_404(User, pk=request.user.pk)
+
+    if request.method == 'PUT':
+        serializer = UserEmailSerializer(user, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def change_password(request):
+    User = get_user_model()
+    user = get_object_or_404(User, pk=request.user.pk)
+
+    if request.method == 'PUT':
+        password1 =request.data['password1']
+        password2 =request.data['password2']
+        if password1 != password2:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        serializer = UserPasswordSerializer(user, data={'password': password1})
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(status=status.HTTP_200_OK)

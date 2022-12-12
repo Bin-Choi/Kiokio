@@ -67,7 +67,7 @@ import AdminInbodyStudentTableRow from '@/components/AdminInbodyStudentTableRow.
 import AdminInbodyStudentReadItem from '@/components/AdminInbodyStudentReadItem.vue'
 import AdminInbodyStudentUpdateItem from '@/components/AdminInbodyStudentUpdateItem.vue'
 
-import axios from 'axios'
+import axiosAuth from '@/axios/axios'
 
 export default {
   name: 'AdminInbodyStudent',
@@ -227,7 +227,7 @@ export default {
           return
         }
       }
-      axios({
+      axiosAuth({
         method: 'post',
         url: `${this.axios_URL}/students/inbody/update/admin/`,
         headers: {

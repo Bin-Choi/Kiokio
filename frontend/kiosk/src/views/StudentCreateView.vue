@@ -43,7 +43,7 @@ import StudentCreateHeader from '@/components/StudentCreateHeader.vue'
 import StudentTableColumn from '@/components/StudentTableColumn.vue'
 import StudentCreateItem from '@/components/StudentCreateItem.vue'
 
-import axios from 'axios'
+import axiosAuth from '@/axios/axios'
 
 export default {
   name: 'StudentCreateView',
@@ -168,7 +168,7 @@ export default {
           return
         }
       }
-      axios({
+      axiosAuth({
         method: 'post',
         url: `${this.axios_URL}/students/`,
         headers: {

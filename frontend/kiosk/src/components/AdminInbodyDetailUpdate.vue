@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axiosAuth from '@/axios/axios'
 
 export default {
   name: 'AdminInbodyDetailUpdate',
@@ -165,7 +165,7 @@ export default {
   },
   methods: {
     updateInbody() {
-      axios({
+      axiosAuth({
         method: 'put',
         url: `${this.axios_URL}/students/inbody/${this.inbodyCopy.id}/admin/`,
         headers: {
