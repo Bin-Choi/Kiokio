@@ -8,6 +8,7 @@ urlpatterns = [
     path('<str:student_pk>/inbody/create/', views.inbody_create),
     path('<str:student_pk>/inbody/list/', views.inbody_list),
     path('<str:student_pk>/inbody/<int:inbody_pk>/', views.inbody_detail),
+    path('<str:student_pk>/inbody/password/', views.password_update),
 
     # 학생관리
     path('', views.students),
