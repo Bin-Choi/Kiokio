@@ -96,7 +96,35 @@ def inbody_list(request, student_pk):
         data = serializer.data
         return Response(data)
     return Response(status=status.HTTP_401_UNAUTHRIZED)
+
+
+@api_view(['PUT'])
+def password_update(request, student_pk):
+    student = Student.objects.get(pk=student_pk)
+    pw = request.data['password']
+    fernet = Fernet(student.key)
+    password = fernet.decrypt(pw).decode('utf-8')   
+    new_pw = request.data['newPassword']
+    check_pw = request.data['currentPassword']
     
+    if password == student.password:
+        
+        # 기존 비밀번호가 틀렸을 때
+        if check_pw != student.password:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+        # 비밀번호 변경
+        else:
+            student.password = new_pw
+            student.save()
+            password = fernet.encrypt(bytes(student.password,'utf-8'))
+            data = {
+                'id' : student.pk,
+                'password' : password,
+            }
+            return Response(data, status=status.HTTP_202_ACCEPTED)
+        
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['POST', 'PUT', 'DELETE'])
 
