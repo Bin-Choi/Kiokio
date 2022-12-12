@@ -156,8 +156,16 @@ export default {
           this.$router.push({ name: "inbodyHistory" })
         })
 
-        .catch(() => {
-          alert("기존 비밀번호가 틀렸습니다.")
+        .catch((err) => {
+          const {
+            response: { status },
+          } = err
+          if (status === 400) {
+            alert("기존 비밀번호가 틀렸습니다.")
+          } else if (status === 401) {
+            alert("다시 로그인해주세요")
+            this.$router.push({ name: "inbody" })
+          }
         })
     },
   },

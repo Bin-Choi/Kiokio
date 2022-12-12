@@ -66,14 +66,14 @@
 </template>
 
 <script>
-import InfoView from '@/components/InfoView.vue'
-import TheKeypad from '@/components/TheKeypad.vue'
-import ModalView from '@/components/ModalView.vue'
+import InfoView from "@/components/InfoView.vue"
+import TheKeypad from "@/components/TheKeypad.vue"
+import ModalView from "@/components/ModalView.vue"
 
-import axios from 'axios'
+import axios from "axios"
 
 export default {
-  name: 'AttendView',
+  name: "AttendView",
   components: {
     InfoView,
     ModalView,
@@ -103,7 +103,7 @@ export default {
         !regInt.test(this.$refs.num.value) ||
         this.$refs.num.value.length != 5
       ) {
-        alert('학년 반 번호를 정확히 입력해주세요')
+        alert("학년 반 번호를 정확히 입력해주세요")
 
         this.$refs.num.value = null
         this.$refs.num.focus()
@@ -111,7 +111,7 @@ export default {
         return
       }
       axios({
-        method: 'get',
+        method: "get",
         url: `${this.axios_URL}/students/${this.$refs.num.value}/attendance/`,
         data: {
           num: this.$refs.num.value,
@@ -120,11 +120,11 @@ export default {
         .then((res) => {
           this.student = res.data
           this.showModal = true
-          this.$refs.num.value = ''
+          this.$refs.num.value = ""
         })
 
         .catch(() => {
-          alert('없는 번호입니다.')
+          alert("없는 학생입니다.")
           this.$refs.num.value = null
           this.$refs.num.focus()
         })

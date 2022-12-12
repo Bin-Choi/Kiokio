@@ -1,10 +1,10 @@
-import Vue from "vue"
-import Vuex from "vuex"
-import axios from "axios"
-import createPersistedState from "vuex-persistedstate"
-import router from "@/router"
-import jwt_decode from "jwt-decode"
-import axiosAuth from "@/axios/axios"
+import Vue from 'vue'
+import Vuex from 'vuex'
+import axios from 'axios'
+import createPersistedState from 'vuex-persistedstate'
+import router from '@/router'
+import jwt_decode from 'jwt-decode'
+import axiosAuth from '@/axios/axios'
 
 // import SecureLS from 'secure-ls'
 // const ls = new SecureLS({ isCompression: false })
@@ -22,7 +22,7 @@ export default new Vuex.Store({
       // BlckList
       reducer: (persistedState) => {
         const stateFilter = Object.assign({}, persistedState)
-        const blackList = ["inbodyStudents", "student", "inbody"]
+        const blackList = ['axios_URL', 'showLoginModal', 'inbodyStudents']
         blackList.forEach((item) => {
           delete stateFilter[item]
         })
@@ -31,12 +31,14 @@ export default new Vuex.Store({
     }),
   ],
   state: {
-    axios_URL: "http://127.0.0.1:8000",
-    userId: null,
+    axios_URL: 'http://127.0.0.1:8000',
+    user: null,
     access: null,
     refresh: null,
-    passwordToken: null,
 
+    showLoginModal: false,
+    showChangePasswordModal: false,
+    showChangeEmailModal: false,
     inbodyStudents: null,
     student: null,
     inbody: null,
@@ -59,11 +61,11 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    STUDENT_INFO(state, payload) {
-      state.student = payload
+    STUDENT_INFO(state, student) {
+      state.student = student
     },
-    INBODY_INFO(state, payload) {
-      state.inbody = payload
+    INBODY_INFO(state, inbody) {
+      state.inbody = inbody
     },
     SAVE_ACCESS_TOKEN(state, access) {
       state.access = access
@@ -71,8 +73,11 @@ export default new Vuex.Store({
     SAVE_REFRESH_TOKEN(state, refresh) {
       state.refresh = refresh
     },
-    SAVE_USER_ID(state, userId) {
-      state.userId = userId
+    SAVE_USER(state, user) {
+      state.user = user
+    },
+    SAVE_USER_EMAIL(state, email) {
+      state.user.email = email
     },
     DELETE_TOKENS(state) {
       state.access = null
@@ -98,11 +103,20 @@ export default new Vuex.Store({
       const { studentIndex, inbodyIndex } = payload
       state.inbodyStudents[studentIndex].inbody_set.splice(inbodyIndex, 1)
     },
+    TOGGLE_SHOW_LOGIN_MODAL(state, boolean) {
+      state.showLoginModal = boolean
+    },
+    TOGGLE_SHOW_CHANGE_PASSWORD_MODAL(state, boolean) {
+      state.showChangePasswordModal = boolean
+    },
+    TOGGLE_SHOW_CHANGE_EMAIL_MODAL(state, boolean) {
+      state.showChangeEmailModal = boolean
+    },
   },
   actions: {
     logout(context) {
       axiosAuth({
-        method: "post",
+        method: 'post',
         url: `${context.state.axios_URL}/accounts/logout/`,
         headers: {
           Authorization: `Bearer ${context.state.access}`,
@@ -110,16 +124,19 @@ export default new Vuex.Store({
       })
         .then((res) => {
           console.log(res)
-          context.commit("DELETE_TOKENS")
-          router.push({ name: "login" })
+          context.commit('DELETE_TOKENS')
+          router.push({ name: 'login' })
         })
         .catch((err) => {
+          // refresh 토큰이 만료되었을 경우, 그냥 클라이언트 토큰만 삭제해버림
           console.error(err)
+          context.commit('DELETE_TOKENS')
+          router.push({ name: 'login' })
         })
     },
     refresh(context) {
       axios({
-        method: "post",
+        method: 'post',
         url: `${context.state.axios_URL}/accounts/refresh/`,
         data: {
           user_id: context.state.userId,
@@ -129,7 +146,7 @@ export default new Vuex.Store({
         .then((res) => {
           console.log(res)
           const access = res.data.access
-          context.commit("SAVE_ACCESS_TOKEN", access)
+          context.commit('SAVE_ACCESS_TOKEN', access)
         })
         .catch((err) => {
           console.error(err)

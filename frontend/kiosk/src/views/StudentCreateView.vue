@@ -38,15 +38,15 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
-import StudentCreateHeader from '@/components/StudentCreateHeader.vue'
-import StudentTableColumn from '@/components/StudentTableColumn.vue'
-import StudentCreateItem from '@/components/StudentCreateItem.vue'
+import AdminHeader from "@/components/AdminHeader.vue"
+import StudentCreateHeader from "@/components/StudentCreateHeader.vue"
+import StudentTableColumn from "@/components/StudentTableColumn.vue"
+import StudentCreateItem from "@/components/StudentCreateItem.vue"
 
-import axios from 'axios'
+import axiosAuth from "@/axios/axios"
 
 export default {
-  name: 'StudentCreateView',
+  name: "StudentCreateView",
   components: {
     AdminHeader,
     StudentCreateHeader,
@@ -62,7 +62,7 @@ export default {
           room: null,
           number: null,
           gender: null,
-          password: '0000',
+          password: "0000",
         },
       ],
       readyDelete: false,
@@ -87,7 +87,7 @@ export default {
         room: null,
         number: null,
         gender: null,
-        password: '0000',
+        password: "0000",
       })
     },
     // Delete Rows
@@ -119,9 +119,12 @@ export default {
     },
     // Insert & Create
     changeData(value, index, key) {
-      this.students[index][key] = value
+      this.students[index][key] = value.trim()
     },
     createStudent() {
+      // 유효성 검사를 통과한 학생 리스트
+      let studentsList = []
+
       //유효성 검사
       this.invalid = null
       const students = this.students
@@ -130,61 +133,78 @@ export default {
         const regName = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/
         if (!regName.test(students[i].name)) {
           this.invalid = i
-          alert('이름은 한글 2글자 이상 입력하세요')
+          alert("이름은 한글 2글자 이상 입력하세요")
           return
         }
         //학년 검사
         const regGrade = /^[1-9]$/
         if (!regGrade.test(students[i].grade)) {
           this.invalid = i
-          alert('학년은 1~9사이의 숫자로 입력하세요')
+          alert("학년은 1~9사이의 숫자로 입력하세요")
           return
         }
         //반 검사
         const regRoom = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
         if (!regRoom.test(students[i].room)) {
           this.invalid = i
-          alert('반은 1~99사이의 숫자로 입력하세요')
+          alert("반은 1~99사이의 숫자로 입력하세요")
           return
         }
         //번호 검사
         const regNumber = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
         if (!regNumber.test(students[i].number)) {
           this.invalid = i
-          alert('번호는 1~99사이의 숫자로 입력하세요')
+          alert("번호는 1~99사이의 숫자로 입력하세요")
           return
         }
         //성별 검사
-        if (!(students[i].gender === '남성' || students[i].gender === '여성')) {
+        if (!(students[i].gender === "남성" || students[i].gender === "여성")) {
           this.invalid = i
-          alert('성별을 선택하세요')
+          alert("성별을 선택하세요")
           return
         }
         //비밀번호 검사
         const regPassword = /^[0-9]{4}$/
         if (!regPassword.test(students[i].password)) {
           this.invalid = i
-          alert('비밀번호는 4자리 숫자로 입력하세요')
+          alert("비밀번호는 4자리 숫자로 입력하세요")
           return
         }
+
+        // 학번 중복인 학생 필터링
+        if (studentsList) {
+          for (let j = 0; j < studentsList.length; j++) {
+            if (
+              studentsList[j].grade === students[i].grade &&
+              studentsList[j].room === students[i].room &&
+              studentsList[j].number === students[i].number
+            ) {
+              alert(
+                `${students[i].grade}학년 ${students[i].room}반 ${students[i].number}번 학생이 중복으로 존재합니다.`
+              )
+              return
+            }
+          }
+        }
+        studentsList.push(students[i])
       }
-      axios({
-        method: 'post',
+      axiosAuth({
+        method: "post",
         url: `${this.axios_URL}/students/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
         },
         data: this.students,
       })
-        .then((res) => {
-          console.log(res)
+        .then(() => {
+          alert("성공적으로 저장됐습니다.")
           this.students = [
             { name: null, grade: null, room: null, number: null, gender: null },
           ]
-          this.$router.push({ name: 'student' })
+          this.$router.push({ name: "student" })
         })
-        .catch((err) => {
-          console.error(err)
+        .catch(() => {
+          alert("학번이 중복된 학생 데이터가 존재합니다.")
         })
     },
   },

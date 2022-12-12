@@ -55,7 +55,7 @@ import AdminInbodyHeader from '@/components/AdminInbodyHeader.vue'
 import AdminInbodyItem from '@/components/AdminInbodyItem.vue'
 import AdminInbodyStudent from '@/components/AdminInbodyStudent.vue'
 import AdminInbodyDetail from '@/components/AdminInbodyDetail.vue'
-import axios from 'axios'
+import axiosAuth from '@/axios/axios'
 
 export default {
   name: 'AdminInbodyView',
@@ -97,7 +97,7 @@ export default {
       this.searchStudent(url)
     },
     searchStudent(url) {
-      axios({
+      axiosAuth({
         method: 'get',
         url: url,
         headers: {
