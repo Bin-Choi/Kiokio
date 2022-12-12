@@ -26,24 +26,15 @@
       >
         인바디관리
       </div>
-      <div>
-        <button
-          type="button"
-          class="btn btn-primary shadow-sm"
-          style="margin-top: 1vh"
-          @click="$store.dispatch('refresh')">
-          리프레쉬
-        </button>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
+import AdminHeader from "@/components/AdminHeader.vue"
 
 export default {
-  name: 'AdminView',
+  name: "AdminView",
   components: {
     AdminHeader,
   },
@@ -72,7 +63,7 @@ export default {
   line-height: 6vh;
   border-radius: 5vh;
 
-  font-family: 'bold';
+  font-family: "bold";
   font-size: 4vh;
 }
 
