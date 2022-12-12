@@ -1,5 +1,5 @@
 <template>
-  <div id="index" style="padding: 7vh">
+  <div style="padding: 7vh">
     <!-- Admin -->
     <div
       class="w-100 d-flex flex-column align-items-end justify-content-center"
@@ -17,30 +17,18 @@
       </div>
 
       <!-- Buttons -->
-      <div class="d-flex flex-column">
-        <button
-          type="button"
-          class="btn btn-primary btn-block shadow"
-          @click="$router.push({ name: 'attend' })"
-        >
+      <div class="d-flex flex-column align-items-center">
+        <div class="button shadow" @click="$router.push({ name: 'attend' })">
           출석체크
-        </button>
+        </div>
 
-        <button
-          type="button"
-          class="btn btn-primary btn-block shadow"
-          @click="$router.push({ name: 'inbody' })"
-        >
+        <div class="button shadow" @click="$router.push({ name: 'inbody' })">
           인바디
-        </button>
+        </div>
 
-        <button
-          type="button"
-          class="btn btn-primary btn-block shadow"
-          @click="$router.push({ name: 'gym' })"
-        >
+        <div class="button shadow" @click="$router.push({ name: 'gym' })">
           운동기구
-        </button>
+        </div>
       </div>
     </div>
   </div>
@@ -53,9 +41,15 @@ export default {
 </script>
 
 <style scoped>
-#index button {
-  padding: 1.5vh;
+.button {
+  width: 60%;
+  padding: 2vh;
   margin: 3.5vh 0;
   font-size: 5vh;
+  font-family: 'bold';
+  color: white;
+  background-color: #ffa946;
+  border-radius: 5vh;
+  /* border: 0.5vh double #f6f6f6; */
 }
 </style>

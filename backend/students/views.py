@@ -147,6 +147,9 @@ def students(request):
 
     if request.method == 'POST':
         serializer = StudentSerializer(many=True, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
         
     if request.method == 'PUT':
         # 수정리스트에 있는 학생들 조회

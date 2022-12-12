@@ -28,7 +28,10 @@
           max-width: 500px;
           width: 60%;
           height: 60%;
+          feature/password_update
+          padding: 2vh;
         ">
+
         <div class="w-75 d-flex justify-content-between">
           <div>아이디</div>
           <input
