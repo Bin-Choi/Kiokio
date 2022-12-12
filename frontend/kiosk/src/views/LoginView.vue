@@ -1,7 +1,8 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="padding: 7vh; height: 100vh; width: 100vw">
+    style="padding: 7vh; height: 100vh; width: 100vw"
+  >
     <div class="d-flex justify-content-between">
       <div @click="toResetPassword" style="cursor: pointer">
         <font-awesome-icon icon="fa-solid fa-lock" style="font-size: 3vh" />
@@ -15,7 +16,8 @@
 
     <div
       class="d-flex flex-column align-items-center justify-content-around"
-      style="width: 75vw; height: 50vh; margin-top: 10vh">
+      style="width: 75vw; height: 50vh; margin-top: 10vh"
+    >
       <div style="font-size: 3.7vh; padding: 1vh 2vh">
         00초등학교 키오스크 관리자 페이지
       </div>
@@ -33,8 +35,8 @@
           height: 60%;
           feature/password_update
           padding: 2vh;
-        ">
-
+        "
+      >
         <div class="w-75 d-flex justify-content-between">
           <div>아이디</div>
           <input
@@ -42,7 +44,8 @@
             class="rounded bg-white shadow-sm"
             ref="username"
             v-model="username"
-            @keyup.enter="$refs.password.focus()" />
+            @keyup.enter="$refs.password.focus()"
+          />
         </div>
 
         <div class="w-75 d-flex justify-content-between">
@@ -52,7 +55,8 @@
             class="rounded bg-white shadow-sm"
             ref="password"
             v-model="password"
-            @keyup.enter="login" />
+            @keyup.enter="login"
+          />
         </div>
 
         <div>
@@ -60,7 +64,8 @@
             type="button"
             class="btn btn-primary shadow-sm"
             style="margin-top: 1vh"
-            @click="login">
+            @click="login"
+          >
             로그인
           </button>
         </div>
@@ -70,10 +75,10 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios"
 
 export default {
-  name: 'LoginView',
+  name: "LoginView",
   data() {
     return {
       username: null,
@@ -91,7 +96,7 @@ export default {
   methods: {
     login() {
       axios({
-        method: 'post',
+        method: "post",
         url: `${this.axios_URL}/accounts/login/`,
         data: {
           username: this.username,
@@ -107,13 +112,21 @@ export default {
           const access = res.data.access
           const refresh = res.data.refresh
           const user = res.data.user
-          this.$store.commit('SAVE_USER', user)
-          this.$store.commit('SAVE_ACCESS_TOKEN', access)
-          this.$store.commit('SAVE_REFRESH_TOKEN', refresh)
-          this.$router.push({ name: 'admin' })
+          this.$store.commit("SAVE_USER", user)
+          this.$store.commit("SAVE_ACCESS_TOKEN", access)
+          this.$store.commit("SAVE_REFRESH_TOKEN", refresh)
+          this.$router.push({ name: "admin" })
         })
         .catch((err) => {
-          console.error(err)
+          console.log(err)
+          const {
+            response: { status },
+          } = err
+          if (status === 404) {
+            alert("해당 아이디 정보가 없습니다")
+          } else if (status === 400) {
+            alert("비밀번호를 다시 입력해주세요")
+          }
           this.password = null
         })
     },

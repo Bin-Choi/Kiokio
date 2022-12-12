@@ -107,6 +107,7 @@ def password_update(request, student_pk):
     new_pw = request.data['newPassword']
     check_pw = request.data['currentPassword']
     
+    # 인증 여부
     if password == student.password:
         
         # 기존 비밀번호가 틀렸을 때
@@ -153,6 +154,8 @@ def inbody_detail(request,inbody_pk,student_pk):
         elif request.method == 'DELETE':
             inbody.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
+        
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['POST'])
@@ -164,25 +167,35 @@ def inbody_create(request, student_pk):
     
     if password == student.password: 
         serializer = InbodySerializer(data=request.data['inbody'])
+        
         if serializer.is_valid(raise_exception=True):
             serializer.save(student=student_pk)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-            
+    
+    return Response(status=status.HTTP_401_UNAUTHORIZED)       
             
 @api_view(['POST', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def students(request):
 
+    # 추가
     if request.method == 'POST':
-        serializer = StudentSerializer(many=True, data=request.data)
-        if serializer.is_valid(raise_exception=True):
+        # # serialzier 유효성 검사
+        add_list = request.data
+        serializers = []
+        for i in range(len(students)):
+            serializer = StudentSerializer(data=add_list[i])
+            if serializer.is_valid(raise_exception=True):
+                serializers.append(serializer)
+        # 저장
+        for serializer in serializers:
             serializer.save()
         return Response(status=status.HTTP_201_CREATED)
-        
+
+    # 수정
     if request.method == 'PUT':
-        # 수정리스트에 있는 학생들 조회
+        # 수정리스트에 있는 학생들이 실제 있는지 검사
         update_list = request.data
-        print(request.data)
         students = []
         for stu in update_list:
             student = get_object_or_404(Student, pk=stu['id'])

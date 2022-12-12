@@ -205,11 +205,11 @@ export default {
         return
       }
 
-      if (!regFloat.test(this.$refs.height.value)) {
-        alert("키는 소수점 첫째자리까지 입력가능합니다.")
-        this.$refs.height.focus()
-        return
-      }
+      // if (!regFloat.test(this.$refs.height.value)) {
+      //   alert("키는 소수점 첫째자리까지 입력가능합니다.")
+      //   this.$refs.height.focus()
+      //   return
+      // }
 
       if (!regInt.test(this.$refs.age.value) || !this.$refs.age.value) {
         alert("나이를 정확히 입력해주세요.")
@@ -299,6 +299,15 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          const {
+            response: { status },
+          } = err
+          if (status === 400) {
+            alert(`${err.request.responseText}`)
+          } else if (status === 401) {
+            alert("다시 로그인해주세요")
+            this.$router.push({ name: "inbody" })
+          }
         })
     },
   },

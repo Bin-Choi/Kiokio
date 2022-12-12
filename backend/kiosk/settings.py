@@ -84,7 +84,7 @@ REST_FRAMEWORK = {
 
 # simplejwt config
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=6),
     'REFRESH_TOKEN_LIFETIME': timedelta(hours=18),
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,

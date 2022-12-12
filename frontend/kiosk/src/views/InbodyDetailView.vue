@@ -94,6 +94,13 @@ export default {
           })
           .catch((err) => {
             console.log(err)
+            const {
+              response: { status },
+            } = err
+            if (status === 401) {
+              alert("다시 로그인해주세요")
+              this.$router.push({ name: "inbody" })
+            }
           })
       }
     },

@@ -76,14 +76,14 @@
 </template>
 
 <script>
-import InfoView from '@/components/InfoView.vue'
-import TheKeypad from '@/components/TheKeypad.vue'
-import ModalPwView from '../components/ModalPwView.vue'
+import InfoView from "@/components/InfoView.vue"
+import TheKeypad from "@/components/TheKeypad.vue"
+import ModalPwView from "../components/ModalPwView.vue"
 
-import axios from 'axios'
+import axios from "axios"
 
 export default {
-  name: 'InbodyView',
+  name: "InbodyView",
   components: {
     InfoView,
     TheKeypad,
@@ -111,23 +111,23 @@ export default {
         !regInt.test(this.$refs.num.value) ||
         this.$refs.num.value.length != 5
       ) {
-        alert('학년 반 번호를 정확히 입력해주세요')
+        alert("학년 반 번호를 정확히 입력해주세요")
         this.$refs.num.value = null
         this.$refs.num.focus()
         return
       }
 
       axios({
-        method: 'get',
+        method: "get",
         url: `${this.axios_URL}/students/${this.$refs.num.value}/inbody/`,
       })
         .then((res) => {
-          this.$store.commit('STUDENT_INFO', res.data)
+          this.$store.commit("STUDENT_INFO", res.data)
           this.showModal = true
         })
 
         .catch(() => {
-          alert('없는 번호입니다.')
+          alert("없는 학생입니다.")
           this.$refs.num.value = null
           this.$refs.num.focus()
         })

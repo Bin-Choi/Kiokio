@@ -5,26 +5,40 @@
         <!-- email 기입 modal -->
         <div v-if="!user.email" class="modal-container">
           <div class="modal-header">
-            <slot name="header"
-              >이메일을 먼저 설정해주세요. (비밀번호를 잃어버렸을 경우, 해당
-              이메일로 재설정할 수 있습니다.)</slot
-            >
+            <slot name="header">
+              이메일을 먼저 설정해주세요. <br />
+              (비밀번호를 잃어버렸을 경우, 해당 이메일로 재설정할 수 있습니다.)
+            </slot>
           </div>
           <div class="modal-body">
             <slot name="body">
               <p v-if="error">{{ error }}</p>
               <label for="email">이메일</label>
-              <input type="text" id="email" v-model.trim="email" /><br />
-              <button class="btn blue-btn mt-3" @click.stop="saveEmail">
+              <input
+                type="text"
+                id="email"
+                v-model.trim="email"
+                class="rounded"
+                style="background-color: #81a0bb4b"
+              /><br />
+
+              <button
+                class="blue-btn shadow-sm"
+                style="margin: 1vh 1vh; 0 0"
+                @click.stop="saveEmail"
+              >
                 이메일 저장
               </button>
+
               <button
-                class="btn gray-btn mt-3"
+                class="red-btn shadow-sm"
+                style="margin: 1vh 0 0 1vh"
                 @click.stop="
                   error = null
                   email = null
                   $emit('close')
-                ">
+                "
+              >
                 취소
               </button>
             </slot>
@@ -46,17 +60,20 @@
               <input
                 type="password"
                 id="oldPassword"
-                v-model.trim="oldPassword" /><br />
+                v-model.trim="oldPassword"
+              /><br />
               <label for="password1">새 비밀번호</label>
               <input
                 type="password"
                 id="newPassword1"
-                v-model.trim="newPassword1" /><br />
+                v-model.trim="newPassword1"
+              /><br />
               <label for="password2">새 비밀번호 확인</label>
               <input
                 type="password"
                 id="new_password2"
-                v-model.trim="newPassword2" /><br />
+                v-model.trim="newPassword2"
+              /><br />
               <button class="btn blue-btn mt-3" @click.stop="changePassword">
                 비밀번호 변경
               </button>
@@ -68,7 +85,8 @@
                   newPassword1 = null
                   newPassword2 = null
                   $emit('close')
-                ">
+                "
+              >
                 취소
               </button>
             </slot>
@@ -83,10 +101,10 @@
 </template>
 
 <script>
-import axiosAuth from '@/axios/axios'
+import axiosAuth from "@/axios/axios"
 
 export default {
-  name: 'ChangePasswordModal',
+  name: "ChangePasswordModal",
   data() {
     return {
       error: null,
@@ -107,7 +125,7 @@ export default {
   methods: {
     saveEmail() {
       axiosAuth({
-        method: 'put',
+        method: "put",
         url: `${this.axios_URL}/accounts/change/email/`,
         data: {
           email: this.email,
@@ -118,8 +136,8 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          this.$emit('close')
-          this.$store.commit('SAVE_USER_EMAIL', this.email)
+          this.$emit("close")
+          this.$store.commit("SAVE_USER_EMAIL", this.email)
 
           this.email = null
           this.error = null
@@ -127,17 +145,17 @@ export default {
         .catch((err) => {
           console.error(err)
           this.error = err.response.data
-          alert('이메일 형식을 확인해주세요')
+          alert("이메일 형식을 확인해주세요")
           this.email = null
         })
     },
     changePassword() {
       if (this.password1 !== this.password2) {
-        alert('비밀번호가 일치하지 않습니다')
+        alert("비밀번호가 일치하지 않습니다")
         return
       }
       axiosAuth({
-        method: 'post',
+        method: "post",
         url: `${this.axios_URL}/dj-rest-auth/password/change/`,
         data: {
           old_password: this.oldPassword,
@@ -150,13 +168,13 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          this.$emit('close')
-          alert('비밀번호가 변경되었습니다.')
+          this.$emit("close")
+          alert("비밀번호가 변경되었습니다.")
         })
         .catch((err) => {
           console.error(err)
           this.error = err.response.data
-          alert('비밀번호를 다시 확인해주세요')
+          alert("비밀번호를 다시 확인해주세요")
           this.password1 = null
           this.password2 = null
         })
@@ -192,7 +210,7 @@ export default {
 }
 .modal-header {
   margin-top: 0;
-  color: #274894;
+  color: #124d80;
 }
 .modal-body {
   margin: 20px 0 5px 0;
@@ -218,10 +236,5 @@ export default {
 .modal-leave-to .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
-
-input {
-  background-color: rgb(203, 203, 203);
-  border-radius: 0.2em;
 }
 </style>

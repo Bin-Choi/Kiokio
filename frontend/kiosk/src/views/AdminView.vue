@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
+import AdminHeader from "@/components/AdminHeader.vue"
 
 export default {
-  name: 'AdminView',
+  name: "AdminView",
   components: {
     AdminHeader,
   },
@@ -63,7 +63,7 @@ export default {
   line-height: 6vh;
   border-radius: 5vh;
 
-  font-family: 'bold';
+  font-family: "bold";
   font-size: 4vh;
 }
 

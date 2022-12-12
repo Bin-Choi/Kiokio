@@ -23,12 +23,14 @@ import jwt
 def login(request):
     username = request.data['username']
     password = request.data['password']
-
+    # user 검색
+    get_object_or_404(get_user_model(), username=username)
+    
     # 인증된 경우 사용자 객체 반환, 없을 경우 None 반환.
     user = authenticate(username = username, password = password)
     # 인증되지 않은 사용자라면, 회원정보 없음을 반환.
     if user is None:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
     if request.method == 'POST':
         # simple jwt token

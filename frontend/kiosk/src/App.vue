@@ -2,27 +2,32 @@
   <div id="app" class="d-flex flex-column">
     <ChangeEmailModal
       v-if="showChangeEmailModal"
-      @close="$store.commit('TOGGLE_SHOW_CHANGE_EMAIL_MODAL', false)">
+      @close="$store.commit('TOGGLE_SHOW_CHANGE_EMAIL_MODAL', false)"
+    >
     </ChangeEmailModal>
+
     <ChangePasswordModal
       v-if="showChangePasswordModal"
-      @close="$store.commit('TOGGLE_SHOW_CHANGE_PASSWORD_MODAL', false)">
+      @close="$store.commit('TOGGLE_SHOW_CHANGE_PASSWORD_MODAL', false)"
+    >
     </ChangePasswordModal>
+
     <LoginModal
       v-if="showLoginModal"
-      @close="$store.commit('TOGGLE_SHOW_LOGIN_MODAL', false)">
+      @close="$store.commit('TOGGLE_SHOW_LOGIN_MODAL', false)"
+    >
     </LoginModal>
     <router-view />
   </div>
 </template>
 
 <script>
-import LoginModal from '@/components/LoginModal.vue'
-import ChangePasswordModal from '@/components/ChangePasswordModal.vue'
-import ChangeEmailModal from '@/components/ChangeEmailModal.vue'
+import LoginModal from "@/components/LoginModal.vue"
+import ChangePasswordModal from "@/components/ChangePasswordModal.vue"
+import ChangeEmailModal from "@/components/ChangeEmailModal.vue"
 
 export default {
-  name: 'AppView',
+  name: "AppView",
   components: {
     LoginModal,
     ChangePasswordModal,
@@ -48,6 +53,7 @@ export default {
   text-align: center;
 
   background-color: #ac863f2c;
-  font-family: 'standard';
+  font-family: "standard";
+  font-size: 2vh;
 }
 </style>
