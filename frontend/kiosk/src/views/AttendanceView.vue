@@ -27,7 +27,7 @@ import AdminHeader from '@/components/AdminHeader.vue'
 import AttendanceHeader from '@/components/AttendanceHeader.vue'
 import AttendanceTableColumn from '@/components/AttendanceTableColumn.vue'
 import AttendanceItem from '@/components/AttendanceItem.vue'
-import axios from 'axios'
+import axiosAuth from '@/axios/axios'
 
 const daysOfMonth = {
   1: 31,
@@ -94,7 +94,7 @@ export default {
       this.searchStudent(url)
     },
     searchStudent(url) {
-      axios({
+      axiosAuth({
         method: 'get',
         url: url,
         headers: {

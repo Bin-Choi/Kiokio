@@ -17,24 +17,33 @@ axiosAuth.interceptors.response.use(
       config,
       response: { status },
     } = error
-    console.log('axiousAuth')
     if (status === 401) {
       const originalConfig = config
       // token refresh 요청
-      const { data } = await axios.post(
-        `${store.state.axios_URL}/accounts/refresh/`, // token refresh api
-        {
-          user_id: store.state.userId,
-          refresh: store.state.refresh,
-        }
-      )
-      // 새로운 토큰 저장
-      const newAccess = data.access
-      store.state.acess = newAccess
-      console.log('newAccessToken', newAccess)
-      originalConfig.headers.Authorization = `Bearer ${newAccess}`
-      // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
-      return axios(originalConfig)
+      await axios
+        .post(
+          `${store.state.axios_URL}/accounts/refresh/`, // token refresh api
+          {
+            user_id: store.state.user.id,
+            refresh: store.state.refresh,
+          }
+        )
+        .then((res) => {
+          // 새로운 토큰 발급 성공
+          console.log('refresh access token')
+          const newAccess = res.data.access
+          store.state.acess = newAccess
+          originalConfig.headers.Authorization = `Bearer ${newAccess}`
+          // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
+          return axiosAuth(originalConfig)
+        })
+        .catch(() => {
+          // refresh 토큰이 문제일 경우, 로그인 창 뜨게 만들기(로그아웃이 아닐 경우)
+          if (!originalConfig.url.slice(-7) === 'logout/') {
+            alert('로그인 후 다시 시도해주세요')
+            store.commit('TOGGLE_SHOW_LOGIN_MODAL', true)
+          }
+        })
     }
     return Promise.reject(error)
   }

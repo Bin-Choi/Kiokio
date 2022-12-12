@@ -4,6 +4,19 @@
       <font-awesome-icon icon="fa-solid fa-house" />
       <span>관리자 홈</span>
     </div>
+    <div
+      v-if="user.email"
+      @click="$store.commit('TOGGLE_SHOW_CHANGE_EMAIL_MODAL', true)"
+      style="cursor: pointer">
+      <font-awesome-icon icon="fa-solid fa-envelope" />
+      <span>이메일 변경</span>
+    </div>
+    <div
+      @click="$store.commit('TOGGLE_SHOW_CHANGE_PASSWORD_MODAL', true)"
+      style="cursor: pointer">
+      <font-awesome-icon icon="fa-solid fa-lock" />
+      <span>비밀번호 변경</span>
+    </div>
     <div @click="$store.dispatch('logout')" style="cursor: pointer">
       <font-awesome-icon icon="fa-solid fa-user" />
       <span>로그아웃</span>
@@ -14,6 +27,11 @@
 <script>
 export default {
   name: 'AdminHeader',
+  computed: {
+    user() {
+      return this.$store.state.user
+    },
+  },
 }
 </script>
 

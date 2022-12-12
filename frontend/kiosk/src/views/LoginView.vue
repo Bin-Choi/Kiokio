@@ -2,12 +2,15 @@
   <div
     class="bg-white d-flex flex-column align-items-center"
     style="padding: 7vh; height: 100vh; width: 100vw">
-    <div
-      @click="$router.push({ name: 'index' })"
-      class="d-flex flex-column align-self-end"
-      style="cursor: pointer">
-      <font-awesome-icon icon="fa-solid fa-house" style="font-size: 3vh" />
-      <span>키오스크 홈</span>
+    <div class="d-flex justify-content-between">
+      <div @click="toResetPassword" style="cursor: pointer">
+        <font-awesome-icon icon="fa-solid fa-lock" style="font-size: 3vh" />
+        <span>비밀번호 초기화</span>
+      </div>
+      <div @click="$router.push({ name: 'index' })" style="cursor: pointer">
+        <font-awesome-icon icon="fa-solid fa-house" style="font-size: 3vh" />
+        <span>키오스크 홈</span>
+      </div>
     </div>
 
     <div
@@ -100,8 +103,8 @@ export default {
 
           const access = res.data.access
           const refresh = res.data.refresh
-          const userId = res.data.user_id
-          this.$store.commit('SAVE_USER_ID', userId)
+          const user = res.data.user
+          this.$store.commit('SAVE_USER', user)
           this.$store.commit('SAVE_ACCESS_TOKEN', access)
           this.$store.commit('SAVE_REFRESH_TOKEN', refresh)
           this.$router.push({ name: 'admin' })
@@ -110,6 +113,9 @@ export default {
           console.error(err)
           this.password = null
         })
+    },
+    toResetPassword() {
+      window.open(`${this.axios_URL}/django/password_reset/`)
     },
   },
 }

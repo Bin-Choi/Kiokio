@@ -1,35 +1,29 @@
 <template>
   <div
-    class="h-100 d-flex flex-column align-items-center justify-content-between"
-  >
+    class="h-100 d-flex flex-column align-items-center justify-content-between">
     <!-- BACK -->
     <div
       class="w-100 d-flex justify-content-between"
-      style="font-size: 4.5vh; margin: 1.5vh; margin-bottom: 0; padding: 2.2vh"
-    >
+      style="font-size: 4.5vh; margin: 1.5vh; margin-bottom: 0; padding: 2.2vh">
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="$router.go(-1)"
-      />
+        @click="$router.go(-1)" />
       <font-awesome-icon
         icon="fa-solid fa-house"
-        @click="$router.push({ name: 'index' })"
-      />
+        @click="$router.push({ name: 'index' })" />
     </div>
 
     <!-- PAGE TITLE -->
     <div
       class="w-75 bg-primary rounded text-light shadow"
-      style="font-size: 5vh"
-    >
+      style="font-size: 5vh">
       비밀번호 변경
     </div>
 
     <!-- CONTENT -->
     <div
       class="w-75 rounded shadow bg-light d-flex flex-column align-items-center jusity-content-between"
-      style="padding: 2.5vh 0; font-size: 2.5vh"
-    >
+      style="padding: 2.5vh 0; font-size: 2.5vh">
       <div>
         <div>기존 비밀번호</div>
         <input
@@ -38,8 +32,7 @@
           minlength="4"
           ref="password"
           @focus="focusChange"
-          class="rounded shadow-sm"
-        />
+          class="rounded shadow-sm" />
       </div>
 
       <div>
@@ -50,8 +43,7 @@
           minlength="4"
           ref="newPassword"
           @focus="focusChange"
-          class="rounded shadow-sm"
-        />
+          class="rounded shadow-sm" />
       </div>
 
       <div>
@@ -62,15 +54,13 @@
           minlength="4"
           ref="confirmPassword"
           @focus="focusChange"
-          class="rounded shadow-sm"
-        />
+          class="rounded shadow-sm" />
       </div>
       <button
         type="button"
         class="w-25 btn btn-primary shadow"
         style="font-size: 3vh; margin-top: 1vh"
-        @click="submit"
-      >
+        @click="submit">
         확인
       </button>
     </div>

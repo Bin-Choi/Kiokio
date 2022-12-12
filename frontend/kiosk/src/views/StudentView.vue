@@ -59,7 +59,7 @@ import StudentHeader from '@/components/StudentHeader.vue'
 import StudentReadItem from '@/components/StudentReadItem.vue'
 import StudentUpdateItem from '@/components/StudentUpdateItem.vue'
 import StudentDeleteItem from '@/components/StudentDeleteItem.vue'
-import axios from 'axios'
+import axiosAuth from '@/axios/axios'
 
 export default {
   name: 'StudentView',
@@ -98,7 +98,7 @@ export default {
       this.searchStudent(url)
     },
     searchStudent(url) {
-      axios({
+      axiosAuth({
         method: 'get',
         url: url,
         headers: {
@@ -166,7 +166,7 @@ export default {
           return
         }
       }
-      axios({
+      axiosAuth({
         method: 'put',
         url: `${this.axios_URL}/students/`,
         headers: {
@@ -200,8 +200,7 @@ export default {
       for (const index of this.selected) {
         delete_list.push(this.students[index].id)
       }
-
-      axios({
+      axiosAuth({
         method: 'delete',
         url: `${this.axios_URL}/students/`,
         headers: {

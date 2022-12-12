@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axiosAuth from '@/axios/axios'
 
 export default {
   name: 'AdminInbodyDetailRead',
@@ -104,7 +104,7 @@ export default {
   },
   methods: {
     deleteInbody() {
-      axios({
+      axiosAuth({
         method: 'delete',
         url: `${this.axios_URL}/students/inbody/${this.inbody.id}/admin/`,
         headers: {
