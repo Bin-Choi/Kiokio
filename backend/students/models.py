@@ -28,7 +28,8 @@ class Student(models.Model):
             MinLengthValidator(4)
             ]
         )
-
+    key = models.BinaryField(verbose_name="패스워드 키")
+    
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['grade', 'room', 'number'], name='student_id'),

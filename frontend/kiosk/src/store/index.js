@@ -2,35 +2,62 @@ import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
 import createPersistedState from "vuex-persistedstate"
-
-import SecureLS from "secure-ls"
 import router from "@/router"
-const ls = new SecureLS({ isCompression: false })
+import jwt_decode from "jwt-decode"
+import axiosAuth from "@/axios/axios"
+
+// import SecureLS from 'secure-ls'
+// const ls = new SecureLS({ isCompression: false })
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [
     createPersistedState({
-      storage: {
-        getItem: (key) => ls.get(key),
-        setItem: (key, value) => ls.set(key, value),
-        removeItem: (key) => ls.remove(key),
+      // storage: {
+      //   getItem: (key) => ls.get(key),
+      //   setItem: (key, value) => ls.set(key, value),
+      //   removeItem: (key) => ls.remove(key),
+      // },
+      // BlckList
+      reducer: (persistedState) => {
+        const stateFilter = Object.assign({}, persistedState)
+        const blackList = ["inbodyStudents", "student", "inbody"]
+        blackList.forEach((item) => {
+          delete stateFilter[item]
+        })
+        return stateFilter
       },
-      whiteList: ["access"],
     }),
   ],
   state: {
     axios_URL: "http://127.0.0.1:8000",
+    userId: null,
     access: null,
-    inbodyStudents: null,
-
+    refresh: null,
     passwordToken: null,
 
+    inbodyStudents: null,
     student: null,
     inbody: null,
   },
-  getters: {},
+  getters: {
+    // 메서드를 통한 getters 요청은 캐시되지 않으며, 요청시마다 재실행. now = Date.now()
+    isLogin: (state) => (now) => {
+      // refresh 토큰이 없으면
+      if (!state.refresh) {
+        return false
+      }
+      // refresh 토큰의 유효기간 30분 남았으면
+      const decoded = jwt_decode(state.refresh)
+      const exp = decoded.exp
+      if (now - 30 * 60 * 1000 >= exp * 1000) {
+        return false
+      }
+      // 그 외는 로그인했음
+      return true
+    },
+  },
   mutations: {
     STUDENT_INFO(state, payload) {
       state.student = payload
@@ -38,15 +65,23 @@ export default new Vuex.Store({
     INBODY_INFO(state, payload) {
       state.inbody = payload
     },
-    SAVE_TOKEN(state, access) {
+    SAVE_ACCESS_TOKEN(state, access) {
       state.access = access
     },
-    DELETE_TOKEN(state) {
-      state.access = null
+    SAVE_REFRESH_TOKEN(state, refresh) {
+      state.refresh = refresh
     },
-    SAVE_PW_TOKEN(state, token) {
-      state.passwordToken = token
-      console.log(state.passwordToken)
+    SAVE_USER_ID(state, userId) {
+      state.userId = userId
+    },
+    DELETE_TOKENS(state) {
+      state.access = null
+      state.refresh = null
+    },
+    SAVE_ID_PASSWORD(state, payload) {
+      const { id, password } = payload
+      state.student.id = id
+      state.student.password = password
     },
     SAVE_INBODY_STUDENTS(state, students) {
       state.inbodyStudents = students
@@ -66,7 +101,7 @@ export default new Vuex.Store({
   },
   actions: {
     logout(context) {
-      axios({
+      axiosAuth({
         method: "post",
         url: `${context.state.axios_URL}/accounts/logout/`,
         headers: {
@@ -75,8 +110,26 @@ export default new Vuex.Store({
       })
         .then((res) => {
           console.log(res)
-          context.commit("DELETE_TOKEN")
+          context.commit("DELETE_TOKENS")
           router.push({ name: "login" })
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    },
+    refresh(context) {
+      axios({
+        method: "post",
+        url: `${context.state.axios_URL}/accounts/refresh/`,
+        data: {
+          user_id: context.state.userId,
+          refresh: context.state.refresh,
+        },
+      })
+        .then((res) => {
+          console.log(res)
+          const access = res.data.access
+          context.commit("SAVE_ACCESS_TOKEN", access)
         })
         .catch((err) => {
           console.error(err)

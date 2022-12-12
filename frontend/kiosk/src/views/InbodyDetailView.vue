@@ -15,7 +15,7 @@
     >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="$router.go(-1)"
+        @click="$router.push({ name: 'inbodyHistory' })"
       />
       <font-awesome-icon
         icon="fa-solid fa-house"
@@ -59,12 +59,12 @@
 </template>
 
 <script>
-import InbodyDetail from '@/components/InbodyDetail.vue'
+import InbodyDetail from "@/components/InbodyDetail.vue"
 
-import axios from 'axios'
+import axios from "axios"
 
 export default {
-  name: 'InbodyDetailView',
+  name: "InbodyDetailView",
   components: {
     InbodyDetail,
   },
@@ -81,13 +81,16 @@ export default {
   },
   methods: {
     del() {
-      if (confirm('정말 삭제하시겠습니까?')) {
+      if (confirm("정말 삭제하시겠습니까?")) {
         axios({
-          method: 'delete',
-          url: `${this.axios_URL}/students/inbody/${this.inbodyPk}/`,
+          method: "delete",
+          url: `${this.axios_URL}/students/${this.student.id}/inbody/${this.inbodyPk}/`,
+          data: {
+            password: this.$store.state.student.password,
+          },
         })
           .then(() => {
-            this.$router.push({ name: 'inbodyHistory' })
+            this.$router.push({ name: "inbodyHistory" })
           })
           .catch((err) => {
             console.log(err)

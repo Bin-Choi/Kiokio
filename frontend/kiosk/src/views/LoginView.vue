@@ -1,21 +1,18 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="padding: 7vh; height: 100vh; width: 100vw"
-  >
+    style="padding: 7vh; height: 100vh; width: 100vw">
     <div
       @click="$router.push({ name: 'index' })"
       class="d-flex flex-column align-self-end"
-      style="cursor: pointer"
-    >
+      style="cursor: pointer">
       <font-awesome-icon icon="fa-solid fa-house" style="font-size: 3vh" />
       <span>키오스크 홈</span>
     </div>
 
     <div
       class="d-flex flex-column align-items-center justify-content-around"
-      style="width: 75vw; height: 50vh; margin-top: 10vh"
-    >
+      style="width: 75vw; height: 50vh; margin-top: 10vh">
       <div style="font-size: 3.7vh; padding: 1vh 2vh">
         00초등학교 키오스크 관리자 페이지
       </div>
@@ -31,9 +28,10 @@
           max-width: 500px;
           width: 60%;
           height: 60%;
+          feature/password_update
           padding: 2vh;
-        "
-      >
+        ">
+
         <div class="w-75 d-flex justify-content-between">
           <div>아이디</div>
           <input
@@ -41,8 +39,7 @@
             class="rounded bg-white shadow-sm"
             ref="username"
             v-model="username"
-            @keyup.enter="$refs.password.focus()"
-          />
+            @keyup.enter="$refs.password.focus()" />
         </div>
 
         <div class="w-75 d-flex justify-content-between">
@@ -52,8 +49,7 @@
             class="rounded bg-white shadow-sm"
             ref="password"
             v-model="password"
-            @keyup.enter="login"
-          />
+            @keyup.enter="login" />
         </div>
 
         <div>
@@ -61,8 +57,7 @@
             type="button"
             class="btn btn-primary shadow-sm"
             style="margin-top: 1vh"
-            @click="login"
-          >
+            @click="login">
             로그인
           </button>
         </div>
@@ -99,6 +94,7 @@ export default {
           username: this.username,
           password: this.password,
         },
+        withCredentials: true,
       })
         .then((res) => {
           console.log(res)
@@ -106,7 +102,11 @@ export default {
           this.password = null
 
           const access = res.data.access
-          this.$store.commit('SAVE_TOKEN', access)
+          const refresh = res.data.refresh
+          const userId = res.data.user_id
+          this.$store.commit('SAVE_USER_ID', userId)
+          this.$store.commit('SAVE_ACCESS_TOKEN', access)
+          this.$store.commit('SAVE_REFRESH_TOKEN', refresh)
           this.$router.push({ name: 'admin' })
         })
         .catch((err) => {

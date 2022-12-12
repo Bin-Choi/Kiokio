@@ -46,12 +46,14 @@
 </template>
 
 <script>
-import TheKeypad from '@/components/TheKeypad.vue'
+import TheKeypad from "@/components/TheKeypad.vue"
 
-import axios from 'axios'
+import axios from "axios"
+
+// const pwKey = b"ABCD"
 
 export default {
-  name: 'ModalPwView',
+  name: "ModalPwView",
   components: {
     TheKeypad,
   },
@@ -61,9 +63,6 @@ export default {
   computed: {
     axios_URL() {
       return this.$store.state.axios_URL
-    },
-    pk() {
-      return this.$store.state.student.pk
     },
   },
   mounted() {
@@ -78,28 +77,28 @@ export default {
         !regInt.test(this.$refs.password.value) ||
         this.$refs.password.value.length != 4
       ) {
-        alert('비밀번호를 정확히 입력해주세요')
+        alert("비밀번호를 정확히 입력해주세요")
 
         this.$refs.password.value = null
         this.$refs.password.focus()
         return
       }
+      // 비밀번호 xor 연산하여 간이 암호화
 
       axios({
-        method: 'post',
-        url: `${this.axios_URL}/students/inbody/login/`,
+        method: "post",
+        url: `${this.axios_URL}/students/${this.num}/inbody/`,
         data: {
           password: this.$refs.password.value,
-          pk: this.pk,
         },
       })
         .then((res) => {
-          this.$store.commit('SAVE_PW_TOKEN', res.data.password)
-          this.$router.push({ name: 'inbodyHistory' })
+          this.$store.commit("SAVE_ID_PASSWORD", res.data)
+          this.$router.push({ name: "inbodyHistory" })
         })
 
         .catch(() => {
-          alert('비밀번호가 틀렸습니다.')
+          alert("비밀번호가 틀렸습니다.")
           this.$refs.password.value = null
           this.$refs.password.focus()
         })
