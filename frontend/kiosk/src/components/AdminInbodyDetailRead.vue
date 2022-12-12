@@ -1,18 +1,23 @@
 <template>
   <div>
-    <div>
-      <button class="blue-btn" @click="$emit('change-mode-U')">수정</button>
-      <button class="red-btn" @click="deleteInbody">삭제</button>
+    <div class="d-flex justify-content-end" style="margin-bottom: 1vh">
+      <button class="blue-btn shadow-sm" @click="$emit('change-mode-U')">
+        수정
+      </button>
+      <button
+        class="red-btn shadow-sm"
+        style="margin-left: 1vh"
+        @click="deleteInbody"
+      >
+        삭제
+      </button>
     </div>
     <div class="d-flex flex-column" style="height: 60vh; overflow-y: scroll">
       <div>{{ student.name }}, {{ student.gender }}</div>
       <div>
         {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번호
       </div>
-      <div
-        id="scroll-box"
-        class="container"
-        style="font-size: 2.5vh; height: 100%">
+      <div class="container" style="font-size: 2.5vh; height: 100%">
         <div class="row">
           <p class="col">검사일시</p>
           <div class="col">{{ inbody.test_date }}</div>

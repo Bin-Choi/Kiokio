@@ -71,11 +71,21 @@
 </template>
 
 <script>
-import TheKeypad from '../components/TheKeypad.vue'
+import TheKeypad from "../components/TheKeypad.vue"
+
+import axios from "axios"
 
 export default {
   components: { TheKeypad },
-  name: 'PasswordUpdateView',
+  name: "PasswordUpdateView",
+  computed: {
+    axios_URL() {
+      return this.$store.state.axios_URL
+    },
+    student() {
+      return this.$store.state.student
+    },
+  },
   methods: {
     focusChange(event) {
       this.focusElem = event.target
@@ -98,7 +108,7 @@ export default {
         !regInt.test(this.$refs.password.value) ||
         this.$refs.password.value.length != 4
       ) {
-        alert('비밀번호를 정확히 입력해주세요')
+        alert("비밀번호를 정확히 입력해주세요.")
         this.$refs.password.value = null
         this.$refs.password.focus()
         return
@@ -108,18 +118,37 @@ export default {
         !regInt.test(this.$refs.newPassword.value) ||
         this.$refs.newPassword.value.length != 4
       ) {
-        alert('비밀번호는 숫자 네자리로 설정해주세요')
+        alert("비밀번호는 숫자 네자리로 설정해주세요.")
         this.$refs.newPassword.value = null
         this.$refs.newPassword.focus()
         return
       }
 
       if (this.$refs.newPassword.value != this.$refs.confirmPassword.value) {
-        alert('비밀번호가 일치하지 않습니다')
+        alert("새 비밀번호가 일치하지 않습니다.")
         this.$refs.confirmPassword.value = null
         this.$refs.confirmPassword.focus()
         return
       }
+
+      axios({
+        method: "put",
+        url: `${this.axios_URL}/students/${this.student.id}/inbody/password/`,
+        data: {
+          password: this.student.password,
+          currentPassword: this.$refs.password.value,
+          newPassword: this.$refs.newPassword.value,
+        },
+      })
+        .then((res) => {
+          alert("비밀번호가 변경되었습니다.")
+          this.$store.commit("SAVE_ID_PASSWORD", res.data)
+          this.$router.push({ name: "inbodyHistory" })
+        })
+
+        .catch(() => {
+          alert("기존 비밀번호가 틀렸습니다.")
+        })
     },
   },
   mounted() {

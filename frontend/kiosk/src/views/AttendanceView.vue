@@ -1,22 +1,33 @@
 <template>
   <div
-    class="d-flex flex-column align-items-center"
-    style="width: 100vw; height: 100vh; padding: 7vh">
+    class="bg-white d-flex flex-column"
+    style="width: 100vw; height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
 
     <div
-      class="bg-secondary rounded shadow d-flex flex-column"
-      style="width: 100%; height: 80vh; padding: 3vh; margin-top: 5vh">
+      class="rounded shadow d-flex flex-column"
+      style="
+        width: 100%;
+        height: 80vh;
+        padding: 3vh;
+        margin-top: 5vh;
+        background-color: #81a0bb4b;
+        min-width: 750px;
+      "
+    >
       <AttendanceHeader
         @search-by-class="searchByClass"
-        @search-by-name="searchByName" />
+        @search-by-name="searchByName"
+      />
       <div v-if="students" style="overflow-x: scroll; overflow-y: scroll">
         <AttendanceTableColumn :days="days" />
         <AttendanceItem
           v-for="student in students"
           :key="student.id"
           :student="student"
-          :days="days" />
+          :days="days"
+        />
       </div>
     </div>
   </div>
@@ -114,62 +125,4 @@ export default {
 }
 </script>
 
-<style>
-.green-btn {
-  background-color: rgb(109, 163, 28);
-  width: 10vw;
-  height: 5vh;
-  border-radius: 1vh;
-
-  border: 0;
-  outline: 0;
-
-  color: white;
-  font-size: 2vh;
-  font-weight: bold;
-}
-.green-btn:focus {
-  outline: 2px solid black;
-}
-.green-btn:hover {
-  background-color: rgb(13, 81, 17);
-}
-.red-btn {
-  background-color: rgb(193, 32, 42);
-  width: 10vw;
-  height: 5vh;
-  border-radius: 1vh;
-
-  border: 0;
-  outline: 0;
-
-  color: white;
-  font-size: 2vh;
-  font-weight: bold;
-}
-.red-btn:focus {
-  outline: 2px solid black;
-}
-.red-btn:hover {
-  background-color: rgb(123, 18, 18);
-}
-.blue-btn {
-  background-color: rgb(30, 30, 148);
-  width: 10vw;
-  height: 5vh;
-  border-radius: 1vh;
-
-  border: 0;
-  outline: 0;
-
-  color: white;
-  font-size: 2vh;
-  font-weight: bold;
-}
-.blue-btn:focus {
-  outline: 2px solid black;
-}
-.blue-btn:hover {
-  background-color: rgb(18, 28, 115);
-}
-</style>
+<style></style>

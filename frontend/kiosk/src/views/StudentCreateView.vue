@@ -1,16 +1,25 @@
 <template>
   <div
-    class="bg-white d-flex flex-column align-items-center"
-    style="width: 100vw; height: 100vh; padding: 7vh">
+    class="bg-white d-flex flex-column"
+    style="width: 100vw; height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
     <div
-      class="bg-secondary rounded shadow d-flex flex-column"
-      style="width: 100%; height: 80vh; padding: 3vh; margin-top: 5vh">
+      class="rounded shadow d-flex flex-column"
+      style="
+        width: 100%;
+        height: 80vh;
+        padding: 3vh;
+        margin-top: 5vh;
+        background-color: #81a0bb4b;
+      "
+    >
       <StudentCreateHeader
         :ready-delete="readyDelete"
         @add-row="addRow"
         @delete-row="deleteRow"
-        @create-student="createStudent" />
+        @create-student="createStudent"
+      />
       <div style="overflow-y: scroll">
         <StudentTableColumn />
         <StudentCreateItem
@@ -21,7 +30,8 @@
           :ready-delete="readyDelete"
           :invalid="invalid"
           @change-check="changeCheck"
-          @change-data="changeData" />
+          @change-data="changeData"
+        />
       </div>
     </div>
   </div>
@@ -171,6 +181,7 @@ export default {
           this.students = [
             { name: null, grade: null, room: null, number: null, gender: null },
           ]
+          this.$router.push({ name: 'student' })
         })
         .catch((err) => {
           console.error(err)

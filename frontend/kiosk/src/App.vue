@@ -46,6 +46,8 @@ export default {
 #app {
   height: 100vh;
   text-align: center;
-  background-color: #2b64aa1e;
+
+  background-color: #ac863f2c;
+  font-family: 'standard';
 }
 </style>

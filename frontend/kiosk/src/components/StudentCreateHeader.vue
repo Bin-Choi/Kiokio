@@ -1,21 +1,33 @@
 <template>
-  <div class="d-flex justify-content-between">
-    <div
-      class="d-flex"
+  <div style="width: 100%; margin-bottom: 1vh">
+    <font-awesome-icon
+      icon="fa-solid fa-circle-arrow-left"
       @click="$router.go(-1)"
-      style="font-size: 4vh; cursor: pointer">
-      <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
+      style="font-size: 3vh; cursor: pointer"
+      class="d-flex"
+    />
+
+    <div class="w-100 d-flex justify-content-end">
+      <button
+        v-if="!readyDelete"
+        class="green-btn shadow-sm"
+        @click="$emit('add-row')"
+      >
+        학생 추가
+      </button>
+
+      <button class="red-btn shadow-sm" @click="$emit('delete-row')">
+        학생 삭제
+      </button>
+
+      <button
+        v-if="!readyDelete"
+        class="blue-btn shadow-sm"
+        @click="$emit('create-student')"
+      >
+        저장
+      </button>
     </div>
-    <button v-if="!readyDelete" class="green-btn" @click="$emit('add-row')">
-      행 추가
-    </button>
-    <button class="red-btn" @click="$emit('delete-row')">행 삭제</button>
-    <button
-      v-if="!readyDelete"
-      class="blue-btn"
-      @click="$emit('create-student')">
-      저장
-    </button>
   </div>
 </template>
 
@@ -29,61 +41,7 @@ export default {
 </script>
 
 <style scoped>
-.green-btn {
-  background-color: rgb(109, 163, 28);
-  width: 10vw;
-  height: 5vh;
-  border-radius: 1vh;
-
-  border: 0;
-  outline: 0;
-
-  color: white;
-  font-size: 2vh;
-  font-weight: bold;
-}
-.green-btn:focus {
-  outline: 2px solid black;
-}
-.green-btn:hover {
-  background-color: rgb(13, 81, 17);
-}
-.red-btn {
-  background-color: rgb(193, 32, 42);
-  width: 10vw;
-  height: 5vh;
-  border-radius: 1vh;
-
-  border: 0;
-  outline: 0;
-
-  color: white;
-  font-size: 2vh;
-  font-weight: bold;
-}
-.red-btn:focus {
-  outline: 2px solid black;
-}
-.red-btn:hover {
-  background-color: rgb(123, 18, 18);
-}
-.blue-btn {
-  background-color: rgb(30, 30, 148);
-  width: 10vw;
-  height: 5vh;
-  border-radius: 1vh;
-
-  border: 0;
-  outline: 0;
-
-  color: white;
-  font-size: 2vh;
-  font-weight: bold;
-}
-.blue-btn:focus {
-  outline: 2px solid black;
-}
-.blue-btn:hover {
-  background-color: rgb(18, 28, 115);
+button {
+  margin: 0 0.5vh;
 }
 </style>

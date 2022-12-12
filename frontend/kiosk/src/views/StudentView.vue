@@ -1,24 +1,44 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="width: 100vw; height: 100vh; padding: 7vh">
+    style="width: 100vw; height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
     <div
-      class="bg-secondary rounded shadow d-flex flex-column"
-      style="width: 100%; height: 80vh; padding: 3vh; margin-top: 5vh">
+      id="content"
+      class="w-100 rounded shadow-sm d-flex flex-column content"
+      style="
+        height: 80vh;
+        padding: 3vh;
+        margin-top: 5vh;
+        background-color: #81a0bb4b;
+      "
+    >
       <StudentHeader
         @search-by-class="searchByClass"
-        @search-by-name="searchByName" />
+        @search-by-name="searchByName"
+      />
+
       <div v-if="students">
-        <div v-if="mode === 'R'">
-          <button class="blue-btn" @click="mode = 'U'">수정</button>
-          <button class="red-btn" @click="mode = 'D'">삭제</button>
+        <div id="button-box" v-if="mode === 'R'">
+          <button class="blue-btn shadow-sm" @click="mode = 'U'">수정</button>
+          <button
+            class="red-btn shadow-sm"
+            style="margin-left: 1vh"
+            @click="mode = 'D'"
+          >
+            삭제
+          </button>
         </div>
-        <div v-if="mode === 'U'">
-          <button class="blue-btn" @click="updateStudent">저장</button>
+
+        <div id="button-box" v-if="mode === 'U'">
+          <button class="blue-btn shadow-sm" @click="updateStudent">
+            저장
+          </button>
         </div>
-        <div v-if="mode === 'D'">
-          <button class="red-btn" @click="deleteStudent">삭제</button>
+
+        <div id="button-box" v-if="mode === 'D'">
+          <button class="red-btn shadow-sm" @click="deleteStudent">삭제</button>
         </div>
       </div>
       <div style="overflow-y: scroll">
@@ -28,7 +48,8 @@
             v-for="(student, index) in students"
             :key="student.id"
             :index="index"
-            :student="student" />
+            :student="student"
+          />
         </div>
         <div v-if="students && mode === 'U'">
           <StudentUpdateItem
@@ -37,7 +58,8 @@
             :index="index"
             :student="student"
             :invalid="invalid"
-            @change-data="changeData" />
+            @change-data="changeData"
+          />
         </div>
         <div v-if="students && mode === 'D'">
           <StudentDeleteItem
@@ -45,7 +67,8 @@
             :key="index"
             :index="index"
             :student="student"
-            @change-check="changeCheck" />
+            @change-check="changeCheck"
+          />
         </div>
       </div>
     </div>
@@ -227,65 +250,10 @@ export default {
 }
 </script>
 
-<style>
-.green-btn {
-  background-color: rgb(109, 163, 28);
-  width: 10vw;
-  height: 5vh;
-  border-radius: 1vh;
-
-  border: 0;
-  outline: 0;
-
-  color: white;
-  font-size: 2vh;
-  font-weight: bold;
-}
-.green-btn:focus {
-  outline: 2px solid black;
-}
-.green-btn:hover {
-  background-color: rgb(13, 81, 17);
-}
-.red-btn {
-  background-color: rgb(193, 32, 42);
-  width: 10vw;
-  height: 5vh;
-  border-radius: 1vh;
-
-  border: 0;
-  outline: 0;
-
-  color: white;
-  font-size: 2vh;
-  background-color: #2b64aa1e;
-  width: 11vh;
-  padding: 0.5vh;
-  margin: 0 1vh;
-}
-.red-btn:focus {
-  outline: 2px solid black;
-}
-.red-btn:hover {
-  background-color: rgb(123, 18, 18);
-}
-.blue-btn {
-  background-color: rgb(30, 30, 148);
-  width: 10vw;
-  height: 5vh;
-  border-radius: 1vh;
-
-  border: 0;
-  outline: 0;
-
-  color: white;
-  font-size: 2vh;
-  font-weight: bold;
-}
-.blue-btn:focus {
-  outline: 2px solid black;
-}
-.blue-btn:hover {
-  background-color: rgb(18, 28, 115);
+<style scoped>
+#button-box {
+  margin-bottom: 1vh;
+  display: flex;
+  justify-content: end;
 }
 </style>
