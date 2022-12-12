@@ -18,13 +18,12 @@
                 type="text"
                 id="email"
                 v-model.trim="email"
-                class="rounded"
-                style="background-color: #81a0bb4b"
+                class="modal-input"
               /><br />
 
               <button
                 class="blue-btn shadow-sm"
-                style="margin: 1vh 1vh; 0 0"
+                style="margin-right: 1vh"
                 @click.stop="saveEmail"
               >
                 이메일 저장
@@ -32,7 +31,6 @@
 
               <button
                 class="red-btn shadow-sm"
-                style="margin: 1vh 0 0 1vh"
                 @click.stop="
                   error = null
                   email = null
@@ -51,8 +49,11 @@
         <!-- 비밀번호 변경 modal -->
         <div v-if="user.email" class="modal-container">
           <div class="modal-header">
-            <slot name="header">비밀번호 변경</slot>
+            <slot name="header">
+              <div class="m-auto">비밀번호 변경</div>
+            </slot>
           </div>
+
           <div class="modal-body">
             <slot name="body">
               <p v-if="error">{{ error }}</p>
@@ -60,25 +61,35 @@
               <input
                 type="password"
                 id="oldPassword"
+                class="modal-input"
                 v-model.trim="oldPassword"
               /><br />
+
               <label for="password1">새 비밀번호</label>
               <input
                 type="password"
                 id="newPassword1"
+                class="modal-input"
                 v-model.trim="newPassword1"
               /><br />
+
               <label for="password2">새 비밀번호 확인</label>
               <input
                 type="password"
                 id="new_password2"
+                class="modal-input"
                 v-model.trim="newPassword2"
               /><br />
-              <button class="btn blue-btn mt-3" @click.stop="changePassword">
+
+              <button
+                class="blue-btn shadow-sm"
+                style="margin-right: 1vh"
+                @click.stop="changePassword"
+              >
                 비밀번호 변경
               </button>
               <button
-                class="btn gray-btn mt-3"
+                class="red-btn shadow-sm"
                 @click.stop="
                   error = null
                   oldPassword = null
@@ -101,10 +112,10 @@
 </template>
 
 <script>
-import axiosAuth from "@/axios/axios"
+import axiosAuth from '@/axios/axios'
 
 export default {
-  name: "ChangePasswordModal",
+  name: 'ChangePasswordModal',
   data() {
     return {
       error: null,
@@ -125,7 +136,7 @@ export default {
   methods: {
     saveEmail() {
       axiosAuth({
-        method: "put",
+        method: 'put',
         url: `${this.axios_URL}/accounts/change/email/`,
         data: {
           email: this.email,
@@ -136,8 +147,8 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          this.$emit("close")
-          this.$store.commit("SAVE_USER_EMAIL", this.email)
+          this.$emit('close')
+          this.$store.commit('SAVE_USER_EMAIL', this.email)
 
           this.email = null
           this.error = null
@@ -145,17 +156,17 @@ export default {
         .catch((err) => {
           console.error(err)
           this.error = err.response.data
-          alert("이메일 형식을 확인해주세요")
+          alert('이메일 형식을 확인해주세요')
           this.email = null
         })
     },
     changePassword() {
       if (this.password1 !== this.password2) {
-        alert("비밀번호가 일치하지 않습니다")
+        alert('비밀번호가 일치하지 않습니다')
         return
       }
       axiosAuth({
-        method: "post",
+        method: 'post',
         url: `${this.axios_URL}/dj-rest-auth/password/change/`,
         data: {
           old_password: this.oldPassword,
@@ -168,13 +179,13 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          this.$emit("close")
-          alert("비밀번호가 변경되었습니다.")
+          this.$emit('close')
+          alert('비밀번호가 변경되었습니다.')
         })
         .catch((err) => {
           console.error(err)
           this.error = err.response.data
-          alert("비밀번호를 다시 확인해주세요")
+          alert('비밀번호를 다시 확인해주세요')
           this.password1 = null
           this.password2 = null
         })
@@ -183,58 +194,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-}
-.modal-header {
-  margin-top: 0;
-  color: #124d80;
-}
-.modal-body {
-  margin: 20px 0 5px 0;
-}
-.modal-default-button {
-  float: right;
-}
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-.modal-enter-from {
-  opacity: 0;
-}
-.modal-leave-to {
-  opacity: 0;
-}
-.modal-enter-from .modal-container,
-.modal-leave-to .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-</style>
+<style></style>

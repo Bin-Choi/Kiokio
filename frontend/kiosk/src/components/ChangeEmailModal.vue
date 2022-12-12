@@ -5,23 +5,33 @@
         <!-- email 기입 modal -->
         <div class="modal-container">
           <div class="modal-header">
-            <slot name="header">현재 이메일 {{ user.email }}</slot>
+            <slot name="header">현재 이메일 : {{ user.email }}</slot>
           </div>
           <div class="modal-body">
             <slot name="body">
               <p v-if="error">{{ error }}</p>
               <label for="email">이메일</label>
-              <input type="text" id="email" v-model.trim="email" /><br />
-              <button class="btn blue-btn mt-3" @click.stop="changeEmail">
+              <input
+                type="text"
+                class="modal-input"
+                id="email"
+                v-model.trim="email"
+              /><br />
+              <button
+                class="blue-btn shadow-sm"
+                style="margin-right: 1vh"
+                @click.stop="changeEmail"
+              >
                 이메일 저장
               </button>
               <button
-                class="btn gray-btn mt-3"
+                class="red-btn shadow-sm"
                 @click.stop="
                   error = null
                   email = null
                   $emit('close')
-                ">
+                "
+              >
                 취소
               </button>
             </slot>
@@ -85,7 +95,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -112,7 +122,7 @@ export default {
 }
 .modal-header {
   margin-top: 0;
-  color: #274894;
+  color: #244288;
 }
 .modal-body {
   margin: 20px 0 5px 0;
@@ -140,8 +150,11 @@ export default {
   transform: scale(1.1);
 }
 
-input {
-  background-color: rgb(203, 203, 203);
-  border-radius: 0.2em;
+.modal-input {
+  background-color: #81a0bb4b;
+  margin-left: 1vh;
+  padding: 0.5vh;
+  border-radius: 1vh;
+  margin-bottom: 1.5vh;
 }
 </style>
