@@ -54,7 +54,7 @@ export default {
 
   background-color: #ffe8d299;
   font-family: 'standard';
-  font-size: 2vh;
+  font-size: 1.8vh;
 }
 
 .title {

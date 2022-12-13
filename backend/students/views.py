@@ -138,14 +138,14 @@ def inbody_detail(request,inbody_pk,student_pk):
     
     if password == student.password: 
         inbody = Inbody.objects.get(pk=inbody_pk)
-
+        # get 요청
         if request.method == 'POST':
             serializer = InbodySerializer(inbody)
             data = serializer.data
             return Response(data)
 
         elif request.method == 'PUT':
-            serializer = InbodySerializer(inbody, data=request.data)
+            serializer = InbodySerializer(inbody, data=request.data['inbody'])
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data)

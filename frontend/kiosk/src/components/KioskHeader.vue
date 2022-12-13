@@ -5,7 +5,7 @@
   >
     <font-awesome-icon
       icon="fa-solid fa-circle-arrow-left"
-      @click="$router.go(-1)"
+      @click="$router.push({ name: 'index' })"
     />
     <font-awesome-icon
       icon="fa-solid fa-house"

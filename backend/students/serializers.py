@@ -3,6 +3,18 @@ from .models import Student, Inbody, Attendance
 
 
 class InbodySerializer(serializers.ModelSerializer):
+    total_body_water = serializers.FloatField(allow_null=True)
+    protein = serializers.FloatField(allow_null=True)
+    minerals = serializers.FloatField(allow_null=True)
+    body_fat_mass = serializers.FloatField(allow_null=True)
+    # 골격근 지방 분석(muscle-fat analysis)
+    weight =serializers.FloatField(allow_null=True)
+    skeletal_muscle_mass = serializers.FloatField(allow_null=True)
+    # 비만 분석(obesity anaylsis)
+    body_mass_index = serializers.FloatField(allow_null=True)
+    percent_body_fat = serializers.FloatField(allow_null=True)
+    # 인바디 점수
+    inbody_score = serializers.FloatField(allow_null=True)
 
     class Meta:
         model = Inbody

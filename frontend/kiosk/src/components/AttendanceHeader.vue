@@ -13,27 +13,26 @@
       <div></div>
     </div>
 
-    <div class="d-flex justify-content-between" style="margin-bottom: 1vh">
+    <div class="d-flex justify-content-start" style="margin-bottom: 1vh">
       <span> ※ 필수 입력값입니다.</span>
-      <span> ※ 선택 입력값입니다.</span>
     </div>
 
     <div class="d-flex justify-content-between">
       <div>
-        <span>년</span>
         <input
           type="number"
           class="student-search-form"
           ref="year"
           v-model.trim="year"
         />
-        <span>월</span>
+        <span>년</span>
         <input
           type="number"
           class="student-search-form"
           ref="month"
           v-model.trim="month"
         />
+        <span>월</span>
       </div>
 
       <div class="d-flex">
@@ -90,8 +89,29 @@ export default {
     searchByClass() {
       if (!this.year || !this.month) {
         alert('년, 월을 모두 입력해주세요')
-      } else if (!this.grade || !this.room) {
-        alert('학년, 반을 모두 입력해주세요')
+      }
+      // 년 검사
+      const regYear = /^\d{4}$/
+      if (!regYear.test(this.year)) {
+        alert('년도를 4개의 숫자로 입력해주세요')
+        return
+      }
+      // 월 검사
+      const regMonth = /^[1-9]$|^1[012]$/
+      if (!regMonth.test(this.month)) {
+        alert('월은 1~12의 숫자로 입력해주세요')
+        return
+      }
+      //학년 검사
+      const regGrade = /^[1-9]$/
+      if (!regGrade.test(this.grade)) {
+        alert('학년은 1~9사이의 숫자로 입력하세요')
+        return
+      }
+      //반 검사
+      const regRoom = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
+      if (!regRoom.test(this.room)) {
+        alert('반은 1~99사이의 숫자로 입력하세요')
         return
       }
       this.name = null
@@ -106,8 +126,26 @@ export default {
     searchByName() {
       if (!this.year || !this.month) {
         alert('년, 월을 입력하세요')
-      } else if (!this.name) {
+      }
+      // 년 검사
+      const regYear = /^\d{4}$/
+      if (!regYear.test(this.year)) {
+        alert('년도를 4개의 숫자로 입력해주세요')
+        return
+      }
+      // 월 검사
+      const regMonth = /^[1-9]$|^1[012]$/
+      if (!regMonth.test(this.month)) {
+        alert('월은 1~12의 숫자로 입력해주세요')
+        return
+      }
+      if (!this.name) {
         alert('이름을 입력해주세요')
+        return
+      }
+      const regName = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/
+      if (!regName.test(this.name)) {
+        alert('이름은 한글 2글자 이상 입력하세요')
         return
       }
       this.grade = null

@@ -3,7 +3,8 @@
     <div
       class="d-flex"
       @click="$emit('change-mode-default')"
-      style="font-size: 4vh; cursor: pointer">
+      style="font-size: 3vh; cursor: pointer"
+    >
       <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
     </div>
     <div clsss="d-flex" v-if="mode === 'R'">
@@ -11,13 +12,15 @@
         :studentIndex="studentIndex"
         :inbodyIndex="inbodyIndex"
         @change-mode-U="mode = 'U'"
-        @change-mode-default="$emit('change-mode-default')" />
+        @change-mode-default="$emit('change-mode-default')"
+      />
     </div>
     <div v-if="mode === 'U'">
       <AdminInbodyDetailUpdate
         :studentIndex="studentIndex"
         :inbodyIndex="inbodyIndex"
-        @change-mode-R="mode = 'R'" />
+        @change-mode-R="mode = 'R'"
+      />
     </div>
   </div>
 </template>

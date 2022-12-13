@@ -1,6 +1,6 @@
 <template>
   <div>
-    <modal-view v-if="showModal" @close-modal="showModal = false" />
+    <TheModal v-if="showModal" @close-modal="showModal = false" />
 
     <kiosk-header />
 
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import ModalView from '../components/ModalView.vue'
+import TheModal from '../components/TheModal.vue'
 import KioskHeader from '../components/KioskHeader.vue'
 import GymItem from '@/components/GymItem.vue'
 
@@ -40,7 +40,7 @@ export default {
   components: {
     KioskHeader,
     GymItem,
-    ModalView,
+    TheModal,
   },
   data() {
     return {

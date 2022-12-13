@@ -5,10 +5,10 @@ urlpatterns = [
     # path('attendance/', views.attendance),
     path('<str:num>/attendance/', views.attendance),
     path('<str:num>/inbody/', views.inbody),
-    path('<str:student_pk>/inbody/create/', views.inbody_create),
-    path('<str:student_pk>/inbody/list/', views.inbody_list),
-    path('<str:student_pk>/inbody/<int:inbody_pk>/', views.inbody_detail),
-    path('<str:student_pk>/inbody/password/', views.password_update),
+    path('<int:student_pk>/inbody/create/', views.inbody_create),
+    path('<int:student_pk>/inbody/list/', views.inbody_list),
+    path('<int:student_pk>/inbody/<int:inbody_pk>/', views.inbody_detail),
+    path('<int:student_pk>/password/', views.password_update),
 
     # 학생관리
     path('', views.students),

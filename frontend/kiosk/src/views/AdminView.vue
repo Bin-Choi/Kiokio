@@ -6,7 +6,7 @@
     <AdminHeader />
     <div
       class="w-50 d-flex flex-column justify-content-around align-items-center h-100"
-      style="padding-top: 15vh; padding-bottom: 15vh"
+      style="padding-top: 15vh; padding-bottom: 15vh; font-family: 'standard'"
     >
       <div
         class="admin-view-button shadow"
@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import AdminHeader from "@/components/AdminHeader.vue"
+import AdminHeader from '@/components/AdminHeader.vue'
 
 export default {
-  name: "AdminView",
+  name: 'AdminView',
   components: {
     AdminHeader,
   },
@@ -47,9 +47,9 @@ export default {
 }
 .student-search-form {
   background-color: white;
-  margin: 0 1vh;
+  margin: 0 1.5vh 0 0.5vh;
   width: 10vh;
-  height: 4vh;
+  height: 3.5vh;
   border-radius: 1vh;
 }
 .admin-view-button {
@@ -63,7 +63,6 @@ export default {
   line-height: 6vh;
   border-radius: 5vh;
 
-  font-family: "bold";
   font-size: 4vh;
 }
 
@@ -72,12 +71,11 @@ export default {
 .red-btn,
 .gray-btn {
   width: fit-content;
-  height: 4vh;
+  height: 3.5vh;
   border-radius: 1vh;
   border: 0;
-  /* outline: 0; */
   color: white;
-  font-size: 2vh;
+  font-size: 1.8vh;
 }
 
 .red-btn:focus,
@@ -112,5 +110,23 @@ export default {
 }
 .blue-btn:hover {
   background-color: rgb(18, 28, 115);
+}
+
+#admin-scroll-box {
+  height: 60vh;
+  overflow: auto;
+}
+
+#admin-scroll-box::-webkit-scrollbar {
+  width: 1vh;
+  margin: 1vh;
+}
+#admin-scroll-box::-webkit-scrollbar-thumb {
+  background-color: #6396c3;
+  border-radius: 0.5vh;
+}
+
+#admin-scroll-box::-webkit-scrollbar-corner {
+  display: none;
 }
 </style>

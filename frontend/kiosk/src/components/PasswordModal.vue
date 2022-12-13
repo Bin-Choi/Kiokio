@@ -41,7 +41,7 @@ import axios from 'axios'
 // const pwKey = b"ABCD"
 
 export default {
-  name: 'ModalPwView',
+  name: 'PasswordModal',
   components: {
     TheKeypad,
   },

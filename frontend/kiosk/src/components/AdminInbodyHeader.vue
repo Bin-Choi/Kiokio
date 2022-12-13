@@ -65,12 +65,29 @@ export default {
         alert('학년, 반을 모두 입력해주세요')
         return
       }
+      //학년 검사
+      const regGrade = /^[1-9]$/
+      if (!regGrade.test(this.grade)) {
+        alert('학년은 1~9사이의 숫자로 입력하세요')
+        return
+      }
+      //반 검사
+      const regRoom = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
+      if (!regRoom.test(this.room)) {
+        alert('반은 1~99사이의 숫자로 입력하세요')
+        return
+      }
       this.name = null
       this.$emit('search-by-class', this.grade, this.room)
     },
     searchByName() {
       if (!this.name) {
         alert('이름을 입력해주세요')
+        return
+      }
+      const regName = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/
+      if (!regName.test(this.name)) {
+        alert('이름은 한글 2글자 이상 입력하세요')
         return
       }
       this.grade = null

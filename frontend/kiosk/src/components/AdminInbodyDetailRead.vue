@@ -1,81 +1,99 @@
 <template>
   <div>
-    <div class="d-flex justify-content-end" style="margin-bottom: 1vh">
-      <button class="blue-btn shadow-sm" @click="$emit('change-mode-U')">
-        수정
-      </button>
-      <button
-        class="red-btn shadow-sm"
-        style="margin-left: 1vh"
-        @click="deleteInbody"
-      >
-        삭제
-      </button>
-    </div>
-    <div class="d-flex flex-column" style="height: 60vh; overflow-y: scroll">
-      <div>{{ student.name }}, {{ student.gender }}</div>
-      <div>
-        {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번호
+    <div class="d-flex justify-content-between">
+      <div></div>
+      <div style="margin-bottom: 2vh; font-size: 2.5vh; font-weight: bold">
+        {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번
+
+        {{ student.name }} ({{ student.gender }})
       </div>
-      <div class="container" style="font-size: 2.5vh; height: 100%">
+      <div>
+        <button class="blue-btn shadow-sm" @click="$emit('change-mode-U')">
+          수정
+        </button>
+        <button
+          class="red-btn shadow-sm"
+          style="margin-left: 1vh"
+          @click="deleteInbody"
+        >
+          삭제
+        </button>
+      </div>
+    </div>
+
+    <!-- INBODY CONTENT -->
+    <div class="w-75 m-auto rounded" style="font-size: 2.3vh; padding: 2vh">
+      <div id="admin-scroll-box" class="container">
         <div class="row">
-          <p class="col">검사일시</p>
-          <div class="col">{{ inbody.test_date }}</div>
+          <p class="col-6">검사일시</p>
+          <div class="col-5 rounded shadow-sm">{{ inbody.test_date }}</div>
         </div>
 
         <div class="row">
-          <p class="col">키</p>
-          <div class="col">{{ inbody.height }} cm</div>
+          <p class="col-6">키</p>
+          <div class="col-5 rounded shadow-sm">{{ inbody.height }} cm</div>
         </div>
 
         <div class="row">
-          <p class="col">나이</p>
-          <div class="col">{{ inbody.age }} 세</div>
+          <p class="col-6">나이(세)</p>
+          <div class="col-5 rounded shadow-sm">{{ inbody.age }} 세</div>
         </div>
 
         <div class="row">
-          <p class="col">체수분</p>
-          <div class="col">{{ inbody.total_body_water }} L</div>
+          <p class="col-6">체중</p>
+          <div class="col-5 rounded shadow-sm">{{ inbody.weight }} kg</div>
         </div>
 
         <div class="row">
-          <p class="col">단백질</p>
-          <div class="col">{{ inbody.protein }} kg</div>
+          <p class="col-6">BMI</p>
+          <div class="col-5 rounded shadow-sm">
+            {{ inbody.body_mass_index }} kg/m^2
+          </div>
         </div>
 
         <div class="row">
-          <p class="col">무기질</p>
-          <div class="col">{{ inbody.minerals }} kg</div>
+          <p class="col-6">체지방률</p>
+          <div class="col-5 rounded shadow-sm">
+            {{ inbody.percent_body_fat }} %
+          </div>
         </div>
 
         <div class="row">
-          <p class="col">체지방량</p>
-          <div class="col">{{ inbody.body_fat_mass }} kg</div>
+          <p class="col-6">체수분</p>
+          <div class="col-5 rounded shadow-sm">
+            {{ inbody.total_body_water }} L
+          </div>
         </div>
 
         <div class="row">
-          <p class="col">체중</p>
-          <div class="col">{{ inbody.weight }} kg</div>
+          <p class="col-6">단백질</p>
+          <div class="col-5 rounded shadow-sm">{{ inbody.protein }} kg</div>
         </div>
 
         <div class="row">
-          <p class="col">골격근량</p>
-          <div class="col">{{ inbody.skeletal_muscle_mass }} kg</div>
+          <p class="col-6">무기질</p>
+          <div class="col-5 rounded shadow-sm">{{ inbody.minerals }} kg</div>
         </div>
 
         <div class="row">
-          <p class="col">BMI</p>
-          <div class="col">{{ inbody.body_mass_index }} kg/m^2</div>
+          <p class="col-6">체지방량</p>
+          <div class="col-5 rounded shadow-sm">
+            {{ inbody.body_fat_mass }} kg
+          </div>
         </div>
 
         <div class="row">
-          <p class="col">체지방률</p>
-          <div class="col">{{ inbody.percent_body_fat }} %</div>
+          <p class="col-6">골격근량</p>
+          <div class="col-5 rounded shadow-sm">
+            {{ inbody.skeletal_muscle_mass }} kg
+          </div>
         </div>
 
         <div class="row">
-          <p class="col">인바디 점수</p>
-          <div class="col">{{ inbody.inbody_score }} 점</div>
+          <p class="col-6">인바디 점수</p>
+          <div class="col-5 rounded shadow-sm">
+            {{ inbody.inbody_score }} 점
+          </div>
         </div>
       </div>
     </div>
@@ -133,4 +151,16 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.row p {
+  font-weight: bold;
+}
+.row {
+  margin-bottom: 1vh;
+}
+
+.row div {
+  background-color: white;
+  border: 0.5vh solid rgba(129, 160, 187, 0.294);
+}
+</style>

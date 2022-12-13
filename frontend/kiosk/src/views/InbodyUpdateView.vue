@@ -37,29 +37,67 @@
     >
       <div id="scroll-box" class="container" style="height: 100%">
         <div class="row">
-          <p class="col">검사일시</p>
+          <p class="col">검사일시*</p>
           <input type="date" ref="date" :value="inbody.test_date" class="col" />
         </div>
 
         <div class="row">
-          <p class="col">키(cm)</p>
+          <p class="col">키(cm)*</p>
           <input
             type="text"
             ref="height"
             @focus="focusChange"
             :value="inbody.height"
             class="col"
+            placeholder="필수입력"
           />
         </div>
 
         <div class="row">
-          <p class="col">나이(세)</p>
+          <p class="col">나이(세)*</p>
           <input
             type="text"
             ref="age"
             @focus="focusChange"
             :value="inbody.age"
             class="col"
+            placeholder="필수입력"
+          />
+        </div>
+
+        <div class="row">
+          <p class="col">체중(kg)*</p>
+          <input
+            type="text"
+            ref="weight"
+            @focus="focusChange"
+            :value="inbody.weight"
+            class="col"
+            placeholder="필수입력"
+          />
+        </div>
+
+        <div class="row">
+          <p class="col">BMI(kg/m^2)*</p>
+          <input
+            type="text"
+            ref="bmi"
+            @focus="focusChange"
+            :value="inbody.body_mass_index"
+            class="col"
+            placeholder="필수입력"
+          />
+        </div>
+
+        <div class="row">
+          <P class="col">체지방률(%)*</P>
+          <input
+            type="text"
+            ref="fatpercent"
+            @focus="focusChange"
+            :value="inbody.percent_body_fat"
+            class="col"
+            placeholder="필수입력"
           />
         </div>
 
@@ -108,45 +146,12 @@
         </div>
 
         <div class="row">
-          <p class="col">체중(kg)</p>
-          <input
-            type="text"
-            ref="weight"
-            @focus="focusChange"
-            :value="inbody.weight"
-            class="col"
-          />
-        </div>
-
-        <div class="row">
           <p class="col">골격근량(kg)</p>
           <input
             type="text"
             ref="muscle"
             @focus="focusChange"
             :value="inbody.skeletal_muscle_mass"
-            class="col"
-          />
-        </div>
-
-        <div class="row">
-          <p class="col">BMI(kg/m^2)</p>
-          <input
-            type="text"
-            ref="bmi"
-            @focus="focusChange"
-            :value="inbody.body_mass_index"
-            class="col"
-          />
-        </div>
-
-        <div class="row">
-          <P class="col">체지방률(%)</P>
-          <input
-            type="text"
-            ref="fatpercent"
-            @focus="focusChange"
-            :value="inbody.percent_body_fat"
             class="col"
           />
         </div>
@@ -206,97 +211,103 @@ export default {
     },
     submit() {
       // Data validation
-      const regFloat = /(^\d+$)|(^\d{1,}.\d{1}$)/
-      const regInt = /^[0-9]*$/
+      const regDate = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
 
-      if (!this.$refs.date.value) {
+      const regFloatNull = /(^\d*$)|(^\d{1,}.\d{1,2}$)/
+      const regFloat = /(^\d+$)|(^\d{1,}.\d{1,2}$)/
+      const regInt = /^[0-9]+$/
+
+      if (!regDate.test(this.$refs.date.value)) {
         alert('검사일을 입력해주세요.')
         return
       }
 
       if (!regFloat.test(this.$refs.height.value)) {
-        alert('키는 소수점 첫째자리까지 입력가능합니다.')
+        alert('키는 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.height.focus()
         return
       }
 
-      if (!regInt.test(this.$refs.age.value) || !this.$refs.age.value) {
+      if (!regInt.test(this.$refs.age.value)) {
         alert('나이를 정확히 입력해주세요.')
         this.$refs.age.focus()
         return
       }
 
-      if (!regFloat.test(this.$refs.water.value)) {
-        alert('체수분은 소수점 첫째자리까지 입력가능합니다.')
-        this.$refs.water.focus()
-        return
-      }
-
-      if (!regFloat.test(this.$refs.protein.value)) {
-        alert('단백질은 소수점 첫째자리까지 입력가능합니다.')
-        this.$refs.protein.focus()
-        return
-      }
-
-      if (!regFloat.test(this.$refs.minerals.value)) {
-        alert('무기질은 소수점 첫째자리까지 입력가능합니다.')
-        this.$refs.minerals.focus()
-        return
-      }
-
-      if (!regFloat.test(this.$refs.fatmass.value)) {
-        alert('체지방량은 소수점 첫째자리까지 입력가능합니다.')
-        this.$refs.fatmass.focus()
-        return
-      }
-
       if (!regFloat.test(this.$refs.weight.value)) {
-        alert('체중은 소수점 첫째자리까지 입력가능합니다.')
+        alert('체중은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.weight.focus()
         return
       }
 
-      if (!regFloat.test(this.$refs.muscle.value)) {
-        alert('골격근량은 소수점 첫째자리까지 입력가능합니다.')
-        this.$refs.muscle.focus()
-        return
-      }
-
       if (!regFloat.test(this.$refs.bmi.value)) {
-        alert('BMI은 소수점 첫째자리까지 입력가능합니다.')
+        alert('BMI은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.bmi.focus()
         return
       }
 
-      if (!regFloat.test(this.$refs.fatpercent.value)) {
-        alert('체지방률은 소수점 첫째자리까지 입력가능합니다.')
+      if (!regFloatNull.test(this.$refs.fatpercent.value)) {
+        alert('체지방률은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.fatpercent.focus()
         return
       }
 
-      if (!regFloat.test(this.$refs.score.value)) {
-        alert('인바디점수를는 소수점 첫째자리까지 입력가능합니다.')
+      if (!regFloatNull.test(this.$refs.water.value)) {
+        alert('체수분은 소수점 둘째자리까지 입력가능합니다.')
+        this.$refs.water.focus()
+        return
+      }
+
+      if (!regFloatNull.test(this.$refs.protein.value)) {
+        alert('단백질은 소수점 둘째자리까지 입력가능합니다.')
+        this.$refs.protein.focus()
+        return
+      }
+
+      if (!regFloatNull.test(this.$refs.minerals.value)) {
+        alert('무기질은 소수점 둘째자리까지 입력가능합니다.')
+        this.$refs.minerals.focus()
+        return
+      }
+
+      if (!regFloatNull.test(this.$refs.fatmass.value)) {
+        alert('체지방량은 소수점 둘째자리까지 입력가능합니다.')
+        this.$refs.fatmass.focus()
+        return
+      }
+
+      if (!regFloatNull.test(this.$refs.muscle.value)) {
+        alert('골격근량은 소수점 둘째자리까지 입력가능합니다.')
+        this.$refs.muscle.focus()
+        return
+      }
+
+      if (!regFloatNull.test(this.$refs.score.value)) {
+        alert('인바디점수는 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.score.focus()
         return
       }
 
       axios({
         method: 'put',
-        url: `${this.axios_URL}/students/inbody/${this.inbody.id}/`,
+        url: `${this.axios_URL}/students/${this.student.id}/inbody/${this.inbody.id}/`,
         data: {
-          student: this.student.pk,
-          height: this.$refs.height.value,
-          age: this.$refs.age.value,
-          test_date: this.$refs.date.value,
-          total_body_water: this.$refs.water.value,
-          protein: this.$refs.protein.value,
-          minerals: this.$refs.minerals.value,
-          body_fat_mass: this.$refs.fatmass.value,
-          weight: this.$refs.weight.value,
-          skeletal_muscle_mass: this.$refs.muscle.value,
-          body_mass_index: this.$refs.bmi.value,
-          percent_body_fat: this.$refs.fatpercent.value,
-          inbody_score: this.$refs.score.value,
+          password: this.student.password,
+          inbody: {
+            student: this.student.id,
+            height: this.$refs.height.value,
+            age: this.$refs.age.value,
+            test_date: this.$refs.date.value,
+            total_body_water: this.$refs.water.value,
+            protein: this.$refs.protein.value,
+            minerals: this.$refs.minerals.value,
+            body_fat_mass: this.$refs.fatmass.value,
+            weight: this.$refs.weight.value,
+            skeletal_muscle_mass: this.$refs.muscle.value,
+            body_mass_index: this.$refs.bmi.value,
+            percent_body_fat: this.$refs.fatpercent.value,
+            inbody_score: this.$refs.score.value,
+          },
         },
       })
         .then((res) => {

@@ -56,8 +56,8 @@ export default {
     student() {
       return this.$store.state.student
     },
-    inbodyPk() {
-      return this.$store.state.inbody.id
+    inbody() {
+      return this.$store.state.inbody
     },
     axios_URL() {
       return this.$store.state.axios_URL
@@ -68,7 +68,7 @@ export default {
       if (confirm('정말 삭제하시겠습니까?')) {
         axios({
           method: 'delete',
-          url: `${this.axios_URL}/students/${this.student.id}/inbody/${this.inbodyPk}/`,
+          url: `${this.axios_URL}/students/${this.student.id}/inbody/${this.inbody.id}/`,
           data: {
             password: this.$store.state.student.password,
           },

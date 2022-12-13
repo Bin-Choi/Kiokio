@@ -4,6 +4,7 @@
     <div
       class="w-100 d-flex justify-content-between"
       @click="$router.push({ name: 'login' })"
+      style="cursor: pointer"
     >
       <div></div>
       <div>
@@ -49,7 +50,8 @@ export default {
   padding: 1.5vh 0;
   margin: 3.5vh 0;
   font-size: 5vh;
-  font-family: 'bold';
+  font-family: 'standard';
+  font-weight: bold;
   color: white;
   background-color: #ffa946;
   border-radius: 5vh;

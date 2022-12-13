@@ -1,7 +1,7 @@
 <template>
   <div id="inbody" class="h-100 d-flex flex-column justify-content-between">
     <!-- MODAL -->
-    <modal-pw-view
+    <PasswordModal
       v-if="showModal"
       :num="this.$refs.num.value"
       @close-modal="showModal = false"
@@ -15,7 +15,7 @@
     >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="$router.go(-1)"
+        @click="$router.push({ name: 'index' })"
       />
       <font-awesome-icon
         icon="fa-solid fa-house"
@@ -30,7 +30,7 @@
       <div v-if="!showModal" class="title w-75 shadow">인바디</div>
 
       <!-- INFO -->
-      <info-view v-if="!showModal" />
+      <TheNumGuide v-if="!showModal" />
 
       <div
         v-if="!showModal"
@@ -63,18 +63,18 @@
 </template>
 
 <script>
-import InfoView from '@/components/InfoView.vue'
+import TheNumGuide from '@/components/TheNumGuide.vue'
 import TheKeypad from '@/components/TheKeypad.vue'
-import ModalPwView from '../components/ModalPwView.vue'
+import PasswordModal from '../components/PasswordModal.vue'
 
 import axios from 'axios'
 
 export default {
   name: 'InbodyView',
   components: {
-    InfoView,
+    TheNumGuide,
     TheKeypad,
-    ModalPwView,
+    PasswordModal,
   },
   data() {
     return {

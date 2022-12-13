@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'InfoView',
+  name: 'TheNumGuide',
 }
 </script>
 

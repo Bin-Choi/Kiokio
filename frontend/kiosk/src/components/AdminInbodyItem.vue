@@ -1,18 +1,32 @@
 <template>
   <div class="d-flex">
-    <div class="box border">
+    <div class="box border" style="width: 5vh">
       {{ index + 1 }}
     </div>
-    <div class="clickable-box border" @click="changeModeStudent">
-      {{ student.name }}, {{ student.grade }} 학년 {{ student.room }}반
-      {{ student.number }} 번
+    <div class="box border" style="width: 6vh">
+      {{ student.grade }}
+    </div>
+    <div class="box border" style="width: 6vh">
+      {{ student.room }}
+    </div>
+    <div class="box border" style="width: 6vh">
+      {{ student.number }}
+    </div>
+    <div
+      class="clickable-box border"
+      @click="changeModeStudent"
+      style="width: 10vh"
+    >
+      {{ student.name }}
     </div>
     <div
       v-for="(inbody, inbodyIndex) in student.inbody_set"
       :key="inbody.id"
       :inbody-index="inbodyIndex"
       class="clickable-box border"
-      @click="changeModeDetail(inbodyIndex)">
+      style="padding-left: 1vh; padding-right: 1vh"
+      @click="changeModeDetail(inbodyIndex)"
+    >
       {{ inbody.test_date }}
     </div>
   </div>

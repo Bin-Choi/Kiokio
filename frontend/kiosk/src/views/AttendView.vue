@@ -1,7 +1,7 @@
 <template>
   <div class="h-100 d-flex flex-column justify-content-between">
     <!-- MODAL -->
-    <modal-view
+    <TheModal
       v-if="showModal"
       @close-modal="showModal = false"
       :student="this.student"
@@ -16,7 +16,7 @@
       <div class="title w-75 text-light shadow">출석체크</div>
 
       <!-- INFO -->
-      <info-view />
+      <TheNumGuide />
 
       <div class="d-flex align-items-center justify-content-center">
         <!-- INPUT -->
@@ -42,9 +42,9 @@
 
 <script>
 import KioskHeader from '@/components/KioskHeader.vue'
-import InfoView from '@/components/InfoView.vue'
+import TheNumGuide from '@/components/TheNumGuide.vue'
 import TheKeypad from '@/components/TheKeypad.vue'
-import ModalView from '@/components/ModalView.vue'
+import TheModal from '@/components/TheModal.vue'
 
 import axios from 'axios'
 
@@ -52,8 +52,8 @@ export default {
   name: 'AttendView',
   components: {
     KioskHeader,
-    InfoView,
-    ModalView,
+    TheNumGuide,
+    TheModal,
     TheKeypad,
   },
   data() {

@@ -137,7 +137,7 @@ export default {
 
       axios({
         method: 'put',
-        url: `${this.axios_URL}/students/${this.student.id}/inbody/password/`,
+        url: `${this.axios_URL}/students/${this.student.id}/password/`,
         data: {
           password: this.student.password,
           currentPassword: this.$refs.password.value,

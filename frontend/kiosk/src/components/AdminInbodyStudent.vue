@@ -3,14 +3,14 @@
     <div
       class="d-flex"
       @click="$emit('change-mode-default')"
-      style="font-size: 4vh; cursor: pointer"
+      style="font-size: 3vh; cursor: pointer"
     >
       <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
     </div>
 
-    <div>
+    <div style="font-size: 2.5vh">
       {{ student.name }} {{ student.grade }}학년 {{ student.room }}반
-      {{ student.number }}번호 {{ student.gender }}
+      {{ student.number }}번 {{ student.gender }}
     </div>
     <div
       v-if="mode === 'R'"
@@ -27,11 +27,19 @@
         수정
       </button>
     </div>
-    <div v-if="mode === 'U'">
-      <button class="gray-btn" @click="mode = 'R'">취소</button>
-      <button class="green-btn" @click="addInbody">추가</button>
-      <button class="red-btn" @click="deleteInbody">삭제</button>
-      <button class="blue-btn" @click="updateInbody">저장</button>
+    <div
+      v-if="mode === 'U'"
+      class="w-100 d-flex justify-content-between"
+      style="margin: 1vh 0"
+    >
+      <div>
+        <button class="gray-btn" @click="mode = 'R'">취소</button>
+      </div>
+      <div>
+        <button class="green-btn" @click="addInbody">기록추가</button>
+        <button class="red-btn" @click="deleteInbody">기록삭제</button>
+        <button class="blue-btn" @click="updateInbody">저장</button>
+      </div>
     </div>
 
     <div class="d-flex" style="overflow-x: scroll">
@@ -103,18 +111,18 @@ export default {
     addInbody() {
       this.inbodyCopy.push({
         student: this.student.id,
-        height: null,
-        age: null,
-        test_date: null,
-        total_body_water: null,
-        protein: null,
-        minerals: null,
-        body_fat_mass: null,
-        weight: null,
-        skeletal_muscle_mass: null,
-        body_mass_index: null,
-        percent_body_fat: null,
-        inbody_score: null,
+        height: '',
+        age: '',
+        test_date: '',
+        total_body_water: '',
+        protein: '',
+        minerals: '',
+        body_fat_mass: '',
+        weight: '',
+        skeletal_muscle_mass: '',
+        body_mass_index: '',
+        percent_body_fat: '',
+        inbody_score: '',
       })
     },
     deleteInbody() {
@@ -150,10 +158,13 @@ export default {
       //유효성 검사
       this.invalid = null
       const inbodyCopy = this.inbodyCopy
+
+      const regDate = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
+
+      const regFloatNull = /(^\d*$)|(^\d{1,}.\d{1,2}$)/
+      const regFloat = /(^\d+$)|(^\d{1,}.\d{1,2}$)/
+      const regInt = /^[0-9]+$/
       for (let i = 0; i < inbodyCopy.length; i++) {
-        const regDate = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
-        const regInt = /^\d+$/
-        const regFloat = /^\d+[.]\d{1}$/
         //날짜 검사
         if (!regDate.test(inbodyCopy[i].test_date)) {
           this.invalid = i
@@ -161,69 +172,69 @@ export default {
           return
         }
         //키 검사
-        if (!regInt.test(inbodyCopy[i].height)) {
+        if (!regFloat.test(inbodyCopy[i].height)) {
           this.invalid = i
-          alert('키를 정수로 입력하세요')
+          alert('키는 소수점 둘째자리까지 입력가능합니다.')
           return
         }
         //나이 검사
         if (!regInt.test(inbodyCopy[i].age)) {
           this.invalid = i
-          alert('나이를 정수로 입력하세요')
-          return
-        }
-        //체수분
-        if (!regFloat.test(inbodyCopy[i].total_body_water)) {
-          this.invalid = i
-          alert('체수분을 소수로 입력하세요')
-          return
-        }
-        //단백질
-        if (!regFloat.test(inbodyCopy[i].protein)) {
-          this.invalid = i
-          alert('단백질을 소수로 입력하세요')
-          return
-        }
-        //무기질
-        if (!regFloat.test(inbodyCopy[i].minerals)) {
-          this.invalid = i
-          alert('미네랄을 소수로 입력하세요')
-          return
-        }
-        //체지방량
-        if (!regFloat.test(inbodyCopy[i].body_fat_mass)) {
-          this.invalid = i
-          alert('체지방량을 소수로 입력하세요')
+          alert('나이는 정수로 입력가능합니다.')
           return
         }
         //체중
         if (!regFloat.test(inbodyCopy[i].weight)) {
           this.invalid = i
-          alert('체중을 소수로 입력하세요')
-          return
-        }
-        //골격근량
-        if (!regFloat.test(inbodyCopy[i].skeletal_muscle_mass)) {
-          this.invalid = i
-          alert('골격근량을 소수로 입력하세요')
+          alert('체중은 소수점 둘째자리까지 입력가능합니다.')
           return
         }
         //BMI
         if (!regFloat.test(inbodyCopy[i].body_mass_index)) {
           this.invalid = i
-          alert('BMI를 소수로 입력하세요')
+          alert('BMI는 소수점 둘째자리까지 입력가능합니다.')
           return
         }
         //체지방률
         if (!regFloat.test(inbodyCopy[i].percent_body_fat)) {
           this.invalid = i
-          alert('체지방률을 소수로 입력하세요')
+          alert('체지방률은 소수점 둘째자리까지 입력가능합니다.')
+          return
+        }
+        //체수분
+        if (!regFloatNull.test(inbodyCopy[i].total_body_water)) {
+          this.invalid = i
+          alert('체수분은 소수점 둘째자리까지 입력가능합니다.')
+          return
+        }
+        //단백질
+        if (!regFloatNull.test(inbodyCopy[i].protein)) {
+          this.invalid = i
+          alert('단백질은 소수점 둘째자리까지 입력가능합니다.')
+          return
+        }
+        //무기질
+        if (!regFloatNull.test(inbodyCopy[i].minerals)) {
+          this.invalid = i
+          alert('미네랄은 소수점 둘째자리까지 입력가능합니다.')
+          return
+        }
+        //체지방량
+        if (!regFloatNull.test(inbodyCopy[i].body_fat_mass)) {
+          this.invalid = i
+          alert('체지방량은 소수점 둘째자리까지 입력가능합니다.')
+          return
+        }
+        //골격근량
+        if (!regFloatNull.test(inbodyCopy[i].skeletal_muscle_mass)) {
+          this.invalid = i
+          alert('골격근량은 소수점 둘째자리까지 입력가능합니다.')
           return
         }
         //인바디 점수
-        if (!regInt.test(inbodyCopy[i].inbody_score)) {
+        if (!regFloatNull.test(inbodyCopy[i].inbody_score)) {
           this.invalid = i
-          alert('인바디 점수를 정수로 입력하세요')
+          alert('인바디 점수는 소수점 둘째자리까지 입력가능합니다.')
           return
         }
       }
@@ -253,4 +264,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+button {
+  margin-left: 1vh;
+}
+</style>

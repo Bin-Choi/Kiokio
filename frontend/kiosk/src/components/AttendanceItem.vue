@@ -9,7 +9,8 @@
         .fill()
         .map((v, i) => i + 1)"
       :key="day"
-      class="box border attendance-column"></div>
+      class="box border attendance-column"
+    ></div>
   </div>
 </template>
 

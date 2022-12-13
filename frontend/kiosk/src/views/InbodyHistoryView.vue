@@ -34,7 +34,7 @@
         </div>
         <inbody-history-item
           v-for="inbody in this.inbodyList"
-          :key="inbody.pk"
+          :key="inbody.id"
           :inbody="inbody"
         />
       </div>
