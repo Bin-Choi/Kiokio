@@ -180,17 +180,21 @@ def students(request):
 
     # 추가
     if request.method == 'POST':
-        # # serialzier 유효성 검사
-        add_list = request.data
-        serializers = []
-        for i in range(len(students)):
-            serializer = StudentSerializer(data=add_list[i])
-            if serializer.is_valid(raise_exception=True):
-                serializers.append(serializer)
-        # 저장
-        for serializer in serializers:
-            serializer.save()
+        serializers = StudentSerializer(many=True, data=request.data)
+        if serializers.is_valid(raise_exception=True):
+            serializers.save()
         return Response(status=status.HTTP_201_CREATED)
+        # # # serialzier 유효성 검사
+        # add_list = request.data
+        # serializers = []
+        # for i in range(len(students)):
+        #     serializer = StudentSerializer(data=add_list[i])
+        #     if serializer.is_valid(raise_exception=True):
+        #         serializers.append(serializer)
+        # # 저장
+        # for serializer in serializers:
+        #     serializer.save()
+        # return Response(status=status.HTTP_201_CREATED)
 
     # 수정
     if request.method == 'PUT':
