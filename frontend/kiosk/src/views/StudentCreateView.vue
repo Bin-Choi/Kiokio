@@ -1,8 +1,7 @@
 <template>
   <div
     class="bg-white d-flex flex-column"
-    style="width: 100vw; height: 100vh; padding: 7vh"
-  >
+    style="width: 100vw; height: 100vh; padding: 7vh">
     <AdminHeader />
     <div
       class="rounded shadow d-flex flex-column"
@@ -12,8 +11,7 @@
         padding: 3vh;
         margin-top: 5vh;
         background-color: #81a0bb4b;
-      "
-    >
+      ">
       <StudentCreateHeader
         :ready-delete="readyDelete"
         @add-row="addRow"
@@ -31,8 +29,7 @@
           :ready-delete="readyDelete"
           :invalid="invalid"
           @change-check="changeCheck"
-          @change-data="changeData"
-        />
+          @change-data="changeData" />
       </div>
     </div>
   </div>
@@ -123,7 +120,7 @@ export default {
       this.students[index][key] = value.trim()
     },
     createStudent() {
-      // 유효성 검사를 통과한 학생 리스트
+      // 중복 검사를 통과한 학생 리스트
       let studentsList = []
 
       //유효성 검사

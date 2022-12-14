@@ -1,7 +1,6 @@
 <template>
   <div
-    class="h-100 d-flex flex-column align-items-center justify-content-between"
-  >
+    class="h-100 d-flex flex-column align-items-center justify-content-between">
     <!-- BACK -->
     <div
       class="w-100 d-flex justify-content-between"
@@ -9,12 +8,10 @@
     >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="$router.push({ name: 'inbodyHistory' })"
-      />
+        @click="$router.push({ name: 'inbodyHistory' })" />
       <font-awesome-icon
         icon="fa-solid fa-house"
-        @click="$router.push({ name: 'index' })"
-      />
+        @click="$router.push({ name: 'index' })" />
     </div>
 
     <!-- PAGE TITLE -->
@@ -22,8 +19,7 @@
 
     <div
       class="w-75 d-flex justify-content-around align-items-center"
-      style="font-size: 3vh"
-    >
+      style="font-size: 3vh">
       {{ student.grade }}학년 {{ student.room }}반 {{ student.name }}
 
       <button class="orange-btn shadow" @click="submit">완료</button>
@@ -43,7 +39,7 @@
         <div class="row">
           <p class="col-5">키*</p>
           <input
-            type="text"
+            type="number"
             ref="height"
             @focus="focusChange"
             class="col-4"
@@ -55,7 +51,7 @@
         <div class="row">
           <p class="col-5">나이*</p>
           <input
-            type="text"
+            type="number"
             ref="age"
             @focus="focusChange"
             class="col-4"
@@ -67,7 +63,7 @@
         <div class="row">
           <p class="col-5">체중*</p>
           <input
-            type="text"
+            type="number"
             ref="weight"
             @focus="focusChange"
             class="col-4"
@@ -79,7 +75,7 @@
         <div class="row">
           <p class="col-5">BMI*</p>
           <input
-            type="text"
+            type="number"
             ref="bmi"
             @focus="focusChange"
             class="col-4"
@@ -91,7 +87,7 @@
         <div class="row">
           <P class="col-5">체지방률*</P>
           <input
-            type="text"
+            type="number"
             ref="fatpercent"
             @focus="focusChange"
             class="col-4"
@@ -179,9 +175,10 @@ export default {
       }
     },
     submit() {
+      console.log(this.$refs.score.value)
       // Data validation
       const regDate = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
-      const regFloatNull = /(^\d*$)|(^\d{1,}.\d{1,2}$)/
+      const regFloatBlank = /(^\d*$)|(^\d{1,}.\d{1,2}$)/
       const regFloat = /(^\d+$)|(^\d{1,}.\d{1,2}$)/
       const regInt = /^[0-9]+$/
 
@@ -214,43 +211,43 @@ export default {
         return
       }
 
-      if (!regFloatNull.test(this.$refs.fatpercent.value)) {
+      if (!regFloatBlank.test(this.$refs.fatpercent.value)) {
         alert('체지방률은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.fatpercent.focus()
         return
       }
 
-      if (!regFloatNull.test(this.$refs.water.value)) {
+      if (!regFloatBlank.test(this.$refs.water.value)) {
         alert('체수분은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.water.focus()
         return
       }
 
-      if (!regFloatNull.test(this.$refs.protein.value)) {
+      if (!regFloatBlank.test(this.$refs.protein.value)) {
         alert('단백질은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.protein.focus()
         return
       }
 
-      if (!regFloatNull.test(this.$refs.minerals.value)) {
+      if (!regFloatBlank.test(this.$refs.minerals.value)) {
         alert('무기질은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.minerals.focus()
         return
       }
 
-      if (!regFloatNull.test(this.$refs.fatmass.value)) {
+      if (!regFloatBlank.test(this.$refs.fatmass.value)) {
         alert('체지방량은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.fatmass.focus()
         return
       }
 
-      if (!regFloatNull.test(this.$refs.muscle.value)) {
+      if (!regFloatBlank.test(this.$refs.muscle.value)) {
         alert('골격근량은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.muscle.focus()
         return
       }
 
-      if (!regFloatNull.test(this.$refs.score.value)) {
+      if (!regFloatBlank.test(this.$refs.score.value)) {
         alert('인바디점수는 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.score.focus()
         return

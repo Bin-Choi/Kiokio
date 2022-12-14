@@ -169,7 +169,7 @@ def inbody_create(request, student_pk):
         serializer = InbodySerializer(data=request.data['inbody'])
         
         if serializer.is_valid(raise_exception=True):
-            serializer.save(student=student_pk)
+            serializer.save(student=student)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     return Response(status=status.HTTP_401_UNAUTHORIZED)       
@@ -180,17 +180,21 @@ def students(request):
 
     # 추가
     if request.method == 'POST':
-        # # serialzier 유효성 검사
-        add_list = request.data
-        serializers = []
-        for i in range(len(students)):
-            serializer = StudentSerializer(data=add_list[i])
-            if serializer.is_valid(raise_exception=True):
-                serializers.append(serializer)
-        # 저장
-        for serializer in serializers:
-            serializer.save()
+        serializers = StudentSerializer(many=True, data=request.data)
+        if serializers.is_valid(raise_exception=True):
+            serializers.save()
         return Response(status=status.HTTP_201_CREATED)
+        # # # serialzier 유효성 검사
+        # add_list = request.data
+        # serializers = []
+        # for i in range(len(students)):
+        #     serializer = StudentSerializer(data=add_list[i])
+        #     if serializer.is_valid(raise_exception=True):
+        #         serializers.append(serializer)
+        # # 저장
+        # for serializer in serializers:
+        #     serializer.save()
+        # return Response(status=status.HTTP_201_CREATED)
 
     # 수정
     if request.method == 'PUT':
@@ -286,7 +290,6 @@ def inbody_list_name(request, name):
     if request.method == 'GET':
         serializer = StudentInbodyListSerializer(students, many=True)
         return Response(serializer.data)
-
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

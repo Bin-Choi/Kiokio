@@ -1,8 +1,7 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="width: 100vw; height: 100vh; padding: 7vh"
-  >
+    style="width: 100vw; height: 100vh; padding: 7vh">
     <AdminHeader />
     <div
       id="content"
@@ -12,12 +11,10 @@
         padding: 3vh;
         margin-top: 5vh;
         background-color: #81a0bb4b;
-      "
-    >
+      ">
       <StudentHeader
         @search-by-class="searchByClass"
-        @search-by-name="searchByName"
-      />
+        @search-by-name="searchByName" />
 
       <div v-if="students">
         <div id="button-box" v-if="mode === 'R'">
@@ -25,8 +22,7 @@
           <button
             class="red-btn shadow-sm"
             style="margin-left: 1vh"
-            @click="mode = 'D'"
-          >
+            @click="mode = 'D'">
             삭제
           </button>
         </div>
@@ -48,8 +44,7 @@
             v-for="(student, index) in students"
             :key="student.id"
             :index="index"
-            :student="student"
-          />
+            :student="student" />
         </div>
         <div v-if="students && mode === 'U'">
           <StudentUpdateItem
@@ -58,8 +53,7 @@
             :index="index"
             :student="student"
             :invalid="invalid"
-            @change-data="changeData"
-          />
+            @change-data="changeData" />
         </div>
         <div v-if="students && mode === 'D'">
           <StudentDeleteItem
@@ -67,8 +61,7 @@
             :key="index"
             :index="index"
             :student="student"
-            @change-check="changeCheck"
-          />
+            @change-check="changeCheck" />
         </div>
       </div>
     </div>
@@ -143,6 +136,9 @@ export default {
       this.students[index][key] = value
     },
     updateStudent() {
+      // 중복 검사를 통과한 학생 리스트
+      let studentsList = []
+
       //유효성 검사
       this.invalid = null
       const students = this.students
@@ -187,6 +183,21 @@ export default {
           this.invalid = i
           alert('비밀번호는 4자리 숫자로 입력하세요')
           return
+        }
+        // 학번 중복인 학생 필터링
+        if (studentsList) {
+          for (let j = 0; j < studentsList.length; j++) {
+            if (
+              studentsList[j].grade === students[i].grade &&
+              studentsList[j].room === students[i].room &&
+              studentsList[j].number === students[i].number
+            ) {
+              alert(
+                `${students[i].grade}학년 ${students[i].room}반 ${students[i].number}번 학생이 중복으로 존재합니다.`
+              )
+              return
+            }
+          }
         }
       }
       axiosAuth({
