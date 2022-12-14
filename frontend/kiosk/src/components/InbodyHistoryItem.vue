@@ -3,10 +3,10 @@
     <p class="col" style="line-height: 4vh">
       {{ date[0].slice(-2) }}/{{ date[1] }}/{{ date[2] }}
     </p>
-    <p class="col" style="line-height: 4vh">{{ inbody.age }} 세</p>
-    <p class="col" style="line-height: 4vh">{{ inbody.height }} cm</p>
-    <p class="col" style="line-height: 4vh">{{ inbody.weight }} kg</p>
-    <p class="col" style="line-height: 4vh">{{ inbody.percent_body_fat }} %</p>
+    <p class="col">{{ inbody.age }} 세</p>
+    <p class="col">{{ inbody.height }} cm</p>
+    <p class="col">{{ inbody.weight }} kg</p>
+    <p class="col">{{ inbody.percent_body_fat }} %</p>
   </div>
 </template>
 
@@ -56,6 +56,10 @@ div {
   margin: 1vh 0;
   font-size: 1.5vh;
   border-radius: 1vh;
-  border: 0.1vh solid #ffa946;
+  border: 0.2vh solid #ffa946;
+}
+
+.col {
+  line-height: 4vh;
 }
 </style>

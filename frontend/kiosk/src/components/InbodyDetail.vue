@@ -1,7 +1,7 @@
 <template>
   <div
     class="w-75 bg-white round shadow"
-    style="padding: 2.5vh 2vh; height: 60vh"
+    style="padding: 1.5vh 1vh; height: 60vh"
   >
     <div
       id="scroll-box"
@@ -9,63 +9,75 @@
       style="font-size: 2.5vh; height: 100%"
     >
       <div class="row">
-        <p class="col">검사일시</p>
-        <div class="col">{{ inbody.test_date }}</div>
+        <p class="col-4">검사일시</p>
+        <div class="col-5">{{ inbody.test_date }}</div>
+        <p class="col-1"></p>
       </div>
 
       <div class="row">
-        <p class="col">키</p>
-        <div class="col">{{ inbody.height }} cm</div>
+        <p class="col-4">키</p>
+        <div class="col-5">{{ inbody.height }}</div>
+        <p class="col-1">cm</p>
       </div>
 
       <div class="row">
-        <p class="col">나이</p>
-        <div class="col">{{ inbody.age }} 세</div>
+        <p class="col-4">나이</p>
+        <div class="col-5">{{ inbody.age }}</div>
+        <p class="col-1">세</p>
       </div>
 
       <div class="row">
-        <p class="col">체수분</p>
-        <div class="col">{{ inbody.total_body_water }} L</div>
+        <p class="col-4">체중</p>
+        <div class="col-5">{{ inbody.weight }}</div>
+        <p class="col-1">kg</p>
       </div>
 
       <div class="row">
-        <p class="col">단백질</p>
-        <div class="col">{{ inbody.protein }} kg</div>
+        <p class="col-4">BMI</p>
+        <div class="col-5">{{ inbody.body_mass_index }}</div>
+        <p class="col-1">kg/m<sup>2</sup></p>
       </div>
 
       <div class="row">
-        <p class="col">무기질</p>
-        <div class="col">{{ inbody.minerals }} kg</div>
+        <p class="col-4">체지방률</p>
+        <div class="col-5">{{ inbody.percent_body_fat }}</div>
+        <p class="col-1">%</p>
       </div>
 
       <div class="row">
-        <p class="col">체지방량</p>
-        <div class="col">{{ inbody.body_fat_mass }} kg</div>
+        <p class="col-4">체수분</p>
+        <div class="col-5">{{ inbody.total_body_water }}</div>
+        <p class="col-1">L</p>
       </div>
 
       <div class="row">
-        <p class="col">체중</p>
-        <div class="col">{{ inbody.weight }} kg</div>
+        <p class="col-4">단백질</p>
+        <div class="col-5">{{ inbody.protein }}</div>
+        <p class="col-1">kg</p>
       </div>
 
       <div class="row">
-        <p class="col">골격근량</p>
-        <div class="col">{{ inbody.skeletal_muscle_mass }} kg</div>
+        <p class="col-4">무기질</p>
+        <div class="col-5">{{ inbody.minerals }}</div>
+        <p class="col-1">kg</p>
       </div>
 
       <div class="row">
-        <p class="col">BMI</p>
-        <div class="col">{{ inbody.body_mass_index }} kg/m^2</div>
+        <p class="col-4">체지방량</p>
+        <div class="col-5">{{ inbody.body_fat_mass }}</div>
+        <p class="col-1">kg</p>
       </div>
 
       <div class="row">
-        <p class="col">체지방률</p>
-        <div class="col">{{ inbody.percent_body_fat }} %</div>
+        <p class="col-4">골격근량</p>
+        <div class="col-5">{{ inbody.skeletal_muscle_mass }}</div>
+        <p class="col-1">kg</p>
       </div>
 
       <div class="row">
-        <p class="col">인바디 점수</p>
-        <div class="col">{{ inbody.inbody_score }} 점</div>
+        <p class="col-4">인바디점수</p>
+        <div class="col-5">{{ inbody.inbody_score }}</div>
+        <p class="col-1">점</p>
       </div>
     </div>
   </div>
@@ -85,14 +97,15 @@ export default {
 <style scoped>
 .row {
   margin: 1vh 0;
+  line-height: 5vh;
 }
 
 .row div {
-  margin-right: 1.5vh;
   height: 5vh;
   background: none;
   border: 0.1vh solid #ffa946;
   border-radius: 1vh;
   box-shadow: 0.1vh 0.1vh 0.1vh #ffa94651;
+  font-size: 2.3vh;
 }
 </style>

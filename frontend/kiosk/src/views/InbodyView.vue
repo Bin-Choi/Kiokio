@@ -1,5 +1,9 @@
 <template>
-  <div id="inbody" class="h-100 d-flex flex-column justify-content-between">
+  <div
+    id="inbody"
+    class="d-flex flex-column justify-content-between"
+    style="height: 100vh"
+  >
     <!-- MODAL -->
     <PasswordModal
       v-if="showModal"
@@ -7,35 +11,19 @@
       @close-modal="showModal = false"
     />
 
-    <!-- BACK -->
-    <div
-      v-if="!showModal"
-      class="w-100 d-flex justify-content-between"
-      style="font-size: 4vh; margin: 1.5vh; margin-bottom: 0; padding: 2.2vh"
-    >
-      <font-awesome-icon
-        icon="fa-solid fa-circle-arrow-left"
-        @click="$router.push({ name: 'index' })"
-      />
-      <font-awesome-icon
-        icon="fa-solid fa-house"
-        @click="$router.push({ name: 'index' })"
-      />
-    </div>
+    <kiosk-header v-if="!showModal" />
 
     <div
+      v-if="!showModal"
       class="h-50 d-flex flex-column align-items-center justify-content-around"
     >
       <!-- PAGE TITLE -->
-      <div v-if="!showModal" class="title w-75 shadow">인바디</div>
+      <div class="title w-75 shadow">인바디</div>
 
       <!-- INFO -->
-      <TheNumGuide v-if="!showModal" />
+      <TheNumGuide />
 
-      <div
-        v-if="!showModal"
-        class="d-flex align-items-center justify-content-center"
-      >
+      <div class="d-flex align-items-center justify-content-center">
         <!-- INPUT -->
         <input
           type="text"
@@ -66,7 +54,7 @@
 import TheNumGuide from '@/components/TheNumGuide.vue'
 import TheKeypad from '@/components/TheKeypad.vue'
 import PasswordModal from '../components/PasswordModal.vue'
-
+import KioskHeader from '@/components/KioskHeader.vue'
 import axios from 'axios'
 
 export default {
@@ -75,6 +63,7 @@ export default {
     TheNumGuide,
     TheKeypad,
     PasswordModal,
+    KioskHeader,
   },
   data() {
     return {
