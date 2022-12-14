@@ -86,7 +86,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student
-        exclude = ('key')
+        exclude = ('key',)
         
 
 class AttendanceSerializer(serializers.ModelSerializer):

@@ -4,8 +4,9 @@
       <input
         v-if="readyDelete"
         type="checkbox"
-        @change="(event) => $emit('change-check', event.target.checked, index)"
-      />
+        @change="
+          (event) => $emit('change-check', event.target.checked, index)
+        " />
       <div v-if="!readyDelete">
         {{ index + 1 }}
       </div>
@@ -22,8 +23,7 @@
       @keydown.down="moveOne"
       @input="
         (event) => $emit('change-data', event.target.value, index, 'test_date')
-      "
-    />
+      " />
     <input
       type="number"
       :value="inbody.height"
@@ -37,8 +37,7 @@
       @keydown.down="moveOne"
       @input="
         (event) => $emit('change-data', event.target.value, index, 'height')
-      "
-    />
+      " />
     <input
       type="number"
       :value="inbody.age"
@@ -49,8 +48,9 @@
       @keydown.left="moveMinusTwelve"
       @keydown.up="moveMinusOne"
       @keydown.down="moveOne"
-      @input="(event) => $emit('change-data', event.target.value, index, 'age')"
-    />
+      @input="
+        (event) => $emit('change-data', event.target.value, index, 'age')
+      " />
     <input
       type="number"
       :value="inbody.weight"
@@ -64,8 +64,7 @@
       @keydown.down="moveOne"
       @input="
         (event) => $emit('change-data', event.target.value, index, 'weight')
-      "
-    />
+      " />
     <input
       type="number"
       :value="inbody.body_mass_index"
@@ -80,8 +79,7 @@
       @input="
         (event) =>
           $emit('change-data', event.target.value, index, 'body_mass_index')
-      "
-    />
+      " />
     <input
       type="number"
       :value="inbody.percent_body_fat"
@@ -96,8 +94,7 @@
       @input="
         (event) =>
           $emit('change-data', event.target.value, index, 'percent_body_fat')
-      "
-    />
+      " />
     <input
       type="number"
       :value="inbody.total_body_water"
@@ -112,8 +109,7 @@
       @input="
         (event) =>
           $emit('change-data', event.target.value, index, 'total_body_water')
-      "
-    />
+      " />
     <input
       type="number"
       :value="inbody.protein"
@@ -127,8 +123,7 @@
       @keydown.down="moveOne"
       @input="
         (event) => $emit('change-data', event.target.value, index, 'protein')
-      "
-    />
+      " />
     <input
       type="number"
       :value="inbody.minerals"
@@ -142,8 +137,7 @@
       @keydown.down="moveOne"
       @input="
         (event) => $emit('change-data', event.target.value, index, 'minerals')
-      "
-    />
+      " />
     <input
       type="number"
       :value="inbody.body_fat_mass"
@@ -158,8 +152,7 @@
       @input="
         (event) =>
           $emit('change-data', event.target.value, index, 'body_fat_mass')
-      "
-    />
+      " />
     <input
       type="number"
       :value="inbody.skeletal_muscle_mass"
@@ -179,8 +172,7 @@
             index,
             'skeletal_muscle_mass'
           )
-      "
-    />
+      " />
     <input
       type="number"
       :value="inbody.inbody_score"
@@ -195,8 +187,7 @@
       @input="
         (event) =>
           $emit('change-data', event.target.value, index, 'inbody_score')
-      "
-    />
+      " />
   </div>
 </template>
 

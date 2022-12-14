@@ -29,11 +29,25 @@ const routes = [
     path: '/',
     name: 'index',
     component: IndexView,
+    beforeEnter(to, from, next) {
+      store.state.user = null
+      store.state.access = null
+      store.state.refresh = null
+      store.state.student = null
+      store.state.inbody = null
+      next()
+    },
   },
   {
     path: '/login',
     name: 'login',
     component: LoginView,
+    beforeEnter(to, from, next) {
+      store.state.user = null
+      store.state.access = null
+      store.state.refresh = null
+      next()
+    },
   },
   {
     path: '/admin',
@@ -101,6 +115,11 @@ const routes = [
     path: '/inbody',
     name: 'inbody',
     component: InbodyView,
+    beforeEnter(to, from, next) {
+      store.state.student = null
+      store.state.inbody = null
+      next()
+    },
   },
   {
     path: '/gym',
