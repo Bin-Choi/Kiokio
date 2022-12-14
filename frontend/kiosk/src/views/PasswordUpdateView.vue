@@ -5,7 +5,7 @@
     <!-- BACK -->
     <div
       class="w-100 d-flex justify-content-between"
-      style="font-size: 4.5vh; margin: 1.5vh; margin-bottom: 0; padding: 2.2vh"
+      style="font-size: 4vh; margin: 1.5vh; margin-bottom: 0; padding: 2.2vh"
     >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
@@ -172,7 +172,7 @@ export default {
 <style scoped>
 input {
   border-radius: 1vh;
-  border: 0.2vh solid #ffa946;
+  border: 0.3vh solid #ffa946;
   background-color: #ffe8d299;
   width: 60%;
   padding: 0.7vh;

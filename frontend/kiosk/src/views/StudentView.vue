@@ -37,7 +37,7 @@
           <button class="red-btn shadow-sm" @click="deleteStudent">삭제</button>
         </div>
       </div>
-      <div style="overflow-y: scroll">
+      <div id="admin-scroll-box" style="overflow-y: scroll">
         <StudentTableColumn />
         <div v-if="students && mode === 'R'">
           <StudentReadItem

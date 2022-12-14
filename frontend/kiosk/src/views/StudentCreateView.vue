@@ -16,8 +16,10 @@
         :ready-delete="readyDelete"
         @add-row="addRow"
         @delete-row="deleteRow"
-        @create-student="createStudent" />
-      <div style="overflow-y: scroll">
+        @create-student="createStudent"
+      />
+
+      <div id="admin-scroll-box" style="overflow-y: scroll">
         <StudentTableColumn />
         <StudentCreateItem
           v-for="(student, index) in students"

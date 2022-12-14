@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="d-flex" style="overflow-x: scroll">
+    <div class="d-flex" id="admin-scroll-box" style="overflow-x: scroll">
       <AdminInbodyStudentTableRow />
 
       <div class="d-flex" v-if="mode === 'R'">

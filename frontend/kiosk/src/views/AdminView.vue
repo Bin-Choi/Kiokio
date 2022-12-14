@@ -118,6 +118,7 @@ export default {
 }
 
 #admin-scroll-box::-webkit-scrollbar {
+  height: 1vh;
   width: 1vh;
   margin: 1vh;
 }

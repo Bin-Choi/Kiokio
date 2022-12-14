@@ -36,7 +36,7 @@
     </div>
 
     <!-- KEYPAD -->
-    <TheKeypad @input="input" @del="del" />
+    <TheKeypad @input="input" @del="del" style="margin-bottom: 5vh" />
   </div>
 </template>
 
