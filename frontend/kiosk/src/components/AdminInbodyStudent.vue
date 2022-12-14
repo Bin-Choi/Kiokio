@@ -3,8 +3,7 @@
     <div
       class="d-flex"
       @click="$emit('change-mode-default')"
-      style="font-size: 3vh; cursor: pointer"
-    >
+      style="font-size: 3vh; cursor: pointer">
       <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
     </div>
 
@@ -15,23 +14,20 @@
     <div
       v-if="mode === 'R'"
       class="d-flex justify-content-end"
-      style="margin: 1vh 0"
-    >
+      style="margin: 1vh 0">
       <button
         class="blue-btn"
         @click="
           inbodyCopy = JSON.parse(JSON.stringify(student.inbody_set))
           mode = 'U'
-        "
-      >
+        ">
         수정
       </button>
     </div>
     <div
       v-if="mode === 'U'"
       class="w-100 d-flex justify-content-between"
-      style="margin: 1vh 0"
-    >
+      style="margin: 1vh 0">
       <div>
         <button class="gray-btn" @click="mode = 'R'">취소</button>
       </div>
@@ -50,8 +46,7 @@
           v-for="(inbody, index) in student.inbody_set"
           :key="inbody.id"
           :index="index"
-          :inbody="inbody"
-        />
+          :inbody="inbody" />
       </div>
 
       <div class="d-flex" v-if="mode === 'U'">
@@ -63,8 +58,7 @@
           :ready-delete="readyDelete"
           :invalid="invalid"
           @change-check="changeCheck"
-          @change-data="changeData"
-        />
+          @change-data="changeData" />
       </div>
     </div>
   </div>
@@ -111,18 +105,18 @@ export default {
     addInbody() {
       this.inbodyCopy.push({
         student: this.student.id,
-        height: '',
-        age: '',
-        test_date: '',
-        total_body_water: '',
-        protein: '',
-        minerals: '',
-        body_fat_mass: '',
-        weight: '',
-        skeletal_muscle_mass: '',
-        body_mass_index: '',
-        percent_body_fat: '',
-        inbody_score: '',
+        height: null,
+        age: null,
+        test_date: null,
+        total_body_water: null,
+        protein: null,
+        minerals: null,
+        body_fat_mass: null,
+        weight: null,
+        skeletal_muscle_mass: null,
+        body_mass_index: null,
+        percent_body_fat: null,
+        inbody_score: null,
       })
     },
     deleteInbody() {
@@ -161,7 +155,7 @@ export default {
 
       const regDate = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
 
-      const regFloatNull = /(^\d*$)|(^\d{1,}.\d{1,2}$)/
+      const regFloatBlank = /(^\d*$)|(^\d{1,}.\d{1,2}$)/
       const regFloat = /(^\d+$)|(^\d{1,}.\d{1,2}$)/
       const regInt = /^[0-9]+$/
       for (let i = 0; i < inbodyCopy.length; i++) {
@@ -202,37 +196,55 @@ export default {
           return
         }
         //체수분
-        if (!regFloatNull.test(inbodyCopy[i].total_body_water)) {
+        if (
+          inbodyCopy[i].total_body_water &&
+          !regFloatBlank.test(inbodyCopy[i].total_body_water)
+        ) {
           this.invalid = i
           alert('체수분은 소수점 둘째자리까지 입력가능합니다.')
           return
         }
         //단백질
-        if (!regFloatNull.test(inbodyCopy[i].protein)) {
+        if (
+          inbodyCopy[i].protein &&
+          !regFloatBlank.test(inbodyCopy[i].protein)
+        ) {
           this.invalid = i
           alert('단백질은 소수점 둘째자리까지 입력가능합니다.')
           return
         }
         //무기질
-        if (!regFloatNull.test(inbodyCopy[i].minerals)) {
+        if (
+          inbodyCopy[i].minerals &&
+          !regFloatBlank.test(inbodyCopy[i].minerals)
+        ) {
           this.invalid = i
           alert('미네랄은 소수점 둘째자리까지 입력가능합니다.')
           return
         }
         //체지방량
-        if (!regFloatNull.test(inbodyCopy[i].body_fat_mass)) {
+        if (
+          inbodyCopy[i].total_fat_mass &&
+          !regFloatBlank.test(inbodyCopy[i].body_fat_mass)
+        ) {
           this.invalid = i
           alert('체지방량은 소수점 둘째자리까지 입력가능합니다.')
           return
         }
         //골격근량
-        if (!regFloatNull.test(inbodyCopy[i].skeletal_muscle_mass)) {
+        if (
+          inbodyCopy[i].skeletal_muscle_mass &&
+          !regFloatBlank.test(inbodyCopy[i].skeletal_muscle_mass)
+        ) {
           this.invalid = i
           alert('골격근량은 소수점 둘째자리까지 입력가능합니다.')
           return
         }
         //인바디 점수
-        if (!regFloatNull.test(inbodyCopy[i].inbody_score)) {
+        if (
+          inbodyCopy[i].inbody_score &&
+          !regFloatBlank.test(inbodyCopy[i].inbody_score)
+        ) {
           this.invalid = i
           alert('인바디 점수는 소수점 둘째자리까지 입력가능합니다.')
           return
