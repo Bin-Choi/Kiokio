@@ -65,7 +65,7 @@
                 v-model.trim="oldPassword"
               /><br />
 
-              <label for="password1">새 비밀번호</label>
+              <label for="newPassword1">새 비밀번호</label> <br />
               <input
                 type="password"
                 id="newPassword1"
@@ -73,10 +73,10 @@
                 v-model.trim="newPassword1"
               /><br />
 
-              <label for="password2">새 비밀번호 확인</label>
+              <label for="newPassword2">새 비밀번호 확인</label>
               <input
                 type="password"
-                id="new_password2"
+                id="newPassword2"
                 class="modal-input"
                 v-model.trim="newPassword2"
               /><br />
@@ -161,7 +161,7 @@ export default {
         })
     },
     changePassword() {
-      if (this.password1 !== this.password2) {
+      if (this.newPassword1 !== this.newPassword2) {
         alert('비밀번호가 일치하지 않습니다')
         return
       }
@@ -186,8 +186,8 @@ export default {
           console.error(err)
           this.error = err.response.data
           alert('비밀번호를 다시 확인해주세요')
-          this.password1 = null
-          this.password2 = null
+          this.newPassword1 = null
+          this.newPassword2 = null
         })
     },
   },
