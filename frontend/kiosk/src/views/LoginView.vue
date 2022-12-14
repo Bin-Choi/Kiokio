@@ -31,10 +31,17 @@
       </div>
 
       <!-- 로그인 -->
+
       <div
         id="login"
         class="d-flex flex-column rounded shadow justify-content-center"
       >
+        <p
+          v-if="error"
+          style="color: rgb(193, 32, 42); margin: 0; padding: 0; font-size: 2vh"
+        >
+          {{ error }}
+        </p>
         <div class="w-75 d-flex justify-content-between">
           <div>아이디</div>
           <input
@@ -81,6 +88,7 @@ export default {
     return {
       username: null,
       password: null,
+      error: null,
     }
   },
   computed: {
@@ -103,7 +111,6 @@ export default {
         withCredentials: true,
       })
         .then((res) => {
-          console.log(res)
           this.username = null
           this.password = null
 
@@ -116,14 +123,12 @@ export default {
           this.$router.push({ name: 'admin' })
         })
         .catch((err) => {
-          console.log(err)
-          const {
-            response: { status },
-          } = err
+          const status = err.response.status
+
           if (status === 404) {
-            alert('해당 아이디 정보가 없습니다')
+            this.error = '해당 아이디 정보가 없습니다.'
           } else if (status === 400) {
-            alert('비밀번호를 다시 입력해주세요')
+            this.error = '비밀번호가 틀렸습니다.'
           }
           this.password = null
         })
