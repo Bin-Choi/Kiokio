@@ -244,7 +244,8 @@ export default {
   height: 30px;
 }
 .red-box {
-  outline: 2px solid red;
+  height: fit-content;
+  border: 0.3vh solid red;
 }
 .border:focus {
   background-color: aliceblue;

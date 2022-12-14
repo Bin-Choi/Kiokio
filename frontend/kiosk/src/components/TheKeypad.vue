@@ -1,6 +1,6 @@
 <template>
   <!-- Keypad -->
-  <div class="d-flex flex-column keypad">
+  <div class="d-flex flex-column">
     <div class="row">
       <div
         class="col"
@@ -126,24 +126,23 @@ export default {
 </script>
 
 <style scoped>
-.keypad {
-  font-size: 3vh;
-  font-weight: bold;
-}
 .row {
   margin: 1vh auto;
   width: 75%;
   height: 100%;
 }
 .col {
-  font-size: 3vh;
-  margin: 0 1vh;
-  border-radius: 4vh;
+  font-size: 2.7vh;
+  font-weight: bold;
+
+  margin: 0 1.3vh;
+  border-radius: 3vh;
   border: 0.3vh solid #ff9900;
   color: #ff9900;
-  padding: 1vh;
-}
+  padding: 0.5vh;
 
+  box-shadow: 0 0.1vh 0.1vh #ff9900;
+}
 .clicked {
   background-color: #ff9900;
   color: white;

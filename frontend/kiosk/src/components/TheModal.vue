@@ -36,7 +36,7 @@
       >
         <img src="#" alt="IMG" />
         <div>description</div>
-        <button class="orange-btn shadow-sm" @click="$emit('close-modal')">
+        <button class="orange-btn shadow" @click="$emit('close-modal')">
           확인
         </button>
       </span>

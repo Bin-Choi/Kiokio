@@ -21,6 +21,7 @@
       <div>
         <input
           type="number"
+          min="2000"
           class="student-search-form"
           ref="year"
           v-model.trim="year"
@@ -28,6 +29,7 @@
         <span>년</span>
         <input
           type="number"
+          min="1"
           class="student-search-form"
           ref="month"
           v-model.trim="month"
@@ -40,6 +42,7 @@
           <span>학년</span>
           <input
             type="number"
+            min="1"
             class="student-search-form"
             ref="grade"
             v-model.trim="grade"
@@ -48,6 +51,7 @@
           <span>반</span>
           <input
             type="number"
+            min="1"
             class="student-search-form"
             ref="room"
             v-model.trim="room"

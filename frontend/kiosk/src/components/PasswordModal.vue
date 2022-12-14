@@ -29,7 +29,11 @@
       </button>
     </div>
     <!-- KEYPAD -->
-    <TheKeypad @input="input" @del="del" class="w-100" />
+    <TheKeypad
+      @input="input"
+      @del="del"
+      style="width: 100%; margin-bottom: 5vh"
+    />
   </div>
 </template>
 
@@ -121,7 +125,7 @@ export default {
 .modal-content {
   width: 90%;
   height: 50%;
-  top: 5%;
+  top: 10%;
 }
 
 input {

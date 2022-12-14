@@ -11,7 +11,7 @@
       @close-modal="showModal = false"
     />
 
-    <kiosk-header v-if="!showModal" />
+    <kiosk-header />
 
     <div
       v-if="!showModal"
@@ -46,6 +46,7 @@
       @show-pw-modal="showModal = true"
       @input="input"
       @del="del"
+      style="margin-bottom: 5vh"
     />
   </div>
 </template>

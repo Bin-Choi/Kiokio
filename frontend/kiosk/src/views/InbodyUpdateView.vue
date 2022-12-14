@@ -33,144 +33,155 @@
     <!-- INBODY FORM -->
     <div
       class="w-75 bg-white round shadow"
-      style="font-size: 2.5vh; padding: 2.5% 2%; height: 32%"
+      style="font-size: 2.3vh; padding: 2.5% 2%; height: 43%"
     >
       <div id="scroll-box" class="container" style="height: 100%">
         <div class="row">
-          <p class="col">검사일시*</p>
+          <p class="col-5">검사일시*</p>
           <input type="date" ref="date" :value="inbody.test_date" class="col" />
         </div>
 
         <div class="row">
-          <p class="col">키(cm)*</p>
+          <p class="col-5">키*</p>
           <input
             type="text"
             ref="height"
             @focus="focusChange"
             :value="inbody.height"
-            class="col"
+            class="col-4"
             placeholder="필수입력"
           />
+          <div class="col-1">cm</div>
         </div>
 
         <div class="row">
-          <p class="col">나이(세)*</p>
+          <p class="col-5">나이*</p>
           <input
             type="text"
             ref="age"
             @focus="focusChange"
             :value="inbody.age"
-            class="col"
+            class="col-4"
             placeholder="필수입력"
           />
+          <div class="col-1">세</div>
         </div>
 
         <div class="row">
-          <p class="col">체중(kg)*</p>
+          <p class="col-5">체중*</p>
           <input
             type="text"
             ref="weight"
             @focus="focusChange"
             :value="inbody.weight"
-            class="col"
+            class="col-4"
             placeholder="필수입력"
           />
+          <div class="col-1">kg</div>
         </div>
 
         <div class="row">
-          <p class="col">BMI(kg/m^2)*</p>
+          <p class="col-5">BMI*</p>
           <input
             type="text"
             ref="bmi"
             @focus="focusChange"
             :value="inbody.body_mass_index"
-            class="col"
+            class="col-4"
             placeholder="필수입력"
           />
+          <div class="col-1">kg/m<sup>2</sup></div>
         </div>
 
         <div class="row">
-          <P class="col">체지방률(%)*</P>
+          <P class="col-5">체지방률*</P>
           <input
             type="text"
             ref="fatpercent"
             @focus="focusChange"
             :value="inbody.percent_body_fat"
-            class="col"
+            class="col-4"
             placeholder="필수입력"
           />
+          <div class="col-1" c>%</div>
         </div>
 
         <div class="row">
-          <p class="col">체수분(L)</p>
+          <p class="col-5">체수분</p>
           <input
             type="text"
             ref="water"
             @focus="focusChange"
             :value="inbody.total_body_water"
-            class="col"
+            class="col-4"
           />
+          <div class="col-1">L</div>
         </div>
 
         <div class="row">
-          <p class="col">단백질(kg)</p>
+          <p class="col-5">단백질</p>
           <input
             type="text"
             ref="protein"
             @focus="focusChange"
             :value="inbody.protein"
-            class="col"
+            class="col-4"
           />
+          <div class="col-1">kg</div>
         </div>
 
         <div class="row">
-          <p class="col">무기질(kg)</p>
+          <p class="col-5">무기질</p>
           <input
             type="text"
             ref="minerals"
             @focus="focusChange"
             :value="inbody.minerals"
-            class="col"
+            class="col-4"
           />
+          <div class="col-1">kg</div>
         </div>
 
         <div class="row">
-          <p class="col">체지방량(kg)</p>
+          <p class="col-5">체지방량</p>
           <input
             type="text"
             ref="fatmass"
             @focus="focusChange"
             :value="inbody.body_fat_mass"
-            class="col"
+            class="col-4"
           />
+          <div class="col-1">kg</div>
         </div>
 
         <div class="row">
-          <p class="col">골격근량(kg)</p>
+          <p class="col-5">골격근량</p>
           <input
             type="text"
             ref="muscle"
             @focus="focusChange"
             :value="inbody.skeletal_muscle_mass"
-            class="col"
+            class="col-4"
           />
+          <div class="col-1">kg</div>
         </div>
 
         <div class="row">
-          <p class="col">인바디점수(점)</p>
+          <p class="col-5">인바디점수</p>
           <input
             type="text"
             ref="score"
             @focus="focusChange"
             :value="inbody.inbody_score"
-            class="col"
+            class="col-4"
           />
+          <div class="col-1">점</div>
         </div>
       </div>
     </div>
 
     <!-- KEYPAD -->
-    <the-keypad class="w-100 align-self-end" @input="input" @del="del" />
+    <the-keypad class="w-100" @input="input" @del="del" />
   </div>
 </template>
 
@@ -334,13 +345,14 @@ export default {
 <style scoped>
 .row {
   margin: 1vh 0;
+  line-height: 5vh;
 }
 
 input {
   margin-right: 1.5vh;
   height: 5vh;
   background: none;
-  border: 0.1vh solid #ffa946;
+  border: 0.2vh solid #ffa946;
   border-radius: 1vh;
   box-shadow: 0.1vh 0.1vh 0.1vh #ffa94651;
 }

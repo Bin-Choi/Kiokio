@@ -20,7 +20,7 @@
         @search-by-class="searchByClass"
         @search-by-name="searchByName"
       />
-      <div v-if="students" style="overflow-x: scroll; overflow-y: scroll">
+      <div v-if="students" id="admin-scroll-box">
         <AttendanceTableColumn :days="days" />
         <AttendanceItem
           v-for="student in students"

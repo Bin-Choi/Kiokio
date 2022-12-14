@@ -1,5 +1,5 @@
 <template>
-  <div @click="goDetail" class="row shadow-sm">
+  <div @click="goDetail" class="w-100 row shadow-sm">
     <p class="col" style="line-height: 4vh">
       {{ date[0].slice(-2) }}/{{ date[1] }}/{{ date[2] }}
     </p>
@@ -54,9 +54,10 @@ export default {
 div {
   height: 4vh;
   margin: 1vh 0;
-  font-size: 1.5vh;
+  font-size: 1.4vh;
   border-radius: 1vh;
-  border: 0.2vh solid #ffa946;
+  border: 0.25vh solid #ffa946;
+  background-color: #ffe1be48;
 }
 
 .col {

@@ -9,7 +9,7 @@
     >
       <div class="w-75 title shadow" style="margin-top: 5vh">운동기구</div>
       <div
-        class="w-75 bg-white round m-auto shadow-sm"
+        class="w-75 bg-white round m-auto shadow"
         style="padding: 2.5vh 2vh; border: 0.1vh solid #ffa946"
       >
         <div id="scroll-box">

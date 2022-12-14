@@ -1,5 +1,5 @@
 <template>
-  <div class="item round shadow-sm" @click="$emit('show-modal')">
+  <div class="item round shadow" @click="$emit('show-modal')">
     <img src="#" alt="img" />
     <div>{{ this.gym }}</div>
   </div>

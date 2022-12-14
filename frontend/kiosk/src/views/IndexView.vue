@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 7vh">
+  <div>
     <!-- Admin -->
     <div
       class="w-100 d-flex justify-content-between"
@@ -7,13 +7,19 @@
       style="cursor: pointer"
     >
       <div></div>
-      <div>
-        <font-awesome-icon icon="fa-solid fa-user" style="font-size: 4vh" />
+      <div style="padding: 2.2vh">
+        <font-awesome-icon
+          icon="fa-solid fa-user"
+          style="font-size: 4vh; margin: 1.5vh; margin-bottom: 0"
+        />
         <div>관리자</div>
       </div>
     </div>
 
-    <div class="d-flex flex-column justify-content-between">
+    <div
+      class="d-flex flex-column justify-content-between"
+      style="padding: 7vh"
+    >
       <!-- LOGO -->
       <div>
         <img src="#" alt="Logo" />
