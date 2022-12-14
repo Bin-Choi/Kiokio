@@ -169,7 +169,7 @@ def inbody_create(request, student_pk):
         serializer = InbodySerializer(data=request.data['inbody'])
         
         if serializer.is_valid(raise_exception=True):
-            serializer.save(student=student_pk)
+            serializer.save(student=student)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     return Response(status=status.HTTP_401_UNAUTHORIZED)       
@@ -286,7 +286,6 @@ def inbody_list_name(request, name):
     if request.method == 'GET':
         serializer = StudentInbodyListSerializer(students, many=True)
         return Response(serializer.data)
-
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

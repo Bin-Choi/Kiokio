@@ -9,8 +9,7 @@
         .fill()
         .map((v, i) => i + 1)"
       :key="day"
-      class="box border attendance-column"
-    ></div>
+      class="box border attendance-column"></div>
   </div>
 </template>
 
@@ -22,13 +21,11 @@ export default {
     days: Number,
   },
   watch: {
+    // 학생이나 검색날짜가 바뀌면 allocAttendance() 재실행
     student() {
-      const divs = document
-        .getElementById(`student-${this.student.id}`)
-        .children.splice(4)
-      for (const div of divs) {
-        div.innerText = null
-      }
+      this.allocAttendance()
+    },
+    days() {
       this.allocAttendance()
     },
   },
@@ -40,8 +37,15 @@ export default {
       const divs = document.getElementById(
         `student-${this.student.id}`
       ).children
+      // 모든 div 태그 초기화
+      for (let i; i < this.days; i++) {
+        divs[3 + i].innerText = null
+      }
+      // 출석시간 담기
       for (const attendance of this.student.attendance_set) {
+        // 날짜 정보 추출
         const day = parseInt(attendance.date.slice(-2))
+        // 해당 날짜 div태그에 시간을 추가
         let innerText = divs[3 + day].innerText
         innerText = innerText + '\n' + attendance.time.slice(0, 5)
         divs[3 + day].innerText = innerText.trim()
