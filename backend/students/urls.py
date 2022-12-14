@@ -20,6 +20,6 @@ urlpatterns = [
     # 인바디 관리
     path('<int:grade>/<int:room>/inbody/admin/', views.inbody_list_class),
     path('<str:name>/inbody/admin/', views.inbody_list_name),
-    path('inbody/update/admin/', views.inbody_update),
+    path('inbody/list/admin/', views.inbody_update),
     path('inbody/<int:inbody_pk>/admin/', views.inbody_detail_admin),
 ]

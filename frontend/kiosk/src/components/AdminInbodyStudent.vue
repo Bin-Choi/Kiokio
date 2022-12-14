@@ -32,9 +32,14 @@
         <button class="gray-btn" @click="mode = 'R'">취소</button>
       </div>
       <div>
-        <button class="green-btn" @click="addInbody">기록추가</button>
-        <button class="red-btn" @click="deleteInbody">기록삭제</button>
-        <button class="blue-btn" @click="updateInbody">저장</button>
+        <div v-if="!readyDelete">
+          <button class="green-btn" @click="addInbody">기록추가</button>
+          <button class="red-btn" @click="deleteInbody">기록삭제</button>
+          <button class="blue-btn" @click="updateInbody">저장</button>
+        </div>
+        <button v-if="readyDelete" class="red-btn" @click="deleteInbody">
+          선택완료
+        </button>
       </div>
     </div>
 
@@ -120,18 +125,41 @@ export default {
       })
     },
     deleteInbody() {
+      // 삭제 준비
       if (!this.readyDelete) {
         this.readyDelete = true
-      } else {
-        this.selected.sort(function compare(a, b) {
-          return b - a
-        })
-        this.selected.forEach((index) => {
-          this.inbodyCopy.splice(index, 1)
-        })
-        this.selected = []
-        this.readyDelete = false
+        return
       }
+      // 삭제 하기
+      this.selected.sort(function compare(a, b) {
+        // 역순 정렬
+        return b - a
+      })
+      let deleteList = []
+      this.selected.forEach((index) => {
+        // DB로 보낼 pk 선택
+        if (this.inbodyCopy[index].id) {
+          deleteList.push(this.inbodyCopy[index].id)
+        }
+        // 프론트 단에서 삭제
+        this.inbodyCopy.splice(index, 1)
+      })
+      // DB로 삭제 요청
+      axiosAuth({
+        method: 'delete',
+        url: `${this.axios_URL}/students/inbody/list/admin/`,
+        headers: {
+          Authorization: `Bearer ${this.access}`,
+        },
+        data: deleteList,
+      })
+        .then(() => {
+          this.selected = []
+          this.readyDelete = false
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     },
     changeData(value, index, key) {
       this.inbodyCopy[index][key] = value
@@ -251,8 +279,8 @@ export default {
         }
       }
       axiosAuth({
-        method: 'post',
-        url: `${this.axios_URL}/students/inbody/update/admin/`,
+        method: 'put',
+        url: `${this.axios_URL}/students/inbody/list/admin/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
         },

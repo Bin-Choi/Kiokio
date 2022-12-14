@@ -2,13 +2,14 @@
   <div class="d-flex flex-column" style="margin-bottom: 1vh">
     <div
       class="d-flex justify-content-between"
-      style="margin: 0 0 2vh 0; font-size: 3vh"
-    >
+      style="margin: 0 0 2vh 0; font-size: 3vh">
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="$router.push({ name: 'admin' })"
-        style="cursor: pointer"
-      />
+        @click="
+          $router.push({ name: 'admin' })
+          $store.state.inbodyStudents = null
+        "
+        style="cursor: pointer" />
       <div>인바디 관리</div>
       <div></div>
     </div>
@@ -20,15 +21,13 @@
           class="student-search-form"
           ref="grade"
           v-model.trim="grade"
-          @keyup.enter="$refs.room.focus()"
-        />
+          @keyup.enter="$refs.room.focus()" />
         <span>반</span>
         <input
           type="number"
           class="student-search-form"
           ref="room"
-          v-model.trim="room"
-        />
+          v-model.trim="room" />
         <button class="blue-btn shadow-sm" @click="searchByClass">
           학급 조회
         </button>
@@ -39,8 +38,7 @@
           type="text"
           class="student-search-form"
           ref="name"
-          v-model.trim="name"
-        />
+          v-model.trim="name" />
         <button class="blue-btn shadow-sm" @click="searchByName">
           이름 조회
         </button>

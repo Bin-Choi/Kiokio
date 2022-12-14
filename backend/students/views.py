@@ -181,20 +181,10 @@ def students(request):
     # 추가
     if request.method == 'POST':
         serializers = StudentSerializer(many=True, data=request.data)
+        # 하나라도 오류나면, 저장이 진행되지 않음
         if serializers.is_valid(raise_exception=True):
             serializers.save()
         return Response(status=status.HTTP_201_CREATED)
-        # # # serialzier 유효성 검사
-        # add_list = request.data
-        # serializers = []
-        # for i in range(len(students)):
-        #     serializer = StudentSerializer(data=add_list[i])
-        #     if serializer.is_valid(raise_exception=True):
-        #         serializers.append(serializer)
-        # # 저장
-        # for serializer in serializers:
-        #     serializer.save()
-        # return Response(status=status.HTTP_201_CREATED)
 
     # 수정
     if request.method == 'PUT':
@@ -291,11 +281,11 @@ def inbody_list_name(request, name):
         serializer = StudentInbodyListSerializer(students, many=True)
         return Response(serializer.data)
 
-@api_view(['POST'])
+@api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def inbody_update(request):
 
-    if request.method == 'POST':
+    if request.method == 'PUT':
         inbody_list = request.data
         serializers = []
         for inbody_item in inbody_list:
@@ -314,6 +304,14 @@ def inbody_update(request):
             serializer.save()
         return Response(status=status.HTTP_200_OK)
 
+    if request.method == 'DELETE':
+        delete_list = request.data
+        print(delete_list)
+        # 삭제
+        for inbody_pk in delete_list:
+            inbody = get_object_or_404(Inbody, pk=inbody_pk)
+            inbody.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])

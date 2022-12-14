@@ -22,7 +22,13 @@ export default new Vuex.Store({
       // BlckList
       reducer: (persistedState) => {
         const stateFilter = Object.assign({}, persistedState)
-        const blackList = ['axios_URL', 'showLoginModal', 'inbodyStudents']
+        const blackList = [
+          'axios_URL',
+          'showLoginModal',
+          'showChangePasswordModal',
+          'showChangeEmailModal',
+          'inbodyStudents',
+        ]
         blackList.forEach((item) => {
           delete stateFilter[item]
         })

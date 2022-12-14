@@ -75,7 +75,6 @@
       :value="student.gender"
       class="col-2 border"
       :id="`student-${index * 6 + 4}`"
-      @keydown.enter="moveOne"
       @keydown.right="moveOne"
       @keydown.left="moveMinusOne"
       @keydown.up="moveMinusSix"
