@@ -128,14 +128,14 @@ export default new Vuex.Store({
           Authorization: `Bearer ${context.state.access}`,
         },
       })
-        .then((res) => {
-          console.log(res)
+        .then(() => {
+          // console.log(res)
           context.commit('DELETE_TOKENS')
           router.push({ name: 'login' })
         })
-        .catch((err) => {
+        .catch(() => {
           // refresh 토큰이 만료되었을 경우, 그냥 클라이언트 토큰만 삭제해버림
-          console.error(err)
+          // console.error(err)
           context.commit('DELETE_TOKENS')
           router.push({ name: 'login' })
         })
@@ -150,7 +150,7 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           const access = res.data.access
           context.commit('SAVE_ACCESS_TOKEN', access)
         })

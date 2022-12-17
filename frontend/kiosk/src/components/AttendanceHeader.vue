@@ -30,6 +30,7 @@
         <input
           type="number"
           min="1"
+          max="12"
           class="student-search-form"
           ref="month"
           v-model.trim="month"

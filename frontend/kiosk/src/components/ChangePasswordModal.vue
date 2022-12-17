@@ -12,7 +12,9 @@
           </div>
           <div class="modal-body">
             <slot name="body">
-              <p v-if="error">{{ error }}</p>
+              <p v-if="error" style="color: rgb(193, 32, 42)">
+                {{ error }}
+              </p>
               <label for="email">이메일</label>
               <input
                 type="text"
@@ -50,22 +52,34 @@
         <div v-if="user.email" class="modal-container">
           <div class="modal-header">
             <slot name="header">
-              <div class="m-auto">비밀번호 변경</div>
+              <div class="m-auto" style="font-size: 3vh">비밀번호 변경</div>
             </slot>
           </div>
 
           <div class="modal-body">
             <slot name="body">
-              <p v-if="error">{{ error }}</p>
-              <label for="oldPassword">기존 비밀번호</label>
-              <input
-                type="password"
-                id="oldPassword"
-                class="modal-input"
-                v-model.trim="oldPassword"
-              /><br />
+              <!-- ERROR -->
+              <div
+                v-if="error && typeof error === 'object'"
+                style="color: rgb(193, 32, 42)"
+              >
+                <p
+                  v-for="(err, idx) in error"
+                  :key="idx"
+                  style="margin: 0; padding: 0"
+                >
+                  {{ err }}
+                </p>
+              </div>
+              <div
+                v-if="error && typeof error === 'string'"
+                style="color: rgb(193, 32, 42)"
+              >
+                {{ error }}
+              </div>
 
-              <label for="password1">새 비밀번호</label>
+              <!-- PASSWORD FORM -->
+              <label for="newPassword1">새 비밀번호</label> <br />
               <input
                 type="password"
                 id="newPassword1"
@@ -73,26 +87,26 @@
                 v-model.trim="newPassword1"
               /><br />
 
-              <label for="password2">새 비밀번호 확인</label>
+              <label for="newPassword2">새 비밀번호 확인</label>
               <input
                 type="password"
-                id="new_password2"
+                id="newPassword2"
                 class="modal-input"
                 v-model.trim="newPassword2"
+                @keyup.enter="changePassword"
               /><br />
 
               <button
                 class="blue-btn shadow-sm"
                 style="margin-right: 1vh"
-                @click.stop="changePassword"
+                @click="changePassword"
               >
-                비밀번호 변경
+                확인
               </button>
               <button
                 class="red-btn shadow-sm"
-                @click.stop="
+                @click="
                   error = null
-                  oldPassword = null
                   newPassword1 = null
                   newPassword2 = null
                   $emit('close')
@@ -120,7 +134,6 @@ export default {
     return {
       error: null,
       email: null,
-      oldPassword: null,
       newPassword1: null,
       newPassword2: null,
     }
@@ -135,6 +148,10 @@ export default {
   },
   methods: {
     saveEmail() {
+      if (!this.email) {
+        this.error = '이메일을 입력해주세요.'
+        return
+      }
       axiosAuth({
         method: 'put',
         url: `${this.axios_URL}/accounts/change/email/`,
@@ -145,8 +162,8 @@ export default {
           Authorization: `Bearer ${this.$store.state.access}`,
         },
       })
-        .then((res) => {
-          console.log(res)
+        .then(() => {
+          // console.log(res)
           this.$emit('close')
           this.$store.commit('SAVE_USER_EMAIL', this.email)
 
@@ -155,21 +172,23 @@ export default {
         })
         .catch((err) => {
           console.error(err)
-          this.error = err.response.data
-          alert('이메일 형식을 확인해주세요')
-          this.email = null
+          this.error = err.response.data.email[0]
         })
     },
     changePassword() {
-      if (this.password1 !== this.password2) {
-        alert('비밀번호가 일치하지 않습니다')
+      if (!this.newPassword1 || !this.newPassword2) {
+        this.error = '새비밀번호를 입력해주세요.'
+        return
+      }
+      if (this.newPassword1 != this.newPassword2) {
+        this.error = '새 비밀번호가 일치하지 않습니다.'
         return
       }
       axiosAuth({
         method: 'post',
         url: `${this.axios_URL}/dj-rest-auth/password/change/`,
         data: {
-          old_password: this.oldPassword,
+          old_password: 'password',
           new_password1: this.newPassword1,
           new_password2: this.newPassword2,
         },
@@ -183,11 +202,12 @@ export default {
           alert('비밀번호가 변경되었습니다.')
         })
         .catch((err) => {
-          console.error(err)
-          this.error = err.response.data
-          alert('비밀번호를 다시 확인해주세요')
-          this.password1 = null
-          this.password2 = null
+          // console.error(err.response.data)
+
+          this.error = err.response.data.new_password2
+
+          this.newPassword1 = null
+          this.newPassword2 = null
         })
     },
   },

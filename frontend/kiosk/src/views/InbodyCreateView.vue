@@ -1,6 +1,7 @@
 <template>
   <div
-    class="h-100 d-flex flex-column align-items-center justify-content-between">
+    class="h-100 d-flex flex-column align-items-center justify-content-between"
+  >
     <!-- BACK -->
     <div
       class="w-100 d-flex justify-content-between"
@@ -8,10 +9,12 @@
     >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="$router.push({ name: 'inbodyHistory' })" />
+        @click="$router.push({ name: 'inbodyHistory' })"
+      />
       <font-awesome-icon
         icon="fa-solid fa-house"
-        @click="$router.push({ name: 'index' })" />
+        @click="$router.push({ name: 'index' })"
+      />
     </div>
 
     <!-- PAGE TITLE -->
@@ -19,7 +22,8 @@
 
     <div
       class="w-75 d-flex justify-content-around align-items-center"
-      style="font-size: 3vh">
+      style="font-size: 3vh"
+    >
       {{ student.grade }}학년 {{ student.room }}반 {{ student.name }}
 
       <button class="orange-btn shadow" @click="submit">완료</button>
@@ -280,10 +284,9 @@ export default {
           this.$router.push({ name: 'inbodyDetail' })
         })
         .catch((err) => {
-          console.log(err)
-          const {
-            response: { status },
-          } = err
+          // console.log(err)
+          const status = err.response.status
+
           if (status === 400) {
             alert(`${err.request.responseText}`)
           } else if (status === 401) {

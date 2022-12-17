@@ -9,7 +9,9 @@
           </div>
           <div class="modal-body">
             <slot name="body">
-              <p v-if="error">{{ error }}</p>
+              <p v-if="error" style="color: rgb(193, 32, 42)">
+                {{ error }}
+              </p>
               <label for="email">이메일</label>
               <input
                 type="text"
@@ -66,6 +68,11 @@ export default {
   },
   methods: {
     changeEmail() {
+      if (!this.email) {
+        this.error = '이메일을 입력해주세요.'
+        return
+      }
+
       axiosAuth({
         method: 'put',
         url: `${this.axios_URL}/accounts/change/email/`,
@@ -76,19 +83,14 @@ export default {
           Authorization: `Bearer ${this.$store.state.access}`,
         },
       })
-        .then((res) => {
-          console.log(res)
+        .then(() => {
           this.$emit('close')
           this.$store.commit('SAVE_USER_EMAIL', this.email)
-
           this.email = null
           this.error = null
         })
         .catch((err) => {
-          console.error(err)
-          this.error = err.response.data
-          alert('이메일 형식을 확인해주세요')
-          this.email = null
+          this.error = err.response.data.email[0]
         })
     },
   },

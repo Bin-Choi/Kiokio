@@ -113,11 +113,11 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           this.students = res.data
         })
-        .catch((err) => {
-          console.error(err)
+        .catch(() => {
+          // console.error(err)
           alert('해당 정보의 학생이 존재하지 않습니다')
         })
     },

@@ -31,20 +31,17 @@
       </div>
 
       <!-- 로그인 -->
+
       <div
         id="login"
-        class="d-flex flex-column rounded shadow-sm justify-content-center"
-        style="
-          text-align: center;
-          font-size: 2.5vh;
-          min-width: 260px;
-          max-width: 500px;
-          width: 60%;
-          height: 60%;
-          feature/password_update
-          padding: 2vh;
-        "
+        class="d-flex flex-column rounded shadow justify-content-center"
       >
+        <p
+          v-if="error"
+          style="color: rgb(193, 32, 42); margin: 0; padding: 0; font-size: 2vh"
+        >
+          {{ error }}
+        </p>
         <div class="w-75 d-flex justify-content-between">
           <div>아이디</div>
           <input
@@ -70,8 +67,8 @@
         <div>
           <button
             type="button"
-            class="btn shadow-sm text-white"
-            style="margin-top: 1vh; background-color: #6396c3"
+            class="btn shadow text-white"
+            style="margin-top: 1vh; background-color: #6396c3; font-size: 2.2vh"
             @click="login"
           >
             로그인
@@ -91,6 +88,7 @@ export default {
     return {
       username: null,
       password: null,
+      error: null,
     }
   },
   computed: {
@@ -113,7 +111,6 @@ export default {
         withCredentials: true,
       })
         .then((res) => {
-          console.log(res)
           this.username = null
           this.password = null
 
@@ -126,14 +123,12 @@ export default {
           this.$router.push({ name: 'admin' })
         })
         .catch((err) => {
-          console.log(err)
-          const {
-            response: { status },
-          } = err
+          const status = err.response.status
+
           if (status === 404) {
-            alert('해당 아이디 정보가 없습니다')
+            this.error = '해당 아이디 정보가 없습니다.'
           } else if (status === 400) {
-            alert('비밀번호를 다시 입력해주세요')
+            this.error = '비밀번호가 틀렸습니다.'
           }
           this.password = null
         })
@@ -147,7 +142,6 @@ export default {
 
 <style scoped>
 input {
-  max-width: 200px;
   width: 50%;
   padding: 0.5vh;
   font-size: 2vh;
@@ -155,6 +149,11 @@ input {
 
 #login {
   background-color: #2b64aa1e;
+  text-align: center;
+  font-size: 2.5vh;
+  width: 40%;
+  height: 60%;
+  padding: 2vh 1vh;
 }
 
 #login div {
