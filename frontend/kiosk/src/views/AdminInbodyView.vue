@@ -1,7 +1,7 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="width: 100vw; height: 100vh; padding: 7vh"
+    style="height: 100vh; padding: 7vh"
   >
     <AdminHeader />
 
