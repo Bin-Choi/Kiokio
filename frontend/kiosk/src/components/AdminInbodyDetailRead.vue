@@ -2,13 +2,18 @@
   <div>
     <div class="d-flex justify-content-between">
       <div></div>
-      <div style="margin-bottom: 2vh; font-size: 2.5vh; font-weight: bold">
-        {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번
 
-        {{ student.name }} ({{ student.gender }})
-      </div>
-      <div>
-        <button class="blue-btn shadow-sm" @click="$emit('change-mode-U')">
+      <div class="d-flex">
+        <font-awesome-icon
+          icon="fa-regular fa-file-powerpoint"
+          @click="print"
+          style="font-size: 3.6vh"
+        />
+        <button
+          class="blue-btn shadow-sm"
+          @click="$emit('change-mode-U')"
+          style="margin-left: 1vh"
+        >
           수정
         </button>
         <button
@@ -22,77 +27,102 @@
     </div>
 
     <!-- INBODY CONTENT -->
-    <div class="w-75 m-auto rounded" style="font-size: 2.3vh; padding: 2vh">
-      <div id="admin-scroll-box" class="container">
-        <div class="row">
-          <p class="col-6">검사일시</p>
-          <div class="col-5 rounded shadow-sm">{{ inbody.test_date }}</div>
-        </div>
+    <div
+      id="printContent"
+      class="rounded"
+      style="font-size: 2.2vh; padding: 2vh"
+    >
+      <div class="w-100" style="font-size: 2.5vh; margin-bottom: 5vh">
+        {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번
+        {{ student.name }} ({{ student.gender }})
+      </div>
+      <div
+        id="admin-scroll-box"
+        class="w-75 d-flex m-auto justify-content-evenly"
+      >
+        <div class="container">
+          <div class="row">
+            <p class="col-6">검사일시</p>
+            <div class="col-4 rounded shadow-sm">{{ inbody.test_date }}</div>
+          </div>
 
-        <div class="row">
-          <p class="col-6">키</p>
-          <div class="col-5 rounded shadow-sm">{{ inbody.height }} cm</div>
-        </div>
+          <div class="row">
+            <p class="col-6">키</p>
+            <div class="col-4 rounded shadow-sm">{{ inbody.height }}</div>
+            <p class="col-1">cm</p>
+          </div>
 
-        <div class="row">
-          <p class="col-6">나이(세)</p>
-          <div class="col-5 rounded shadow-sm">{{ inbody.age }} 세</div>
-        </div>
+          <div class="row">
+            <p class="col-6">나이</p>
+            <div class="col-4 rounded shadow-sm">{{ inbody.age }}</div>
+            <p class="col-1">세</p>
+          </div>
 
-        <div class="row">
-          <p class="col-6">체중</p>
-          <div class="col-5 rounded shadow-sm">{{ inbody.weight }} kg</div>
-        </div>
+          <div class="row">
+            <p class="col-6">체중</p>
+            <div class="col-4 rounded shadow-sm">{{ inbody.weight }}</div>
+            <p class="col-1">kg</p>
+          </div>
 
-        <div class="row">
-          <p class="col-6">BMI</p>
-          <div class="col-5 rounded shadow-sm">
-            {{ inbody.body_mass_index }} kg/m^2
+          <div class="row">
+            <p class="col-6">BMI</p>
+            <div class="col-4 rounded shadow-sm">
+              {{ inbody.body_mass_index }}
+            </div>
+            <p class="col-1">kg/m<sup>2</sup></p>
+          </div>
+          <div class="row">
+            <p class="col-6">체지방률</p>
+            <div class="col-4 rounded shadow-sm">
+              {{ inbody.percent_body_fat }}
+            </div>
+            <p class="col-1">%</p>
           </div>
         </div>
 
-        <div class="row">
-          <p class="col-6">체지방률</p>
-          <div class="col-5 rounded shadow-sm">
-            {{ inbody.percent_body_fat }} %
+        <div class="container">
+          <div class="row">
+            <p class="col-6">체수분</p>
+            <div class="col-4 rounded shadow-sm">
+              {{ inbody.total_body_water }}
+            </div>
+            <p class="col-1">L</p>
           </div>
-        </div>
 
-        <div class="row">
-          <p class="col-6">체수분</p>
-          <div class="col-5 rounded shadow-sm">
-            {{ inbody.total_body_water }} L
+          <div class="row">
+            <p class="col-6">단백질</p>
+            <div class="col-4 rounded shadow-sm">{{ inbody.protein }}</div>
+            <p class="col-1">kg</p>
           </div>
-        </div>
 
-        <div class="row">
-          <p class="col-6">단백질</p>
-          <div class="col-5 rounded shadow-sm">{{ inbody.protein }} kg</div>
-        </div>
-
-        <div class="row">
-          <p class="col-6">무기질</p>
-          <div class="col-5 rounded shadow-sm">{{ inbody.minerals }} kg</div>
-        </div>
-
-        <div class="row">
-          <p class="col-6">체지방량</p>
-          <div class="col-5 rounded shadow-sm">
-            {{ inbody.body_fat_mass }} kg
+          <div class="row">
+            <p class="col-6">무기질</p>
+            <div class="col-4 rounded shadow-sm">{{ inbody.minerals }}</div>
+            <p class="col-1">kg</p>
           </div>
-        </div>
 
-        <div class="row">
-          <p class="col-6">골격근량</p>
-          <div class="col-5 rounded shadow-sm">
-            {{ inbody.skeletal_muscle_mass }} kg
+          <div class="row">
+            <p class="col-6">체지방량</p>
+            <div class="col-4 rounded shadow-sm">
+              {{ inbody.body_fat_mass }}
+            </div>
+            <p class="col-1">kg</p>
           </div>
-        </div>
 
-        <div class="row">
-          <p class="col-6">인바디 점수</p>
-          <div class="col-5 rounded shadow-sm">
-            {{ inbody.inbody_score }} 점
+          <div class="row">
+            <p class="col-6">골격근량</p>
+            <div class="col-4 rounded shadow-sm">
+              {{ inbody.skeletal_muscle_mass }}
+            </div>
+            <p class="col-1">kg</p>
+          </div>
+
+          <div class="row">
+            <p class="col-6">인바디 점수</p>
+            <div class="col-4 rounded shadow-sm">
+              {{ inbody.inbody_score }}
+            </div>
+            <p class="col-1">점</p>
           </div>
         </div>
       </div>
@@ -102,6 +132,7 @@
 
 <script>
 import axiosAuth from '@/axios/axios'
+import printJS from 'print-js'
 
 export default {
   name: 'AdminInbodyDetailRead',
@@ -147,20 +178,25 @@ export default {
           console.error(err)
         })
     },
+    print() {
+      printJS({
+        printable: 'printContent',
+        type: 'html',
+        scanStyles: false,
+      })
+    },
   },
 }
 </script>
 
 <style scoped>
-.row p {
-  font-weight: bold;
-}
 .row {
-  margin-bottom: 1vh;
+  margin: 1.5vh 0;
+  align-items: baseline;
 }
 
 .row div {
   background-color: white;
-  border: 0.5vh solid rgba(129, 160, 187, 0.294);
+  padding: 1vh 0;
 }
 </style>
