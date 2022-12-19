@@ -1,7 +1,8 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="width: 100vw; height: 100vh; padding: 7vh">
+    style="width: 100vw; height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
     <div
       id="content"
@@ -9,12 +10,14 @@
       style="
         height: 80vh;
         padding: 3vh;
-        margin-top: 5vh;
+        margin-top: 3vh;
         background-color: #81a0bb4b;
-      ">
+      "
+    >
       <StudentHeader
         @search-by-class="searchByClass"
-        @search-by-name="searchByName" />
+        @search-by-name="searchByName"
+      />
 
       <div v-if="students">
         <div id="button-box" v-if="mode === 'R'">
@@ -22,7 +25,8 @@
           <button
             class="red-btn shadow-sm"
             style="margin-left: 1vh"
-            @click="mode = 'D'">
+            @click="mode = 'D'"
+          >
             삭제
           </button>
         </div>
@@ -44,7 +48,8 @@
             v-for="(student, index) in students"
             :key="student.id"
             :index="index"
-            :student="student" />
+            :student="student"
+          />
         </table>
         <table v-if="students && mode === 'U'">
           <StudentTableColumn />
@@ -54,7 +59,8 @@
             :index="index"
             :student="student"
             :invalid="invalid"
-            @change-data="changeData" />
+            @change-data="changeData"
+          />
         </table>
         <table v-if="students && mode === 'D'">
           <StudentTableColumn />
@@ -63,7 +69,8 @@
             :key="index"
             :index="index"
             :student="student"
-            @change-check="changeCheck" />
+            @change-check="changeCheck"
+          />
         </table>
       </div>
     </div>
@@ -71,16 +78,16 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
-import StudentTableColumn from '@/components/StudentTableColumn.vue'
-import StudentHeader from '@/components/StudentHeader.vue'
-import StudentReadItem from '@/components/StudentReadItem.vue'
-import StudentUpdateItem from '@/components/StudentUpdateItem.vue'
-import StudentDeleteItem from '@/components/StudentDeleteItem.vue'
-import axiosAuth from '@/axios/axios'
+import AdminHeader from "@/components/AdminHeader.vue"
+import StudentTableColumn from "@/components/StudentTableColumn.vue"
+import StudentHeader from "@/components/StudentHeader.vue"
+import StudentReadItem from "@/components/StudentReadItem.vue"
+import StudentUpdateItem from "@/components/StudentUpdateItem.vue"
+import StudentDeleteItem from "@/components/StudentDeleteItem.vue"
+import axiosAuth from "@/axios/axios"
 
 export default {
-  name: 'StudentView',
+  name: "StudentView",
   components: {
     AdminHeader,
     StudentTableColumn,
@@ -92,7 +99,7 @@ export default {
   data() {
     return {
       students: null,
-      mode: 'R',
+      mode: "R",
       invalid: null,
       selected: [],
     }
@@ -117,7 +124,7 @@ export default {
     },
     searchStudent(url) {
       axiosAuth({
-        method: 'get',
+        method: "get",
         url: url,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -126,11 +133,11 @@ export default {
         .then((res) => {
           console.log(res)
           this.students = res.data
-          this.mode = 'R'
+          this.mode = "R"
         })
         .catch((err) => {
           console.error(err)
-          alert('해당 정보의 학생이 존재하지 않습니다')
+          alert("해당 정보의 학생이 존재하지 않습니다")
         })
     },
     // Update
@@ -149,41 +156,41 @@ export default {
         const regName = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/
         if (!regName.test(students[i].name)) {
           this.invalid = i
-          alert('이름은 한글 2글자 이상 입력하세요')
+          alert("이름은 한글 2글자 이상 입력하세요")
           return
         }
         //학년 검사
         const regGrade = /^[1-9]$/
         if (!regGrade.test(students[i].grade)) {
           this.invalid = i
-          alert('학년은 1~9사이의 숫자로 입력하세요')
+          alert("학년은 1~9사이의 숫자로 입력하세요")
           return
         }
         //반 검사
         const regRoom = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
         if (!regRoom.test(students[i].room)) {
           this.invalid = i
-          alert('반은 1~99사이의 숫자로 입력하세요')
+          alert("반은 1~99사이의 숫자로 입력하세요")
           return
         }
         //번호 검사
         const regNumber = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
         if (!regNumber.test(students[i].number)) {
           this.invalid = i
-          alert('번호는 1~99사이의 숫자로 입력하세요')
+          alert("번호는 1~99사이의 숫자로 입력하세요")
           return
         }
         //성별 검사
-        if (!(students[i].gender === '남성' || students[i].gender === '여성')) {
+        if (!(students[i].gender === "남성" || students[i].gender === "여성")) {
           this.invalid = i
-          alert('성별을 선택하세요')
+          alert("성별을 선택하세요")
           return
         }
         //비밀번호 검사
         const regPassword = /^[0-9]{4}$/
         if (!regPassword.test(students[i].password)) {
           this.invalid = i
-          alert('비밀번호는 4자리 숫자로 입력하세요')
+          alert("비밀번호는 4자리 숫자로 입력하세요")
           return
         }
         // 학번 중복인 학생 필터링
@@ -203,7 +210,7 @@ export default {
         }
       }
       axiosAuth({
-        method: 'put',
+        method: "put",
         url: `${this.axios_URL}/students/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -211,7 +218,7 @@ export default {
         data: this.students,
       })
         .then(() => {
-          this.mode = 'R'
+          this.mode = "R"
         })
         .catch((err) => {
           console.error(err)
@@ -236,7 +243,7 @@ export default {
         delete_list.push(this.students[index].id)
       }
       axiosAuth({
-        method: 'delete',
+        method: "delete",
         url: `${this.axios_URL}/students/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -252,7 +259,7 @@ export default {
             this.students.splice(index, 1)
           })
           this.selected = []
-          this.mode = 'R'
+          this.mode = "R"
         })
         .catch((err) => {
           console.error(err)

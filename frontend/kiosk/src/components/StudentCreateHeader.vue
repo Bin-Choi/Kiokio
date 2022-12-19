@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; margin-bottom: 1vh">
+  <div style="width: 100%; margin-bottom: 1vh; min-width: 410px">
     <font-awesome-icon
       icon="fa-solid fa-circle-arrow-left"
       @click="$router.go(-1)"
@@ -33,7 +33,7 @@
 
 <script>
 export default {
-  name: 'StudentCreateHeader',
+  name: "StudentCreateHeader",
   props: {
     readyDelete: Boolean,
   },

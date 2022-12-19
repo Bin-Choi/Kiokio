@@ -1,9 +1,6 @@
 <template>
   <div class="modal-bg h-100 d-flex flex-column justify-content-between">
-    <div
-      class="h-50 modal-content bg-white rounded shadow"
-      style="padding: 1vh"
-    >
+    <div class="modal-content bg-white shadow">
       <!-- CLOSE -->
       <font-awesome-icon
         icon="fa-solid fa-circle-xmark"
@@ -38,14 +35,14 @@
 </template>
 
 <script>
-import TheKeypad from '@/components/TheKeypad.vue'
+import TheKeypad from "@/components/TheKeypad.vue"
 
-import axios from 'axios'
+import axios from "axios"
 
 // const pwKey = b"ABCD"
 
 export default {
-  name: 'PasswordModal',
+  name: "PasswordModal",
   components: {
     TheKeypad,
   },
@@ -69,7 +66,7 @@ export default {
         !regInt.test(this.$refs.password.value) ||
         this.$refs.password.value.length != 4
       ) {
-        alert('비밀번호를 정확히 입력해주세요')
+        alert("비밀번호를 정확히 입력해주세요")
 
         this.$refs.password.value = null
         this.$refs.password.focus()
@@ -78,19 +75,19 @@ export default {
       // 비밀번호 xor 연산하여 간이 암호화
 
       axios({
-        method: 'post',
+        method: "post",
         url: `${this.axios_URL}/students/${this.num}/inbody/`,
         data: {
           password: this.$refs.password.value,
         },
       })
         .then((res) => {
-          this.$store.commit('SAVE_ID_PASSWORD', res.data)
-          this.$router.push({ name: 'inbodyHistory' })
+          this.$store.commit("SAVE_ID_PASSWORD", res.data)
+          this.$router.push({ name: "inbodyHistory" })
         })
 
         .catch(() => {
-          alert('비밀번호가 틀렸습니다.')
+          alert("비밀번호가 틀렸습니다.")
           this.$refs.password.value = null
           this.$refs.password.focus()
         })
@@ -123,9 +120,9 @@ export default {
 }
 
 .modal-content {
-  width: 90%;
-  height: 50%;
-  top: 10%;
+  width: 85%;
+  height: 45%;
+  top: 13%;
 }
 
 input {

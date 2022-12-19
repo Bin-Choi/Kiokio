@@ -8,24 +8,37 @@
         v-if="$route.name === 'attend'"
         class="w-75 h-75 m-auto bg-white round shadow d-flex flex-column align-items-center justify-content-evenly"
       >
-        <div style="font-size: 2.5vh">
-          <div>
-            {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번
-            {{ student.name }}
+        <span v-if="!attendError">
+          <div style="font-size: 2.5vh">
+            <div>
+              {{ student.grade }}학년 {{ student.room }}반
+              {{ student.number }}번
+              {{ student.name }}
+            </div>
+            <hr />
+            <div>
+              날짜 | {{ student.date }} <br />
+              시간 | {{ student.time }}
+            </div>
           </div>
-          <hr />
-          <div>
-            날짜 | {{ student.date }} <br />
-            시간 | {{ student.time.split('.')[0] }}
-          </div>
-        </div>
 
-        <div class="w-50 d-flex flex-column">
-          <button class="btn btn-success shadow" @click="attend">출석</button>
-          <button class="btn btn-danger shadow" @click="$emit('close-modal')">
-            취소
+          <div class="m-auto">
+            <button class="btn btn-success shadow" @click="attend">출석</button>
+            <button class="btn btn-danger shadow" @click="$emit('close-modal')">
+              취소
+            </button>
+          </div>
+        </span>
+
+        <!-- ATTEND ERROR -->
+        <span v-if="attendError">
+          <div style="color: color: rgb(193, 32, 42); font-size: 3vh">
+            이미 출석한 학생입니다.
+          </div>
+          <button class="orange-btn shadow" @click="$emit('close-modal')">
+            확인
           </button>
-        </div>
+        </span>
       </span>
 
       <!-- GYM CONTENT -->
@@ -45,11 +58,16 @@
 </template>
 
 <script>
-import axios from 'axios'
-const URL = 'http://127.0.0.1:8000'
+import axios from "axios"
+const URL = "http://127.0.0.1:8000"
 
 export default {
-  name: 'TheModal',
+  name: "TheModal",
+  data() {
+    return {
+      attendError: false,
+    }
+  },
   props: {
     student: Object,
   },
@@ -57,25 +75,24 @@ export default {
     // ATTEND
     attend() {
       axios({
-        method: 'post',
+        method: "post",
         url: `${URL}/students/${this.student.num}/attendance/`,
         data: this.student,
       })
         .then(() => {
-          // close modal
-          this.$emit('close-modal')
+          this.$emit("close-modal")
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
+          this.attendError = true
         })
     },
   },
   mounted() {
-    const title = document.querySelector('.modal-content #title')
-    if (this.$route.name == 'gym') {
-      title.innerText = '운동기구'
+    const title = document.querySelector(".modal-content #title")
+    if (this.$route.name == "gym") {
+      title.innerText = "운동기구"
     } else {
-      title.innerText = '출석 확인'
+      title.innerText = "출석 확인"
     }
   },
 }

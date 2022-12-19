@@ -59,11 +59,11 @@
 </template>
 
 <script>
-import axios from 'axios'
-import InbodyHistoryItem from '../components/InbodyHistoryItem.vue'
+import axios from "axios"
+import InbodyHistoryItem from "../components/InbodyHistoryItem.vue"
 
 export default {
-  name: 'InbodyHistoryView',
+  name: "InbodyHistoryView",
   components: { InbodyHistoryItem },
 
   data() {
@@ -81,7 +81,7 @@ export default {
   },
   created() {
     axios({
-      method: 'post',
+      method: "post",
       url: `${this.axios_URL}/students/${this.student.id}/inbody/list/`,
       data: {
         password: this.student.password,
@@ -98,4 +98,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>

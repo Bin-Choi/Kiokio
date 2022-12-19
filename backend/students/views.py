@@ -13,11 +13,12 @@ from django.db.models import Prefetch
 
 from .serializers import InbodySerializer, InbodyListSerializer, StudentSerializer, StudentAttendanceSerializer, StudentInbodyListSerializer
 from .models import Student, Attendance, Inbody
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 # cryptography
 from cryptography.fernet import Fernet
 
+KST = timezone(timedelta(hours=9))
 
 # Create your views here.
 @api_view(['GET', 'POST'])
@@ -29,20 +30,34 @@ def attendance(request, num):
     student = Student.objects.get(grade=grade, room=room, number=number)
 
     if request.method == 'GET':
+        date_time = datetime.now(KST)
+        date = str(date_time)[:10]
+        time = str(date_time.time())[:8]
         data = {
             'name': student.name,
             'grade': grade,
             'room': room,
             'number': number,
             'num': num,
-            'date': datetime.today().date(),
-            'time': datetime.now().time(),
+            'date': date,
+            'time': time,
         }
         return Response(data)
 
     elif request.method == 'POST':
         date = request.data['date']
         time = request.data['time']
+
+        if Attendance.objects.filter(student=student, date=date).exists():
+            last_attendance =  Attendance.objects.filter(student=student, date=date).order_by('-time')[0]
+
+            time_1 = datetime.strptime(str(last_attendance.time),"%H:%M:%S")
+            time_2 = datetime.strptime(time,"%H:%M:%S")
+            time_interval = time_2 - time_1
+
+            if time_interval <= timedelta(minutes=40):
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+                     
         attendance = Attendance(student=student, date=date, time=time)
         attendance.save()
         return Response(status=status.HTTP_201_CREATED)
@@ -221,7 +236,7 @@ def students(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def students_class(request, grade, room):
-    students = Student.objects.filter(grade=grade, room=room)
+    students = Student.objects.filter(grade=grade, room=room).order_by('grade', 'room', 'number')
 
     if request.method == 'GET':
         serializer = StudentSerializer(students, many=True)
@@ -231,7 +246,7 @@ def students_class(request, grade, room):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def students_name(request, name):
-    students = Student.objects.filter(name=name)
+    students = Student.objects.filter(name=name).order_by('grade', 'room', 'number')
 
     if request.method == 'GET':
         serializer = StudentSerializer(students, many=True)
@@ -243,7 +258,7 @@ def students_name(request, name):
 def attendance_class(request, year, month, grade, room):
     students = Student.objects.prefetch_related(
         Prefetch('attendance_set', queryset=Attendance.objects.filter(date__year=year, date__month=month))
-        ).filter(grade=grade, room=room)
+        ).filter(grade=grade, room=room).order_by('grade', 'room', 'number')
 
     if request.method == 'GET':
         serializer = StudentAttendanceSerializer(students, many=True)
@@ -255,17 +270,18 @@ def attendance_class(request, year, month, grade, room):
 def attendance_name(request, year, month, name):
     students = Student.objects.prefetch_related(
         Prefetch('attendance_set', queryset=Attendance.objects.filter(date__year=year, date__month=month))
-        ).filter(name=name)
+        ).filter(name=name).order_by('grade', 'room', 'number')
 
     if request.method == 'GET':
         serializer = StudentAttendanceSerializer(students, many=True)
         return Response(serializer.data)
-     
-     
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def inbody_list_class(request, grade, room):
-    students = Student.objects.prefetch_related('inbody_set').filter(grade=grade, room=room)
+def inbody_list_class(request, start_date, end_date, grade, room):
+    students = Student.objects.prefetch_related(
+            Prefetch('inbody_set', queryset=Inbody.objects.filter(test_date__gte=start_date, test_date__lte=end_date).order_by('test_date'))
+            ).filter(grade=grade, room=room).order_by('grade', 'room', 'number')
 
     if request.method == 'GET':
         serializer = StudentInbodyListSerializer(students, many=True)
@@ -274,8 +290,10 @@ def inbody_list_class(request, grade, room):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def inbody_list_name(request, name):
-    students = Student.objects.prefetch_related('inbody_set').filter(name=name)
+def inbody_list_name(request, start_date, end_date, name):
+    students = Student.objects.prefetch_related(
+            Prefetch('inbody_set', queryset=Inbody.objects.filter(test_date__gte=start_date, test_date__lte=end_date).order_by('test_date'))
+            ).filter(name=name).order_by('grade', 'room', 'number')
 
     if request.method == 'GET':
         serializer = StudentInbodyListSerializer(students, many=True)

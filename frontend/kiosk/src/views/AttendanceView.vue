@@ -1,7 +1,8 @@
 <template>
   <div
     class="bg-white d-flex flex-column"
-    style="width: 100vw; height: 100vh; padding: 7vh">
+    style="width: 100vw; height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
 
     <div
@@ -10,13 +11,15 @@
         width: 100%;
         height: 80vh;
         padding: 3vh;
-        margin-top: 5vh;
+        margin-top: 3vh;
         background-color: #81a0bb4b;
         min-width: 750px;
-      ">
+      "
+    >
       <AttendanceHeader
         @search-by-class="searchByClass"
-        @search-by-name="searchByName" />
+        @search-by-name="searchByName"
+      />
       <div id="admin-scroll-box" style="overflow-x: scroll; overflow-y: scroll">
         <table v-if="students">
           <AttendanceTableColumn :days="days" />
@@ -24,7 +27,8 @@
             v-for="student in students"
             :key="student.id"
             :student="student"
-            :days="days" />
+            :days="days"
+          />
         </table>
       </div>
     </div>
@@ -32,11 +36,11 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
-import AttendanceHeader from '@/components/AttendanceHeader.vue'
-import AttendanceTableColumn from '@/components/AttendanceTableColumn.vue'
-import AttendanceItem from '@/components/AttendanceItem.vue'
-import axiosAuth from '@/axios/axios'
+import AdminHeader from "@/components/AdminHeader.vue"
+import AttendanceHeader from "@/components/AttendanceHeader.vue"
+import AttendanceTableColumn from "@/components/AttendanceTableColumn.vue"
+import AttendanceItem from "@/components/AttendanceItem.vue"
+import axiosAuth from "@/axios/axios"
 
 const daysOfMonth = {
   1: 31,
@@ -54,7 +58,7 @@ const daysOfMonth = {
 }
 
 export default {
-  name: 'AttendanceView',
+  name: "AttendanceView",
   components: {
     AdminHeader,
     AttendanceHeader,
@@ -104,7 +108,7 @@ export default {
     },
     searchStudent(url) {
       axiosAuth({
-        method: 'get',
+        method: "get",
         url: url,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -116,7 +120,7 @@ export default {
         })
         .catch(() => {
           // console.error(err)
-          alert('해당 정보의 학생이 존재하지 않습니다')
+          alert("해당 정보의 학생이 존재하지 않습니다")
         })
     },
   },

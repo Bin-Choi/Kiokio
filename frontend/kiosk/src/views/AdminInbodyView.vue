@@ -1,22 +1,16 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="height: 100vh; padding: 7vh">
+    style="height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
 
-    <div
-      class="rounded shadow d-flex flex-column"
-      style="
-        width: 100%;
-        height: 80vh;
-        padding: 3vh;
-        margin-top: 5vh;
-        background-color: #81a0bb4b;
-      ">
+    <div class="inbodyContent rounded shadow d-flex flex-column">
       <div v-if="mode === 'Default'">
         <AdminInbodyHeader
           @search-by-class="searchByClass"
-          @search-by-name="searchByName" />
+          @search-by-name="searchByName"
+        />
 
         <div v-if="inbodyStudents">
           <div style="text-align: left">
@@ -27,8 +21,8 @@
           </div>
 
           <!-- INBODY CONTENT -->
-          <div id="admin-scroll-box">
-            <table>
+          <div id="admin-scroll-box" style="height: 55vh">
+            <table style="margin-bottom: 0.5vh">
               <AdminInbodyTableColumn />
               <AdminInbodyItem
                 v-for="(student, index) in inbodyStudents"
@@ -36,7 +30,8 @@
                 :student="student"
                 :index="index"
                 @change-mode-student="changeModeStudent"
-                @change-mode-detail="changeModeDetail" />
+                @change-mode-detail="changeModeDetail"
+              />
             </table>
           </div>
         </div>
@@ -45,30 +40,32 @@
       <div v-if="mode === 'Student' && student">
         <AdminInbodyStudent
           :studentIndex="studentIndex"
-          @change-mode-default="changeModeDefault" />
+          @change-mode-default="changeModeDefault"
+        />
       </div>
 
       <div v-if="mode === 'Detail' && inbody">
         <AdminInbodyDetail
           :studentIndex="studentIndex"
           :inbodyIndex="inbodyIndex"
-          @change-mode-default="changeModeDefault" />
+          @change-mode-default="changeModeDefault"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
-import AdminInbodyHeader from '@/components/AdminInbodyHeader.vue'
-import AdminInbodyTableColumn from '@/components/AdminInbodyTableColumn.vue'
-import AdminInbodyItem from '@/components/AdminInbodyItem.vue'
-import AdminInbodyStudent from '@/components/AdminInbodyStudent.vue'
-import AdminInbodyDetail from '@/components/AdminInbodyDetail.vue'
-import axiosAuth from '@/axios/axios'
+import AdminHeader from "@/components/AdminHeader.vue"
+import AdminInbodyHeader from "@/components/AdminInbodyHeader.vue"
+import AdminInbodyTableColumn from "@/components/AdminInbodyTableColumn.vue"
+import AdminInbodyItem from "@/components/AdminInbodyItem.vue"
+import AdminInbodyStudent from "@/components/AdminInbodyStudent.vue"
+import AdminInbodyDetail from "@/components/AdminInbodyDetail.vue"
+import axiosAuth from "@/axios/axios"
 
 export default {
-  name: 'AdminInbodyView',
+  name: "AdminInbodyView",
   components: {
     AdminHeader,
     AdminInbodyHeader,
@@ -79,7 +76,7 @@ export default {
   },
   data() {
     return {
-      mode: 'Default',
+      mode: "Default",
       student: null,
       inbody: null,
       studentIndex: null,
@@ -99,17 +96,37 @@ export default {
   },
   methods: {
     // Read
-    searchByClass(grade, room) {
-      const url = `${this.axios_URL}/students/${grade}/${room}/inbody/admin/`
+    searchByClass(startDate, endDate, grade, room) {
+      if (!startDate) {
+        startDate = "2022-01-01"
+      }
+      if (!endDate) {
+        const date = new Date()
+        const year = date.getFullYear()
+        const month = ("0" + (1 + date.getMonth())).slice(-2)
+        const day = ("0" + date.getDate()).slice(-2)
+        endDate = year + "-" + month + "-" + day
+      }
+      const url = `${this.axios_URL}/students/${startDate}/${endDate}/${grade}/${room}/inbody/admin/`
       this.searchStudent(url)
     },
-    searchByName(name) {
-      const url = `${this.axios_URL}/students/${name}/inbody/admin/`
+    searchByName(startDate, endDate, name) {
+      if (!startDate) {
+        startDate = "2022-01-01"
+      }
+      if (!endDate) {
+        const date = new Date()
+        const year = date.getFullYear()
+        const month = ("0" + (1 + date.getMonth())).slice(-2)
+        const day = ("0" + date.getDate()).slice(-2)
+        endDate = year + "-" + month + "-" + day
+      }
+      const url = `${this.axios_URL}/students/${startDate}/${endDate}/${name}/inbody/admin/`
       this.searchStudent(url)
     },
     searchStudent(url) {
       axiosAuth({
-        method: 'get',
+        method: "get",
         url: url,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -117,24 +134,24 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          this.$store.commit('SAVE_INBODY_STUDENTS', res.data)
+          this.$store.commit("SAVE_INBODY_STUDENTS", res.data)
         })
         .catch((err) => {
           console.error(err)
-          alert('해당 정보의 학생이 존재하지 않습니다')
+          alert("해당 정보의 학생이 존재하지 않습니다")
         })
     },
     //change mode
     changeModeDefault() {
-      this.mode = 'Default'
+      this.mode = "Default"
     },
     changeModeStudent(studentIndex) {
-      this.mode = 'Student'
+      this.mode = "Student"
       this.studentIndex = studentIndex
       this.student = this.inbodyStudents[studentIndex]
     },
     changeModeDetail(studentIndex, inbodyIndex) {
-      this.mode = 'Detail'
+      this.mode = "Detail"
       this.studentIndex = studentIndex
       this.inbodyIndex = inbodyIndex
       this.student = {
@@ -150,4 +167,13 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.inbodyContent {
+  width: 100%;
+  height: 80vh;
+  padding: 3vh;
+  margin-top: 3vh;
+  background-color: #81a0bb4b;
+  min-width: 750px;
+}
+</style>

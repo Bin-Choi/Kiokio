@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-between w-100">
+  <div class="d-flex justify-content-between w-100" style="min-width: 250px">
     <div
       :class="{ hidden: $route.name == 'admin' }"
       @click="$router.push({ name: 'admin' })"
@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: 'AdminHeader',
+  name: "AdminHeader",
   computed: {
     user() {
       return this.$store.state.user

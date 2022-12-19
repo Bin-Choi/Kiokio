@@ -58,5 +58,5 @@ class Inbody(models.Model):
 
 class Attendance(models.Model):
     student = models.ForeignKey(Student, verbose_name=("학생ID"), on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
-    time = models.TimeField(auto_now_add=True)
+    date = models.DateField(verbose_name=("날짜"))
+    time = models.TimeField(verbose_name=("시간"))

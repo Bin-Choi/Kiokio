@@ -1,49 +1,45 @@
 <template>
   <div
     class="bg-white d-flex flex-column"
-    style="width: 100vw; height: 100vh; padding: 7vh">
+    style="width: 100vw; height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
-    <div
-      class="rounded shadow d-flex flex-column"
-      style="
-        width: 100%;
-        height: 80vh;
-        padding: 3vh;
-        margin-top: 5vh;
-        background-color: #81a0bb4b;
-      ">
+    <div class="content rounded shadow d-flex flex-column">
       <StudentCreateHeader
         :ready-delete="readyDelete"
         @add-row="addRow"
         @delete-row="deleteRow"
-        @create-student="createStudent" />
-
-      <table id="admin-scroll-box" style="overflow-y: scroll">
-        <StudentTableColumn />
-        <StudentCreateItem
-          v-for="(student, index) in students"
-          :key="index"
-          :index="index"
-          :student="student"
-          :ready-delete="readyDelete"
-          :invalid="invalid"
-          @change-check="changeCheck"
-          @change-data="changeData" />
-      </table>
+        @create-student="createStudent"
+      />
+      <div id="admin-scroll-box">
+        <table style="min-width: 360px">
+          <StudentTableColumn />
+          <StudentCreateItem
+            v-for="(student, index) in students"
+            :key="index"
+            :index="index"
+            :student="student"
+            :ready-delete="readyDelete"
+            :invalid="invalid"
+            @change-check="changeCheck"
+            @change-data="changeData"
+          />
+        </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
-import StudentCreateHeader from '@/components/StudentCreateHeader.vue'
-import StudentTableColumn from '@/components/StudentTableColumn.vue'
-import StudentCreateItem from '@/components/StudentCreateItem.vue'
+import AdminHeader from "@/components/AdminHeader.vue"
+import StudentCreateHeader from "@/components/StudentCreateHeader.vue"
+import StudentTableColumn from "@/components/StudentTableColumn.vue"
+import StudentCreateItem from "@/components/StudentCreateItem.vue"
 
-import axiosAuth from '@/axios/axios'
+import axiosAuth from "@/axios/axios"
 
 export default {
-  name: 'StudentCreateView',
+  name: "StudentCreateView",
   components: {
     AdminHeader,
     StudentCreateHeader,
@@ -59,7 +55,7 @@ export default {
           room: null,
           number: null,
           gender: null,
-          password: '0000',
+          password: "0000",
         },
       ],
       readyDelete: false,
@@ -84,7 +80,7 @@ export default {
         room: null,
         number: null,
         gender: null,
-        password: '0000',
+        password: "0000",
       })
     },
     // Delete Rows
@@ -130,41 +126,41 @@ export default {
         const regName = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/
         if (!regName.test(students[i].name)) {
           this.invalid = i
-          alert('이름은 한글 2글자 이상 입력하세요')
+          alert("이름은 한글 2글자 이상 입력하세요")
           return
         }
         //학년 검사
         const regGrade = /^[1-9]$/
         if (!regGrade.test(students[i].grade)) {
           this.invalid = i
-          alert('학년은 1~9사이의 숫자로 입력하세요')
+          alert("학년은 1~9사이의 숫자로 입력하세요")
           return
         }
         //반 검사
         const regRoom = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
         if (!regRoom.test(students[i].room)) {
           this.invalid = i
-          alert('반은 1~99사이의 숫자로 입력하세요')
+          alert("반은 1~99사이의 숫자로 입력하세요")
           return
         }
         //번호 검사
         const regNumber = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
         if (!regNumber.test(students[i].number)) {
           this.invalid = i
-          alert('번호는 1~99사이의 숫자로 입력하세요')
+          alert("번호는 1~99사이의 숫자로 입력하세요")
           return
         }
         //성별 검사
-        if (!(students[i].gender === '남성' || students[i].gender === '여성')) {
+        if (!(students[i].gender === "남성" || students[i].gender === "여성")) {
           this.invalid = i
-          alert('성별을 선택하세요')
+          alert("성별을 선택하세요")
           return
         }
         //비밀번호 검사
         const regPassword = /^[0-9]{4}$/
         if (!regPassword.test(students[i].password)) {
           this.invalid = i
-          alert('비밀번호는 4자리 숫자로 입력하세요')
+          alert("비밀번호는 4자리 숫자로 입력하세요")
           return
         }
 
@@ -186,7 +182,7 @@ export default {
         studentsList.push(students[i])
       }
       axiosAuth({
-        method: 'post',
+        method: "post",
         url: `${this.axios_URL}/students/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -194,14 +190,14 @@ export default {
         data: this.students,
       })
         .then(() => {
-          alert('성공적으로 저장됐습니다.')
+          alert("성공적으로 저장됐습니다.")
           this.students = [
             { name: null, grade: null, room: null, number: null, gender: null },
           ]
-          this.$router.push({ name: 'student' })
+          this.$router.push({ name: "student" })
         })
         .catch(() => {
-          alert('학번이 중복된 학생 데이터가 존재합니다.')
+          alert("학번이 중복된 학생 데이터가 존재합니다.")
         })
     },
   },
@@ -209,15 +205,12 @@ export default {
 </script>
 
 <style scoped>
-.student-add-btn {
-  background-color: rgb(109, 163, 28);
-  width: 10vw;
-  height: 5vh;
-  border-radius: 1vh;
-
-  color: white;
-  line-height: 5vh;
-  font-size: 2vh;
-  font-weight: bold;
+.content {
+  width: 100%;
+  height: 80vh;
+  padding: 3vh;
+  margin-top: 3vh;
+  background-color: #81a0bb4b;
+  min-width: 440px;
 }
 </style>

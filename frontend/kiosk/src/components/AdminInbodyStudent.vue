@@ -3,31 +3,35 @@
     <div
       class="d-flex"
       @click="$emit('change-mode-default')"
-      style="font-size: 3vh; cursor: pointer">
+      style="font-size: 3vh; cursor: pointer"
+    >
       <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
     </div>
 
     <div style="font-size: 2.5vh">
-      {{ student.name }} {{ student.grade }}학년 {{ student.room }}반
-      {{ student.number }}번 {{ student.gender }}
+      {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번
+      {{ student.name }} ({{ student.gender }})
     </div>
     <div
       v-if="mode === 'R'"
       class="d-flex justify-content-end"
-      style="margin: 1vh 0">
+      style="margin: 1vh 0"
+    >
       <button
         class="blue-btn"
         @click="
           inbodyCopy = JSON.parse(JSON.stringify(student.inbody_set))
           mode = 'U'
-        ">
+        "
+      >
         수정
       </button>
     </div>
     <div
       v-if="mode === 'U'"
       class="w-100 d-flex justify-content-between"
-      style="margin: 1vh 0">
+      style="margin: 1vh 0"
+    >
       <div>
         <button class="gray-btn" @click="mode = 'R'">취소</button>
       </div>
@@ -50,7 +54,8 @@
           v-for="(inbody, index) in student.inbody_set"
           :key="inbody.id"
           :index="index"
-          :inbody="inbody" />
+          :inbody="inbody"
+        />
       </table>
 
       <table class="d-flex" v-if="mode === 'U'">
@@ -63,21 +68,22 @@
           :ready-delete="readyDelete"
           :invalid="invalid"
           @change-check="changeCheck"
-          @change-data="changeData" />
+          @change-data="changeData"
+        />
       </table>
     </div>
   </div>
 </template>
 
 <script>
-import AdminInbodyStudentTableRow from '@/components/AdminInbodyStudentTableRow.vue'
-import AdminInbodyStudentReadItem from '@/components/AdminInbodyStudentReadItem.vue'
-import AdminInbodyStudentUpdateItem from '@/components/AdminInbodyStudentUpdateItem.vue'
+import AdminInbodyStudentTableRow from "@/components/AdminInbodyStudentTableRow.vue"
+import AdminInbodyStudentReadItem from "@/components/AdminInbodyStudentReadItem.vue"
+import AdminInbodyStudentUpdateItem from "@/components/AdminInbodyStudentUpdateItem.vue"
 
-import axiosAuth from '@/axios/axios'
+import axiosAuth from "@/axios/axios"
 
 export default {
-  name: 'AdminInbodyStudent',
+  name: "AdminInbodyStudent",
   components: {
     AdminInbodyStudentTableRow,
     AdminInbodyStudentReadItem,
@@ -88,7 +94,7 @@ export default {
   },
   data() {
     return {
-      mode: 'R',
+      mode: "R",
       inbodyCopy: [],
       readyDelete: false,
       invalid: null,
@@ -146,7 +152,7 @@ export default {
       })
       // DB로 삭제 요청
       axiosAuth({
-        method: 'delete',
+        method: "delete",
         url: `${this.axios_URL}/students/inbody/list/admin/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -190,37 +196,37 @@ export default {
         //날짜 검사
         if (!regDate.test(inbodyCopy[i].test_date)) {
           this.invalid = i
-          alert('날짜를 선택해주세요')
+          alert("날짜를 선택해주세요")
           return
         }
         //키 검사
         if (!regFloat.test(inbodyCopy[i].height)) {
           this.invalid = i
-          alert('키는 소수점 둘째자리까지 입력가능합니다.')
+          alert("키는 소수점 둘째자리까지 입력가능합니다.")
           return
         }
         //나이 검사
         if (!regInt.test(inbodyCopy[i].age)) {
           this.invalid = i
-          alert('나이는 정수로 입력가능합니다.')
+          alert("나이는 정수로 입력가능합니다.")
           return
         }
         //체중
         if (!regFloat.test(inbodyCopy[i].weight)) {
           this.invalid = i
-          alert('체중은 소수점 둘째자리까지 입력가능합니다.')
+          alert("체중은 소수점 둘째자리까지 입력가능합니다.")
           return
         }
         //BMI
         if (!regFloat.test(inbodyCopy[i].body_mass_index)) {
           this.invalid = i
-          alert('BMI는 소수점 둘째자리까지 입력가능합니다.')
+          alert("BMI는 소수점 둘째자리까지 입력가능합니다.")
           return
         }
         //체지방률
         if (!regFloat.test(inbodyCopy[i].percent_body_fat)) {
           this.invalid = i
-          alert('체지방률은 소수점 둘째자리까지 입력가능합니다.')
+          alert("체지방률은 소수점 둘째자리까지 입력가능합니다.")
           return
         }
         //체수분
@@ -229,7 +235,7 @@ export default {
           !regFloatBlank.test(inbodyCopy[i].total_body_water)
         ) {
           this.invalid = i
-          alert('체수분은 소수점 둘째자리까지 입력가능합니다.')
+          alert("체수분은 소수점 둘째자리까지 입력가능합니다.")
           return
         }
         //단백질
@@ -238,7 +244,7 @@ export default {
           !regFloatBlank.test(inbodyCopy[i].protein)
         ) {
           this.invalid = i
-          alert('단백질은 소수점 둘째자리까지 입력가능합니다.')
+          alert("단백질은 소수점 둘째자리까지 입력가능합니다.")
           return
         }
         //무기질
@@ -247,7 +253,7 @@ export default {
           !regFloatBlank.test(inbodyCopy[i].minerals)
         ) {
           this.invalid = i
-          alert('미네랄은 소수점 둘째자리까지 입력가능합니다.')
+          alert("미네랄은 소수점 둘째자리까지 입력가능합니다.")
           return
         }
         //체지방량
@@ -256,7 +262,7 @@ export default {
           !regFloatBlank.test(inbodyCopy[i].body_fat_mass)
         ) {
           this.invalid = i
-          alert('체지방량은 소수점 둘째자리까지 입력가능합니다.')
+          alert("체지방량은 소수점 둘째자리까지 입력가능합니다.")
           return
         }
         //골격근량
@@ -265,7 +271,7 @@ export default {
           !regFloatBlank.test(inbodyCopy[i].skeletal_muscle_mass)
         ) {
           this.invalid = i
-          alert('골격근량은 소수점 둘째자리까지 입력가능합니다.')
+          alert("골격근량은 소수점 둘째자리까지 입력가능합니다.")
           return
         }
         //인바디 점수
@@ -274,12 +280,12 @@ export default {
           !regFloatBlank.test(inbodyCopy[i].inbody_score)
         ) {
           this.invalid = i
-          alert('인바디 점수는 소수점 둘째자리까지 입력가능합니다.')
+          alert("인바디 점수는 소수점 둘째자리까지 입력가능합니다.")
           return
         }
       }
       axiosAuth({
-        method: 'put',
+        method: "put",
         url: `${this.axios_URL}/students/inbody/list/admin/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -293,8 +299,8 @@ export default {
             studentIndex: this.studentIndex,
             inbodyList: this.inbodyCopy,
           }
-          this.$store.commit('CHANGE_STUDENT_INBODY', payload)
-          this.mode = 'R'
+          this.$store.commit("CHANGE_STUDENT_INBODY", payload)
+          this.mode = "R"
         })
         .catch((err) => {
           console.error(err)

@@ -15,7 +15,8 @@
     <td
       class="clickable-box border"
       @click="changeModeStudent"
-      style="width: 10vh">
+      style="width: 10vh"
+    >
       {{ student.name }}
     </td>
     <td
@@ -23,8 +24,9 @@
       :key="inbody.id"
       :inbody-index="inbodyIndex"
       class="clickable-box border"
-      style="padding-left: 1vh; padding-right: 1vh; width: 20vh"
-      @click="changeModeDetail(inbodyIndex)">
+      style="padding-left: 0.5vh; padding-right: 0.5vh; width: 15vh"
+      @click="changeModeDetail(inbodyIndex)"
+    >
       {{ inbody.test_date }}
     </td>
   </tr>
@@ -32,7 +34,7 @@
 
 <script>
 export default {
-  name: 'AdminInbodyItem',
+  name: "AdminInbodyItem",
   props: {
     student: Object,
     index: Number,
@@ -40,11 +42,11 @@ export default {
   methods: {
     changeModeStudent() {
       const studentIndex = this.index
-      this.$emit('change-mode-student', studentIndex)
+      this.$emit("change-mode-student", studentIndex)
     },
     changeModeDetail(inbodyIndex) {
       const studentIndex = this.index
-      this.$emit('change-mode-detail', studentIndex, inbodyIndex)
+      this.$emit("change-mode-detail", studentIndex, inbodyIndex)
     },
   },
 }

@@ -27,11 +27,7 @@
     </div>
 
     <!-- INBODY CONTENT -->
-    <div
-      id="printContent"
-      class="rounded"
-      style="font-size: 2.2vh; padding: 2vh"
-    >
+    <div id="printContent" style="font-size: 2.3vh; padding: 2vh">
       <div class="w-100" style="font-size: 2.5vh; margin-bottom: 5vh">
         {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번
         {{ student.name }} ({{ student.gender }})
@@ -42,87 +38,87 @@
       >
         <div class="container">
           <div class="row">
-            <p class="col-6">검사일시</p>
-            <div class="col-4 rounded shadow-sm">{{ inbody.test_date }}</div>
+            <span class="col-6">검사일시</span>
+            <span class="col-4 rounded shadow-sm">{{ inbody.test_date }}</span>
           </div>
 
           <div class="row">
-            <p class="col-6">키</p>
-            <div class="col-4 rounded shadow-sm">{{ inbody.height }}</div>
-            <p class="col-1">cm</p>
+            <span class="col-6">키</span>
+            <span class="col-4 rounded shadow-sm">{{ inbody.height }}</span>
+            <span class="col-1">cm</span>
           </div>
 
           <div class="row">
-            <p class="col-6">나이</p>
-            <div class="col-4 rounded shadow-sm">{{ inbody.age }}</div>
-            <p class="col-1">세</p>
+            <span class="col-6">나이</span>
+            <span class="col-4 rounded shadow-sm">{{ inbody.age }}</span>
+            <span class="col-1">세</span>
           </div>
 
           <div class="row">
-            <p class="col-6">체중</p>
-            <div class="col-4 rounded shadow-sm">{{ inbody.weight }}</div>
-            <p class="col-1">kg</p>
+            <span class="col-6">체중</span>
+            <span class="col-4 rounded shadow-sm">{{ inbody.weight }}</span>
+            <span class="col-1">kg</span>
           </div>
 
           <div class="row">
-            <p class="col-6">BMI</p>
-            <div class="col-4 rounded shadow-sm">
+            <span class="col-6">BMI</span>
+            <span class="col-4 rounded shadow-sm">
               {{ inbody.body_mass_index }}
-            </div>
-            <p class="col-1">kg/m<sup>2</sup></p>
+            </span>
+            <span class="col-1">kg/m<sup>2</sup></span>
           </div>
           <div class="row">
-            <p class="col-6">체지방률</p>
-            <div class="col-4 rounded shadow-sm">
+            <span class="col-6">체지방률</span>
+            <span class="col-4 rounded shadow-sm">
               {{ inbody.percent_body_fat }}
-            </div>
-            <p class="col-1">%</p>
+            </span>
+            <span class="col-1">%</span>
           </div>
         </div>
 
         <div class="container">
           <div class="row">
-            <p class="col-6">체수분</p>
-            <div class="col-4 rounded shadow-sm">
+            <span class="col-6">체수분</span>
+            <span class="col-4 rounded shadow-sm">
               {{ inbody.total_body_water }}
-            </div>
-            <p class="col-1">L</p>
+            </span>
+            <span class="col-1">L</span>
           </div>
 
           <div class="row">
-            <p class="col-6">단백질</p>
-            <div class="col-4 rounded shadow-sm">{{ inbody.protein }}</div>
-            <p class="col-1">kg</p>
+            <span class="col-6">단백질</span>
+            <span class="col-4 rounded shadow-sm">{{ inbody.protein }}</span>
+            <span class="col-1">kg</span>
           </div>
 
           <div class="row">
-            <p class="col-6">무기질</p>
-            <div class="col-4 rounded shadow-sm">{{ inbody.minerals }}</div>
-            <p class="col-1">kg</p>
+            <span class="col-6">무기질</span>
+            <span class="col-4 rounded shadow-sm">{{ inbody.minerals }}</span>
+            <span class="col-1">kg</span>
           </div>
 
           <div class="row">
-            <p class="col-6">체지방량</p>
-            <div class="col-4 rounded shadow-sm">
+            <span class="col-6">체지방량</span>
+            <span class="col-4 rounded shadow-sm">
               {{ inbody.body_fat_mass }}
-            </div>
-            <p class="col-1">kg</p>
+            </span>
+            <span class="col-1">kg</span>
           </div>
 
           <div class="row">
-            <p class="col-6">골격근량</p>
-            <div class="col-4 rounded shadow-sm">
+            <span class="col-6">골격근량</span>
+            <span class="col-4 rounded shadow-sm">
               {{ inbody.skeletal_muscle_mass }}
-            </div>
-            <p class="col-1">kg</p>
+            </span>
+            <span class="col-1">kg</span>
           </div>
 
           <div class="row">
-            <p class="col-6">인바디 점수</p>
-            <div class="col-4 rounded shadow-sm">
+            <span class="col-6">인바디 점수</span>
+            <span class="col-4 rounded shadow-sm">
               {{ inbody.inbody_score }}
-            </div>
-            <p class="col-1">점</p>
+            </span>
+            <span class="col-1">점</span>
           </div>
         </div>
       </div>
@@ -131,11 +127,11 @@
 </template>
 
 <script>
-import axiosAuth from '@/axios/axios'
-import printJS from 'print-js'
+import axiosAuth from "@/axios/axios"
+import printJS from "print-js"
 
 export default {
-  name: 'AdminInbodyDetailRead',
+  name: "AdminInbodyDetailRead",
   props: {
     studentIndex: Number,
     inbodyIndex: Number,
@@ -159,7 +155,7 @@ export default {
   methods: {
     deleteInbody() {
       axiosAuth({
-        method: 'delete',
+        method: "delete",
         url: `${this.axios_URL}/students/inbody/${this.inbody.id}/admin/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -171,8 +167,8 @@ export default {
             studentIndex: this.studentIndex,
             inbodyIndex: this.inbodyIndex,
           }
-          this.$store.commit('DELETE_STUDENT_INBODY_DETAIL', payload)
-          this.$emit('change-mode-default')
+          this.$store.commit("DELETE_STUDENT_INBODY_DETAIL", payload)
+          this.$emit("change-mode-default")
         })
         .catch((err) => {
           console.error(err)
@@ -180,8 +176,8 @@ export default {
     },
     print() {
       printJS({
-        printable: 'printContent',
-        type: 'html',
+        printable: "printContent",
+        type: "html",
         scanStyles: false,
       })
     },
@@ -191,12 +187,14 @@ export default {
 
 <style scoped>
 .row {
-  margin: 1.5vh 0;
+  margin: 2.5vh 0;
   align-items: baseline;
 }
 
-.row div {
+.col-4 {
   background-color: white;
-  padding: 1vh 0;
+  border: 0.3vh solid rgba(129, 160, 187, 0.452);
+  padding: 0.5vh 0;
+  min-width: 52px;
 }
 </style>

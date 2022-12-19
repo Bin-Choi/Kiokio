@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
+import AdminHeader from "@/components/AdminHeader.vue"
 
 export default {
-  name: 'AdminView',
+  name: "AdminView",
   components: {
     AdminHeader,
   },

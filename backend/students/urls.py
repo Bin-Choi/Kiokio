@@ -18,8 +18,8 @@ urlpatterns = [
     path('<int:year>/<int:month>/<int:grade>/<int:room>/attendance/', views.attendance_class),
     path('<int:year>/<int:month>/<str:name>/attendance/', views.attendance_name),
     # 인바디 관리
-    path('<int:grade>/<int:room>/inbody/admin/', views.inbody_list_class),
-    path('<str:name>/inbody/admin/', views.inbody_list_name),
+    path('<str:start_date>/<str:end_date>/<int:grade>/<int:room>/inbody/admin/', views.inbody_list_class),
+    path('<str:start_date>/<str:end_date>/<str:name>/inbody/admin/', views.inbody_list_name),
     path('inbody/list/admin/', views.inbody_update),
     path('inbody/<int:inbody_pk>/admin/', views.inbody_detail_admin),
 ]

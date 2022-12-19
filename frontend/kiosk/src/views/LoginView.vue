@@ -3,7 +3,7 @@
     class="bg-white d-flex flex-column align-items-center"
     style="padding: 7vh; height: 100vh; width: 100vw"
   >
-    <div class="w-100 d-flex justify-content-between">
+    <div class="w-100 d-flex justify-content-between" style="min-width: 200px">
       <div @click="toResetPassword" style="cursor: pointer">
         <font-awesome-icon
           class="icon"
@@ -24,7 +24,7 @@
 
     <div
       class="d-flex flex-column align-items-center justify-content-around"
-      style="width: 75vw; height: 50vh; margin-top: 10vh"
+      style="width: 75vw; height: 50vh; margin-top: 10vh; min-width: 440px"
     >
       <div style="font-size: 3.7vh; padding: 1vh 2vh">
         00초등학교 키오스크 관리자 페이지
@@ -35,6 +35,7 @@
       <div
         id="login"
         class="d-flex flex-column rounded shadow justify-content-center"
+        style="min-width: 270px"
       >
         <p
           v-if="error"
@@ -80,10 +81,10 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios"
 
 export default {
-  name: 'LoginView',
+  name: "LoginView",
   data() {
     return {
       username: null,
@@ -102,7 +103,7 @@ export default {
   methods: {
     login() {
       axios({
-        method: 'post',
+        method: "post",
         url: `${this.axios_URL}/accounts/login/`,
         data: {
           username: this.username,
@@ -117,18 +118,18 @@ export default {
           const access = res.data.access
           const refresh = res.data.refresh
           const user = res.data.user
-          this.$store.commit('SAVE_USER', user)
-          this.$store.commit('SAVE_ACCESS_TOKEN', access)
-          this.$store.commit('SAVE_REFRESH_TOKEN', refresh)
-          this.$router.push({ name: 'admin' })
+          this.$store.commit("SAVE_USER", user)
+          this.$store.commit("SAVE_ACCESS_TOKEN", access)
+          this.$store.commit("SAVE_REFRESH_TOKEN", refresh)
+          this.$router.push({ name: "admin" })
         })
         .catch((err) => {
           const status = err.response.status
 
           if (status === 404) {
-            this.error = '해당 아이디 정보가 없습니다.'
+            this.error = "해당 아이디 정보가 없습니다."
           } else if (status === 400) {
-            this.error = '비밀번호가 틀렸습니다.'
+            this.error = "비밀번호가 틀렸습니다."
           }
           this.password = null
         })
