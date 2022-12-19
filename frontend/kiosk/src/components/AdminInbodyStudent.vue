@@ -44,17 +44,17 @@
     </div>
 
     <div class="d-flex" id="admin-scroll-box" style="overflow-x: scroll">
-      <AdminInbodyStudentTableRow />
-
-      <div class="d-flex" v-if="mode === 'R'">
+      <table class="d-flex" v-if="mode === 'R'">
+        <AdminInbodyStudentTableRow />
         <AdminInbodyStudentReadItem
           v-for="(inbody, index) in student.inbody_set"
           :key="inbody.id"
           :index="index"
           :inbody="inbody" />
-      </div>
+      </table>
 
-      <div class="d-flex" v-if="mode === 'U'">
+      <table class="d-flex" v-if="mode === 'U'">
+        <AdminInbodyStudentTableRow />
         <AdminInbodyStudentUpdateItem
           v-for="(inbody, index) in inbodyCopy"
           :key="inbody.id"
@@ -64,7 +64,7 @@
           :invalid="invalid"
           @change-check="changeCheck"
           @change-data="changeData" />
-      </div>
+      </table>
     </div>
   </div>
 </template>

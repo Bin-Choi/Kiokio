@@ -232,7 +232,9 @@ export default {
 <style scoped>
 .box {
   background-color: white;
-  height: 30px;
+  height: 4.5vh;
+  line-height: 4.5vh;
+  width: 15vh;
 }
 .red-box {
   height: fit-content;

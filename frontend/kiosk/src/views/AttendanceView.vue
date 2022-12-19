@@ -1,8 +1,7 @@
 <template>
   <div
     class="bg-white d-flex flex-column"
-    style="width: 100vw; height: 100vh; padding: 7vh"
-  >
+    style="width: 100vw; height: 100vh; padding: 7vh">
     <AdminHeader />
 
     <div
@@ -14,20 +13,19 @@
         margin-top: 5vh;
         background-color: #81a0bb4b;
         min-width: 750px;
-      "
-    >
+      ">
       <AttendanceHeader
         @search-by-class="searchByClass"
-        @search-by-name="searchByName"
-      />
-      <div v-if="students" id="admin-scroll-box">
-        <AttendanceTableColumn :days="days" />
-        <AttendanceItem
-          v-for="student in students"
-          :key="student.id"
-          :student="student"
-          :days="days"
-        />
+        @search-by-name="searchByName" />
+      <div id="admin-scroll-box" style="overflow-x: scroll; overflow-y: scroll">
+        <table v-if="students">
+          <AttendanceTableColumn :days="days" />
+          <AttendanceItem
+            v-for="student in students"
+            :key="student.id"
+            :student="student"
+            :days="days" />
+        </table>
       </div>
     </div>
   </div>

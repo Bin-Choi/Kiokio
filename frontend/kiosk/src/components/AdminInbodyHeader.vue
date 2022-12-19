@@ -29,7 +29,8 @@
           min="1"
           class="student-search-form"
           ref="room"
-          v-model.trim="room" />
+          v-model.trim="room"
+          @keyup.enter="searchByClass" />
         <button class="blue-btn shadow-sm" @click="searchByClass">
           학급 조회
         </button>
@@ -40,7 +41,8 @@
           type="text"
           class="student-search-form"
           ref="name"
-          v-model.trim="name" />
+          v-model.trim="name"
+          @keyup.enter="searchByName" />
         <button class="blue-btn shadow-sm" @click="searchByName">
           이름 조회
         </button>

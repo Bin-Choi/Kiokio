@@ -2,13 +2,11 @@
   <div class="d-flex flex-column" style="margin-bottom: 1vh">
     <div
       class="d-flex justify-content-between"
-      style="margin: 0 0 2vh 0; font-size: 3vh"
-    >
+      style="margin: 0 0 2vh 0; font-size: 3vh">
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
         @click="$router.push({ name: 'admin' })"
-        style="cursor: pointer"
-      />
+        style="cursor: pointer" />
       <div>학생 관리</div>
       <div></div>
     </div>
@@ -22,8 +20,7 @@
           class="student-search-form"
           ref="grade"
           v-model.trim="grade"
-          @keyup.enter="$refs.room.focus()"
-        />
+          @keyup.enter="$refs.room.focus()" />
 
         <span>반</span>
         <input
@@ -32,7 +29,7 @@
           class="student-search-form"
           ref="room"
           v-model.trim="room"
-        />
+          @keyup.enter="searchByClass" />
         <button class="blue-btn shadow-sm" @click="searchByClass">
           학급 조회
         </button>
@@ -45,15 +42,14 @@
           class="student-search-form"
           ref="name"
           v-model.trim="name"
-        />
+          @keyup.enter="searchByName" />
         <button class="blue-btn shadow-sm" @click="searchByName">
           이름 조회
         </button>
 
         <button
           class="green-btn shadow-sm"
-          @click="$router.push({ name: 'studentCreate' })"
-        >
+          @click="$router.push({ name: 'studentCreate' })">
           + 학생 등록
         </button>
       </div>

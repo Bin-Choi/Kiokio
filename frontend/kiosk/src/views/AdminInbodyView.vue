@@ -1,8 +1,7 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="height: 100vh; padding: 7vh"
-  >
+    style="height: 100vh; padding: 7vh">
     <AdminHeader />
 
     <div
@@ -13,13 +12,11 @@
         padding: 3vh;
         margin-top: 5vh;
         background-color: #81a0bb4b;
-      "
-    >
+      ">
       <div v-if="mode === 'Default'">
         <AdminInbodyHeader
           @search-by-class="searchByClass"
-          @search-by-name="searchByName"
-        />
+          @search-by-name="searchByName" />
 
         <div v-if="inbodyStudents">
           <div style="text-align: left">
@@ -31,15 +28,16 @@
 
           <!-- INBODY CONTENT -->
           <div id="admin-scroll-box">
-            <AdminInbodyTableColumn />
-            <AdminInbodyItem
-              v-for="(student, index) in inbodyStudents"
-              :key="student.id"
-              :student="student"
-              :index="index"
-              @change-mode-student="changeModeStudent"
-              @change-mode-detail="changeModeDetail"
-            />
+            <table>
+              <AdminInbodyTableColumn />
+              <AdminInbodyItem
+                v-for="(student, index) in inbodyStudents"
+                :key="student.id"
+                :student="student"
+                :index="index"
+                @change-mode-student="changeModeStudent"
+                @change-mode-detail="changeModeDetail" />
+            </table>
           </div>
         </div>
       </div>
@@ -47,16 +45,14 @@
       <div v-if="mode === 'Student' && student">
         <AdminInbodyStudent
           :studentIndex="studentIndex"
-          @change-mode-default="changeModeDefault"
-        />
+          @change-mode-default="changeModeDefault" />
       </div>
 
       <div v-if="mode === 'Detail' && inbody">
         <AdminInbodyDetail
           :studentIndex="studentIndex"
           :inbodyIndex="inbodyIndex"
-          @change-mode-default="changeModeDefault"
-        />
+          @change-mode-default="changeModeDefault" />
       </div>
     </div>
   </div>

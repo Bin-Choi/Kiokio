@@ -1,16 +1,16 @@
 <template>
-  <div :id="`student-${student.id}`" class="d-flex">
-    <div class="box border name-column">{{ student.name }}</div>
-    <div class="box border attendance-column">{{ student.grade }}</div>
-    <div class="box border attendance-column">{{ student.room }}</div>
-    <div class="box border attendance-column">{{ student.number }}</div>
-    <div
+  <tr :id="`student-${student.id}`" class="d-flex">
+    <td class="box border name-column">{{ student.name }}</td>
+    <td class="box border attendance-column">{{ student.grade }}</td>
+    <td class="box border attendance-column">{{ student.room }}</td>
+    <td class="box border attendance-column">{{ student.number }}</td>
+    <td
       v-for="day in Array(days)
         .fill()
         .map((v, i) => i + 1)"
       :key="day"
-      class="box border attendance-column"></div>
-  </div>
+      class="box border attendance-column"></td>
+  </tr>
 </template>
 
 <script>
@@ -60,11 +60,11 @@ export default {
   background-color: white;
 }
 .name-column {
-  width: 15vw;
+  width: 10vw;
   min-width: 60px;
 }
 .attendance-column {
-  width: 10vw;
+  width: 5vw;
   min-width: 40px;
 }
 </style>

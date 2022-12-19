@@ -1,40 +1,38 @@
 <template>
-  <div class="d-flex">
-    <div class="box border" style="width: 5vh">
+  <tr class="d-flex">
+    <td class="box border" style="width: 5vh">
       {{ index + 1 }}
-    </div>
-    <div class="box border" style="width: 6vh">
+    </td>
+    <td class="box border" style="width: 6vh">
       {{ student.grade }}
-    </div>
-    <div class="box border" style="width: 6vh">
+    </td>
+    <td class="box border" style="width: 6vh">
       {{ student.room }}
-    </div>
-    <div class="box border" style="width: 6vh">
+    </td>
+    <td class="box border" style="width: 6vh">
       {{ student.number }}
-    </div>
-    <div
+    </td>
+    <td
       class="clickable-box border"
       @click="changeModeStudent"
-      style="width: 10vh"
-    >
+      style="width: 10vh">
       {{ student.name }}
-    </div>
-    <div
+    </td>
+    <td
       v-for="(inbody, inbodyIndex) in student.inbody_set"
       :key="inbody.id"
       :inbody-index="inbodyIndex"
       class="clickable-box border"
       style="padding-left: 1vh; padding-right: 1vh; width: 20vh"
-      @click="changeModeDetail(inbodyIndex)"
-    >
+      @click="changeModeDetail(inbodyIndex)">
       {{ inbody.test_date }}
-    </div>
-  </div>
+    </td>
+  </tr>
 </template>
 
 <script>
 export default {
-  name: "AdminInbodyItem",
+  name: 'AdminInbodyItem',
   props: {
     student: Object,
     index: Number,
@@ -42,11 +40,11 @@ export default {
   methods: {
     changeModeStudent() {
       const studentIndex = this.index
-      this.$emit("change-mode-student", studentIndex)
+      this.$emit('change-mode-student', studentIndex)
     },
     changeModeDetail(inbodyIndex) {
       const studentIndex = this.index
-      this.$emit("change-mode-detail", studentIndex, inbodyIndex)
+      this.$emit('change-mode-detail', studentIndex, inbodyIndex)
     },
   },
 }
