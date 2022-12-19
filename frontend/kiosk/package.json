@@ -18,6 +18,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
+    "i": "^0.3.7",
     "jwt-decode": "^3.1.2",
     "print-js": "^1.6.0",
     "secure-ls": "^1.2.6",
