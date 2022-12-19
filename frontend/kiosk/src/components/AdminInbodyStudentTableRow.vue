@@ -19,7 +19,8 @@
 <style scoped>
 .box {
   background-color: white;
-  height: 30px;
-  min-width: 100px;
+  height: 4.5vh;
+  line-height: 4.5vh;
+  min-width: 15vh;
 }
 </style>

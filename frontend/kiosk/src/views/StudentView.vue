@@ -38,15 +38,16 @@
         </div>
       </div>
       <div id="admin-scroll-box" style="overflow-y: scroll">
-        <StudentTableColumn />
-        <div v-if="students && mode === 'R'">
+        <table v-if="students && mode === 'R'">
+          <StudentTableColumn />
           <StudentReadItem
             v-for="(student, index) in students"
             :key="student.id"
             :index="index"
             :student="student" />
-        </div>
-        <div v-if="students && mode === 'U'">
+        </table>
+        <table v-if="students && mode === 'U'">
+          <StudentTableColumn />
           <StudentUpdateItem
             v-for="(student, index) in students"
             :key="index"
@@ -54,15 +55,16 @@
             :student="student"
             :invalid="invalid"
             @change-data="changeData" />
-        </div>
-        <div v-if="students && mode === 'D'">
+        </table>
+        <table v-if="students && mode === 'D'">
+          <StudentTableColumn />
           <StudentDeleteItem
             v-for="(student, index) in students"
             :key="index"
             :index="index"
             :student="student"
             @change-check="changeCheck" />
-        </div>
+        </table>
       </div>
     </div>
   </div>

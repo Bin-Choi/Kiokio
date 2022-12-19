@@ -1,18 +1,18 @@
 <template>
-  <div class="d-flex">
-    <div class="box border name-column">이름</div>
-    <div class="box border attendance-column">학년</div>
-    <div class="box border attendance-column">반</div>
-    <div class="box border attendance-column">번호</div>
-    <div
+  <tr class="d-flex">
+    <td class="box border name-column">이름</td>
+    <td class="box border attendance-column">학년</td>
+    <td class="box border attendance-column">반</td>
+    <td class="box border attendance-column">번호</td>
+    <td
       v-for="day in Array(days)
         .fill()
         .map((v, i) => i + 1)"
       :key="day"
       class="box border attendance-column">
       {{ day }}
-    </div>
-  </div>
+    </td>
+  </tr>
 </template>
 
 <script>
@@ -29,11 +29,11 @@ export default {
   background-color: white;
 }
 .name-column {
-  width: 15vw;
+  width: 10vw;
   min-width: 60px;
 }
 .attendance-column {
-  width: 10vw;
+  width: 5vw;
   min-width: 40px;
 }
 </style>

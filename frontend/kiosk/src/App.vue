@@ -2,20 +2,17 @@
   <div id="app" class="d-flex flex-column">
     <ChangeEmailModal
       v-if="showChangeEmailModal"
-      @close="$store.commit('TOGGLE_SHOW_CHANGE_EMAIL_MODAL', false)"
-    >
+      @close="$store.commit('TOGGLE_SHOW_CHANGE_EMAIL_MODAL', false)">
     </ChangeEmailModal>
 
     <ChangePasswordModal
       v-if="showChangePasswordModal"
-      @close="$store.commit('TOGGLE_SHOW_CHANGE_PASSWORD_MODAL', false)"
-    >
+      @close="$store.commit('TOGGLE_SHOW_CHANGE_PASSWORD_MODAL', false)">
     </ChangePasswordModal>
 
     <LoginModal
       v-if="showLoginModal"
-      @close="$store.commit('TOGGLE_SHOW_LOGIN_MODAL', false)"
-    >
+      @close="$store.commit('TOGGLE_SHOW_LOGIN_MODAL', false)">
     </LoginModal>
     <router-view />
   </div>
@@ -55,6 +52,11 @@ export default {
   background-color: #ffe8d299;
   font-family: 'standard';
   font-size: 1.8vh;
+}
+
+table {
+  width: 100%;
+  table-layout: auto;
 }
 
 .title {

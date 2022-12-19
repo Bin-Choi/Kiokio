@@ -1,27 +1,27 @@
 <template>
-  <div class="d-flex">
-    <div class="col-1 box border">
+  <tr class="d-flex">
+    <td class="col-1 box border">
       {{ index + 1 }}
-    </div>
-    <div class="col-2 box border">
+    </td>
+    <td class="col-2 box border">
       {{ student.name }}
-    </div>
-    <div class="col-1 box border">
+    </td>
+    <td class="col-1 box border">
       {{ student.grade }}
-    </div>
-    <div class="col-2 box border">
+    </td>
+    <td class="col-2 box border">
       {{ student.room }}
-    </div>
-    <div class="col-2 box border">
+    </td>
+    <td class="col-2 box border">
       {{ student.number }}
-    </div>
-    <div class="col-2 box border">
+    </td>
+    <td class="col-2 box border">
       {{ student.gender }}
-    </div>
-    <div class="col-2 box border">
+    </td>
+    <td class="col-2 box border">
       {{ student.password }}
-    </div>
-  </div>
+    </td>
+  </tr>
 </template>
 
 <script>

@@ -16,10 +16,9 @@
         :ready-delete="readyDelete"
         @add-row="addRow"
         @delete-row="deleteRow"
-        @create-student="createStudent"
-      />
+        @create-student="createStudent" />
 
-      <div id="admin-scroll-box" style="overflow-y: scroll">
+      <table id="admin-scroll-box" style="overflow-y: scroll">
         <StudentTableColumn />
         <StudentCreateItem
           v-for="(student, index) in students"
@@ -30,7 +29,7 @@
           :invalid="invalid"
           @change-check="changeCheck"
           @change-data="changeData" />
-      </div>
+      </table>
     </div>
   </div>
 </template>
