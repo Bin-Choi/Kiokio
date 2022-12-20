@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from django.db.models import Prefetch
 
-from .serializers import InbodySerializer, InbodyListSerializer, StudentSerializer, StudentAttendanceSerializer, StudentInbodyListSerializer
+from .serializers import InbodySerializer, InbodyListSerializer, StudentSerializer, StudentAttendanceSerializer, StudentInbodyListSerializer, InbodyStudentSerializer
 from .models import Student, Attendance, Inbody
 from datetime import datetime, timezone, timedelta
 
@@ -318,9 +318,12 @@ def inbody_update(request):
             if serializer.is_valid(raise_exception=True):
                 serializers.append(serializer)
         # 저장
+        response = []
         for serializer in serializers:
             serializer.save()
-        return Response(status=status.HTTP_200_OK)
+            response.append(serializer.data)
+        response.sort(key=lambda x: x['test_date'])
+        return Response(response, status=status.HTTP_200_OK)
 
     if request.method == 'DELETE':
         delete_list = request.data
@@ -345,4 +348,56 @@ def inbody_detail_admin(request, inbody_pk):
 
     elif request.method == 'DELETE':
         inbody.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def inbody_list_class_date(request, date, grade, room):
+    inbodies = Inbody.objects.select_related('student').filter(student__grade=grade, student__room=room, test_date=date).order_by('student__number')
+
+    if request.method == 'GET':
+        serializer = InbodyStudentSerializer(inbodies, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def inbody_list_name_date(request, date, name):
+    inbodies = Inbody.objects.select_related('student').filter(student__name=name, test_date=date).order_by('student__grade', 'student__room', 'student__number')
+
+    if request.method == 'GET':
+        serializer = InbodyStudentSerializer(inbodies, many=True)
+        return Response(serializer.data)
+
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def inbody_list_date(request):
+    # 수정
+    if request.method == 'PUT':
+        # 수정리스트에 있는 인바디가 실제로 있는지 검사
+        update_list = request.data
+        inbodies = []
+        for inb in update_list:
+            inbody = get_object_or_404(Inbody, pk=inb['id'])
+            inbodies.append(inbody)
+        # serialzier 유효성 검사
+        serializers = []
+        for i in range(len(inbodies)):
+            serializer = InbodyStudentSerializer(inbodies[i], data=update_list[i])
+            if serializer.is_valid(raise_exception=True):
+                serializers.append(serializer)
+        # 저장
+        for serializer in serializers:
+            serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+    if request.method == 'DELETE':
+        # 삭제리스트에 있는 인바디를 조회
+        delete_list = request.data
+        inbodies = []
+        for pk in delete_list:
+            inbody = get_object_or_404(Inbody, pk=pk)
+            inbodies.append(inbody)
+        # 인바디 삭제
+        for inbody in inbodies:
+            inbody.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -22,4 +22,7 @@ urlpatterns = [
     path('<str:start_date>/<str:end_date>/<str:name>/inbody/admin/', views.inbody_list_name),
     path('inbody/list/admin/', views.inbody_update),
     path('inbody/<int:inbody_pk>/admin/', views.inbody_detail_admin),
+    path('inbody/list/date/', views.inbody_list_date),
+    path('<str:date>/<int:grade>/<int:room>/inbody/admin/date/', views.inbody_list_class_date),
+    path('<str:date>/<str:name>/inbody/admin/date/', views.inbody_list_name_date),
 ]
