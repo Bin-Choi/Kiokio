@@ -1,6 +1,13 @@
 <template>
   <tr class="d-flex">
-    <td class="box border" style="width: 5vh">{{ index + 1 }}</td>
+    <td class="box border" style="width: 5vh">
+      <input
+        type="checkbox"
+        id="check"
+        @change="
+          (event) => $emit('change-check', event.target.checked, index)
+        " />
+    </td>
     <td class="box border" style="width: 5vh">{{ inbody.grade }}</td>
     <td class="box border" style="width: 5vh">{{ inbody.room }}</td>
     <td class="box border" style="width: 5vh">{{ inbody.number }}</td>
@@ -22,7 +29,7 @@
 
 <script>
 export default {
-  name: 'AdminInbodyDateReadItem',
+  name: 'AdminInbodyDateDeleteItem',
   props: {
     inbody: Object,
     index: Number,

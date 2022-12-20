@@ -64,7 +64,7 @@
         <AdminInbodyStudentTableRow />
         <AdminInbodyStudentUpdateItem
           v-for="(inbody, index) in inbodyCopy"
-          :key="inbody.id"
+          :key="index"
           :index="index"
           :inbody="inbody"
           :ready-delete="readyDelete"
@@ -190,7 +190,6 @@ export default {
       const inbodyCopy = this.inbodyCopy
 
       const regDate = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
-
       const regFloatBlank = /(^\d*$)|(^\d{1,}.\d{1,2}$)/
       const regFloat = /(^\d+$)|(^\d{1,}.\d{1,2}$)/
       const regInt = /^[0-9]+$/

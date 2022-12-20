@@ -5,13 +5,10 @@
       style="margin: 0 0 2vh 0; font-size: 3vh">
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="
-          $router.push({ name: 'admin' })
-          $store.state.inbodyStudents = null
-        "
+        @click="$router.push({ name: 'admin' })"
         style="cursor: pointer" />
       <div>인바디 관리</div>
-      <div :class="{ hidden: mode !== 'R' || !inbodyStudents }">
+      <div :class="{ hidden: mode !== 'R' || !inbodies }">
         <font-awesome-icon
           icon="fa-solid fa-table"
           @click="$emit('download-excel')"
@@ -67,7 +64,7 @@
 export default {
   name: 'AdminInbodyDateHeader',
   props: {
-    inbodyStudents: Array,
+    inbodies: Array,
     mode: String,
   },
   data() {
