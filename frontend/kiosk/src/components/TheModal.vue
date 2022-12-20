@@ -6,10 +6,9 @@
       <!-- ATTEND CONTENT -->
       <span
         v-if="$route.name === 'attend'"
-        class="w-75 h-75 m-auto bg-white round shadow d-flex flex-column align-items-center justify-content-evenly"
-      >
+        class="w-75 h-75 m-auto bg-white round shadow d-flex flex-column align-items-center justify-content-evenly">
         <span v-if="!attendError">
-          <div style="font-size: 2.5vh">
+          <div style="font-size: 2.5vh; margin-bottom: 2vh">
             <div>
               {{ student.grade }}학년 {{ student.room }}반
               {{ student.number }}번
@@ -22,7 +21,7 @@
             </div>
           </div>
 
-          <div class="m-auto">
+          <div class="w-75 d-flex flex-column m-auto">
             <button class="btn btn-success shadow" @click="attend">출석</button>
             <button class="btn btn-danger shadow" @click="$emit('close-modal')">
               취소
@@ -31,11 +30,17 @@
         </span>
 
         <!-- ATTEND ERROR -->
-        <span v-if="attendError">
-          <div style="color: color: rgb(193, 32, 42); font-size: 3vh">
+        <span
+          v-if="attendError"
+          class="h-100 d-flex flex-column align-items-center justify-content-evenly"
+          style="padding: 2vh">
+          <div style="color: rgb(193, 32, 42); font-size: 2.6vh">
             이미 출석한 학생입니다.
+            <div style="color: black; font-size: 2vh">
+              *40분에 한 번 출석 가능합니다.
+            </div>
           </div>
-          <button class="orange-btn shadow" @click="$emit('close-modal')">
+          <button class="orange-btn shadow w-50" @click="$emit('close-modal')">
             확인
           </button>
         </span>
@@ -45,8 +50,7 @@
       <span
         v-if="$route.name === 'gym'"
         class="w-75 h-75 bg-white m-auto round d-flex flex-column align-items-center justify-content-between shadow"
-        style="padding: 2vh"
-      >
+        style="padding: 2vh">
         <img src="#" alt="IMG" />
         <div>description</div>
         <button class="orange-btn shadow" @click="$emit('close-modal')">
@@ -58,11 +62,11 @@
 </template>
 
 <script>
-import axios from "axios"
-const URL = "http://127.0.0.1:8000"
+import axios from 'axios'
+const URL = 'http://127.0.0.1:8000'
 
 export default {
-  name: "TheModal",
+  name: 'TheModal',
   data() {
     return {
       attendError: false,
@@ -75,12 +79,12 @@ export default {
     // ATTEND
     attend() {
       axios({
-        method: "post",
+        method: 'post',
         url: `${URL}/students/${this.student.num}/attendance/`,
         data: this.student,
       })
         .then(() => {
-          this.$emit("close-modal")
+          this.$emit('close-modal')
         })
         .catch(() => {
           this.attendError = true
@@ -88,11 +92,11 @@ export default {
     },
   },
   mounted() {
-    const title = document.querySelector(".modal-content #title")
-    if (this.$route.name == "gym") {
-      title.innerText = "운동기구"
+    const title = document.querySelector('.modal-content #title')
+    if (this.$route.name == 'gym') {
+      title.innerText = '운동기구'
     } else {
-      title.innerText = "출석 확인"
+      title.innerText = '출석 확인'
     }
   },
 }

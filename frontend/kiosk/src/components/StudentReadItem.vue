@@ -3,9 +3,6 @@
     <td class="col-1 box border">
       {{ index + 1 }}
     </td>
-    <td class="col-2 box border">
-      {{ student.name }}
-    </td>
     <td class="col-1 box border">
       {{ student.grade }}
     </td>
@@ -14,6 +11,9 @@
     </td>
     <td class="col-2 box border">
       {{ student.number }}
+    </td>
+    <td class="col-2 box border">
+      {{ student.name }}
     </td>
     <td class="col-2 box border">
       {{ student.gender }}

@@ -1,9 +1,9 @@
 <template>
   <tr class="d-flex">
-    <td class="box border name-column">이름</td>
     <td class="box border attendance-column">학년</td>
     <td class="box border attendance-column">반</td>
     <td class="box border attendance-column">번호</td>
+    <td class="box border name-column">이름</td>
     <td
       v-for="day in Array(days)
         .fill()
@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 .box {
-  background-color: white;
+  background-color: rgb(240, 240, 240);
 }
 .name-column {
   width: 10vw;

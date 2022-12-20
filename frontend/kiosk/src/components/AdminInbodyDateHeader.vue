@@ -11,24 +11,22 @@
         "
         style="cursor: pointer" />
       <div>인바디 관리</div>
-      <div></div>
+      <div :class="{ hidden: mode !== 'R' || !inbodyStudents }">
+        <font-awesome-icon
+          icon="fa-solid fa-table"
+          @click="$emit('download-excel')"
+          style="font-size: 3vh; cursor: pointer" />
+        <div style="font-size: 1.5vh">다운로드</div>
+      </div>
     </div>
-    <div style="text-align: left; padding-left: 0.3vh">* 선택 값입니다.</div>
     <div class="d-flex justify-content-between">
       <div>
         <input
           type="date"
           class="student-search-form"
           style="width: 13vh"
-          ref="startDate"
-          v-model="startDate" />
-        ~
-        <input
-          type="date"
-          class="student-search-form"
-          style="width: 13vh"
-          ref="endDate"
-          v-model="endDate" />
+          ref="date"
+          v-model="date" />
       </div>
       <div>
         <span>학년</span>
@@ -67,11 +65,14 @@
 
 <script>
 export default {
-  name: 'AdminInbodyHeader',
+  name: 'AdminInbodyDateHeader',
+  props: {
+    inbodyStudents: Array,
+    mode: String,
+  },
   data() {
     return {
-      startDate: null,
-      endDate: null,
+      date: null,
       grade: null,
       room: null,
       name: null,
@@ -79,6 +80,11 @@ export default {
   },
   methods: {
     searchByClass() {
+      const regDate = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
+      if (!regDate.test(this.date)) {
+        alert('날짜를 선택해주세요')
+        return
+      }
       if (!this.grade || !this.room) {
         alert('학년, 반을 모두 입력해주세요')
         return
@@ -96,15 +102,14 @@ export default {
         return
       }
       this.name = null
-      this.$emit(
-        'search-by-class',
-        this.startDate,
-        this.endDate,
-        this.grade,
-        this.room
-      )
+      this.$emit('search-by-class', this.date, this.grade, this.room)
     },
     searchByName() {
+      const regDate = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
+      if (!regDate.test(this.date)) {
+        alert('날짜를 선택해주세요')
+        return
+      }
       if (!this.name) {
         alert('이름을 입력해주세요')
         return
@@ -116,10 +121,14 @@ export default {
       }
       this.grade = null
       this.room = null
-      this.$emit('search-by-name', this.startDate, this.endDate, this.name)
+      this.$emit('search-by-name', this.date, this.name)
     },
   },
 }
 </script>
 
-<style></style>
+<style scoped>
+.hidden {
+  visibility: hidden;
+}
+</style>
