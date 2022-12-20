@@ -19,7 +19,7 @@
         :students="students" />
 
       <div v-if="students">
-        <div id="button-box" v-if="mode === 'R'">
+        <div class="button-box" v-if="mode === 'R'">
           <button class="blue-btn shadow-sm" @click="mode = 'U'">수정</button>
           <button
             class="red-btn shadow-sm"
@@ -28,12 +28,12 @@
             삭제
           </button>
         </div>
-        <div id="button-box" v-if="mode === 'U'">
+        <div class="button-box" v-if="mode === 'U'">
           <button class="blue-btn shadow-sm" @click="updateStudent">
             저장
           </button>
         </div>
-        <div id="button-box" v-if="mode === 'D'">
+        <div class="button-box" v-if="mode === 'D'">
           <button class="red-btn shadow-sm" @click="deleteStudent">삭제</button>
         </div>
       </div>
@@ -54,7 +54,7 @@
             <StudentTableColumn />
             <StudentUpdateItem
               v-for="(student, index) in students"
-              :key="index"
+              :key="student.id"
               :index="index"
               :student="student"
               :invalid="invalid"
@@ -66,7 +66,7 @@
             <StudentTableColumn />
             <StudentDeleteItem
               v-for="(student, index) in students"
-              :key="index"
+              :key="student.id"
               :index="index"
               :student="student"
               @change-check="changeCheck" />
@@ -296,7 +296,7 @@ export default {
 </script>
 
 <style scoped>
-#button-box {
+.button-box {
   margin-bottom: 1vh;
   display: flex;
   justify-content: end;

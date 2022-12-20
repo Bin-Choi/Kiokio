@@ -1,10 +1,10 @@
 <template>
-  <tr>
-    <td class="box border" style="min-width: 5vh"></td>
-    <td class="box border" style="min-width: 5vh">학년</td>
-    <td class="box border" style="min-width: 5vh">반</td>
-    <td class="box border" style="min-width: 5vh">번호</td>
-    <td class="box border" style="min-width: 10vh">이름</td>
+  <tr class="d-flex">
+    <td class="box border" style="width: 5vh"></td>
+    <td class="box border" style="width: 5vh">학년</td>
+    <td class="box border" style="width: 5vh">반</td>
+    <td class="box border" style="width: 5vh">번호</td>
+    <td class="box border" style="width: 10vh">이름</td>
     <td class="box-width border">검사일시*</td>
     <td class="box-width border">키(cm)*</td>
     <td class="box-width border">나이*</td>
