@@ -8,7 +8,11 @@
         @click="$router.push({ name: 'admin' })"
         style="cursor: pointer" />
       <div>출결 관리</div>
-      <div></div>
+      <font-awesome-icon
+        :class="{ hidden: !students }"
+        icon="fa-solid fa-file-excel"
+        @click="$emit('download-excel')"
+        style="cursor: pointer" />
     </div>
 
     <div class="d-flex justify-content-start" style="margin-bottom: 1vh">
@@ -75,7 +79,10 @@
 
 <script>
 export default {
-  name: 'StudentHeader',
+  name: 'AttendanceHeader',
+  props: {
+    students: Array,
+  },
   data() {
     return {
       year: null,
@@ -156,4 +163,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.hidden {
+  visibility: hidden;
+}
+</style>
