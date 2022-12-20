@@ -1,8 +1,7 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="width: 100vw; height: 100vh; padding: 7vh"
-  >
+    style="width: 100vw; height: 100vh; padding: 7vh">
     <AdminHeader />
     <div
       id="content"
@@ -12,82 +11,83 @@
         padding: 3vh;
         margin-top: 3vh;
         background-color: #81a0bb4b;
-      "
-    >
+      ">
       <StudentHeader
         @search-by-class="searchByClass"
         @search-by-name="searchByName"
-      />
+        @download-excel="downloadExcel"
+        :students="students" />
 
-      <div v-if="students">
-        <div id="button-box" v-if="mode === 'R'">
-          <button class="blue-btn shadow-sm" @click="mode = 'U'">수정</button>
-          <button
-            class="red-btn shadow-sm"
-            style="margin-left: 1vh"
-            @click="mode = 'D'"
-          >
-            삭제
-          </button>
-        </div>
-
-        <div id="button-box" v-if="mode === 'U'">
-          <button class="blue-btn shadow-sm" @click="updateStudent">
-            저장
-          </button>
-        </div>
-
-        <div id="button-box" v-if="mode === 'D'">
-          <button class="red-btn shadow-sm" @click="deleteStudent">삭제</button>
-        </div>
-      </div>
       <div id="admin-scroll-box" style="overflow-y: scroll">
-        <table v-if="students && mode === 'R'">
-          <StudentTableColumn />
-          <StudentReadItem
-            v-for="(student, index) in students"
-            :key="student.id"
-            :index="index"
-            :student="student"
-          />
-        </table>
-        <table v-if="students && mode === 'U'">
-          <StudentTableColumn />
-          <StudentUpdateItem
-            v-for="(student, index) in students"
-            :key="index"
-            :index="index"
-            :student="student"
-            :invalid="invalid"
-            @change-data="changeData"
-          />
-        </table>
-        <table v-if="students && mode === 'D'">
-          <StudentTableColumn />
-          <StudentDeleteItem
-            v-for="(student, index) in students"
-            :key="index"
-            :index="index"
-            :student="student"
-            @change-check="changeCheck"
-          />
-        </table>
+        <div v-if="students && mode === 'R'">
+          <div id="button-box">
+            <button class="blue-btn shadow-sm" @click="mode = 'U'">수정</button>
+            <button
+              class="red-btn shadow-sm"
+              style="margin-left: 1vh"
+              @click="mode = 'D'">
+              삭제
+            </button>
+          </div>
+          <table id="student-table">
+            <StudentTableColumn />
+            <StudentReadItem
+              v-for="(student, index) in students"
+              :key="student.id"
+              :index="index"
+              :student="student" />
+          </table>
+        </div>
+        <div v-if="students && mode === 'U'">
+          <div id="button-box">
+            <button class="blue-btn shadow-sm" @click="updateStudent">
+              저장
+            </button>
+          </div>
+          <table>
+            <StudentTableColumn />
+            <StudentUpdateItem
+              v-for="(student, index) in students"
+              :key="index"
+              :index="index"
+              :student="student"
+              :invalid="invalid"
+              @change-data="changeData" />
+          </table>
+        </div>
+        <div v-if="students && mode === 'D'">
+          <div id="button-box">
+            <button class="red-btn shadow-sm" @click="deleteStudent">
+              삭제
+            </button>
+          </div>
+          <table>
+            <StudentTableColumn />
+            <StudentDeleteItem
+              v-for="(student, index) in students"
+              :key="index"
+              :index="index"
+              :student="student"
+              @change-check="changeCheck" />
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import AdminHeader from "@/components/AdminHeader.vue"
-import StudentTableColumn from "@/components/StudentTableColumn.vue"
-import StudentHeader from "@/components/StudentHeader.vue"
-import StudentReadItem from "@/components/StudentReadItem.vue"
-import StudentUpdateItem from "@/components/StudentUpdateItem.vue"
-import StudentDeleteItem from "@/components/StudentDeleteItem.vue"
-import axiosAuth from "@/axios/axios"
+import AdminHeader from '@/components/AdminHeader.vue'
+import StudentTableColumn from '@/components/StudentTableColumn.vue'
+import StudentHeader from '@/components/StudentHeader.vue'
+import StudentReadItem from '@/components/StudentReadItem.vue'
+import StudentUpdateItem from '@/components/StudentUpdateItem.vue'
+import StudentDeleteItem from '@/components/StudentDeleteItem.vue'
+import axiosAuth from '@/axios/axios'
+import * as XLSX from 'xlsx'
 
 export default {
-  name: "StudentView",
+  name: 'StudentView',
   components: {
     AdminHeader,
     StudentTableColumn,
@@ -99,9 +99,12 @@ export default {
   data() {
     return {
       students: null,
-      mode: "R",
+      mode: 'R',
       invalid: null,
       selected: [],
+      grade: null,
+      room: null,
+      name: null,
     }
   },
   computed: {
@@ -115,16 +118,22 @@ export default {
   methods: {
     // Read
     searchByClass(grade, room) {
+      this.grade = grade
+      this.room = room
+      this.name = null
       const url = `${this.axios_URL}/students/${grade}/${room}/`
       this.searchStudent(url)
     },
     searchByName(name) {
+      this.grade = null
+      this.room = null
+      this.name = name
       const url = `${this.axios_URL}/students/${name}/`
       this.searchStudent(url)
     },
     searchStudent(url) {
       axiosAuth({
-        method: "get",
+        method: 'get',
         url: url,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -133,11 +142,11 @@ export default {
         .then((res) => {
           console.log(res)
           this.students = res.data
-          this.mode = "R"
+          this.mode = 'R'
         })
         .catch((err) => {
           console.error(err)
-          alert("해당 정보의 학생이 존재하지 않습니다")
+          alert('해당 정보의 학생이 존재하지 않습니다')
         })
     },
     // Update
@@ -156,41 +165,41 @@ export default {
         const regName = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/
         if (!regName.test(students[i].name)) {
           this.invalid = i
-          alert("이름은 한글 2글자 이상 입력하세요")
+          alert('이름은 한글 2글자 이상 입력하세요')
           return
         }
         //학년 검사
         const regGrade = /^[1-9]$/
         if (!regGrade.test(students[i].grade)) {
           this.invalid = i
-          alert("학년은 1~9사이의 숫자로 입력하세요")
+          alert('학년은 1~9사이의 숫자로 입력하세요')
           return
         }
         //반 검사
         const regRoom = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
         if (!regRoom.test(students[i].room)) {
           this.invalid = i
-          alert("반은 1~99사이의 숫자로 입력하세요")
+          alert('반은 1~99사이의 숫자로 입력하세요')
           return
         }
         //번호 검사
         const regNumber = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
         if (!regNumber.test(students[i].number)) {
           this.invalid = i
-          alert("번호는 1~99사이의 숫자로 입력하세요")
+          alert('번호는 1~99사이의 숫자로 입력하세요')
           return
         }
         //성별 검사
-        if (!(students[i].gender === "남성" || students[i].gender === "여성")) {
+        if (!(students[i].gender === '남성' || students[i].gender === '여성')) {
           this.invalid = i
-          alert("성별을 선택하세요")
+          alert('성별을 선택하세요')
           return
         }
         //비밀번호 검사
         const regPassword = /^[0-9]{4}$/
         if (!regPassword.test(students[i].password)) {
           this.invalid = i
-          alert("비밀번호는 4자리 숫자로 입력하세요")
+          alert('비밀번호는 4자리 숫자로 입력하세요')
           return
         }
         // 학번 중복인 학생 필터링
@@ -210,7 +219,7 @@ export default {
         }
       }
       axiosAuth({
-        method: "put",
+        method: 'put',
         url: `${this.axios_URL}/students/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -218,7 +227,7 @@ export default {
         data: this.students,
       })
         .then(() => {
-          this.mode = "R"
+          this.mode = 'R'
         })
         .catch((err) => {
           console.error(err)
@@ -243,7 +252,7 @@ export default {
         delete_list.push(this.students[index].id)
       }
       axiosAuth({
-        method: "delete",
+        method: 'delete',
         url: `${this.axios_URL}/students/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -259,11 +268,25 @@ export default {
             this.students.splice(index, 1)
           })
           this.selected = []
-          this.mode = "R"
+          this.mode = 'R'
         })
         .catch((err) => {
           console.error(err)
         })
+    },
+    downloadExcel() {
+      let fileName = ''
+      if (this.name) {
+        fileName = `${this.name}_키오스크_학생정보.xlsx`
+      } else {
+        fileName = `${this.grade}학년_${this.room}반_키오스크_학생정보.xlsx`
+      }
+      const excelData = XLSX.utils.table_to_sheet(
+        document.getElementById('student-table')
+      ) // table id를 넣어주면된다
+      const workBook = XLSX.utils.book_new() // 새 시트 생성
+      XLSX.utils.book_append_sheet(workBook, excelData, '학생정보') // 시트 명명, 데이터 지정
+      XLSX.writeFile(workBook, fileName) // 엑셀파일 만듬
     },
   },
 }
