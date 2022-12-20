@@ -7,20 +7,17 @@
         <font-awesome-icon
           icon="fa-regular fa-file-powerpoint"
           @click="print"
-          style="font-size: 3.6vh"
-        />
+          style="font-size: 3.6vh" />
         <button
           class="blue-btn shadow-sm"
           @click="$emit('change-mode-U')"
-          style="margin-left: 1vh"
-        >
+          style="margin-left: 1vh">
           수정
         </button>
         <button
           class="red-btn shadow-sm"
           style="margin-left: 1vh"
-          @click="deleteInbody"
-        >
+          @click="deleteInbody">
           삭제
         </button>
       </div>
@@ -34,104 +31,104 @@
       </div>
       <div
         id="admin-scroll-box"
-        class="w-75 d-flex m-auto justify-content-evenly"
-      >
-        <div class="container">
-          <div class="row">
-            <span class="col-6">검사일시</span>
-            <span class="col-4 rounded shadow-sm">{{ inbody.test_date }}</span>
-          </div>
+        class="w-75 d-flex m-auto justify-content-evenly">
+        <table class="container">
+          <tr class="row">
+            <td class="col-6">검사일시</td>
+            <td class="col-4 rounded shadow-sm">{{ inbody.test_date }}</td>
+          </tr>
 
-          <div class="row">
-            <span class="col-6">키</span>
-            <span class="col-4 rounded shadow-sm">{{ inbody.height }}</span>
-            <span class="col-1">cm</span>
-          </div>
+          <tr class="row">
+            <td class="col-6">키</td>
+            <td class="col-4 rounded shadow-sm">{{ inbody.height }}</td>
+            <td class="col-1">cm</td>
+          </tr>
 
-          <div class="row">
-            <span class="col-6">나이</span>
-            <span class="col-4 rounded shadow-sm">{{ inbody.age }}</span>
-            <span class="col-1">세</span>
-          </div>
+          <tr class="row">
+            <td class="col-6">나이</td>
+            <td class="col-4 rounded shadow-sm">{{ inbody.age }}</td>
+            <td class="col-1">세</td>
+          </tr>
 
-          <div class="row">
-            <span class="col-6">체중</span>
-            <span class="col-4 rounded shadow-sm">{{ inbody.weight }}</span>
-            <span class="col-1">kg</span>
-          </div>
+          <tr class="row">
+            <td class="col-6">체중</td>
+            <td class="col-4 rounded shadow-sm">{{ inbody.weight }}</td>
+            <td class="col-1">kg</td>
+          </tr>
 
-          <div class="row">
-            <span class="col-6">BMI</span>
-            <span class="col-4 rounded shadow-sm">
+          <tr class="row">
+            <td class="col-6">BMI</td>
+            <td class="col-4 rounded shadow-sm">
               {{ inbody.body_mass_index }}
-            </span>
-            <span class="col-1">kg/m<sup>2</sup></span>
-          </div>
-          <div class="row">
-            <span class="col-6">체지방률</span>
-            <span class="col-4 rounded shadow-sm">
+            </td>
+            <td class="col-1">kg/m<sup>2</sup></td>
+          </tr>
+
+          <tr class="row">
+            <td class="col-6">체지방률</td>
+            <td class="col-4 rounded shadow-sm">
               {{ inbody.percent_body_fat }}
-            </span>
-            <span class="col-1">%</span>
-          </div>
-        </div>
+            </td>
+            <td class="col-1">%</td>
+          </tr>
+        </table>
 
-        <div class="container">
-          <div class="row">
-            <span class="col-6">체수분</span>
-            <span class="col-4 rounded shadow-sm">
+        <table class="container">
+          <tr class="row">
+            <td class="col-6">체수분</td>
+            <td class="col-4 rounded shadow-sm">
               {{ inbody.total_body_water }}
-            </span>
-            <span class="col-1">L</span>
-          </div>
+            </td>
+            <td class="col-1">L</td>
+          </tr>
 
-          <div class="row">
-            <span class="col-6">단백질</span>
-            <span class="col-4 rounded shadow-sm">{{ inbody.protein }}</span>
-            <span class="col-1">kg</span>
-          </div>
+          <tr class="row">
+            <td class="col-6">단백질</td>
+            <td class="col-4 rounded shadow-sm">{{ inbody.protein }}</td>
+            <td class="col-1">kg</td>
+          </tr>
 
-          <div class="row">
-            <span class="col-6">무기질</span>
-            <span class="col-4 rounded shadow-sm">{{ inbody.minerals }}</span>
-            <span class="col-1">kg</span>
-          </div>
+          <tr class="row">
+            <td class="col-6">무기질</td>
+            <td class="col-4 rounded shadow-sm">{{ inbody.minerals }}</td>
+            <td class="col-1">kg</td>
+          </tr>
 
-          <div class="row">
-            <span class="col-6">체지방량</span>
-            <span class="col-4 rounded shadow-sm">
+          <tr class="row">
+            <td class="col-6">체지방량</td>
+            <td class="col-4 rounded shadow-sm">
               {{ inbody.body_fat_mass }}
-            </span>
-            <span class="col-1">kg</span>
-          </div>
+            </td>
+            <td class="col-1">kg</td>
+          </tr>
 
-          <div class="row">
-            <span class="col-6">골격근량</span>
-            <span class="col-4 rounded shadow-sm">
+          <tr class="row">
+            <td class="col-6">골격근량</td>
+            <td class="col-4 rounded shadow-sm">
               {{ inbody.skeletal_muscle_mass }}
-            </span>
-            <span class="col-1">kg</span>
-          </div>
+            </td>
+            <td class="col-1">kg</td>
+          </tr>
 
-          <div class="row">
-            <span class="col-6">인바디 점수</span>
-            <span class="col-4 rounded shadow-sm">
+          <tr class="row">
+            <td class="col-6">인바디 점수</td>
+            <td class="col-4 rounded shadow-sm">
               {{ inbody.inbody_score }}
-            </span>
-            <span class="col-1">점</span>
-          </div>
-        </div>
+            </td>
+            <td class="col-1">점</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axiosAuth from "@/axios/axios"
-import printJS from "print-js"
+import axiosAuth from '@/axios/axios'
+import printJS from 'print-js'
 
 export default {
-  name: "AdminInbodyDetailRead",
+  name: 'AdminInbodyDetailRead',
   props: {
     studentIndex: Number,
     inbodyIndex: Number,
@@ -155,7 +152,7 @@ export default {
   methods: {
     deleteInbody() {
       axiosAuth({
-        method: "delete",
+        method: 'delete',
         url: `${this.axios_URL}/students/inbody/${this.inbody.id}/admin/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -167,8 +164,8 @@ export default {
             studentIndex: this.studentIndex,
             inbodyIndex: this.inbodyIndex,
           }
-          this.$store.commit("DELETE_STUDENT_INBODY_DETAIL", payload)
-          this.$emit("change-mode-default")
+          this.$store.commit('DELETE_STUDENT_INBODY_DETAIL', payload)
+          this.$emit('change-mode-default')
         })
         .catch((err) => {
           console.error(err)
@@ -176,8 +173,8 @@ export default {
     },
     print() {
       printJS({
-        printable: "printContent",
-        type: "html",
+        printable: 'printContent',
+        type: 'html',
         scanStyles: false,
       })
     },

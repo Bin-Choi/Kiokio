@@ -1,9 +1,9 @@
 <template>
   <tr :id="`student-${student.id}`" class="d-flex">
-    <td class="box border name-column">{{ student.name }}</td>
     <td class="box border attendance-column">{{ student.grade }}</td>
     <td class="box border attendance-column">{{ student.room }}</td>
     <td class="box border attendance-column">{{ student.number }}</td>
+    <td class="box border name-column">{{ student.name }}</td>
     <td
       v-for="day in Array(days)
         .fill()

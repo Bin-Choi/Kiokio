@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store/index.js'
-
+// Admin Page
 import IndexView from '@/views/IndexView'
 import AdminView from '@/views/AdminView'
 import LoginView from '@/views/LoginView'
@@ -9,18 +9,16 @@ import StudentView from '@/views/StudentView'
 import AttendanceView from '@/views/AttendanceView'
 import StudentCreateView from '@/views/StudentCreateView'
 import AdminInbodyView from '@/views/AdminInbodyView'
-
+import AdminInbodyDateView from '@/views/AdminInbodyDateView'
+// Kiosk Page
 import AttendView from '@/views/AttendView'
-
-import GymView from '@/views/GymView'
-
 import InbodyView from '@/views/InbodyView'
 import InbodyDetailView from '@/views/InbodyDetailView'
 import InbodyCreateView from '@/views/InbodyCreateView'
 import InbodyHistoryView from '@/views/InbodyHistoryView'
 import InbodyUpdateView from '@/views/InbodyUpdateView'
-
 import PasswordUpdateView from '@/views/PasswordUpdateView'
+import GymView from '@/views/GymView'
 
 Vue.use(VueRouter)
 
@@ -97,6 +95,19 @@ const routes = [
     path: '/admin/inbody',
     name: 'adminInbody',
     component: AdminInbodyView,
+    beforeEnter(to, from, next) {
+      if (store.getters.isLogin(Date.now())) {
+        next()
+      } else {
+        alert('로그인 해주세요')
+        router.push({ name: 'login' })
+      }
+    },
+  },
+  {
+    path: '/admin/inbody/date',
+    name: 'adminInbodyDate',
+    component: AdminInbodyDateView,
     beforeEnter(to, from, next) {
       if (store.getters.isLogin(Date.now())) {
         next()

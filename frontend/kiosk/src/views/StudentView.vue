@@ -18,17 +18,28 @@
         @download-excel="downloadExcel"
         :students="students" />
 
+      <div v-if="students">
+        <div id="button-box" v-if="mode === 'R'">
+          <button class="blue-btn shadow-sm" @click="mode = 'U'">수정</button>
+          <button
+            class="red-btn shadow-sm"
+            style="margin-left: 1vh"
+            @click="mode = 'D'">
+            삭제
+          </button>
+        </div>
+        <div id="button-box" v-if="mode === 'U'">
+          <button class="blue-btn shadow-sm" @click="updateStudent">
+            저장
+          </button>
+        </div>
+        <div id="button-box" v-if="mode === 'D'">
+          <button class="red-btn shadow-sm" @click="deleteStudent">삭제</button>
+        </div>
+      </div>
+
       <div id="admin-scroll-box" style="overflow-y: scroll">
         <div v-if="students && mode === 'R'">
-          <div id="button-box">
-            <button class="blue-btn shadow-sm" @click="mode = 'U'">수정</button>
-            <button
-              class="red-btn shadow-sm"
-              style="margin-left: 1vh"
-              @click="mode = 'D'">
-              삭제
-            </button>
-          </div>
           <table id="student-table">
             <StudentTableColumn />
             <StudentReadItem
@@ -39,11 +50,6 @@
           </table>
         </div>
         <div v-if="students && mode === 'U'">
-          <div id="button-box">
-            <button class="blue-btn shadow-sm" @click="updateStudent">
-              저장
-            </button>
-          </div>
           <table>
             <StudentTableColumn />
             <StudentUpdateItem
@@ -56,11 +62,6 @@
           </table>
         </div>
         <div v-if="students && mode === 'D'">
-          <div id="button-box">
-            <button class="red-btn shadow-sm" @click="deleteStudent">
-              삭제
-            </button>
-          </div>
           <table>
             <StudentTableColumn />
             <StudentDeleteItem
@@ -231,6 +232,7 @@ export default {
         })
         .catch((err) => {
           console.error(err)
+          alert('새로고침 후 다시 시도해주세요')
         })
     },
     // Delete
@@ -272,6 +274,7 @@ export default {
         })
         .catch((err) => {
           console.error(err)
+          alert('새로고침 후 다시 시도해주세요')
         })
     },
     downloadExcel() {

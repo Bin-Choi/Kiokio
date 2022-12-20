@@ -1,14 +1,17 @@
 <template>
   <div class="d-flex flex-column">
-    <div
-      class="d-flex justify-content-between"
-      @click="$emit('change-mode-default')"
-      style="font-size: 3vh; cursor: pointer">
-      <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
+    <div class="d-flex justify-content-between">
       <font-awesome-icon
-        icon="fa-solid fa-file-excel"
-        @click="downloadExcel"
-        style="cursor: pointer" />
+        @click="$emit('change-mode-default')"
+        style="font-size: 3vh; cursor: pointer"
+        icon="fa-solid fa-circle-arrow-left" />
+      <div :class="{ hidden: mode !== 'R' }">
+        <font-awesome-icon
+          icon="fa-solid fa-table"
+          @click="downloadExcel"
+          style="font-size: 3vh; cursor: pointer" />
+        <div>다운로드</div>
+      </div>
     </div>
 
     <div style="font-size: 2.5vh">
@@ -38,11 +41,11 @@
       <div>
         <div v-if="!readyDelete">
           <button class="green-btn" @click="addInbody">기록추가</button>
-          <button class="red-btn" @click="deleteInbody">기록삭제</button>
+          <button class="red-btn" @click="deleteInbody">선택삭제</button>
           <button class="blue-btn" @click="updateInbody">저장</button>
         </div>
         <button v-if="readyDelete" class="red-btn" @click="deleteInbody">
-          선택완료
+          삭제
         </button>
       </div>
     </div>
@@ -293,13 +296,13 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          console.log(this.inbodyCopy)
           const payload = {
             studentIndex: this.studentIndex,
-            inbodyList: this.inbodyCopy,
+            inbodyList: res.data,
           }
           this.$store.commit('CHANGE_STUDENT_INBODY', payload)
           this.mode = 'R'
+          this.inbodyCopy = []
         })
         .catch((err) => {
           console.error(err)
@@ -323,5 +326,8 @@ export default {
 <style scoped>
 button {
   margin-left: 1vh;
+}
+.hidden {
+  visibility: hidden;
 }
 </style>

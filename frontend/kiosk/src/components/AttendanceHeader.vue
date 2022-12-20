@@ -8,11 +8,13 @@
         @click="$router.push({ name: 'admin' })"
         style="cursor: pointer" />
       <div>출결 관리</div>
-      <font-awesome-icon
-        :class="{ hidden: !students }"
-        icon="fa-solid fa-file-excel"
-        @click="$emit('download-excel')"
-        style="cursor: pointer" />
+      <div :class="{ hidden: !students }">
+        <font-awesome-icon
+          icon="fa-solid fa-table"
+          @click="$emit('download-excel')"
+          style="cursor: pointer" />
+        <div style="font-size: 1.5vh">다운로드</div>
+      </div>
     </div>
 
     <div class="d-flex justify-content-start" style="margin-bottom: 1vh">
