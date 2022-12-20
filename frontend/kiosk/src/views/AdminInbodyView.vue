@@ -1,14 +1,16 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="height: 100vh; padding: 7vh">
+    style="height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
 
     <div class="inbodyContent rounded shadow d-flex flex-column">
       <div v-if="mode === 'Default'">
         <AdminInbodyHeader
           @search-by-class="searchByClass"
-          @search-by-name="searchByName" />
+          @search-by-name="searchByName"
+        />
 
         <div v-if="inbodyStudents">
           <div style="text-align: left">
@@ -28,7 +30,8 @@
                 :student="student"
                 :index="index"
                 @change-mode-student="changeModeStudent"
-                @change-mode-detail="changeModeDetail" />
+                @change-mode-detail="changeModeDetail"
+              />
             </table>
           </div>
         </div>
@@ -37,14 +40,16 @@
       <div v-if="mode === 'Student' && student">
         <AdminInbodyStudent
           :studentIndex="studentIndex"
-          @change-mode-default="changeModeDefault" />
+          @change-mode-default="changeModeDefault"
+        />
       </div>
 
       <div v-if="mode === 'Detail' && inbody">
         <AdminInbodyDetail
           :studentIndex="studentIndex"
           :inbodyIndex="inbodyIndex"
-          @change-mode-default="changeModeDefault" />
+          @change-mode-default="changeModeDefault"
+        />
       </div>
     </div>
   </div>
@@ -128,11 +133,9 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res)
           this.$store.commit('SAVE_INBODY_STUDENTS', res.data)
         })
-        .catch((err) => {
-          console.error(err)
+        .catch(() => {
           alert('해당 정보의 학생이 존재하지 않습니다')
         })
     },

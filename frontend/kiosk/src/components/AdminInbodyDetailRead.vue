@@ -7,17 +7,20 @@
         <font-awesome-icon
           icon="fa-regular fa-file-powerpoint"
           @click="print"
-          style="font-size: 3.6vh" />
+          style="font-size: 3.6vh"
+        />
         <button
           class="blue-btn shadow-sm"
           @click="$emit('change-mode-U')"
-          style="margin-left: 1vh">
+          style="margin-left: 1vh"
+        >
           수정
         </button>
         <button
           class="red-btn shadow-sm"
           style="margin-left: 1vh"
-          @click="deleteInbody">
+          @click="deleteInbody"
+        >
           삭제
         </button>
       </div>
@@ -31,34 +34,35 @@
       </div>
       <div
         id="admin-scroll-box"
-        class="w-75 d-flex m-auto justify-content-evenly">
+        class="w-75 d-flex m-auto justify-content-evenly"
+      >
         <table class="container">
           <tr class="row">
             <td class="col-6">검사일시</td>
-            <td class="col-4 rounded shadow-sm">{{ inbody.test_date }}</td>
+            <td class="col-4 round shadow-sm">{{ inbody.test_date }}</td>
           </tr>
 
           <tr class="row">
             <td class="col-6">키</td>
-            <td class="col-4 rounded shadow-sm">{{ inbody.height }}</td>
+            <td class="col-4 round shadow-sm">{{ inbody.height }}</td>
             <td class="col-1">cm</td>
           </tr>
 
           <tr class="row">
             <td class="col-6">나이</td>
-            <td class="col-4 rounded shadow-sm">{{ inbody.age }}</td>
+            <td class="col-4 round shadow-sm">{{ inbody.age }}</td>
             <td class="col-1">세</td>
           </tr>
 
           <tr class="row">
             <td class="col-6">체중</td>
-            <td class="col-4 rounded shadow-sm">{{ inbody.weight }}</td>
+            <td class="col-4 round shadow-sm">{{ inbody.weight }}</td>
             <td class="col-1">kg</td>
           </tr>
 
           <tr class="row">
             <td class="col-6">BMI</td>
-            <td class="col-4 rounded shadow-sm">
+            <td class="col-4 round shadow-sm">
               {{ inbody.body_mass_index }}
             </td>
             <td class="col-1">kg/m<sup>2</sup></td>
@@ -66,7 +70,7 @@
 
           <tr class="row">
             <td class="col-6">체지방률</td>
-            <td class="col-4 rounded shadow-sm">
+            <td class="col-4 round shadow-sm">
               {{ inbody.percent_body_fat }}
             </td>
             <td class="col-1">%</td>
@@ -76,7 +80,7 @@
         <table class="container">
           <tr class="row">
             <td class="col-6">체수분</td>
-            <td class="col-4 rounded shadow-sm">
+            <td class="col-4 round shadow-sm">
               {{ inbody.total_body_water }}
             </td>
             <td class="col-1">L</td>
@@ -84,19 +88,19 @@
 
           <tr class="row">
             <td class="col-6">단백질</td>
-            <td class="col-4 rounded shadow-sm">{{ inbody.protein }}</td>
+            <td class="col-4 round shadow-sm">{{ inbody.protein }}</td>
             <td class="col-1">kg</td>
           </tr>
 
           <tr class="row">
             <td class="col-6">무기질</td>
-            <td class="col-4 rounded shadow-sm">{{ inbody.minerals }}</td>
+            <td class="col-4 round shadow-sm">{{ inbody.minerals }}</td>
             <td class="col-1">kg</td>
           </tr>
 
           <tr class="row">
             <td class="col-6">체지방량</td>
-            <td class="col-4 rounded shadow-sm">
+            <td class="col-4 round shadow-sm">
               {{ inbody.body_fat_mass }}
             </td>
             <td class="col-1">kg</td>
@@ -104,7 +108,7 @@
 
           <tr class="row">
             <td class="col-6">골격근량</td>
-            <td class="col-4 rounded shadow-sm">
+            <td class="col-4 round shadow-sm">
               {{ inbody.skeletal_muscle_mass }}
             </td>
             <td class="col-1">kg</td>
@@ -112,7 +116,7 @@
 
           <tr class="row">
             <td class="col-6">인바디 점수</td>
-            <td class="col-4 rounded shadow-sm">
+            <td class="col-4 round shadow-sm">
               {{ inbody.inbody_score }}
             </td>
             <td class="col-1">점</td>
@@ -158,8 +162,7 @@ export default {
           Authorization: `Bearer ${this.access}`,
         },
       })
-        .then((res) => {
-          console.log(res)
+        .then(() => {
           const payload = {
             studentIndex: this.studentIndex,
             inbodyIndex: this.inbodyIndex,
@@ -191,6 +194,7 @@ export default {
 .col-4 {
   background-color: white;
   border: 0.3vh solid rgba(129, 160, 187, 0.452);
+  border-radius: 2vh;
   padding: 0.5vh 0;
   min-width: 52px;
 }

@@ -4,33 +4,49 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
-            <slot name="header">로그인</slot>
+            <slot name="header">
+              <p class="m-auto" style="font-size: 2.3vh">로그인</p>
+            </slot>
           </div>
 
           <div class="modal-body">
             <slot name="body">
-              <p v-if="error">{{ error }}</p>
+              <p v-if="error" style="color: rgb(193, 32, 42)">
+                {{ error }}
+              </p>
               <label for="username">아이디</label>
-              <input type="text" id="username" v-model="username" /><br />
-
-              <label for="password" class="mt-2">패스워드</label>
               <input
+                type="text"
+                id="username"
+                class="modal-input"
+                v-model="username"
+              /><br />
+
+              <label for="password">비밀번호</label>
+              <input
+                class="modal-input"
                 type="password"
                 id="password"
                 v-model="password"
-                @keyup.enter="logIn" /><br />
+                @keyup.enter="logIn"
+              /><br />
 
-              <button class="btn blue-btn mt-3" @click.stop="login">
-                로그인
+              <button
+                class="blue-btn"
+                style="margin-right: 1vh"
+                @click.stop="login"
+              >
+                확인
               </button>
               <button
-                class="btn gray-btn mt-3"
+                class="red-btn"
                 @click.stop="
                   username = null
                   password = null
                   error = null
                   $emit('close')
-                ">
+                "
+              >
                 취소
               </button>
             </slot>
@@ -76,7 +92,6 @@ export default {
           console.log(res)
           this.username = null
           this.password = null
-          this.error = null
 
           const access = res.data.access
           const refresh = res.data.refresh
@@ -87,7 +102,13 @@ export default {
           this.$store.commit('SAVE_REFRESH_TOKEN', refresh)
         })
         .catch((err) => {
-          console.error(err)
+          const status = err.response.status
+
+          if (status === 404) {
+            this.error = '해당 아이디 정보가 없습니다.'
+          } else if (status === 400) {
+            this.error = '비밀번호가 틀렸습니다.'
+          }
           this.password = null
         })
     },
@@ -96,62 +117,7 @@ export default {
 </script>
 
 <style scoped>
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-}
-.modal-header {
-  margin-top: 0;
-  color: #274894;
-}
-.modal-body {
-  margin: 20px 0 5px 0;
-}
-.modal-default-button {
-  float: right;
-}
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-.modal-enter-from {
-  opacity: 0;
-}
-.modal-leave-to {
-  opacity: 0;
-}
-.modal-enter-from .modal-container,
-.modal-leave-to .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
 input {
-  background-color: rgb(203, 203, 203);
-  border-radius: 0.2em;
+  width: 40%;
 }
 </style>

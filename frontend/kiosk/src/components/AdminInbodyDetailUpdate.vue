@@ -29,7 +29,7 @@
               type="date"
               ref="date"
               v-model="inbodyCopy.test_date"
-              class="rounded shadow-sm col-5"
+              class="round shadow-sm col-5"
             />
           </div>
 
@@ -40,7 +40,7 @@
               ref="height"
               placeholder="필수입력"
               v-model="inbodyCopy.height"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">cm</p>
           </div>
@@ -52,7 +52,7 @@
               ref="age"
               placeholder="필수입력"
               v-model="inbodyCopy.age"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">세</p>
           </div>
@@ -64,7 +64,7 @@
               ref="weight"
               placeholder="필수입력"
               v-model="inbodyCopy.weight"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">kg</p>
           </div>
@@ -76,7 +76,7 @@
               ref="bmi"
               placeholder="필수입력"
               v-model="inbodyCopy.body_mass_index"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">kg/m<sup>2</sup></p>
           </div>
@@ -87,7 +87,7 @@
               type="number"
               ref="fatpercent"
               v-model="inbodyCopy.percent_body_fat"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">%</p>
           </div>
@@ -100,7 +100,7 @@
               type="number"
               ref="water"
               v-model="inbodyCopy.total_body_water"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">L</p>
           </div>
@@ -111,7 +111,7 @@
               type="number"
               ref="protein"
               v-model="inbodyCopy.protein"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">kg</p>
           </div>
@@ -122,7 +122,7 @@
               type="number"
               ref="minerals"
               v-model="inbodyCopy.minerals"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">kg</p>
           </div>
@@ -133,7 +133,7 @@
               type="number"
               ref="fatmass"
               v-model="inbodyCopy.body_fat_mass"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">kg</p>
           </div>
@@ -144,7 +144,7 @@
               type="number"
               ref="muscle"
               v-model="inbodyCopy.skeletal_muscle_mass"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">kg</p>
           </div>
@@ -155,7 +155,7 @@
               type="number"
               ref="score"
               v-model="inbodyCopy.inbody_score"
-              class="rounded shadow-sm col-4"
+              class="round shadow-sm col-4"
             />
             <p class="col-1">점</p>
           </div>
@@ -166,10 +166,10 @@
 </template>
 
 <script>
-import axiosAuth from "@/axios/axios"
+import axiosAuth from '@/axios/axios'
 
 export default {
-  name: "AdminInbodyDetailUpdate",
+  name: 'AdminInbodyDetailUpdate',
   props: {
     studentIndex: Number,
     inbodyIndex: Number,
@@ -212,31 +212,31 @@ export default {
       const regInt = /^[0-9]+$/
 
       if (!regDate.test(this.inbodyCopy.test_date)) {
-        alert("검사일을 입력해주세요.")
+        alert('검사일을 입력해주세요.')
         this.$refs.date.focus()
         return
       }
 
       if (!regFloat.test(this.inbodyCopy.height)) {
-        alert("키는 소수점 둘째자리까지 입력가능합니다.")
+        alert('키는 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.height.focus()
         return
       }
 
       if (!regInt.test(this.inbodyCopy.age)) {
-        alert("나이를 정확히 입력해주세요.")
+        alert('나이를 정확히 입력해주세요.')
         this.$refs.age.focus()
         return
       }
 
       if (!regFloat.test(this.inbodyCopy.weight)) {
-        alert("체중은 소수점 둘째자리까지 입력가능합니다.")
+        alert('체중은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.weight.focus()
         return
       }
 
       if (!regFloat.test(this.inbodyCopy.body_mass_index)) {
-        alert("BMI은 소수점 둘째자리까지 입력가능합니다.")
+        alert('BMI은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.bmi.focus()
         return
       }
@@ -245,7 +245,7 @@ export default {
         this.$refs.fatpercent &&
         !regFloatBlank.test(this.inbodyCopy.percent_body_fat)
       ) {
-        alert("체지방률은 소수점 둘째자리까지 입력가능합니다.")
+        alert('체지방률은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.fatpercent.focus()
         return
       }
@@ -254,7 +254,7 @@ export default {
         this.inbodyCopy.tatal_body_water &&
         !regFloatBlank.test(this.inbodyCopy.tatal_body_water)
       ) {
-        alert("체수분은 소수점 둘째자리까지 입력가능합니다.")
+        alert('체수분은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.water.focus()
         return
       }
@@ -263,7 +263,7 @@ export default {
         this.inbodyCopy.protein &&
         !regFloatBlank.test(this.inbodyCopy.protein)
       ) {
-        alert("단백질은 소수점 둘째자리까지 입력가능합니다.")
+        alert('단백질은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.protein.focus()
         return
       }
@@ -272,7 +272,7 @@ export default {
         this.inbodyCopy.minerals &&
         !regFloatBlank.test(this.inbodyCopy.minerals)
       ) {
-        alert("무기질은 소수점 둘째자리까지 입력가능합니다.")
+        alert('무기질은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.minerals.focus()
         return
       }
@@ -281,7 +281,7 @@ export default {
         this.inbodyCopy.body_fat_mass &&
         !regFloatBlank.test(this.inbodyCopy.body_fat_mass)
       ) {
-        alert("체지방량은 소수점 둘째자리까지 입력가능합니다.")
+        alert('체지방량은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.fatmass.focus()
         return
       }
@@ -290,7 +290,7 @@ export default {
         this.inbodyCopy.skeletal_muscle_mass &&
         !regFloatBlank.test(this.inbodyCopy.skeletal_muscle_mass)
       ) {
-        alert("골격근량은 소수점 둘째자리까지 입력가능합니다.")
+        alert('골격근량은 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.muscle.focus()
         return
       }
@@ -299,13 +299,13 @@ export default {
         this.inbodyCopy.inbody_score &&
         !regFloatBlank.test(this.inbodyCopy.inbody_score)
       ) {
-        alert("인바디점수는 소수점 둘째자리까지 입력가능합니다.")
+        alert('인바디점수는 소수점 둘째자리까지 입력가능합니다.')
         this.$refs.score.focus()
         return
       }
 
       axiosAuth({
-        method: "put",
+        method: 'put',
         url: `${this.axios_URL}/students/inbody/${this.inbodyCopy.id}/admin/`,
         headers: {
           Authorization: `Bearer ${this.access}`,
@@ -319,8 +319,8 @@ export default {
             inbodyIndex: this.inbodyIndex,
             inbody: this.inbodyCopy,
           }
-          this.$store.commit("CHANGE_STUDENT_INBODY_DETAIL", payload)
-          this.$emit("change-mode-R")
+          this.$store.commit('CHANGE_STUDENT_INBODY_DETAIL', payload)
+          this.$emit('change-mode-R')
         })
         .catch((err) => {
           console.error(err)

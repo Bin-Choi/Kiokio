@@ -1,7 +1,8 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="height: 100vh; padding: 7vh">
+    style="height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
 
     <div class="inbodyContent rounded shadow d-flex flex-column">
@@ -10,7 +11,8 @@
         @search-by-name="searchByName"
         @download-excel="downloadExcel"
         :inbodies="inbodies"
-        :mode="mode" />
+        :mode="mode"
+      />
 
       <div v-if="inbodies">
         <!-- INBODY CONTENT -->
@@ -19,7 +21,8 @@
           <button
             class="red-btn shadow-sm"
             style="margin-left: 1vh"
-            @click="mode = 'D'">
+            @click="mode = 'D'"
+          >
             삭제
           </button>
         </div>
@@ -30,9 +33,7 @@
           <button class="red-btn shadow-sm" @click="deleteInbody">삭제</button>
         </div>
 
-        <div
-          id="admin-scroll-box"
-          style="height: 60vh; overflow-x: scroll; overflow-y: scroll">
+        <div id="admin-scroll-box" style="height: 55vh">
           <div v-if="mode === 'R'">
             <table style="margin-bottom: 0.5vh" id="inbody-date-table">
               <AdminInbodyDateTableColumn />
@@ -40,7 +41,8 @@
                 v-for="(inbody, index) in inbodies"
                 :key="inbody.id"
                 :inbody="inbody"
-                :index="index" />
+                :index="index"
+              />
             </table>
           </div>
           <div v-if="mode === 'U'">
@@ -52,7 +54,8 @@
                 :inbody="inbody"
                 :index="index"
                 :invalid="invalid"
-                @change-data="changeData" />
+                @change-data="changeData"
+              />
             </table>
           </div>
           <div v-if="mode === 'D'">
@@ -63,7 +66,8 @@
                 :key="inbody.id"
                 :inbody="inbody"
                 :index="index"
-                @change-check="changeCheck" />
+                @change-check="changeCheck"
+              />
             </table>
           </div>
         </div>

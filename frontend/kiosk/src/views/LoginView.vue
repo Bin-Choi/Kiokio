@@ -81,10 +81,10 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from 'axios'
 
 export default {
-  name: "LoginView",
+  name: 'LoginView',
   data() {
     return {
       username: null,
@@ -103,13 +103,12 @@ export default {
   methods: {
     login() {
       axios({
-        method: "post",
+        method: 'post',
         url: `${this.axios_URL}/accounts/login/`,
         data: {
           username: this.username,
           password: this.password,
         },
-        withCredentials: true,
       })
         .then((res) => {
           this.username = null
@@ -118,18 +117,18 @@ export default {
           const access = res.data.access
           const refresh = res.data.refresh
           const user = res.data.user
-          this.$store.commit("SAVE_USER", user)
-          this.$store.commit("SAVE_ACCESS_TOKEN", access)
-          this.$store.commit("SAVE_REFRESH_TOKEN", refresh)
-          this.$router.push({ name: "admin" })
+          this.$store.commit('SAVE_USER', user)
+          this.$store.commit('SAVE_ACCESS_TOKEN', access)
+          this.$store.commit('SAVE_REFRESH_TOKEN', refresh)
+          this.$router.push({ name: 'admin' })
         })
         .catch((err) => {
           const status = err.response.status
 
           if (status === 404) {
-            this.error = "해당 아이디 정보가 없습니다."
+            this.error = '해당 아이디 정보가 없습니다.'
           } else if (status === 400) {
-            this.error = "비밀번호가 틀렸습니다."
+            this.error = '비밀번호가 틀렸습니다.'
           }
           this.password = null
         })
