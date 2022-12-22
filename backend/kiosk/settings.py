@@ -201,13 +201,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Email 전송
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # 메일을 호스트하는 서버
-EMAIL_HOST = 'smtp.naver.com'
+EMAIL_HOST = 'smtp.gmail.com'
 # gmail과의 통신하는 포트
 EMAIL_PORT = '587'
 # 발신할 이메일
-EMAIL_HOST_USER = 'arkddkwl2029@naver.com'
+EMAIL_HOST_USER = 'kiokio.gym@gmail.com'
 # 발신할 메일의 비밀번호
-EMAIL_HOST_PASSWORD = 'ahdk0399'
+EMAIL_HOST_PASSWORD = 'xdobcajdxhjgkylk'
 # TLS 보안 방법
 EMAIL_USE_TLS = True
 # 사이트와 관련한 자동응답을 받을 이메일 주소
