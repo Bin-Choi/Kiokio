@@ -52,7 +52,7 @@ import TheModal from '@/components/kiosk/common/TheModal.vue'
 import axios from 'axios'
 
 export default {
-  name: 'AttendView',
+  name: 'AttendCheckView',
   components: {
     KioskHeader,
     TheNumGuide,

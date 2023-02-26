@@ -11,7 +11,7 @@ import AdminInbodyView from '@/views/admin/AdminInbodyView'
 import AdminInbodyDateView from '@/views/admin/AdminInbodyDateView'
 // Kiosk Page
 import IndexView from '@/views/kiosk/IndexView'
-import AttendView from '@/views/kiosk/AttendView'
+import AttendCheckView from '@/views/kiosk/AttendCheckView'
 import InbodyView from '@/views/kiosk/InbodyView'
 import InbodyDetailView from '@/views/kiosk/InbodyDetailView'
 import InbodyCreateView from '@/views/kiosk/InbodyCreateView'
@@ -120,7 +120,7 @@ const routes = [
   {
     path: '/attend',
     name: 'attend',
-    component: AttendView,
+    component: AttendCheckView,
   },
   {
     path: '/inbody',
