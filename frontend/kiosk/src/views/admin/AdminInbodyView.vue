@@ -56,12 +56,20 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
-import AdminInbodyHeader from '@/components/AdminInbodyHeader.vue'
-import AdminInbodyTableColumn from '@/components/AdminInbodyTableColumn.vue'
-import AdminInbodyItem from '@/components/AdminInbodyItem.vue'
-import AdminInbodyStudent from '@/components/AdminInbodyStudent.vue'
-import AdminInbodyDetail from '@/components/AdminInbodyDetail.vue'
+// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+// import AdminInbodyHeader from '@/components/admin/inbody/AdminInbodyHeader.vue'
+// import AdminInbodyTableColumn from '@/components/admin/inbody/AdminInbodyTableColumn.vue'
+// import AdminInbodyItem from '@/components/admin/inbody/AdminInbodyItem.vue'
+// import AdminInbodyStudent from '@/components/admin/inbody/AdminInbodyStudent.vue'
+// import AdminInbodyDetail from '@/components/admin/inbody/AdminInbodyDetail.vue'
+
+import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+import AdminInbodyHeader from '@/components/admin/inbody/AdminInbodyHeader.vue'
+import AdminInbodyTableColumn from '@/components/admin/inbody/AdminInbodyTableColumn.vue'
+import AdminInbodyItem from '@/components/admin/inbody/AdminInbodyItem.vue'
+import AdminInbodyStudent from '@/components/admin/inbody/AdminInbodyStudent.vue'
+import AdminInbodyDetail from '@/components/admin/inbody/AdminInbodyDetail.vue'
+
 import axiosAuth from '@/axios/axios'
 
 export default {

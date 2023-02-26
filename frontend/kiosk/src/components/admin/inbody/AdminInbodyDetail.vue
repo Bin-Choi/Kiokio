@@ -26,8 +26,10 @@
 </template>
 
 <script>
-import AdminInbodyDetailRead from '@/components/AdminInbodyDetailRead.vue'
-import AdminInbodyDetailUpdate from '@/components/AdminInbodyDetailUpdate.vue'
+// import AdminInbodyDetailRead from '@/components/admin/inbody/AdminInbodyDetailRead.vue'
+// import AdminInbodyDetailUpdate from '@/components/admin/inbody/AdminInbodyDetailUpdate.vue'
+import AdminInbodyDetailRead from './AdminInbodyDetailRead.vue'
+import AdminInbodyDetailUpdate from './AdminInbodyDetailUpdate.vue'
 
 export default {
   name: 'AdminInbodyDetail',

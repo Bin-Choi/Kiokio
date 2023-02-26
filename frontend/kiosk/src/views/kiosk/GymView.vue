@@ -31,9 +31,13 @@
 </template>
 
 <script>
-import TheModal from '../components/TheModal.vue'
-import KioskHeader from '../components/KioskHeader.vue'
-import GymItem from '@/components/GymItem.vue'
+// import TheModal from '../components/TheModal.vue'
+// import KioskHeader from '../components/KioskHeader.vue'
+// import GymItem from '@/components/kiosk/gym/GymItem.vue'
+
+import TheModal from '@/components/kiosk/common/TheModal.vue'
+import KioskHeader from '@/components/kiosk/common/KioskHeader.vue'
+import GymItem from '@/components/kiosk/gym/GymItem.vue'
 
 export default {
   name: 'GymView',

@@ -1,16 +1,20 @@
 <template>
   <div
-    class="h-100 d-flex flex-column align-items-center justify-content-between">
+    class="h-100 d-flex flex-column align-items-center justify-content-between"
+  >
     <!-- BACK -->
     <div
       class="w-100 d-flex justify-content-between"
-      style="font-size: 4vh; margin: 1.5vh; margin-bottom: 0; padding: 2.2vh">
+      style="font-size: 4vh; margin: 1.5vh; margin-bottom: 0; padding: 2.2vh"
+    >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
-        @click="$router.push({ name: 'inbodyDetail' })" />
+        @click="$router.push({ name: 'inbodyDetail' })"
+      />
       <font-awesome-icon
         icon="fa-solid fa-house"
-        @click="$router.push({ name: 'index' })" />
+        @click="$router.push({ name: 'index' })"
+      />
     </div>
 
     <!-- PAGE TITLE -->
@@ -18,7 +22,8 @@
 
     <div
       class="w-75 d-flex justify-content-around align-items-center"
-      style="font-size: 3vh">
+      style="font-size: 3vh"
+    >
       {{ student.grade }}학년 {{ student.room }}반 {{ student.name }}
 
       <!-- BUTTON -->
@@ -181,8 +186,8 @@
 </template>
 
 <script>
-import TheKeypad from '@/components/TheKeypad.vue'
-
+// import TheKeypad from '@/components/TheKeypad.vue'
+import TheKeypad from '@/components/kiosk/common/TheKeypad.vue'
 import axios from 'axios'
 
 export default {

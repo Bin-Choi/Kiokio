@@ -1,7 +1,8 @@
 <template>
   <div
     class="bg-white d-flex flex-column"
-    style="width: 100vw; height: 100vh; padding: 7vh">
+    style="width: 100vw; height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
 
     <div
@@ -13,12 +14,14 @@
         margin-top: 3vh;
         background-color: #81a0bb4b;
         min-width: 750px;
-      ">
+      "
+    >
       <AttendanceHeader
         @search-by-class="searchByClass"
         @search-by-name="searchByName"
         @download-excel="downloadExcel"
-        :students="students" />
+        :students="students"
+      />
       <div id="admin-scroll-box" style="overflow-x: scroll; overflow-y: scroll">
         <table v-if="students" id="attendance-table">
           <AttendanceTableColumn :days="days" />
@@ -26,7 +29,8 @@
             v-for="student in students"
             :key="student.id"
             :student="student"
-            :days="days" />
+            :days="days"
+          />
         </table>
       </div>
     </div>
@@ -34,10 +38,16 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
-import AttendanceHeader from '@/components/AttendanceHeader.vue'
-import AttendanceTableColumn from '@/components/AttendanceTableColumn.vue'
-import AttendanceItem from '@/components/AttendanceItem.vue'
+// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+// import AttendanceHeader from '@/components/admin/attend/AttendanceHeader.vue'
+// import AttendanceTableColumn from '@/components/admin/attend/AttendanceTableColumn.vue'
+// import AttendanceItem from '@/components/admin/attend/AttendanceItem.vue'
+
+import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+import AttendanceHeader from '@/components/admin/attend/AttendanceHeader.vue'
+import AttendanceTableColumn from '@/components/admin/attend/AttendanceTableColumn.vue'
+import AttendanceItem from '@/components/admin/attend/AttendanceItem.vue'
+
 import axiosAuth from '@/axios/axios'
 import * as XLSX from 'xlsx'
 

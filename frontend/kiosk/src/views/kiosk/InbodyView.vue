@@ -52,10 +52,16 @@
 </template>
 
 <script>
-import TheNumGuide from '@/components/TheNumGuide.vue'
-import TheKeypad from '@/components/TheKeypad.vue'
-import PasswordModal from '../components/PasswordModal.vue'
-import KioskHeader from '@/components/KioskHeader.vue'
+// import TheNumGuide from '@/components/kiosk/common/TheNumGuide.vue'
+// import TheKeypad from '@/components/TheKeypad.vue'
+// import PasswordModal from '../../../components/PasswordModal.vue'
+// import KioskHeader from '@/components/KioskHeader.vue'
+
+import TheNumGuide from '@/components/kiosk/common/TheNumGuide.vue'
+import TheKeypad from '@/components/kiosk/common/TheKeypad.vue'
+import PasswordModal from '@/components/kiosk/common/PasswordModal.vue'
+import KioskHeader from '@/components/kiosk/common/KioskHeader.vue'
+
 import axios from 'axios'
 
 export default {

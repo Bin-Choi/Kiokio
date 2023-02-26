@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
-
+// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+import AdminHeader from '@/components/admin/common/AdminHeader.vue'
 export default {
   name: 'AdminView',
   components: {

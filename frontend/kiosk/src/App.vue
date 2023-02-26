@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import LoginModal from "@/components/LoginModal.vue"
-import ChangePasswordModal from "@/components/ChangePasswordModal.vue"
-import ChangeEmailModal from "@/components/ChangeEmailModal.vue"
+import LoginModal from '@/components/admin/common/LoginModal.vue'
+import ChangePasswordModal from '@/components/admin/common/ChangePasswordModal.vue'
+import ChangeEmailModal from '@/components/admin/common/ChangeEmailModal.vue'
 
 export default {
-  name: "AppView",
+  name: 'AppView',
   components: {
     LoginModal,
     ChangePasswordModal,
@@ -53,7 +53,7 @@ export default {
   text-align: center;
 
   background-color: #ffe8d299;
-  font-family: "standard";
+  font-family: 'standard';
   font-size: 1.8vh;
 }
 

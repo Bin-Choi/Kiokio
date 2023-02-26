@@ -1,7 +1,8 @@
 <template>
   <div
     class="bg-white d-flex flex-column align-items-center"
-    style="width: 100vw; height: 100vh; padding: 7vh">
+    style="width: 100vw; height: 100vh; padding: 7vh"
+  >
     <AdminHeader />
     <div
       id="content"
@@ -11,12 +12,14 @@
         padding: 3vh;
         margin-top: 3vh;
         background-color: #81a0bb4b;
-      ">
+      "
+    >
       <StudentHeader
         @search-by-class="searchByClass"
         @search-by-name="searchByName"
         @download-excel="downloadExcel"
-        :students="students" />
+        :students="students"
+      />
 
       <div v-if="students">
         <div class="button-box" v-if="mode === 'R'">
@@ -24,7 +27,8 @@
           <button
             class="red-btn shadow-sm"
             style="margin-left: 1vh"
-            @click="mode = 'D'">
+            @click="mode = 'D'"
+          >
             삭제
           </button>
         </div>
@@ -46,7 +50,8 @@
               v-for="(student, index) in students"
               :key="student.id"
               :index="index"
-              :student="student" />
+              :student="student"
+            />
           </table>
         </div>
         <div v-if="students && mode === 'U'">
@@ -58,7 +63,8 @@
               :index="index"
               :student="student"
               :invalid="invalid"
-              @change-data="changeData" />
+              @change-data="changeData"
+            />
           </table>
         </div>
         <div v-if="students && mode === 'D'">
@@ -69,7 +75,8 @@
               :key="student.id"
               :index="index"
               :student="student"
-              @change-check="changeCheck" />
+              @change-check="changeCheck"
+            />
           </table>
         </div>
       </div>
@@ -78,12 +85,20 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
-import StudentTableColumn from '@/components/StudentTableColumn.vue'
-import StudentHeader from '@/components/StudentHeader.vue'
-import StudentReadItem from '@/components/StudentReadItem.vue'
-import StudentUpdateItem from '@/components/StudentUpdateItem.vue'
-import StudentDeleteItem from '@/components/StudentDeleteItem.vue'
+// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+// import StudentTableColumn from '@/components/admin/student/StudentTableColumn.vue'
+// import StudentHeader from '@/components/admin/student/StudentHeader.vue'
+// import StudentReadItem from '@/components/admin/student/StudentReadItem.vue'
+// import StudentUpdateItem from '@/components/admin/student/StudentUpdateItem.vue'
+// import StudentDeleteItem from '@/components/admin/student/StudentDeleteItem.vue'
+
+import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+import StudentTableColumn from '@/components/admin/student/StudentTableColumn.vue'
+import StudentHeader from '@/components/admin/student/StudentHeader.vue'
+import StudentReadItem from '@/components/admin/student/StudentReadItem.vue'
+import StudentUpdateItem from '@/components/admin/student/StudentUpdateItem.vue'
+import StudentDeleteItem from '@/components/admin/student/StudentDeleteItem.vue'
+
 import axiosAuth from '@/axios/axios'
 import * as XLSX from 'xlsx'
 

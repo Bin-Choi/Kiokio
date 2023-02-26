@@ -75,8 +75,8 @@
 </template>
 
 <script>
-import TheKeypad from '../components/TheKeypad.vue'
-
+// import TheKeypad from '../components/TheKeypad.vue'
+import TheKeypad from '@/components/kiosk/common/TheKeypad.vue'
 import axios from 'axios'
 
 export default {

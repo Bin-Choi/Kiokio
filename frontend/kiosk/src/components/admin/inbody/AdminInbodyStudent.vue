@@ -4,12 +4,14 @@
       <font-awesome-icon
         @click="$emit('change-mode-default')"
         style="font-size: 3vh; cursor: pointer"
-        icon="fa-solid fa-circle-arrow-left" />
+        icon="fa-solid fa-circle-arrow-left"
+      />
       <div :class="{ hidden: mode !== 'R' }">
         <font-awesome-icon
           icon="fa-solid fa-table"
           @click="downloadExcel"
-          style="font-size: 3vh; cursor: pointer" />
+          style="font-size: 3vh; cursor: pointer"
+        />
         <div>다운로드</div>
       </div>
     </div>
@@ -21,20 +23,23 @@
     <div
       v-if="mode === 'R'"
       class="d-flex justify-content-end"
-      style="margin: 1vh 0">
+      style="margin: 1vh 0"
+    >
       <button
         class="blue-btn"
         @click="
           inbodyCopy = JSON.parse(JSON.stringify(student.inbody_set))
           mode = 'U'
-        ">
+        "
+      >
         수정
       </button>
     </div>
     <div
       v-if="mode === 'U'"
       class="w-100 d-flex justify-content-between"
-      style="margin: 1vh 0">
+      style="margin: 1vh 0"
+    >
       <div>
         <button class="gray-btn" @click="mode = 'R'">취소</button>
       </div>
@@ -57,7 +62,8 @@
           v-for="(inbody, index) in student.inbody_set"
           :key="inbody.id"
           :index="index"
-          :inbody="inbody" />
+          :inbody="inbody"
+        />
       </table>
 
       <table class="d-flex" v-if="mode === 'U'">
@@ -70,16 +76,20 @@
           :ready-delete="readyDelete"
           :invalid="invalid"
           @change-check="changeCheck"
-          @change-data="changeData" />
+          @change-data="changeData"
+        />
       </table>
     </div>
   </div>
 </template>
 
 <script>
-import AdminInbodyStudentTableRow from '@/components/AdminInbodyStudentTableRow.vue'
-import AdminInbodyStudentReadItem from '@/components/AdminInbodyStudentReadItem.vue'
-import AdminInbodyStudentUpdateItem from '@/components/AdminInbodyStudentUpdateItem.vue'
+// import AdminInbodyStudentTableRow from '@/components/admin/inbody/AdminInbodyStudentTableRow.vue'
+// import AdminInbodyStudentReadItem from '@/components/admin/inbody/AdminInbodyStudentReadItem.vue'
+// import AdminInbodyStudentUpdateItem from '@/components/admin/inbody/AdminInbodyStudentUpdateItem.vue'
+import AdminInbodyStudentTableRow from './AdminInbodyStudentTableRow.vue'
+import AdminInbodyStudentReadItem from './AdminInbodyStudentReadItem.vue'
+import AdminInbodyStudentUpdateItem from './AdminInbodyStudentUpdateItem.vue'
 import * as XLSX from 'xlsx'
 
 import axiosAuth from '@/axios/axios'

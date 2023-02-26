@@ -77,12 +77,20 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/AdminHeader.vue'
-import AdminInbodyDateHeader from '@/components/AdminInbodyDateHeader.vue'
-import AdminInbodyDateTableColumn from '@/components/AdminInbodyDateTableColumn.vue'
-import AdminInbodyDateReadItem from '@/components/AdminInbodyDateReadItem.vue'
-import AdminInbodyDateUpdateItem from '@/components/AdminInbodyDateUpdateItem.vue'
-import AdminInbodyDateDeleteItem from '@/components/AdminInbodyDateDeleteItem.vue'
+// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+// import AdminInbodyDateHeader from '@/components/admin/inbody/AdminInbodyDateHeader.vue'
+// import AdminInbodyDateTableColumn from '@/components/admin/inbody/AdminInbodyDateTableColumn.vue'
+// import AdminInbodyDateReadItem from '@/components/admin/inbody/AdminInbodyDateReadItem.vue'
+// import AdminInbodyDateUpdateItem from '@/components/admin/inbody/AdminInbodyDateUpdateItem.vue'
+// import AdminInbodyDateDeleteItem from '@/components/admin/inbody/AdminInbodyDateDeleteItem.vue'
+
+import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+import AdminInbodyDateHeader from '@/components/admin/inbody/AdminInbodyDateHeader.vue'
+import AdminInbodyDateTableColumn from '@/components/admin/inbody/AdminInbodyDateTableColumn.vue'
+import AdminInbodyDateReadItem from '@/components/admin/inbody/AdminInbodyDateReadItem.vue'
+import AdminInbodyDateUpdateItem from '@/components/admin/inbody/AdminInbodyDateUpdateItem.vue'
+import AdminInbodyDateDeleteItem from '@/components/admin/inbody/AdminInbodyDateDeleteItem.vue'
+
 import axiosAuth from '@/axios/axios'
 import * as XLSX from 'xlsx'
 

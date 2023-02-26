@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import InbodyDetail from '@/components/InbodyDetail.vue'
+import InbodyDetail from '@/components/kiosk/inbody/InbodyDetail.vue'
 
 import axios from 'axios'
 
