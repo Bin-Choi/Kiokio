@@ -6,7 +6,8 @@
       <!-- ATTEND CONTENT -->
       <span
         v-if="$route.name === 'attend'"
-        class="w-75 h-75 m-auto bg-white round shadow d-flex flex-column align-items-center justify-content-evenly">
+        class="w-75 h-75 m-auto bg-white round shadow d-flex flex-column align-items-center justify-content-evenly"
+      >
         <span v-if="!attendError">
           <div style="font-size: 2.5vh; margin-bottom: 2vh">
             <div>
@@ -33,7 +34,8 @@
         <span
           v-if="attendError"
           class="h-100 d-flex flex-column align-items-center justify-content-evenly"
-          style="padding: 2vh">
+          style="padding: 2vh"
+        >
           <div style="color: rgb(193, 32, 42); font-size: 2.6vh">
             이미 출석한 학생입니다.
             <div style="color: black; font-size: 2vh">
@@ -50,9 +52,10 @@
       <span
         v-if="$route.name === 'gym'"
         class="w-75 h-75 bg-white m-auto round d-flex flex-column align-items-center justify-content-between shadow"
-        style="padding: 2vh">
-        <img src="#" alt="IMG" />
-        <div>description</div>
+        style="padding: 2vh"
+      >
+        <img :src="gymImgSrc" alt="IMG" style="width: 60%" />
+        <div>{{ gym.detail }}</div>
         <button class="orange-btn shadow" @click="$emit('close-modal')">
           확인
         </button>
@@ -75,6 +78,14 @@ export default {
   props: {
     student: Object,
   },
+  computed: {
+    gym() {
+      return this.$store.state.gymContent
+    },
+    gymImgSrc() {
+      return this.gym.photo
+    },
+  },
   methods: {
     // ATTEND
     attend() {
@@ -94,7 +105,7 @@ export default {
   mounted() {
     const title = document.querySelector('.modal-content #title')
     if (this.$route.name == 'gym') {
-      title.innerText = '운동기구'
+      title.innerText = this.gym.title
     } else {
       title.innerText = '출석 확인'
     }

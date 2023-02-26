@@ -46,15 +46,18 @@ export default {
     return {
       showModal: false,
       gyms: [
-        'gym1',
-        'gym2',
-        'gym3',
-        'gym4',
-        'gym5',
-        'gym6',
-        'gym7',
-        'gym7',
-        'gym7',
+        {
+          title: '런닝머신',
+          photo: '/gym/treadmill.jpg',
+          detail: '운동기구 설명',
+        },
+        { title: '스테퍼', photo: '/gym/stepper.jpg', detail: '운동기구 설명' },
+        { title: '레그컬', photo: '/gym/legcurl.jpg', detail: '운동기구 설명' },
+        {
+          title: '체스트프레스',
+          photo: '/gym/체스트프레스.jpg',
+          detail: '운동기구 설명',
+        },
       ],
     }
   },
