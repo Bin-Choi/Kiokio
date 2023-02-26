@@ -48,6 +48,7 @@ export default new Vuex.Store({
     inbodyStudents: null,
     student: null,
     inbody: null,
+    gymContent: null,
   },
   getters: {
     // 메서드를 통한 getters 요청은 캐시되지 않으며, 요청시마다 재실행. now = Date.now()
@@ -117,6 +118,9 @@ export default new Vuex.Store({
     },
     TOGGLE_SHOW_CHANGE_EMAIL_MODAL(state, boolean) {
       state.showChangeEmailModal = boolean
+    },
+    GET_GYM_CONTENT(state, payload) {
+      state.gymContent = payload
     },
   },
   actions: {

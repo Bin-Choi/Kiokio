@@ -18,12 +18,12 @@
 
     <div
       class="d-flex flex-column justify-content-between"
-      style="padding: 7vh"
+      style="padding: 5vh; padding-top: 0"
     >
       <!-- LOGO -->
       <div>
-        <img src="#" alt="Logo" />
-        <p style="font-size: 4vh">홍0초등학교</p>
+        <img src="/logo.png" alt="Logo" style="height: 22vh" />
+        <p style="font-size: 4vh">키오초등학교</p>
       </div>
 
       <!-- Buttons -->
