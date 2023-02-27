@@ -7,7 +7,7 @@
 
     <div class="inbodyContent rounded shadow d-flex flex-column">
       <div v-if="mode === 'Default'">
-        <AdminInbodyHeader
+        <InbodyHistoryHeader
           @search-by-class="searchByClass"
           @search-by-name="searchByName"
         />
@@ -56,15 +56,8 @@
 </template>
 
 <script>
-// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
-// import AdminInbodyHeader from '@/components/admin/inbody/AdminInbodyHeader.vue'
-// import AdminInbodyTableColumn from '@/components/admin/inbody/AdminInbodyTableColumn.vue'
-// import AdminInbodyItem from '@/components/admin/inbody/AdminInbodyItem.vue'
-// import AdminInbodyStudent from '@/components/admin/inbody/AdminInbodyStudent.vue'
-// import AdminInbodyDetail from '@/components/admin/inbody/AdminInbodyDetail.vue'
-
 import AdminHeader from '@/components/admin/common/AdminHeader.vue'
-import AdminInbodyHeader from '@/components/admin/inbody/AdminInbodyHeader.vue'
+import InbodyHistoryHeader from '@/components/admin/inbody/InbodyHistoryHeader.vue'
 import AdminInbodyTableColumn from '@/components/admin/inbody/AdminInbodyTableColumn.vue'
 import AdminInbodyItem from '@/components/admin/inbody/AdminInbodyItem.vue'
 import AdminInbodyStudent from '@/components/admin/inbody/AdminInbodyStudent.vue'
@@ -76,7 +69,7 @@ export default {
   name: 'AdminInbodyView',
   components: {
     AdminHeader,
-    AdminInbodyHeader,
+    InbodyHistoryHeader,
     AdminInbodyTableColumn,
     AdminInbodyItem,
     AdminInbodyStudent,

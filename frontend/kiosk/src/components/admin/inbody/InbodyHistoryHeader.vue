@@ -2,14 +2,16 @@
   <div class="d-flex flex-column" style="margin-bottom: 1vh; min-width: 710px">
     <div
       class="d-flex justify-content-between"
-      style="margin: 0 0 2vh 0; font-size: 3vh">
+      style="margin: 0 0 2vh 0; font-size: 3vh"
+    >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
         @click="
           $router.push({ name: 'admin' })
           $store.state.inbodyStudents = null
         "
-        style="cursor: pointer" />
+        style="cursor: pointer"
+      />
       <div>인바디 관리</div>
       <div></div>
     </div>
@@ -21,14 +23,16 @@
           class="student-search-form"
           style="width: 13vh"
           ref="startDate"
-          v-model="startDate" />
+          v-model="startDate"
+        />
         ~
         <input
           type="date"
           class="student-search-form"
           style="width: 13vh"
           ref="endDate"
-          v-model="endDate" />
+          v-model="endDate"
+        />
       </div>
       <div>
         <span>학년</span>
@@ -38,7 +42,8 @@
           class="student-search-form"
           ref="grade"
           v-model.trim="grade"
-          @keyup.enter="$refs.room.focus()" />
+          @keyup.enter="$refs.room.focus()"
+        />
         <span>반</span>
         <input
           type="number"
@@ -46,28 +51,34 @@
           class="student-search-form"
           ref="room"
           v-model.trim="room"
-          @keyup.enter="searchByClass" />
-        <button class="blue-btn shadow-sm" @click="searchByClass">
-          학급 조회
-        </button>
+          @keyup.enter="searchByClass"
+        />
+
+        <TheButton :text="'학급 조회'" :onClick="searchByClass" />
+
         <span style="margin-left: 3vh">이름</span>
         <input
           type="text"
           class="student-search-form"
           ref="name"
           v-model.trim="name"
-          @keyup.enter="searchByName" />
-        <button class="blue-btn shadow-sm" @click="searchByName">
-          이름 조회
-        </button>
+          @keyup.enter="searchByName"
+        />
+
+        <TheButton :text="'이름 조회'" :onClick="searchByName" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import TheButton from '@/components/admin/common/TheButton.vue'
+
 export default {
-  name: 'AdminInbodyHeader',
+  name: 'InbodyHistoryHeader',
+  components: {
+    TheButton,
+  },
   data() {
     return {
       startDate: null,

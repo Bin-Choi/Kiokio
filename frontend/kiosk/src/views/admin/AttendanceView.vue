@@ -16,7 +16,7 @@
         min-width: 750px;
       "
     >
-      <AttendanceHeader
+      <AttendHeader
         @search-by-class="searchByClass"
         @search-by-name="searchByName"
         @download-excel="downloadExcel"
@@ -38,13 +38,8 @@
 </template>
 
 <script>
-// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
-// import AttendanceHeader from '@/components/admin/attend/AttendanceHeader.vue'
-// import AttendanceTableColumn from '@/components/admin/attend/AttendanceTableColumn.vue'
-// import AttendanceItem from '@/components/admin/attend/AttendanceItem.vue'
-
 import AdminHeader from '@/components/admin/common/AdminHeader.vue'
-import AttendanceHeader from '@/components/admin/attend/AttendanceHeader.vue'
+import AttendHeader from '@/components/admin/attend/AttendHeader.vue'
 import AttendanceTableColumn from '@/components/admin/attend/AttendanceTableColumn.vue'
 import AttendanceItem from '@/components/admin/attend/AttendanceItem.vue'
 
@@ -70,7 +65,7 @@ export default {
   name: 'AttendanceView',
   components: {
     AdminHeader,
-    AttendanceHeader,
+    AttendHeader,
     AttendanceTableColumn,
     AttendanceItem,
   },

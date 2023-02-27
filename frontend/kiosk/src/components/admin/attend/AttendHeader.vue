@@ -2,17 +2,20 @@
   <div style="margin-bottom: 1vh">
     <div
       class="d-flex justify-content-between"
-      style="margin: 0 0 2vh 0; font-size: 3vh">
+      style="margin: 0 0 2vh 0; font-size: 3vh"
+    >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
         @click="$router.push({ name: 'admin' })"
-        style="cursor: pointer" />
+        style="cursor: pointer"
+      />
       <div>출결 관리</div>
       <div :class="{ hidden: !students }">
         <font-awesome-icon
           icon="fa-solid fa-table"
           @click="$emit('download-excel')"
-          style="cursor: pointer" />
+          style="cursor: pointer"
+        />
         <div style="font-size: 1.5vh">다운로드</div>
       </div>
     </div>
@@ -28,7 +31,8 @@
           min="2000"
           class="student-search-form"
           ref="year"
-          v-model.trim="year" />
+          v-model.trim="year"
+        />
         <span>년</span>
         <input
           type="number"
@@ -36,7 +40,8 @@
           max="12"
           class="student-search-form"
           ref="month"
-          v-model.trim="month" />
+          v-model.trim="month"
+        />
         <span>월</span>
       </div>
 
@@ -49,7 +54,8 @@
             class="student-search-form"
             ref="grade"
             v-model.trim="grade"
-            @keyup.enter="$refs.room.focus()" />
+            @keyup.enter="$refs.room.focus()"
+          />
           <span>반</span>
           <input
             type="number"
@@ -57,10 +63,9 @@
             class="student-search-form"
             ref="room"
             v-model.trim="room"
-            @keyup.enter="searchByClass" />
-          <button class="blue-btn shadow-sm" @click="searchByClass">
-            학급 조회
-          </button>
+            @keyup.enter="searchByClass"
+          />
+          <TheButton :text="'학급 조회'" :onClick="searchByClass" />
         </div>
         <div>
           <span>이름</span>
@@ -69,10 +74,9 @@
             class="student-search-form"
             ref="name"
             v-model.trim="name"
-            @keyup.enter="searchByName" />
-          <button class="blue-btn shadow-sm" @click="searchByName">
-            이름 조회
-          </button>
+            @keyup.enter="searchByName"
+          />
+          <TheButton :text="'이름 조회'" :onClick="searchByName" />
         </div>
       </div>
     </div>
@@ -80,8 +84,13 @@
 </template>
 
 <script>
+import TheButton from '@/components/admin/common/TheButton.vue'
+
 export default {
   name: 'AttendanceHeader',
+  components: {
+    TheButton,
+  },
   props: {
     students: Array,
   },
