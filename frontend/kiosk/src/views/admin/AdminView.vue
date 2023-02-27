@@ -24,27 +24,27 @@
 
       <!-- INBODY -->
 
-      <div
-        @click="$router.push({ name: 'adminInbody' })"
-        class="admin-view-button shadow"
-      >
-        <font-awesome-icon icon="fa-solid fa-caret-right" /> 기간으로 인바디
-        조회
-      </div>
-      <div
-        @click="$router.push({ name: 'adminInbodyDate' })"
-        class="admin-view-button shadow"
-      >
-        <font-awesome-icon icon="fa-solid fa-caret-right" /> 특정 날짜로 인바디
-        조회
+      <div class="inbody admin-view-button shadow">
+        <font-awesome-icon icon="fa-solid fa-caret-right" /> 인바디 관리
+        <div class="inbody__buttons">
+          <button class="shadow" @click="$router.push({ name: 'adminInbody' })">
+            기간으로 조회
+          </button>
+          <button
+            class="shadow"
+            @click="$router.push({ name: 'adminInbodyDate' })"
+          >
+            특정 날짜로 조회
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
 import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+
 export default {
   name: 'AdminView',
   components: {
@@ -76,8 +76,34 @@ export default {
   margin: 1.5vh 0;
   padding: 1vh;
   line-height: 8vh;
-  border-radius: 5vh;
+  border-radius: 3vh;
   font-size: 3vh;
+}
+
+.inbody__buttons {
+  display: flex;
+  justify-content: space-evenly;
+
+  font-size: 2vh;
+}
+
+.inbody__buttons > button {
+  color: white;
+  background-color: #6396c3;
+  cursor: pointer;
+  height: 6vh;
+  line-height: 2vh;
+
+  border: none;
+  border-radius: 2vh;
+
+  margin: 3vh 0;
+
+  visibility: hidden;
+}
+
+.inbody:hover > .inbody__buttons > button {
+  visibility: visible;
 }
 
 .green-btn,
