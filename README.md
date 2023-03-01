@@ -119,8 +119,78 @@ backend
 
 ### Front
 
-```
+- 계속 리팩토링 중입니다. 변경될 수 있습니다.
 
+```
+axios
+ㄴaxios.js
+router
+ㄴindex.js
+store
+ㄴindex.js
+Views
+ㄴAdmin
+	ㄴ Login // 관리자 로그인 화면 v
+	ㄴ Admin // 관리자 메인 화면 v
+	ㄴ Student // 학생리스트 조회 화면 v
+	ㄴ StudentCreate // 학생리스트 생성 화면 v
+	ㄴ StudentUpdate // 학생리스트 수정 화면
+  ㄴ StudentDelete // 학생리스트 삭제 화면
+  ㄴ Attend // 학생 출결 조회 화면
+  ㄴ InbodyHistory // 학생 인바디 기간 검색 화면
+  ㄴ InbodyHistory // 학생 인바디 날짜 검색 화면
+  ㄴ InbodyStu // 특정 학생 인바디 조회 화면 v
+  ㄴ InbodyStuCreate // 특정 학생 인바디 생성 화면
+  ㄴ InbodyStuUpdate // 특정 학생 인바디 수정 화면
+  ㄴ InbodyStuDelete // 특정 학생 인바디 삭제 화면
+  ㄴ InbodyDetail // 특정 인바디 조회 화면
+  ㄴ InbodyDetailUpdate // 특정 인바디 수 화면
+
+ㄴKiosk
+	ㄴ Index // 키오스크 메인 화면 v
+	ㄴ AttendCheck // 출석체크 화면 v
+	ㄴ Inbody // 인바디 학번 입력 화면 v
+	ㄴ InbodyHistory // 학생의 인바디 전체 기록 화면 v
+  ㄴ InbodyDetail // 학생의 인바디 디테일 화면 v
+	ㄴ InbodyCreate // 학생의 인바디 등록 화면 v
+	ㄴ InbodyUpdate // 학생의 인바디 수정 화면 v
+	ㄴ Gym // 운동기구 화면 v
+
+Components
+ㄴAdmin
+  ㄴcommon
+    ㄴButton // 버튼(파랑색, 빨강색, 초록색, 회색) v
+    ㄴIconButton // 아이콘 버튼
+    ㄴInput // 입력창
+  ㄴstudent
+    ㄴStudentHeader // 학생 테이블 헤더 v
+    ㄴStudentList // 학생 테이블 리스트
+    ㄴStudentItem // 학생 테이블 요소
+  ㄴattend
+    ㄴAttendHeader // 출결 테이블 헤더 v
+    ㄴAttendList // 출결 테이블 리스트
+    ㄴAttendItem // 출결 테이블 요소
+  ㄴinbody
+    ㄴInbodyHistoryHeader // 인바디 관리 헤더 v
+    ㄴInbodyHistoryList // 인바디 관리 리스트
+    ㄴInbodyHistoryItem // 인바디 관리 요소
+    ㄴInbodyHistoryItemRecord // 인바디 관리 요소의 하나의 인바디 기록
+    ㄴInbodyHeader // 인바디 하나의 기록 헤더
+    ㄴInbodyList // 인바디 하나의 기록 리스트
+    ㄴInbodyItem // 인바디 하나의 기록 요소
+    ㄴInbodyDetailForm // 학생의 인바디 디테일 화면에서의 폼(컨텐츠)
+ㄴKiosk
+	ㄴcommon
+		ㄴKioskHeader // 키오스크 헤더 v
+		ㄴTheKeypad // 키패드 v
+		ㄴTheModal  // 출석, 운동기구 모달 v
+		ㄴTheNumGuide // 반번호 입력 가이드 v
+		ㄴPasswordModal // 비밀번호 입력 모달 v
+	ㄴInbody
+		ㄴ InbodyHistoryItem // 인바디 기록 리스트 v
+		ㄴ InbodyDetail // 인바디 상세 기록... DetailView로 옮기기 v
+	ㄴGym
+		ㄴGymItem // 운동기구 설명 v
 ```
 
 ## 📱 협업 툴
@@ -182,9 +252,13 @@ backend
 
 ### 관리자 페이지
 
+<b>로그인 화면</b>
+
+![admin](/README.assets/admin.png)
+
 <b>메인 화면</b>
 
-![adminIndex](/README.assets/admin.png)
+![adminIndex](/README.assets/adminIndex.png)
 
 <b>학생 조회 및 수정</b>
 
