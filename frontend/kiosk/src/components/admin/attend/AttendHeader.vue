@@ -4,20 +4,19 @@
       class="d-flex justify-content-between"
       style="margin: 0 0 2vh 0; font-size: 3vh"
     >
-      <font-awesome-icon
-        icon="fa-solid fa-circle-arrow-left"
-        @click="$router.push({ name: 'admin' })"
-        style="cursor: pointer"
+      <IconButton
+        :icon="'fa-solid fa-circle-arrow-left'"
+        :onClick="() => $router.push({ name: 'admin' })"
       />
+
       <div>출결 관리</div>
-      <div :class="{ hidden: !students }">
-        <font-awesome-icon
-          icon="fa-solid fa-table"
-          @click="$emit('download-excel')"
-          style="cursor: pointer"
-        />
-        <div style="font-size: 1.5vh">다운로드</div>
-      </div>
+
+      <IconButton
+        :class="{ hidden: !students }"
+        :icon="'fa-solid fa-table'"
+        :text="'다운로드'"
+        :onClick="() => $emit('download-excel')"
+      />
     </div>
 
     <div class="d-flex justify-content-start" style="margin-bottom: 1vh">
@@ -110,12 +109,14 @@
 <script>
 import TheButton from '@/components/admin/common/TheButton.vue'
 import TheInput from '@/components/admin/common/TheInput.vue'
+import IconButton from '@/components/admin/common/IconButton.vue'
 
 export default {
   name: 'AttendanceHeader',
   components: {
     TheButton,
     TheInput,
+    IconButton,
   },
   props: {
     students: Array,

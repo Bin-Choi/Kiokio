@@ -1,48 +1,47 @@
 <template>
   <div
     class="d-flex justify-content-between w-100"
-    style="min-width: 250px; min-width: 1310px"
+    style="min-width: 250px; max-width: 1310px"
   >
-    <div
+    <IconButton
       :class="{ hidden: $route.name == 'admin' }"
-      @click="$router.push({ name: 'admin' })"
-      style="cursor: pointer"
-    >
-      <font-awesome-icon
-        icon="fa-solid fa-house"
-        class="d-flex flex-column m-auto icon"
-      />
-      <div>홈</div>
-    </div>
-    <div class="w-100 d-flex justify-content-end">
-      <div
+      :icon="'fa-solid fa-house'"
+      :text="'홈'"
+      :onClick="() => $router.push({ name: 'admin' })"
+    />
+    <div class="w-100 d-flex justify-content-end gap-4">
+      <IconButton
         v-if="user.email"
-        @click="$store.commit('TOGGLE_SHOW_CHANGE_EMAIL_MODAL', true)"
-        style="cursor: pointer"
-      >
-        <font-awesome-icon icon="fa-solid fa-envelope" class="icon" />
-        <div>이메일 변경</div>
-      </div>
+        :icon="'fa-solid fa-envelope'"
+        :text="'이메일 변경'"
+        :onClick="() => $store.commit('TOGGLE_SHOW_CHANGE_EMAIL_MODAL', true)"
+      />
 
-      <div
-        @click="$store.commit('TOGGLE_SHOW_CHANGE_PASSWORD_MODAL', true)"
-        style="cursor: pointer; margin-left: 2vw; margin-right: 2vw"
-      >
-        <font-awesome-icon icon="fa-solid fa-lock" class="icon" />
-        <div>비밀번호 변경</div>
-      </div>
+      <IconButton
+        :icon="'fa-solid fa-lock'"
+        :text="'비밀번호 변경'"
+        :onClick="
+          () => $store.commit('TOGGLE_SHOW_CHANGE_PASSWORD_MODAL', true)
+        "
+      />
 
-      <div @click="$store.dispatch('logout')" style="cursor: pointer">
-        <font-awesome-icon icon="fa-solid fa-user" class="icon" />
-        <div>로그아웃</div>
-      </div>
+      <IconButton
+        :icon="'fa-solid fa-user'"
+        :text="'로그아웃'"
+        :onClick="() => $store.dispatch('logout')"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import IconButton from '@/components/admin/common/IconButton.vue'
+
 export default {
   name: 'AdminHeader',
+  components: {
+    IconButton,
+  },
   computed: {
     user() {
       return this.$store.state.user
@@ -52,9 +51,6 @@ export default {
 </script>
 
 <style>
-.icon {
-  font-size: 2.5vh;
-}
 .hidden {
   visibility: hidden;
 }

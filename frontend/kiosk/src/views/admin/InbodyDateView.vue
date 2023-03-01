@@ -13,24 +13,21 @@
         :inbodies="inbodies"
         :mode="mode"
       />
-
       <div v-if="inbodies">
         <!-- INBODY CONTENT -->
         <div class="button-box" v-if="mode === 'R'">
-          <button class="blue-btn shadow-sm" @click="mode = 'U'">수정</button>
-          <button
-            class="red-btn shadow-sm"
-            style="margin-left: 1vh"
-            @click="mode = 'D'"
-          >
-            삭제
-          </button>
+          <TheButton :text="'수정'" :onClick="() => (mode = 'U')" />
+          <TheButton
+            :text="'삭제'"
+            :color="'red'"
+            :onClick="() => (mode = 'D')"
+          />
         </div>
         <div class="button-box" v-if="mode === 'U'">
-          <button class="blue-btn shadow-sm" @click="updateInbody">저장</button>
+          <TheButton :text="'저장'" :onClick="updateInbody" />
         </div>
         <div class="button-box" v-if="mode === 'D'">
-          <button class="red-btn shadow-sm" @click="deleteInbody">삭제</button>
+          <TheButton :text="'삭제'" :color="'red'" :onClick="deleteInbody" />
         </div>
 
         <div id="admin-scroll-box" style="height: 55vh">
@@ -84,6 +81,8 @@ import AdminInbodyDateReadItem from '@/components/admin/inbody/AdminInbodyDateRe
 import AdminInbodyDateUpdateItem from '@/components/admin/inbody/AdminInbodyDateUpdateItem.vue'
 import AdminInbodyDateDeleteItem from '@/components/admin/inbody/AdminInbodyDateDeleteItem.vue'
 
+import TheButton from '@/components/admin/common/TheButton.vue'
+
 import axiosAuth from '@/axios/axios'
 import * as XLSX from 'xlsx'
 
@@ -96,6 +95,7 @@ export default {
     AdminInbodyDateReadItem,
     AdminInbodyDateUpdateItem,
     AdminInbodyDateDeleteItem,
+    TheButton,
   },
   data() {
     return {

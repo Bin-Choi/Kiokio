@@ -1,19 +1,17 @@
 <template>
   <div class="d-flex flex-column">
     <div class="d-flex justify-content-between">
-      <font-awesome-icon
-        @click="$emit('change-mode-default')"
-        style="font-size: 3vh; cursor: pointer"
-        icon="fa-solid fa-circle-arrow-left"
+      <IconButton
+        :icon="'fa-solid fa-circle-arrow-left'"
+        :onClick="() => $emit('change-mode-default')"
       />
-      <div :class="{ hidden: mode !== 'R' }">
-        <font-awesome-icon
-          icon="fa-solid fa-table"
-          @click="downloadExcel"
-          style="font-size: 3vh; cursor: pointer"
-        />
-        <div>다운로드</div>
-      </div>
+
+      <IconButton
+        :class="{ hidden: mode !== 'R' }"
+        :icon="'fa-solid fa-table'"
+        :text="'다운로드'"
+        :onClick="downloadExcel"
+      />
     </div>
 
     <div style="font-size: 2.5vh">
@@ -84,22 +82,23 @@
 </template>
 
 <script>
-// import AdminInbodyStudentTableRow from '@/components/admin/inbody/AdminInbodyStudentTableRow.vue'
-// import AdminInbodyStudentReadItem from '@/components/admin/inbody/AdminInbodyStudentReadItem.vue'
-// import AdminInbodyStudentUpdateItem from '@/components/admin/inbody/AdminInbodyStudentUpdateItem.vue'
 import AdminInbodyStudentTableRow from './AdminInbodyStudentTableRow.vue'
 import AdminInbodyStudentReadItem from './AdminInbodyStudentReadItem.vue'
 import AdminInbodyStudentUpdateItem from './AdminInbodyStudentUpdateItem.vue'
+
+import IconButton from '@/components/admin/common/IconButton.vue'
+
 import * as XLSX from 'xlsx'
 
 import axiosAuth from '@/axios/axios'
 
 export default {
-  name: 'AdminInbodyStudent',
+  name: 'InbodyStu',
   components: {
     AdminInbodyStudentTableRow,
     AdminInbodyStudentReadItem,
     AdminInbodyStudentUpdateItem,
+    IconButton,
   },
   props: {
     studentIndex: Number,

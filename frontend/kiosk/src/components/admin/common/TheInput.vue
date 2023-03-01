@@ -74,6 +74,6 @@ input {
 }
 
 .long > input {
-  width: 9vw;
+  width: 13vh;
 }
 </style>

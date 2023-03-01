@@ -38,7 +38,7 @@
       </div>
 
       <div v-if="mode === 'Student' && student">
-        <AdminInbodyStudent
+        <InbodyStu
           :studentIndex="studentIndex"
           @change-mode-default="changeModeDefault"
         />
@@ -60,7 +60,7 @@ import AdminHeader from '@/components/admin/common/AdminHeader.vue'
 import InbodyHistoryHeader from '@/components/admin/inbody/InbodyHistoryHeader.vue'
 import AdminInbodyTableColumn from '@/components/admin/inbody/AdminInbodyTableColumn.vue'
 import AdminInbodyItem from '@/components/admin/inbody/AdminInbodyItem.vue'
-import AdminInbodyStudent from '@/components/admin/inbody/AdminInbodyStudent.vue'
+import InbodyStu from '@/components/admin/inbody/InbodyStu.vue'
 import AdminInbodyDetail from '@/components/admin/inbody/AdminInbodyDetail.vue'
 
 import axiosAuth from '@/axios/axios'
@@ -72,7 +72,7 @@ export default {
     InbodyHistoryHeader,
     AdminInbodyTableColumn,
     AdminInbodyItem,
-    AdminInbodyStudent,
+    InbodyStu,
     AdminInbodyDetail,
   },
   data() {
