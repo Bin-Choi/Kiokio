@@ -25,29 +25,36 @@
     </div>
 
     <div class="d-flex justify-content-between">
-      <div>
-        <input
-          type="number"
-          min="2000"
-          class="student-search-form"
-          ref="year"
-          v-model.trim="year"
+      <div class="d-flex">
+        <TheInput
+          :label="'년'"
+          :type="'number'"
+          :min="2000"
+          :refer="'year'"
+          :display="'right'"
+          @change="
+            (v) => {
+              this.year = v
+            }
+          "
         />
-        <span>년</span>
-        <input
-          type="number"
-          min="1"
-          max="12"
-          class="student-search-form"
-          ref="month"
-          v-model.trim="month"
+        <TheInput
+          :label="'월'"
+          :type="'number'"
+          :min="1"
+          :max="12"
+          :refer="'month'"
+          :display="'right'"
+          @change="
+            (v) => {
+              this.month = v
+            }
+          "
         />
-        <span>월</span>
       </div>
 
       <div class="d-flex">
-        <div style="margin-right: 2vh">
-          <span>학년</span>
+        <!-- <span>학년</span>
           <input
             type="number"
             min="1"
@@ -55,29 +62,46 @@
             ref="grade"
             v-model.trim="grade"
             @keyup.enter="$refs.room.focus()"
-          />
-          <span>반</span>
-          <input
-            type="number"
-            min="1"
-            class="student-search-form"
-            ref="room"
-            v-model.trim="room"
-            @keyup.enter="searchByClass"
-          />
-          <TheButton :text="'학급 조회'" :onClick="searchByClass" />
-        </div>
-        <div>
-          <span>이름</span>
-          <input
-            type="text"
-            class="student-search-form"
-            ref="name"
-            v-model.trim="name"
-            @keyup.enter="searchByName"
-          />
-          <TheButton :text="'이름 조회'" :onClick="searchByName" />
-        </div>
+          /> -->
+
+        <TheInput
+          :label="'학년'"
+          :type="'number'"
+          :min="1"
+          :refer="'grade'"
+          :display="'right'"
+          @change="
+            (v) => {
+              this.grade = v
+            }
+          "
+        />
+        <TheInput
+          :label="'반'"
+          :type="'number'"
+          :min="1"
+          :refer="'room'"
+          :submit="searchByClass"
+          :display="'right'"
+          @change="
+            (v) => {
+              this.room = v
+            }
+          "
+        />
+        <TheButton :text="'학급 조회'" :onClick="searchByClass" />
+
+        <TheInput
+          :label="'이름'"
+          :refer="'name'"
+          :submit="searchByName"
+          @change="
+            (v) => {
+              this.name = v
+            }
+          "
+        />
+        <TheButton :text="'이름 조회'" :onClick="searchByName" />
       </div>
     </div>
   </div>
@@ -85,11 +109,13 @@
 
 <script>
 import TheButton from '@/components/admin/common/TheButton.vue'
+import TheInput from '@/components/admin/common/TheInput.vue'
 
 export default {
   name: 'AttendanceHeader',
   components: {
     TheButton,
+    TheInput,
   },
   props: {
     students: Array,

@@ -57,13 +57,13 @@ export default {
 #content {
   min-width: 550px;
 }
-.student-search-form {
+/* .student-search-form {
   background-color: white;
   margin: 0 1.5vh 0 0.5vh;
   width: 10vh;
   height: 3.5vh;
   border-radius: 1vh;
-}
+} */
 .admin-view-button {
   color: white;
   background-color: #6396c3;
@@ -106,7 +106,7 @@ export default {
   visibility: visible;
 }
 
-.green-btn,
+/* .green-btn,
 .blue-btn,
 .red-btn,
 .gray-btn {
@@ -116,7 +116,7 @@ export default {
   border: 0;
   color: white;
   font-size: 1.8vh;
-}
+} */
 
 .red-btn:focus,
 .blue-btn:focus,
