@@ -30,11 +30,11 @@ div {
   display: flex;
   flex-direction: column;
 
-  font-size: 2.5vh;
+  font-size: 3vh;
   cursor: pointer;
 }
 
 span {
-  font-size: 1.4vh;
+  font-size: 1.5vh;
 }
 </style>
