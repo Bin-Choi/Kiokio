@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="bg-white d-flex flex-column"
-    style="width: 100vw; height: 100vh; padding: 7vh"
-  >
-    <AdminHeader />
+  <div>
     <div class="content rounded shadow d-flex flex-column">
       <StudentCreateHeader
         :ready-delete="readyDelete"
@@ -31,12 +27,7 @@
 </template>
 
 <script>
-// import AdminHeader from "@/components/admin/common/AdminHeader.vue"
-// import StudentCreateHeader from "@/components/admin/student/StudentCreateHeader.vue"
-// import StudentTableColumn from "@/components/admin/student/StudentTableColumn.vue"
-// import StudentCreateItem from "@/components/admin/student/StudentCreateItem.vue"
-
-import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
 import StudentCreateHeader from '@/components/admin/student/StudentCreateHeader.vue'
 import StudentTableColumn from '@/components/admin/student/StudentTableColumn.vue'
 import StudentCreateItem from '@/components/admin/student/StudentCreateItem.vue'
@@ -46,7 +37,7 @@ import axiosAuth from '@/axios/axios'
 export default {
   name: 'StudentCreateView',
   components: {
-    AdminHeader,
+    // AdminHeader,
     StudentCreateHeader,
     StudentTableColumn,
     StudentCreateItem,

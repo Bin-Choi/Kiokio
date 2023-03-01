@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: 'StudentReadItem',
+  name: 'StudentItem',
   props: {
     student: Object,
     index: Number,

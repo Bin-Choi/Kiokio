@@ -21,7 +21,9 @@
         :students="students"
       />
 
-      <div v-if="students">
+      <router-view :students="students" />
+
+      <!-- <div v-if="students">
         <div class="button-box" v-if="mode === 'R'">
           <button class="blue-btn shadow-sm" @click="mode = 'U'">수정</button>
           <button
@@ -79,25 +81,18 @@
             />
           </table>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
+import AdminHeader from '@/components/admin/common/AdminHeader.vue'
 // import StudentTableColumn from '@/components/admin/student/StudentTableColumn.vue'
-// import StudentHeader from '@/components/admin/student/StudentHeader.vue'
+import StudentHeader from '@/components/admin/student/StudentHeader.vue'
 // import StudentReadItem from '@/components/admin/student/StudentReadItem.vue'
 // import StudentUpdateItem from '@/components/admin/student/StudentUpdateItem.vue'
 // import StudentDeleteItem from '@/components/admin/student/StudentDeleteItem.vue'
-
-import AdminHeader from '@/components/admin/common/AdminHeader.vue'
-import StudentTableColumn from '@/components/admin/student/StudentTableColumn.vue'
-import StudentHeader from '@/components/admin/student/StudentHeader.vue'
-import StudentReadItem from '@/components/admin/student/StudentReadItem.vue'
-import StudentUpdateItem from '@/components/admin/student/StudentUpdateItem.vue'
-import StudentDeleteItem from '@/components/admin/student/StudentDeleteItem.vue'
 
 import axiosAuth from '@/axios/axios'
 import * as XLSX from 'xlsx'
@@ -106,11 +101,12 @@ export default {
   name: 'StudentView',
   components: {
     AdminHeader,
-    StudentTableColumn,
+    // StudentTableColumn,
     StudentHeader,
-    StudentReadItem,
-    StudentUpdateItem,
-    StudentDeleteItem,
+
+    // StudentReadItem,
+    // StudentUpdateItem,
+    // StudentDeleteItem,
   },
   data() {
     return {

@@ -6,9 +6,12 @@ import AdminView from '@/views/admin/AdminView'
 import LoginView from '@/views/admin/LoginView'
 import StudentView from '@/views/admin/StudentView'
 import AttendanceView from '@/views/admin/AttendanceView'
-import StudentCreateView from '@/views/admin/StudentCreateView'
+// import StudentCreateView from '@/views/admin/StudentCreateView'
 import AdminInbodyView from '@/views/admin/AdminInbodyView'
 import InbodyDateView from '@/views/admin/InbodyDateView'
+
+import StudentRead from '@/components/admin/student/StudentRead'
+
 // Kiosk Page
 import IndexView from '@/views/kiosk/IndexView'
 import AttendCheckView from '@/views/kiosk/AttendCheckView'
@@ -56,6 +59,12 @@ const routes = [
     path: '/student',
     name: 'student',
     component: StudentView,
+    children: [
+      {
+        path: '',
+        component: StudentRead,
+      },
+    ],
     beforeEnter(to, from, next) {
       if (store.getters.isLogin(Date.now())) {
         next()
@@ -65,19 +74,19 @@ const routes = [
       }
     },
   },
-  {
-    path: '/student/create',
-    name: 'studentCreate',
-    component: StudentCreateView,
-    beforeEnter(to, from, next) {
-      if (store.getters.isLogin(Date.now())) {
-        next()
-      } else {
-        alert('로그인 해주세요')
-        router.push({ name: 'login' })
-      }
-    },
-  },
+  // {
+  //   path: '/student/create',
+  //   name: 'studentCreate',
+  //   component: StudentCreateView,
+  //   beforeEnter(to, from, next) {
+  //     if (store.getters.isLogin(Date.now())) {
+  //       next()
+  //     } else {
+  //       alert('로그인 해주세요')
+  //       router.push({ name: 'login' })
+  //     }
+  //   },
+  // },
   {
     path: '/attendance',
     name: 'attendance',
