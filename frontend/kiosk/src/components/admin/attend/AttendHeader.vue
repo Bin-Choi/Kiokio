@@ -187,6 +187,8 @@ export default {
         alert('이름을 입력해주세요')
         return
       }
+
+      // 이름 검사
       const regName = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/
       if (!regName.test(this.name)) {
         alert('이름은 한글 2글자 이상 입력하세요')

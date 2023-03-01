@@ -6,7 +6,7 @@
     <AdminHeader />
 
     <div class="inbodyContent rounded shadow d-flex flex-column">
-      <AdminInbodyDateHeader
+      <InbodyDateHeader
         @search-by-class="searchByClass"
         @search-by-name="searchByName"
         @download-excel="downloadExcel"
@@ -77,15 +77,8 @@
 </template>
 
 <script>
-// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
-// import AdminInbodyDateHeader from '@/components/admin/inbody/AdminInbodyDateHeader.vue'
-// import AdminInbodyDateTableColumn from '@/components/admin/inbody/AdminInbodyDateTableColumn.vue'
-// import AdminInbodyDateReadItem from '@/components/admin/inbody/AdminInbodyDateReadItem.vue'
-// import AdminInbodyDateUpdateItem from '@/components/admin/inbody/AdminInbodyDateUpdateItem.vue'
-// import AdminInbodyDateDeleteItem from '@/components/admin/inbody/AdminInbodyDateDeleteItem.vue'
-
 import AdminHeader from '@/components/admin/common/AdminHeader.vue'
-import AdminInbodyDateHeader from '@/components/admin/inbody/AdminInbodyDateHeader.vue'
+import InbodyDateHeader from '@/components/admin/inbody/InbodyDateHeader.vue'
 import AdminInbodyDateTableColumn from '@/components/admin/inbody/AdminInbodyDateTableColumn.vue'
 import AdminInbodyDateReadItem from '@/components/admin/inbody/AdminInbodyDateReadItem.vue'
 import AdminInbodyDateUpdateItem from '@/components/admin/inbody/AdminInbodyDateUpdateItem.vue'
@@ -95,10 +88,10 @@ import axiosAuth from '@/axios/axios'
 import * as XLSX from 'xlsx'
 
 export default {
-  name: 'AdminInbodyDateView',
+  name: 'InbodyDateView',
   components: {
     AdminHeader,
-    AdminInbodyDateHeader,
+    InbodyDateHeader,
     AdminInbodyDateTableColumn,
     AdminInbodyDateReadItem,
     AdminInbodyDateUpdateItem,

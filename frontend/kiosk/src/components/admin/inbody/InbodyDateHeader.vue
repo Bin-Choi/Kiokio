@@ -2,67 +2,73 @@
   <div class="d-flex flex-column" style="margin-bottom: 1vh; min-width: 710px">
     <div
       class="d-flex justify-content-between"
-      style="margin: 0 0 2vh 0; font-size: 3vh">
+      style="margin: 0 0 2vh 0; font-size: 3vh"
+    >
       <font-awesome-icon
         icon="fa-solid fa-circle-arrow-left"
         @click="$router.push({ name: 'admin' })"
-        style="cursor: pointer" />
+        style="cursor: pointer"
+      />
       <div>인바디 관리</div>
       <div :class="{ hidden: mode !== 'R' || !inbodies }">
         <font-awesome-icon
           icon="fa-solid fa-table"
           @click="$emit('download-excel')"
-          style="font-size: 3vh; cursor: pointer" />
+          style="font-size: 3vh; cursor: pointer"
+        />
         <div style="font-size: 1.5vh">다운로드</div>
       </div>
     </div>
+
     <div class="d-flex justify-content-between">
-      <div>
-        <input
-          type="date"
-          class="student-search-form"
-          style="width: 13vh"
-          ref="date"
-          v-model="date" />
-      </div>
-      <div>
-        <span>학년</span>
-        <input
-          type="number"
-          min="1"
-          class="student-search-form"
-          ref="grade"
-          v-model.trim="grade"
-          @keyup.enter="$refs.room.focus()" />
-        <span>반</span>
-        <input
-          type="number"
-          min="1"
-          class="student-search-form"
-          ref="room"
-          v-model.trim="room"
-          @keyup.enter="searchByClass" />
-        <button class="blue-btn shadow-sm" @click="searchByClass">
-          학급 조회
-        </button>
-        <span style="margin-left: 3vh">이름</span>
-        <input
-          type="text"
-          class="student-search-form"
-          ref="name"
-          v-model.trim="name"
-          @keyup.enter="searchByName" />
-        <button class="blue-btn shadow-sm" @click="searchByName">
-          이름 조회
-        </button>
+      <TheInput
+        :type="'date'"
+        :refer="'date'"
+        :display="'long'"
+        @change="(v) => (this.date = v)"
+      />
+      <div class="d-flex">
+        <TheInput
+          :label="'학년'"
+          :type="'number'"
+          :min="1"
+          :refer="'grade'"
+          :display="'right'"
+          @change="(v) => (this.grade = v)"
+        />
+        <TheInput
+          :label="'반'"
+          :type="'number'"
+          :min="1"
+          :refer="'room'"
+          :submit="searchByClass"
+          :display="'right'"
+          @change="(v) => (this.room = v)"
+        />
+        <TheButton :text="'학급 조회'" :onClick="searchByClass" />
+
+        <TheInput
+          :label="'이름'"
+          :refer="'name'"
+          :submit="searchByName"
+          @change="(v) => (this.name = v)"
+        />
+        <TheButton :text="'이름 조회'" :onClick="searchByName" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import TheButton from '@/components/admin/common/TheButton.vue'
+import TheInput from '@/components/admin/common/TheInput.vue'
+
 export default {
-  name: 'AdminInbodyDateHeader',
+  name: 'InbodyDateHeader',
+  components: {
+    TheButton,
+    TheInput,
+  },
   props: {
     inbodies: Array,
     mode: String,

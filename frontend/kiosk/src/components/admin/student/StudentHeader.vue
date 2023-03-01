@@ -21,37 +21,45 @@
     </div>
 
     <div class="d-flex justify-content-between">
-      <div>
-        <span>학년</span>
-        <input
-          type="number"
-          min="1"
-          class="student-search-form"
-          ref="grade"
-          v-model.trim="grade"
-          @keyup.enter="$refs.room.focus()"
+      <div class="d-flex">
+        <TheInput
+          :label="'학년'"
+          :type="'number'"
+          :min="1"
+          :refer="'grade'"
+          :display="'right'"
+          @change="
+            (v) => {
+              this.grade = v
+            }
+          "
         />
-
-        <span>반</span>
-        <input
-          type="number"
-          min="1"
-          class="student-search-form"
-          ref="room"
-          v-model.trim="room"
-          @keyup.enter="searchByClass"
+        <TheInput
+          :label="'반'"
+          :type="'number'"
+          :min="1"
+          :refer="'room'"
+          :submit="searchByClass"
+          :display="'right'"
+          @change="
+            (v) => {
+              this.room = v
+            }
+          "
         />
         <TheButton :text="'학급 조회'" :onClick="searchByClass" />
       </div>
 
-      <div>
-        <span>이름</span>
-        <input
-          type="text"
-          class="student-search-form"
-          ref="name"
-          v-model.trim="name"
-          @keyup.enter="searchByName"
+      <div class="d-flex">
+        <TheInput
+          :label="'이름'"
+          :refer="'name'"
+          :submit="searchByName"
+          @change="
+            (v) => {
+              this.name = v
+            }
+          "
         />
         <TheButton :text="'이름 조회'" :onClick="searchByName" />
         <TheButton
@@ -66,11 +74,13 @@
 
 <script>
 import TheButton from '@/components/admin/common/TheButton.vue'
+import TheInput from '@/components/admin/common/TheInput.vue'
 
 export default {
   name: 'StudentHeader',
   components: {
     TheButton,
+    TheInput,
   },
   props: {
     students: Array,

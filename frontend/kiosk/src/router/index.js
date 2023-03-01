@@ -8,7 +8,7 @@ import StudentView from '@/views/admin/StudentView'
 import AttendanceView from '@/views/admin/AttendanceView'
 import StudentCreateView from '@/views/admin/StudentCreateView'
 import AdminInbodyView from '@/views/admin/AdminInbodyView'
-import AdminInbodyDateView from '@/views/admin/AdminInbodyDateView'
+import InbodyDateView from '@/views/admin/InbodyDateView'
 // Kiosk Page
 import IndexView from '@/views/kiosk/IndexView'
 import AttendCheckView from '@/views/kiosk/AttendCheckView'
@@ -107,7 +107,7 @@ const routes = [
   {
     path: '/admin/inbody/date',
     name: 'adminInbodyDate',
-    component: AdminInbodyDateView,
+    component: InbodyDateView,
     beforeEnter(to, from, next) {
       if (store.getters.isLogin(Date.now())) {
         next()

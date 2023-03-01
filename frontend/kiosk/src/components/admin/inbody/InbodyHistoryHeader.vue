@@ -15,56 +15,50 @@
       <div>인바디 관리</div>
       <div></div>
     </div>
+
     <div style="text-align: left; padding-left: 0.3vh">* 선택 값입니다.</div>
     <div class="d-flex justify-content-between">
-      <div>
-        <input
-          type="date"
-          class="student-search-form"
-          style="width: 13vh"
-          ref="startDate"
-          v-model="startDate"
+      <div class="d-flex">
+        <TheInput
+          :type="'date'"
+          :refer="'startDate'"
+          :display="'long'"
+          @change="(v) => (this.starDate = v)"
         />
         ~
-        <input
-          type="date"
-          class="student-search-form"
-          style="width: 13vh"
-          ref="endDate"
-          v-model="endDate"
+        <TheInput
+          :type="'date'"
+          :refer="'endDate'"
+          :display="'long'"
+          @change="(v) => (this.endDate = v)"
         />
       </div>
-      <div>
-        <span>학년</span>
-        <input
-          type="number"
-          min="1"
-          class="student-search-form"
-          ref="grade"
-          v-model.trim="grade"
-          @keyup.enter="$refs.room.focus()"
+      <div class="d-flex">
+        <TheInput
+          :label="'학년'"
+          :type="'number'"
+          :min="1"
+          :refer="'grade'"
+          :display="'right'"
+          @change="(v) => (this.grade = v)"
         />
-        <span>반</span>
-        <input
-          type="number"
-          min="1"
-          class="student-search-form"
-          ref="room"
-          v-model.trim="room"
-          @keyup.enter="searchByClass"
+        <TheInput
+          :label="'반'"
+          :type="'number'"
+          :min="1"
+          :refer="'room'"
+          :submit="searchByClass"
+          :display="'right'"
+          @change="(v) => (this.room = v)"
         />
-
         <TheButton :text="'학급 조회'" :onClick="searchByClass" />
 
-        <span style="margin-left: 3vh">이름</span>
-        <input
-          type="text"
-          class="student-search-form"
-          ref="name"
-          v-model.trim="name"
-          @keyup.enter="searchByName"
+        <TheInput
+          :label="'이름'"
+          :refer="'name'"
+          :submit="searchByName"
+          @change="(v) => (this.name = v)"
         />
-
         <TheButton :text="'이름 조회'" :onClick="searchByName" />
       </div>
     </div>
@@ -73,11 +67,13 @@
 
 <script>
 import TheButton from '@/components/admin/common/TheButton.vue'
+import TheInput from '@/components/admin/common/TheInput.vue'
 
 export default {
   name: 'InbodyHistoryHeader',
   components: {
     TheButton,
+    TheInput,
   },
   data() {
     return {

@@ -61,15 +61,19 @@ div {
   align-items: center;
 }
 
-.right {
-  flex-direction: row-reverse;
-}
-
 input {
   background-color: white;
   margin: 0 1.5vh 0 0.5vh;
   width: 10vh;
   height: 3.5vh;
   border-radius: 1vh;
+}
+
+.right {
+  flex-direction: row-reverse;
+}
+
+.long > input {
+  width: 9vw;
 }
 </style>
