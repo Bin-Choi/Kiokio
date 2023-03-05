@@ -20,6 +20,7 @@ export default {
     onClick: {
       type: Function,
       default: undefined,
+      required: true,
     },
   },
 }

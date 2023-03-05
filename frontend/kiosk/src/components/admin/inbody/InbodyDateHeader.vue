@@ -23,6 +23,7 @@
       <TheInput
         :type="'date'"
         :refer="'date'"
+        :value="date"
         :display="'long'"
         @change="(v) => (this.date = v)"
       />
@@ -32,6 +33,7 @@
           :type="'number'"
           :min="1"
           :refer="'grade'"
+          :value="grade"
           :display="'right'"
           @change="(v) => (this.grade = v)"
         />
@@ -40,6 +42,7 @@
           :type="'number'"
           :min="1"
           :refer="'room'"
+          :value="room"
           :submit="searchByClass"
           :display="'right'"
           @change="(v) => (this.room = v)"
@@ -49,6 +52,7 @@
         <TheInput
           :label="'이름'"
           :refer="'name'"
+          :value="name"
           :submit="searchByName"
           @change="(v) => (this.name = v)"
         />

@@ -22,6 +22,7 @@
         <TheInput
           :type="'date'"
           :refer="'startDate'"
+          :value="startDate"
           :display="'long'"
           @change="(v) => (this.starDate = v)"
         />
@@ -29,6 +30,7 @@
         <TheInput
           :type="'date'"
           :refer="'endDate'"
+          :value="endDate"
           :display="'long'"
           @change="(v) => (this.endDate = v)"
         />
@@ -39,6 +41,7 @@
           :type="'number'"
           :min="1"
           :refer="'grade'"
+          :value="grade"
           :display="'right'"
           @change="(v) => (this.grade = v)"
         />
@@ -47,6 +50,7 @@
           :type="'number'"
           :min="1"
           :refer="'room'"
+          :value="room"
           :submit="searchByClass"
           :display="'right'"
           @change="(v) => (this.room = v)"
@@ -56,6 +60,7 @@
         <TheInput
           :label="'이름'"
           :refer="'name'"
+          :value="name"
           :submit="searchByName"
           @change="(v) => (this.name = v)"
         />

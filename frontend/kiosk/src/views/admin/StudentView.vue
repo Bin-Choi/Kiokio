@@ -14,85 +14,16 @@
         background-color: #81a0bb4b;
       "
     >
-      <StudentHeader
-        @search-by-class="searchByClass"
-        @search-by-name="searchByName"
-        @download-excel="downloadExcel"
-        :students="students"
-      />
+      <StudentHeader @download-excel="downloadExcel" />
 
-      <router-view :students="students" />
-
-      <!-- <div v-if="students">
-        <div class="button-box" v-if="mode === 'R'">
-          <button class="blue-btn shadow-sm" @click="mode = 'U'">수정</button>
-          <button
-            class="red-btn shadow-sm"
-            style="margin-left: 1vh"
-            @click="mode = 'D'"
-          >
-            삭제
-          </button>
-        </div>
-        <div class="button-box" v-if="mode === 'U'">
-          <button class="blue-btn shadow-sm" @click="updateStudent">
-            저장
-          </button>
-        </div>
-        <div class="button-box" v-if="mode === 'D'">
-          <button class="red-btn shadow-sm" @click="deleteStudent">삭제</button>
-        </div>
-      </div>
-
-      <div id="admin-scroll-box" style="overflow-y: scroll">
-        <div v-if="students && mode === 'R'">
-          <table id="student-table">
-            <StudentTableColumn />
-            <StudentReadItem
-              v-for="(student, index) in students"
-              :key="student.id"
-              :index="index"
-              :student="student"
-            />
-          </table>
-        </div>
-        <div v-if="students && mode === 'U'">
-          <table>
-            <StudentTableColumn />
-            <StudentUpdateItem
-              v-for="(student, index) in students"
-              :key="student.id"
-              :index="index"
-              :student="student"
-              :invalid="invalid"
-              @change-data="changeData"
-            />
-          </table>
-        </div>
-        <div v-if="students && mode === 'D'">
-          <table>
-            <StudentTableColumn />
-            <StudentDeleteItem
-              v-for="(student, index) in students"
-              :key="student.id"
-              :index="index"
-              :student="student"
-              @change-check="changeCheck"
-            />
-          </table>
-        </div>
-      </div> -->
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
 import AdminHeader from '@/components/admin/common/AdminHeader.vue'
-// import StudentTableColumn from '@/components/admin/student/StudentTableColumn.vue'
 import StudentHeader from '@/components/admin/student/StudentHeader.vue'
-// import StudentReadItem from '@/components/admin/student/StudentReadItem.vue'
-// import StudentUpdateItem from '@/components/admin/student/StudentUpdateItem.vue'
-// import StudentDeleteItem from '@/components/admin/student/StudentDeleteItem.vue'
 
 import axiosAuth from '@/axios/axios'
 import * as XLSX from 'xlsx'
@@ -101,22 +32,11 @@ export default {
   name: 'StudentView',
   components: {
     AdminHeader,
-    // StudentTableColumn,
     StudentHeader,
-
-    // StudentReadItem,
-    // StudentUpdateItem,
-    // StudentDeleteItem,
   },
   data() {
     return {
       students: null,
-      mode: 'R',
-      invalid: null,
-      selected: [],
-      grade: null,
-      room: null,
-      name: null,
     }
   },
   computed: {
@@ -154,138 +74,12 @@ export default {
         .then((res) => {
           console.log(res)
           this.students = res.data
+          console.log(this.students)
           this.mode = 'R'
         })
         .catch((err) => {
           console.error(err)
           alert('해당 정보의 학생이 존재하지 않습니다')
-        })
-    },
-    // Update
-    changeData(value, index, key) {
-      this.students[index][key] = value
-    },
-    updateStudent() {
-      // 중복 검사를 통과한 학생 리스트
-      let studentsList = []
-
-      //유효성 검사
-      this.invalid = null
-      const students = this.students
-      for (let i = 0; i < students.length; i++) {
-        //이름검사
-        const regName = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/
-        if (!regName.test(students[i].name)) {
-          this.invalid = i
-          alert('이름은 한글 2글자 이상 입력하세요')
-          return
-        }
-        //학년 검사
-        const regGrade = /^[1-9]$/
-        if (!regGrade.test(students[i].grade)) {
-          this.invalid = i
-          alert('학년은 1~9사이의 숫자로 입력하세요')
-          return
-        }
-        //반 검사
-        const regRoom = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
-        if (!regRoom.test(students[i].room)) {
-          this.invalid = i
-          alert('반은 1~99사이의 숫자로 입력하세요')
-          return
-        }
-        //번호 검사
-        const regNumber = /^[1-9]$|^[1-9]{1}[0-9]{1}$/
-        if (!regNumber.test(students[i].number)) {
-          this.invalid = i
-          alert('번호는 1~99사이의 숫자로 입력하세요')
-          return
-        }
-        //성별 검사
-        if (!(students[i].gender === '남성' || students[i].gender === '여성')) {
-          this.invalid = i
-          alert('성별을 선택하세요')
-          return
-        }
-        //비밀번호 검사
-        const regPassword = /^[0-9]{4}$/
-        if (!regPassword.test(students[i].password)) {
-          this.invalid = i
-          alert('비밀번호는 4자리 숫자로 입력하세요')
-          return
-        }
-        // 학번 중복인 학생 필터링
-        if (studentsList) {
-          for (let j = 0; j < studentsList.length; j++) {
-            if (
-              studentsList[j].grade === students[i].grade &&
-              studentsList[j].room === students[i].room &&
-              studentsList[j].number === students[i].number
-            ) {
-              alert(
-                `${students[i].grade}학년 ${students[i].room}반 ${students[i].number}번 학생이 중복으로 존재합니다.`
-              )
-              return
-            }
-          }
-        }
-      }
-      axiosAuth({
-        method: 'put',
-        url: `${this.axios_URL}/students/`,
-        headers: {
-          Authorization: `Bearer ${this.access}`,
-        },
-        data: this.students,
-      })
-        .then(() => {
-          this.mode = 'R'
-        })
-        .catch((err) => {
-          console.error(err)
-          alert('새로고침 후 다시 시도해주세요')
-        })
-    },
-    // Delete
-    changeCheck(value, index) {
-      if (value) {
-        this.selected.push(index)
-      } else {
-        for (let i = 0; i < this.selected.length; i++) {
-          if (this.selected[i] === index) {
-            this.selected.splice(i, 1)
-            break
-          }
-        }
-      }
-    },
-    deleteStudent() {
-      let delete_list = []
-      for (const index of this.selected) {
-        delete_list.push(this.students[index].id)
-      }
-      axiosAuth({
-        method: 'delete',
-        url: `${this.axios_URL}/students/`,
-        headers: {
-          Authorization: `Bearer ${this.access}`,
-        },
-        data: delete_list,
-      })
-        .then((res) => {
-          console.log(res)
-          this.selected.sort(function compare(a, b) {
-            return b - a
-          })
-          this.selected.forEach((index) => {
-            this.students.splice(index, 1)
-          })
-          this.selected = []
-          this.mode = 'R'
-        })
-        .catch((err) => {
-          console.error(err)
-          alert('새로고침 후 다시 시도해주세요')
         })
     },
     downloadExcel() {

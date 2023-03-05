@@ -1,35 +1,39 @@
 <template>
   <div>
-    <div class="content rounded shadow d-flex flex-column">
-      <StudentCreateHeader
-        :ready-delete="readyDelete"
-        @add-row="addRow"
-        @delete-row="deleteRow"
-        @create-student="createStudent"
+    <div class="d-flex justify-content-between">
+      <TheButton
+        :text="'취소'"
+        :onClick="() => $router.push({ name: 'student' })"
       />
-      <div id="admin-scroll-box">
-        <table style="min-width: 360px">
-          <StudentTableColumn />
-          <StudentCreateItem
-            v-for="(student, index) in students"
-            :key="index"
-            :index="index"
-            :student="student"
-            :ready-delete="readyDelete"
-            :invalid="invalid"
-            @change-check="changeCheck"
-            @change-data="changeData"
-          />
-        </table>
+
+      <div class="buttons">
+        <TheButton :color="'green'" :text="'추가'" :onClick="addRow" />
+        <TheButton :color="'red'" :text="'삭제'" :onClick="deleteRow" />
+        <TheButton :text="'확인'" :onClick="createStudent" />
       </div>
+    </div>
+
+    <div id="admin-scroll-box">
+      <table style="min-width: 360px">
+        <StudentLabel />
+        <StudentCreateItem
+          v-for="(student, index) in students"
+          :key="index"
+          :index="index"
+          :student="student"
+          :ready-delete="readyDelete"
+          :invalid="invalid"
+          @change-check="changeCheck"
+          @change-data="changeData"
+        />
+      </table>
     </div>
   </div>
 </template>
 
 <script>
-// import AdminHeader from '@/components/admin/common/AdminHeader.vue'
-import StudentCreateHeader from '@/components/admin/student/StudentCreateHeader.vue'
-import StudentTableColumn from '@/components/admin/student/StudentTableColumn.vue'
+import TheButton from '@/components/admin/common/TheButton.vue'
+import StudentLabel from '@/components/admin/student/StudentLabel.vue'
 import StudentCreateItem from '@/components/admin/student/StudentCreateItem.vue'
 
 import axiosAuth from '@/axios/axios'
@@ -37,9 +41,8 @@ import axiosAuth from '@/axios/axios'
 export default {
   name: 'StudentCreateView',
   components: {
-    // AdminHeader,
-    StudentCreateHeader,
-    StudentTableColumn,
+    TheButton,
+    StudentLabel,
     StudentCreateItem,
   },
   data() {
@@ -200,13 +203,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.content {
-  width: 100%;
-  height: 80vh;
-  padding: 3vh;
-  margin-top: 3vh;
-  background-color: #81a0bb4b;
-  min-width: 440px;
-}
-</style>
+<style></style>

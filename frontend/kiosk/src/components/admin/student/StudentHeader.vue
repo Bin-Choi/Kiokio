@@ -12,7 +12,7 @@
       <div>학생 관리</div>
 
       <IconButton
-        :class="{ hidden: !students }"
+        :class="{ hidden: $route.name != 'student' || !students }"
         :icon="'fa-solid fa-table'"
         :text="'다운로드'"
         :onClick="() => $emit('download-excel')"
@@ -22,18 +22,17 @@
 </template>
 
 <script>
-// import TheButton from '@/components/admin/common/TheButton.vue'
-// import TheInput from '@/components/admin/common/TheInput.vue'
 import IconButton from '../common/IconButton.vue'
+
 export default {
   name: 'StudentHeader',
   components: {
-    // TheButton,
-    // TheInput,
     IconButton,
   },
-  props: {
-    students: Array,
+  computed: {
+    students() {
+      return this.$store.state.students
+    },
   },
   // data() {
   //   return {

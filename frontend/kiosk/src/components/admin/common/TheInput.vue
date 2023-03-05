@@ -1,15 +1,15 @@
 <template>
   <div :class="display">
-    <label for="input">{{ label }}</label>
+    <label :for="refer">{{ label }}</label>
     <input
       :type="type"
       :min="min"
       :max="max"
-      id="input"
+      :id="refer"
       :ref="refer"
-      v-model.trim="value"
+      :value="value"
       @keyup.enter="submit"
-      @change="$emit('change', value)"
+      @change="onChange"
     />
   </div>
 </template>
@@ -30,6 +30,10 @@ export default {
       type: Number,
       default: undefined,
     },
+    value: {
+      type: String,
+      default: null,
+    },
     refer: {
       type: String,
       default: null,
@@ -47,10 +51,10 @@ export default {
       default: null,
     },
   },
-  data() {
-    return {
-      value: null,
-    }
+  methods: {
+    onChange(e) {
+      this.$emit('change', e.target.value)
+    },
   },
 }
 </script>

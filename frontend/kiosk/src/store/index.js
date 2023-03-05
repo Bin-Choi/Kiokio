@@ -28,6 +28,7 @@ export default new Vuex.Store({
           'showChangePasswordModal',
           'showChangeEmailModal',
           'inbodyStudents',
+          'students',
         ]
         blackList.forEach((item) => {
           delete stateFilter[item]
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     student: null,
     inbody: null,
     gymContent: null,
+
+    // admin
+    students: null,
   },
   getters: {
     // 메서드를 통한 getters 요청은 캐시되지 않으며, 요청시마다 재실행. now = Date.now()
@@ -122,6 +126,10 @@ export default new Vuex.Store({
     GET_GYM_CONTENT(state, payload) {
       state.gymContent = payload
     },
+    // admin
+    GET_STUDENTS(state, payload) {
+      state.students = payload
+    },
   },
   actions: {
     logout(context) {
@@ -154,7 +162,6 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          // console.log(res)
           const access = res.data.access
           context.commit('SAVE_ACCESS_TOKEN', access)
         })

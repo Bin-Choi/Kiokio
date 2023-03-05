@@ -7,6 +7,7 @@
           :type="'number'"
           :min="1"
           :refer="'grade'"
+          :value="grade"
           :display="'right'"
           @change="
             (v) => {
@@ -19,6 +20,7 @@
           :type="'number'"
           :min="1"
           :refer="'room'"
+          :value="room"
           :submit="searchByClass"
           :display="'right'"
           @change="
@@ -34,6 +36,7 @@
         <TheInput
           :label="'이름'"
           :refer="'name'"
+          :value="name"
           :submit="searchByName"
           @change="
             (v) => {
@@ -42,15 +45,31 @@
           "
         />
         <TheButton :text="'이름 조회'" :onClick="searchByName" />
-        <TheButton
-          :color="'green'"
-          :text="'+ 학생 등록'"
-          :onClick="addStudent"
-        />
       </div>
     </div>
-    <StudentTableColumn />
-    <StudentItem
+
+    <div class="buttons">
+      <TheButton
+        :color="'green'"
+        :text="'등록'"
+        :onClick="() => $router.push({ name: 'studentCreate' })"
+      />
+      <TheButton
+        :text="'수정'"
+        :onClick="
+          () => $router.push({ name: 'studentUpdate', query: this.query })
+        "
+      />
+      <TheButton
+        :color="'red'"
+        :text="'삭제'"
+        :onClick="
+          () => $router.push({ name: 'studentDelete', query: this.query })
+        "
+      />
+    </div>
+    <StudentLabel />
+    <StudentReadItem
       v-for="(student, index) in students"
       :key="student.id"
       :index="index"
@@ -61,33 +80,40 @@
 
 <script>
 import TheButton from '@/components/admin/common/TheButton.vue'
-import TheInput from '../common/TheInput.vue'
-import StudentTableColumn from './StudentTableColumn.vue'
-import StudentItem from './StudentItem.vue'
+import TheInput from '@/components/admin/common/TheInput.vue'
+import StudentLabel from './StudentLabel.vue'
+import StudentReadItem from '@/components/admin/student/StudentReadItem.vue'
+
+import axiosAuth from '@/axios/axios'
 
 export default {
   name: 'StudentRead',
   components: {
     TheButton,
     TheInput,
-    StudentTableColumn,
-    StudentItem,
-  },
-
-  props: {
-    students: Array,
+    StudentLabel,
+    StudentReadItem,
   },
   data() {
     return {
       grade: null,
       room: null,
       name: null,
+      query: null,
     }
   },
-  methods: {
-    addStudent() {
-      this.$router.push({ name: 'studentCreate' })
+  computed: {
+    axios_URL() {
+      return this.$store.state.axios_URL
     },
+    access() {
+      return this.$store.state.access
+    },
+    students() {
+      return this.$store.state.students
+    },
+  },
+  methods: {
     searchByClass() {
       if (!this.grade || !this.room) {
         alert('학년, 반을 모두 입력해주세요')
@@ -106,7 +132,13 @@ export default {
         return
       }
       this.name = null
-      this.$emit('search-by-class', this.grade, this.room)
+      const url = `${this.axios_URL}/students/${this.grade}/${this.room}/`
+      this.searchStudent(url)
+
+      this.query = {
+        grade: this.grade,
+        room: this.room,
+      }
     },
     searchByName() {
       if (!this.name) {
@@ -120,10 +152,42 @@ export default {
       }
       this.grade = null
       this.room = null
-      this.$emit('search-by-name', this.name)
+
+      const url = `${this.axios_URL}/students/${this.name}/`
+      this.searchStudent(url)
+
+      this.query = {
+        name: this.name,
+      }
+    },
+    searchStudent(url) {
+      axiosAuth({
+        method: 'get',
+        url: url,
+        headers: {
+          Authorization: `Bearer ${this.access}`,
+        },
+      })
+        .then((res) => {
+          this.$store.commit('GET_STUDENTS', res.data)
+        })
+        .catch((err) => {
+          console.error(err)
+          alert('해당 정보의 학생이 존재하지 않습니다')
+        })
     },
   },
 }
 </script>
 
-<style></style>
+<style>
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.5vh 0;
+}
+
+.buttons > button {
+  margin-left: 0.5vh;
+}
+</style>

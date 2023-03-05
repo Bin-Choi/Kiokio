@@ -11,6 +11,9 @@ import AdminInbodyView from '@/views/admin/AdminInbodyView'
 import InbodyDateView from '@/views/admin/InbodyDateView'
 
 import StudentRead from '@/components/admin/student/StudentRead'
+import StudentCreate from '@/components/admin/student/StudentCreate'
+import StudentUpdate from '@/components/admin/student/StudentUpdate'
+import StudentDelete from '@/components/admin/student/StudentDelete'
 
 // Kiosk Page
 import IndexView from '@/views/kiosk/IndexView'
@@ -57,12 +60,27 @@ const routes = [
   },
   {
     path: '/student',
-    name: 'student',
     component: StudentView,
     children: [
       {
         path: '',
+        name: 'student',
         component: StudentRead,
+      },
+      {
+        path: '/student/create',
+        name: 'studentCreate',
+        component: StudentCreate,
+      },
+      {
+        path: '/student/update',
+        name: 'studentUpdate',
+        component: StudentUpdate,
+      },
+      {
+        path: '/student/delete',
+        name: 'studentDelete',
+        component: StudentDelete,
       },
     ],
     beforeEnter(to, from, next) {
@@ -74,19 +92,7 @@ const routes = [
       }
     },
   },
-  // {
-  //   path: '/student/create',
-  //   name: 'studentCreate',
-  //   component: StudentCreateView,
-  //   beforeEnter(to, from, next) {
-  //     if (store.getters.isLogin(Date.now())) {
-  //       next()
-  //     } else {
-  //       alert('로그인 해주세요')
-  //       router.push({ name: 'login' })
-  //     }
-  //   },
-  // },
+
   {
     path: '/attendance',
     name: 'attendance',
