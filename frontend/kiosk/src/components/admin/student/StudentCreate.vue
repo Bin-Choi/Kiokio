@@ -193,6 +193,13 @@ export default {
           this.students = [
             { name: null, grade: null, room: null, number: null, gender: null },
           ]
+          let url
+          if (this.$route.query.name)
+            url = `students/${this.$route.query.name}/`
+          else
+            url = `students/${this.$route.query.grade}/${this.$route.query.room}/`
+
+          this.$store.dispatch('getStudents', url)
           this.$router.push({ name: 'student' })
         })
         .catch(() => {

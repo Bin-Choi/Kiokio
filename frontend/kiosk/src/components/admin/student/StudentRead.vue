@@ -52,7 +52,9 @@
       <TheButton
         :color="'green'"
         :text="'등록'"
-        :onClick="() => $router.push({ name: 'studentCreate' })"
+        :onClick="
+          () => $router.push({ name: 'studentCreate', query: this.query })
+        "
       />
       <TheButton
         :text="'수정'"
@@ -68,13 +70,17 @@
         "
       />
     </div>
-    <StudentLabel />
-    <StudentReadItem
-      v-for="(student, index) in students"
-      :key="student.id"
-      :index="index"
-      :student="student"
-    />
+    <table>
+      <StudentLabel />
+      <div id="admin-scroll-box">
+        <StudentReadItem
+          v-for="(student, index) in students"
+          :key="student.id"
+          :index="index"
+          :student="student"
+        />
+      </div>
+    </table>
   </div>
 </template>
 
@@ -84,7 +90,7 @@ import TheInput from '@/components/admin/common/TheInput.vue'
 import StudentLabel from './StudentLabel.vue'
 import StudentReadItem from '@/components/admin/student/StudentReadItem.vue'
 
-import axiosAuth from '@/axios/axios'
+// import axiosAuth from '@/axios/axios'
 
 export default {
   name: 'StudentRead',
@@ -99,18 +105,19 @@ export default {
       grade: null,
       room: null,
       name: null,
-      query: null,
     }
   },
   computed: {
-    axios_URL() {
-      return this.$store.state.axios_URL
-    },
-    access() {
-      return this.$store.state.access
-    },
     students() {
       return this.$store.state.students
+    },
+    // TODO: query는 vuex에 저장해서 router push마다 불러와야함
+    query() {
+      return {
+        grade: this.grade,
+        room: this.room,
+        name: this.name,
+      }
     },
   },
   methods: {
@@ -132,13 +139,8 @@ export default {
         return
       }
       this.name = null
-      const url = `${this.axios_URL}/students/${this.grade}/${this.room}/`
-      this.searchStudent(url)
-
-      this.query = {
-        grade: this.grade,
-        room: this.room,
-      }
+      const url = `students/${this.grade}/${this.room}/`
+      this.$store.dispatch('getStudents', url)
     },
     searchByName() {
       if (!this.name) {
@@ -152,29 +154,8 @@ export default {
       }
       this.grade = null
       this.room = null
-
-      const url = `${this.axios_URL}/students/${this.name}/`
-      this.searchStudent(url)
-
-      this.query = {
-        name: this.name,
-      }
-    },
-    searchStudent(url) {
-      axiosAuth({
-        method: 'get',
-        url: url,
-        headers: {
-          Authorization: `Bearer ${this.access}`,
-        },
-      })
-        .then((res) => {
-          this.$store.commit('GET_STUDENTS', res.data)
-        })
-        .catch((err) => {
-          console.error(err)
-          alert('해당 정보의 학생이 존재하지 않습니다')
-        })
+      const url = `students/${this.name}/`
+      this.$store.dispatch('getStudents', url)
     },
   },
 }

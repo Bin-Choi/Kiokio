@@ -169,5 +169,21 @@ export default new Vuex.Store({
           console.error(err)
         })
     },
+    getStudents(context, url) {
+      axiosAuth({
+        method: 'get',
+        url: `${context.state.axios_URL}/${url}`,
+        headers: {
+          Authorization: `Bearer ${context.state.access}`,
+        },
+      })
+        .then((res) => {
+          context.commit('GET_STUDENTS', res.data)
+        })
+        .catch((err) => {
+          console.error(err)
+          alert('해당 정보의 학생이 존재하지 않습니다')
+        })
+    },
   },
 })

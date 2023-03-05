@@ -7,8 +7,9 @@
       />
       <TheButton :text="'확인'" :onClick="updateStudent" />
     </div>
-    <table>
-      <StudentLabel />
+
+    <StudentLabel />
+    <div id="admin-scroll-box">
       <StudentUpdateItem
         v-for="(student, index) in students"
         :key="student.id"
@@ -17,7 +18,7 @@
         :invalid="invalid"
         @change-data="changeData"
       />
-    </table>
+    </div>
   </div>
 </template>
 
@@ -66,7 +67,6 @@ export default {
       //유효성 검사
       this.invalid = null
       const students = this.students
-      console.log(students)
       for (let i = 0; i < students.length; i++) {
         //이름검사
         const regName = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/
@@ -134,6 +134,13 @@ export default {
         data: this.students,
       })
         .then(() => {
+          let url
+          if (this.$route.query.name)
+            url = `students/${this.$route.query.name}/`
+          else
+            url = `students/${this.$route.query.grade}/${this.$route.query.room}/`
+
+          this.$store.dispatch('getStudents', url)
           this.$router.push({ name: 'student' })
         })
         .catch((err) => {
