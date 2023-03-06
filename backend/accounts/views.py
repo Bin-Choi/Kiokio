@@ -17,34 +17,27 @@ from django.conf import settings
 
 import jwt
 
-
-# Create your views here.
 @api_view(['POST'])
-def login(request):
+def login(request): # 로그인
     username = request.data['username']
     password = request.data['password']
-    # user 검색
-    get_object_or_404(get_user_model(), username=username)
-    
-    # 인증된 경우 사용자 객체 반환, 없을 경우 None 반환.
-    user = authenticate(username = username, password = password)
-    # 인증되지 않은 사용자라면, 회원정보 없음을 반환.
-    if user is None:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
 
     if request.method == 'POST':
-        # simple jwt token
+        user = authenticate(username = username, password = password)
+
+        # 인증 실패
+        if user is None:
+            get_object_or_404(get_user_model(), username=username)      # 아이디가 없을 경우, 404 반환
+            return Response(status=status.HTTP_400_BAD_REQUEST)         # 비밀번호가 틀렸을 경우, 401 반환
+
+        # 인증 성공
         refresh = RefreshToken.for_user(user)
-        refresh_token = str(refresh)
-        access_token = str(refresh.access_token)
-        # 사용자 DB에 refresh_token 저장
-        user.refresh_token = refresh_token
+        refresh_token = str(refresh)                # refresh token 생성
+        access_token = str(refresh.access_token)    # access token 생성
+
+        user.refresh_token = refresh_token          # 사용자 DB에 refresh token 저장
         user.save()
-        # 쿠키 발행 오류. 크롬에서 쿠키저장을 막아버림 // Set-Cookie: my-app-auth=xxxxxxxxxxxxx; expires=Sat, 28 Mar 2020 18:59:00 GMT; HttpOnly; Max-Age=300; Path=/
-            # response = Response()
-            # response.set_cookie(key ='access', value= access_token, expires = settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'], httponly=True,domain = 'localhost:8080')
-            # access_token 반환
-        # access_token, refresh_token 반환
+
         data = {
             'user': { 'id': user.id, 'email': user.email },
             'access': access_token,
@@ -53,68 +46,84 @@ def login(request):
         return Response(data, status=status.HTTP_202_ACCEPTED)
 
 @api_view(['POST'])
-def refresh(request):
-    pk = request.data['user_id']
-    refresh = request.data['refresh']
-    # 인증하려는 유저 정보 가져오기
-    User = get_user_model()
-    user = get_object_or_404(User, pk=pk)
-
-    if request.method == 'POST':
-        # 보낸 refresh token이 해당 유저 DB의 refresh token과 동일한지 비교
-        if user.refresh_token == refresh:
-            # refresh token의 만료기간 확인. 만료되면 decode가 작동하지 않음
-            try:
-                jwt.decode(refresh, settings.SIMPLE_JWT['SIGNING_KEY'], settings.SIMPLE_JWT['ALGORITHM'],)
-            # 만료했을 경우, 401에러 반환
-            except jwt.ExpiredSignatureError:
-                return Response(status=status.HTTP_403_FORBIDDEN)
-            access = AccessToken.for_user(user)
-            data = {
-                'access': str(access)
-            }
-            return Response(data, status=status.HTTP_202_ACCEPTED)
-        else:
-            return Response(status=status.HTTP_403_FORBIDDEN)
-    
-
-@api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def logout(request):
+def logout(request):    # 로그아웃
     User = get_user_model()
-    user = get_object_or_404(User, pk=request.user.pk)
+    user = get_object_or_404(User, pk=request.user.pk)  # 유저 정보가 없을 경우, 404 반환
 
     if request.method == 'POST':
-        # 사용자 DB에 refresh_token 삭제
-        user.refresh_token = ''
+        user.refresh_token = ''     # 사용자 DB에 refresh_token 삭제
         user.save()
         return Response(status=status.HTTP_200_OK)
 
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def change_email(request):
+def change_email(request):  # 이메일 변경
     User = get_user_model()
-    user = get_object_or_404(User, pk=request.user.pk)
+    user = get_object_or_404(User, pk=request.user.pk)  # 유저 정보가 없을 경우, 404 반환
 
     if request.method == 'PUT':
         serializer = UserEmailSerializer(user, data=request.data)
-        if serializer.is_valid(raise_exception=True):
+        if serializer.is_valid(raise_exception=True):   # 유효하지 않을 경우, 400 반환
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def change_password(request):
-    User = get_user_model()
-    user = get_object_or_404(User, pk=request.user.pk)
+def change_password(request):   # 비밀번호 변경
 
     if request.method == 'PUT':
-        password1 =request.data['password1']
-        password2 =request.data['password2']
-        if password1 != password2:
+        old_password = request.data['old_password']
+        new_password =request.data['new_password']
+        confirm_password =request.data['confirm_password']
+
+        user = authenticate(username = request.user.username, password = old_password)  # 사용자 인증
+
+        if user is None:
+            data = {
+                "msg": "기존 비밀번호가 틀렸습니다."
+            }
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        serializer = UserPasswordSerializer(user, data={'password': password1})
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
+        
+        if new_password != confirm_password:
+            data = {
+                "msg": "새 비밀번호가 서로 일치하지 않습니다."
+            }
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = UserPasswordSerializer(user, data={'password': new_password})
+        if serializer.is_valid():
+            user.set_password(serializer.validated_data['password'])
+            user.save()
             return Response(status=status.HTTP_200_OK)
+        
+        data = {
+                "msg": "새 비밀번호가 충분히 복잡하지 않습니다."
+            }
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+        
+@api_view(['POST'])
+def refresh(request):   # access toekn 재발급
+    User = get_user_model()
+    refresh = request.data['refresh']
+
+    if request.method == 'POST':
+        try:
+            decode = jwt.decode(refresh, settings.SIMPLE_JWT['SIGNING_KEY'], settings.SIMPLE_JWT['ALGORITHM'],)
+            pk = decode['user_id']
+            user = get_object_or_404(User, pk=pk)   # 토큰의 유저 정보 가져오기
+
+            if user.refresh_token != refresh:       # 토큰이 유효하지 않을 시, 403 에러
+                return Response(status=status.HTTP_403_FORBIDDEN)
+    
+            # 새로운 access 토큰 발급
+            access = AccessToken.for_user(user)
+            data = {
+                'access': str(access)
+            }
+            return Response(data, status=status.HTTP_202_ACCEPTED)
+        
+        except: # 토큰 해독 불가능 시, 403에러
+            return Response(status=status.HTTP_403_FORBIDDEN)
