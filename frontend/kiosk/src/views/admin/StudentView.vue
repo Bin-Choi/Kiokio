@@ -25,7 +25,6 @@
 import AdminHeader from '@/components/admin/common/AdminHeader.vue'
 import StudentHeader from '@/components/admin/student/StudentHeader.vue'
 
-import axiosAuth from '@/axios/axios'
 import * as XLSX from 'xlsx'
 
 export default {
@@ -34,54 +33,7 @@ export default {
     AdminHeader,
     StudentHeader,
   },
-  data() {
-    return {
-      students: null,
-    }
-  },
-  computed: {
-    axios_URL() {
-      return this.$store.state.axios_URL
-    },
-    access() {
-      return this.$store.state.access
-    },
-  },
   methods: {
-    // Read
-    searchByClass(grade, room) {
-      this.grade = grade
-      this.room = room
-      this.name = null
-      const url = `${this.axios_URL}/students/${grade}/${room}/`
-      this.searchStudent(url)
-    },
-    searchByName(name) {
-      this.grade = null
-      this.room = null
-      this.name = name
-      const url = `${this.axios_URL}/students/${name}/`
-      this.searchStudent(url)
-    },
-    searchStudent(url) {
-      axiosAuth({
-        method: 'get',
-        url: url,
-        headers: {
-          Authorization: `Bearer ${this.access}`,
-        },
-      })
-        .then((res) => {
-          console.log(res)
-          this.students = res.data
-          console.log(this.students)
-          this.mode = 'R'
-        })
-        .catch((err) => {
-          console.error(err)
-          alert('해당 정보의 학생이 존재하지 않습니다')
-        })
-    },
     downloadExcel() {
       let fileName = ''
       if (this.name) {
@@ -100,10 +52,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.button-box {
-  margin-bottom: 1vh;
-  display: flex;
-  justify-content: end;
-}
-</style>
+<style></style>

@@ -64,6 +64,7 @@
         :onClick="() => $router.push({ name: 'studentDelete', query })"
       />
     </div>
+
     <table>
       <StudentLabel />
       <div id="admin-scroll-box">
@@ -81,7 +82,7 @@
 <script>
 import TheButton from '@/components/admin/common/TheButton.vue'
 import TheInput from '@/components/admin/common/TheInput.vue'
-import StudentLabel from './StudentLabel.vue'
+import StudentLabel from '@/components/admin/student/StudentLabel.vue'
 import StudentReadItem from '@/components/admin/student/StudentReadItem.vue'
 
 export default {
@@ -166,14 +167,8 @@ export default {
 }
 </script>
 
-<style>
-.buttons {
-  display: flex;
-  justify-content: flex-end;
-  margin: 0.5vh 0;
-}
-
-.buttons > button {
-  margin-left: 0.5vh;
+<style scoped>
+#admin-scroll-box {
+  height: 55vh;
 }
 </style>
