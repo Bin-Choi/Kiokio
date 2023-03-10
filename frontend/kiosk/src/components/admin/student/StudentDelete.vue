@@ -7,8 +7,9 @@
       />
       <TheButton :text="'확인'" :onClick="deleteStudent" />
     </div>
-    <table>
-      <StudentLabel />
+
+    <StudentLabel />
+    <div id="admin-scroll-box">
       <StudentDeleteItem
         v-for="(student, index) in students"
         :key="student.id"
@@ -16,7 +17,7 @@
         :student="student"
         @change-check="changeCheck"
       />
-    </table>
+    </div>
   </div>
 </template>
 

@@ -4,10 +4,7 @@
       class="d-flex justify-content-between"
       style="margin: 0 0 2vh 0; font-size: 3vh"
     >
-      <IconButton
-        :icon="'fa-solid fa-circle-arrow-left'"
-        :onClick="() => $router.push({ name: 'admin' })"
-      />
+      <IconButton :icon="'fa-solid fa-circle-arrow-left'" :onClick="goAdmin" />
 
       <div>학생 관리</div>
 
@@ -32,6 +29,12 @@ export default {
   computed: {
     students() {
       return this.$store.state.students
+    },
+  },
+  methods: {
+    goAdmin() {
+      this.$router.push({ name: 'admin' })
+      this.$store.commit('GET_STUDENTS', [])
     },
   },
 }
