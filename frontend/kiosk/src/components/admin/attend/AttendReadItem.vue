@@ -9,13 +9,14 @@
         .fill()
         .map((v, i) => i + 1)"
       :key="day"
-      class="box border attendance-column"></td>
+      class="box border attendance-column"
+    ></td>
   </tr>
 </template>
 
 <script>
 export default {
-  name: 'AttendanceItem',
+  name: 'AttendReadItem',
   props: {
     student: Object,
     days: Number,

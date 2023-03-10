@@ -9,7 +9,8 @@
         .fill()
         .map((v, i) => i + 1)"
       :key="day"
-      class="box border attendance-column">
+      class="box border attendance-column"
+    >
       {{ day }}
     </td>
   </tr>
@@ -17,7 +18,7 @@
 
 <script>
 export default {
-  name: 'AttendanceTableColumn',
+  name: 'AttendLabel',
   props: {
     days: Number,
   },
