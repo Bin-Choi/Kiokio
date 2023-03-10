@@ -109,13 +109,6 @@ export default {
   },
   methods: {
     searchByClass() {
-      this.$store.commit('SAVE_QUERY', {
-        grade: this.grade,
-        room: this.room,
-        name: this.name,
-      })
-      this.$router.push({ name: 'student', query: this.query })
-
       if (!this.grade || !this.room) {
         alert('학년, 반을 모두 입력해주세요')
         return
@@ -132,19 +125,19 @@ export default {
         alert('반은 1~99사이의 숫자로 입력하세요')
         return
       }
-      this.name = null
+
       const url = `students/${this.grade}/${this.room}/`
       this.$store.dispatch('getStudents', url)
-    },
-    searchByName() {
       this.$store.commit('SAVE_QUERY', {
         grade: this.grade,
         room: this.room,
         name: this.name,
       })
-
       this.$router.push({ name: 'student', query: this.query })
 
+      this.name = null
+    },
+    searchByName() {
       if (!this.name) {
         alert('이름을 입력해주세요')
         return
@@ -154,10 +147,20 @@ export default {
         alert('이름은 한글 2글자 이상 입력하세요')
         return
       }
-      this.grade = null
-      this.room = null
+
       const url = `students/${this.name}/`
       this.$store.dispatch('getStudents', url)
+
+      this.$store.commit('SAVE_QUERY', {
+        grade: this.grade,
+        room: this.room,
+        name: this.name,
+      })
+
+      this.$router.push({ name: 'student', query: this.query })
+
+      this.grade = null
+      this.room = null
     },
   },
 }

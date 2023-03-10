@@ -4,12 +4,14 @@ import store from '@/store/index.js'
 // Admin Page
 import AdminView from '@/views/admin/AdminView'
 import LoginView from '@/views/admin/LoginView'
-import StudentView from '@/views/admin/StudentView'
-import AttendanceView from '@/views/admin/AttendanceView'
-// import StudentCreateView from '@/views/admin/StudentCreateView'
+
+import AttendView from '@/views/admin/AttendView'
+import AttendRead from '@/components/admin/attend/AttendRead'
+
 import AdminInbodyView from '@/views/admin/AdminInbodyView'
 import InbodyDateView from '@/views/admin/InbodyDateView'
 
+import StudentView from '@/views/admin/StudentView'
 import StudentRead from '@/components/admin/student/StudentRead'
 import StudentCreate from '@/components/admin/student/StudentCreate'
 import StudentUpdate from '@/components/admin/student/StudentUpdate'
@@ -95,8 +97,14 @@ const routes = [
 
   {
     path: '/attendance',
-    name: 'attendance',
-    component: AttendanceView,
+    component: AttendView,
+    children: [
+      {
+        path: '',
+        name: 'attendance',
+        component: AttendRead,
+      },
+    ],
     beforeEnter(to, from, next) {
       if (store.getters.isLogin(Date.now())) {
         next()
