@@ -3,13 +3,22 @@
     <div class="d-flex justify-content-between">
       <TheButton
         :text="'취소'"
-        :onClick="() => $router.push({ name: 'student' })"
+        :onClick="() => $router.push({ name: 'student', query })"
       />
 
       <div class="buttons">
-        <TheButton :color="'green'" :text="'추가'" :onClick="addRow" />
-        <TheButton :color="'red'" :text="'삭제'" :onClick="deleteRow" />
-        <TheButton :text="'확인'" :onClick="createStudent" />
+        <TheButton
+          v-if="!this.readyDelete"
+          :color="'green'"
+          :text="'추가'"
+          :onClick="addRow"
+        />
+        <TheButton
+          :color="'red'"
+          :text="'삭제'"
+          :onClick="() => (this.readyDelete = true)"
+        />
+        <TheButton :text="'확인'" :onClick="handleStudent" />
       </div>
     </div>
 
@@ -60,6 +69,7 @@ export default {
       readyDelete: false,
       invalid: null,
       selected: [],
+      mode: 'C',
     }
   },
   computed: {
@@ -68,6 +78,9 @@ export default {
     },
     access() {
       return this.$store.state.access
+    },
+    query() {
+      return this.$store.state.query
     },
   },
   methods: {
@@ -96,26 +109,29 @@ export default {
       }
     },
     deleteRow() {
-      if (!this.readyDelete) {
-        this.readyDelete = true
-      } else {
-        this.selected.sort(function compare(a, b) {
-          return b - a
-        })
-        this.selected.forEach((index) => {
-          this.students.splice(index, 1)
-        })
-        this.selected = []
-        this.readyDelete = false
-      }
+      this.selected.sort(function compare(a, b) {
+        return b - a
+      })
+      this.selected.forEach((index) => {
+        this.students.splice(index, 1)
+      })
+      this.selected = []
+      this.readyDelete = false
     },
-    // Insert & Create
+
     changeData(value, index, key) {
       this.students[index][key] = value.trim()
     },
-    createStudent() {
-      // 중복 검사를 통과한 학생 리스트
-      let studentsList = []
+    handleStudent() {
+      // 삭제모드일 때
+      if (this.readyDelete) {
+        this.deleteRow()
+        this.readyDelete = false
+        return
+      }
+
+      // 생성모드일 때
+      let studentsList = [] // 중복 검사를 통과한 학생 리스트
 
       //유효성 검사
       this.invalid = null
@@ -180,6 +196,7 @@ export default {
         }
         studentsList.push(students[i])
       }
+
       axiosAuth({
         method: 'post',
         url: `${this.axios_URL}/students/`,
@@ -190,16 +207,8 @@ export default {
       })
         .then(() => {
           alert('성공적으로 저장됐습니다.')
-          this.students = [
-            { name: null, grade: null, room: null, number: null, gender: null },
-          ]
-          let url
-          if (this.$route.query.name)
-            url = `students/${this.$route.query.name}/`
-          else
-            url = `students/${this.$route.query.grade}/${this.$route.query.room}/`
-
-          this.$store.dispatch('getStudents', url)
+          this.$store.commit('SAVE_QUERY', {})
+          this.$store.commit('GET_STUDENTS', [])
           this.$router.push({ name: 'student' })
         })
         .catch(() => {

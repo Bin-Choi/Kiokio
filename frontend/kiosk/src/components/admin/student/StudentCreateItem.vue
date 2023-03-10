@@ -4,9 +4,8 @@
       <input
         v-if="readyDelete"
         type="checkbox"
-        @change="
-          (event) => $emit('change-check', event.target.checked, index)
-        " />
+        @change="(event) => $emit('change-check', event.target.checked, index)"
+      />
       <div v-if="!readyDelete">
         {{ index + 1 }}
       </div>
@@ -25,7 +24,8 @@
       @keydown.down="moveSix"
       @input="
         (event) => $emit('change-data', event.target.value, index, 'grade')
-      " />
+      "
+    />
     <input
       type="number"
       :value="student.room"
@@ -40,7 +40,8 @@
       @keydown.down="moveSix"
       @input="
         (event) => $emit('change-data', event.target.value, index, 'room')
-      " />
+      "
+    />
     <input
       type="number"
       :value="student.number"
@@ -55,7 +56,8 @@
       @keydown.down="moveSix"
       @input="
         (event) => $emit('change-data', event.target.value, index, 'number')
-      " />
+      "
+    />
     <input
       type="text"
       :value="student.name"
@@ -69,7 +71,8 @@
       @keydown.down="moveSix"
       @input="
         (event) => $emit('change-data', event.target.value, index, 'name')
-      " />
+      "
+    />
     <select
       name="gender"
       :value="student.gender"
@@ -81,7 +84,8 @@
       @keydown.down="moveSix"
       @change="
         (event) => $emit('change-data', event.target.value, index, 'gender')
-      ">
+      "
+    >
       <option :value="null">--선택--</option>
       <option value="남성">남성</option>
       <option value="여성">여성</option>
@@ -99,7 +103,8 @@
       @keydown.down="moveSix"
       @input="
         (event) => $emit('change-data', event.target.value, index, 'password')
-      " />
+      "
+    />
   </div>
 </template>
 

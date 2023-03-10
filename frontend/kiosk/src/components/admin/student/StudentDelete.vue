@@ -49,6 +49,9 @@ export default {
     students() {
       return this.$store.state.students
     },
+    query() {
+      return this.$store.state.query
+    },
   },
   methods: {
     changeCheck(value, index) {
@@ -68,6 +71,7 @@ export default {
         !confirm('정말 삭제하시겠습니까? 해당 학생의 모든 정보가 사라집니다.')
       )
         return
+
       let delete_list = []
       for (const index of this.selected) {
         delete_list.push(this.students[index].id)
@@ -88,7 +92,7 @@ export default {
             url = `students/${this.$route.query.grade}/${this.$route.query.room}/`
 
           this.$store.dispatch('getStudents', url)
-          this.$router.push({ name: 'student' })
+          this.$router.push({ name: 'student', query: this.query })
         })
         .catch((err) => {
           console.error(err)

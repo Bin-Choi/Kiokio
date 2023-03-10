@@ -53,6 +53,7 @@ export default new Vuex.Store({
 
     // admin
     students: null,
+    query: {},
   },
   getters: {
     // 메서드를 통한 getters 요청은 캐시되지 않으며, 요청시마다 재실행. now = Date.now()
@@ -129,6 +130,9 @@ export default new Vuex.Store({
     // admin
     GET_STUDENTS(state, payload) {
       state.students = payload
+    },
+    SAVE_QUERY(state, payload) {
+      state.query = payload
     },
   },
   actions: {

@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
 
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -27,3 +30,10 @@ new Vue({
   router,
   render: (h) => h(App),
 }).$mount('#app')
+
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => {
+    if (err.name !== 'NavigationDuplicated') throw err
+  })
+}

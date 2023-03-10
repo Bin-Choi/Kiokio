@@ -52,22 +52,16 @@
       <TheButton
         :color="'green'"
         :text="'등록'"
-        :onClick="
-          () => $router.push({ name: 'studentCreate', query: this.query })
-        "
+        :onClick="() => $router.push({ name: 'studentCreate' })"
       />
       <TheButton
         :text="'수정'"
-        :onClick="
-          () => $router.push({ name: 'studentUpdate', query: this.query })
-        "
+        :onClick="() => $router.push({ name: 'studentUpdate', query })"
       />
       <TheButton
         :color="'red'"
         :text="'삭제'"
-        :onClick="
-          () => $router.push({ name: 'studentDelete', query: this.query })
-        "
+        :onClick="() => $router.push({ name: 'studentDelete', query })"
       />
     </div>
     <table>
@@ -90,8 +84,6 @@ import TheInput from '@/components/admin/common/TheInput.vue'
 import StudentLabel from './StudentLabel.vue'
 import StudentReadItem from '@/components/admin/student/StudentReadItem.vue'
 
-// import axiosAuth from '@/axios/axios'
-
 export default {
   name: 'StudentRead',
   components: {
@@ -111,17 +103,19 @@ export default {
     students() {
       return this.$store.state.students
     },
-    // TODO: query는 vuex에 저장해서 router push마다 불러와야함
     query() {
-      return {
-        grade: this.grade,
-        room: this.room,
-        name: this.name,
-      }
+      return this.$store.state.query
     },
   },
   methods: {
     searchByClass() {
+      this.$store.commit('SAVE_QUERY', {
+        grade: this.grade,
+        room: this.room,
+        name: this.name,
+      })
+      this.$router.push({ name: 'student', query: this.query })
+
       if (!this.grade || !this.room) {
         alert('학년, 반을 모두 입력해주세요')
         return
@@ -143,6 +137,14 @@ export default {
       this.$store.dispatch('getStudents', url)
     },
     searchByName() {
+      this.$store.commit('SAVE_QUERY', {
+        grade: this.grade,
+        room: this.room,
+        name: this.name,
+      })
+
+      this.$router.push({ name: 'student', query: this.query })
+
       if (!this.name) {
         alert('이름을 입력해주세요')
         return

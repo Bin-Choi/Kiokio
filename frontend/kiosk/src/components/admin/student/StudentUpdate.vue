@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between">
       <TheButton
         :text="'취소'"
-        :onClick="() => $router.push({ name: 'student' })"
+        :onClick="() => $router.push({ name: 'student', query })"
       />
       <TheButton :text="'확인'" :onClick="updateStudent" />
     </div>
@@ -54,6 +54,9 @@ export default {
     },
     students() {
       return this.$store.state.students
+    },
+    query() {
+      return this.$store.state.query
     },
   },
   methods: {
@@ -141,7 +144,7 @@ export default {
             url = `students/${this.$route.query.grade}/${this.$route.query.room}/`
 
           this.$store.dispatch('getStudents', url)
-          this.$router.push({ name: 'student' })
+          this.$router.push({ name: 'student', query: this.$route.query })
         })
         .catch((err) => {
           console.error(err)
