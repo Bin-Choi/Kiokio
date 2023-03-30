@@ -12,19 +12,29 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import environ
+import os
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!%ip5el*bsvw&=mk167il$@8nuory1-d=o3oiqw-(r^ar@ldma'
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# False if not in os.environ because of casting above
+DEBUG = env('DEBUG')
+
+# Raises Django's ImproperlyConfigured
+# exception if SECRET_KEY not in os.environ
+SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = []
 
@@ -34,6 +44,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts',
     'students',
+    'statics',
 
     # rest_framework
     'rest_framework',
@@ -59,6 +70,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # django static 파일 청소
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 SITE_ID = 1
@@ -70,9 +84,9 @@ REST_FRAMEWORK = {
         # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html#requirements#usage
         'rest_framework_simplejwt.authentication.JWTAuthentication',
 
-        # HttpOnly Cookie 인증방식
+        # HttpOnly Cookie 인증방식, 동일 도메인 https에서만 동작
         # https://dj-rest-auth.readthedocs.io/en/latest/installation.html#json-web-token-jwt-support-optional
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        # 'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
 
     # permission. 모두 허용 후 개별적으로 제한
@@ -93,9 +107,8 @@ SIMPLE_JWT = {
 # dj_rest_auth: simplejwt cookie config
 REST_USE_JWT = True
 
-JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-
+# JWT_AUTH_COOKIE = 'my-app-auth'
+# JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 
 MIDDLEWARE = [
     # CORS policy
@@ -109,11 +122,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# 선택적 필터링 가능
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:8080",
-# ]
 
 # 모두허용
 CORS_ALLOW_ALL_ORIGINS = True
@@ -144,7 +152,6 @@ WSGI_APPLICATION = 'kiosk.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # from . import my_settings
-
 # DATABASES = my_settings.DATABASES
 
 DATABASES = {
@@ -191,26 +198,39 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+# media files
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Email 전송
+# Emai
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# 메일을 호스트하는 서버
-EMAIL_HOST = 'smtp.gmail.com'
-# gmail과의 통신하는 포트
-EMAIL_PORT = '587'
-# 발신할 이메일
-EMAIL_HOST_USER = 'kiokio.gym@gmail.com'
-# 발신할 메일의 비밀번호
-EMAIL_HOST_PASSWORD = 'xdobcajdxhjgkylk'
-# TLS 보안 방법
+
+EMAIL_HOST = env('EMAIL_HOST')
+
+EMAIL_PORT = env('EMAIL_PORT')
+
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+
 EMAIL_USE_TLS = True
-# 사이트와 관련한 자동응답을 받을 이메일 주소
+
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+# user 모델 설정
 AUTH_USER_MODEL = 'accounts.User'
