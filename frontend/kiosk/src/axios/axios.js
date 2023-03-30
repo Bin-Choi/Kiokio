@@ -29,10 +29,11 @@ axiosAuth.interceptors.response.use(
           }
         )
         .then((res) => {
+          console.log(res)
           // 새로운 토큰 발급 성공
           console.log('refresh access token')
           const newAccess = res.data.access
-          store.state.acess = newAccess
+          store.state.access = newAccess
           originalConfig.headers.Authorization = `Bearer ${newAccess}`
           // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
           return axiosAuth(originalConfig)

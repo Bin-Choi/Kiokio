@@ -119,8 +119,90 @@ backend
 
 ### Front
 
-```
+- 리팩토링 중입니다. 변경될 수 있습니다.
 
+```
+src
+ ┣ axios
+ ┃ ┗ axios.js
+ ┣ components
+ ┃ ┣ admin
+ ┃ ┃ ┣ attend
+ ┃ ┃ ┃ ┣ AttendHeader.vue
+ ┃ ┃ ┃ ┣ AttendLabel.vue
+ ┃ ┃ ┃ ┣ AttendRead.vue
+ ┃ ┃ ┃ ┗ AttendReadItem.vue
+ ┃ ┃ ┣ common
+ ┃ ┃ ┃ ┣ AdminHeader.vue
+ ┃ ┃ ┃ ┣ ChangeEmailModal.vue
+ ┃ ┃ ┃ ┣ ChangePasswordModal.vue
+ ┃ ┃ ┃ ┣ IconButton.vue
+ ┃ ┃ ┃ ┣ LoginModal.vue
+ ┃ ┃ ┃ ┣ TheButton.vue
+ ┃ ┃ ┃ ┗ TheInput.vue
+ ┃ ┃ ┣ inbody
+ ┃ ┃ ┃ ┣ AdminInbodyDateDeleteItem.vue
+ ┃ ┃ ┃ ┣ AdminInbodyDateReadItem.vue
+ ┃ ┃ ┃ ┣ AdminInbodyDateTableColumn.vue
+ ┃ ┃ ┃ ┣ AdminInbodyDateUpdateItem.vue
+ ┃ ┃ ┃ ┣ AdminInbodyDetail.vue
+ ┃ ┃ ┃ ┣ AdminInbodyDetailRead.vue
+ ┃ ┃ ┃ ┣ AdminInbodyDetailUpdate.vue
+ ┃ ┃ ┃ ┣ AdminInbodyItem.vue
+ ┃ ┃ ┃ ┣ AdminInbodyStudentReadItem.vue
+ ┃ ┃ ┃ ┣ AdminInbodyStudentTableRow.vue
+ ┃ ┃ ┃ ┣ AdminInbodyStudentUpdateItem.vue
+ ┃ ┃ ┃ ┣ AdminInbodyTableColumn.vue
+ ┃ ┃ ┃ ┣ InbodyDateHeader.vue
+ ┃ ┃ ┃ ┣ InbodyHistoryHeader.vue
+ ┃ ┃ ┃ ┗ InbodyStu.vue
+ ┃ ┃ ┗ student
+ ┃ ┃ ┃ ┣ StudentCreate.vue
+ ┃ ┃ ┃ ┣ StudentCreateItem.vue
+ ┃ ┃ ┃ ┣ StudentDelete.vue
+ ┃ ┃ ┃ ┣ StudentDeleteItem.vue
+ ┃ ┃ ┃ ┣ StudentHeader.vue
+ ┃ ┃ ┃ ┣ StudentLabel.vue
+ ┃ ┃ ┃ ┣ StudentRead.vue
+ ┃ ┃ ┃ ┣ StudentReadItem.vue
+ ┃ ┃ ┃ ┣ StudentUpdate.vue
+ ┃ ┃ ┃ ┗ StudentUpdateItem.vue
+ ┃ ┗ kiosk
+ ┃ ┃ ┣ common
+ ┃ ┃ ┃ ┣ KioskHeader.vue
+ ┃ ┃ ┃ ┣ PasswordModal.vue
+ ┃ ┃ ┃ ┣ TheKeypad.vue
+ ┃ ┃ ┃ ┣ TheModal.vue
+ ┃ ┃ ┃ ┗ TheNumGuide.vue
+ ┃ ┃ ┣ gym
+ ┃ ┃ ┃ ┗ GymItem.vue
+ ┃ ┃ ┗ inbody
+ ┃ ┃ ┃ ┣ InbodyDetail.vue
+ ┃ ┃ ┃ ┗ InbodyHistoryItem.vue
+ ┣ router
+ ┃ ┗ index.js
+ ┣ store
+ ┃ ┗ index.js
+ ┣ views
+ ┃ ┣ admin
+ ┃ ┃ ┣ AdminInbodyView.vue
+ ┃ ┃ ┣ AdminView.vue
+ ┃ ┃ ┣ AttendView.vue
+ ┃ ┃ ┣ InbodyDateView.vue
+ ┃ ┃ ┣ LoginView.vue
+ ┃ ┃ ┗ StudentView.vue
+ ┃ ┗ kiosk
+ ┃ ┃ ┣ AttendCheckView.vue
+ ┃ ┃ ┣ GymView.vue
+ ┃ ┃ ┣ InbodyCreateView.vue
+ ┃ ┃ ┣ InbodyDetailView.vue
+ ┃ ┃ ┣ InbodyHistoryView.vue
+ ┃ ┃ ┣ InbodyUpdateView.vue
+ ┃ ┃ ┣ InbodyView.vue
+ ┃ ┃ ┣ IndexView.vue
+ ┃ ┃ ┗ PasswordUpdateView.vue
+ ┣ App.vue
+ ┗ main.js
 ```
 
 ## 📱 협업 툴
@@ -182,9 +264,13 @@ backend
 
 ### 관리자 페이지
 
+<b>로그인 화면</b>
+
+![admin](/README.assets/admin.png)
+
 <b>메인 화면</b>
 
-![adminIndex](/README.assets/admin.png)
+![adminIndex](/README.assets/adminIndex.png)
 
 <b>학생 조회 및 수정</b>
 

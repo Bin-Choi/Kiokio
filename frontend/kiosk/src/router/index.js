@@ -2,23 +2,31 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store/index.js'
 // Admin Page
-import IndexView from '@/views/IndexView'
-import AdminView from '@/views/AdminView'
-import LoginView from '@/views/LoginView'
-import StudentView from '@/views/StudentView'
-import AttendanceView from '@/views/AttendanceView'
-import StudentCreateView from '@/views/StudentCreateView'
-import AdminInbodyView from '@/views/AdminInbodyView'
-import AdminInbodyDateView from '@/views/AdminInbodyDateView'
+import AdminView from '@/views/admin/AdminView'
+import LoginView from '@/views/admin/LoginView'
+
+import AttendView from '@/views/admin/AttendView'
+import AttendRead from '@/components/admin/attend/AttendRead'
+
+import AdminInbodyView from '@/views/admin/AdminInbodyView'
+import InbodyDateView from '@/views/admin/InbodyDateView'
+
+import StudentView from '@/views/admin/StudentView'
+import StudentRead from '@/components/admin/student/StudentRead'
+import StudentCreate from '@/components/admin/student/StudentCreate'
+import StudentUpdate from '@/components/admin/student/StudentUpdate'
+import StudentDelete from '@/components/admin/student/StudentDelete'
+
 // Kiosk Page
-import AttendView from '@/views/AttendView'
-import InbodyView from '@/views/InbodyView'
-import InbodyDetailView from '@/views/InbodyDetailView'
-import InbodyCreateView from '@/views/InbodyCreateView'
-import InbodyHistoryView from '@/views/InbodyHistoryView'
-import InbodyUpdateView from '@/views/InbodyUpdateView'
-import PasswordUpdateView from '@/views/PasswordUpdateView'
-import GymView from '@/views/GymView'
+import IndexView from '@/views/kiosk/IndexView'
+import AttendCheckView from '@/views/kiosk/AttendCheckView'
+import InbodyView from '@/views/kiosk/InbodyView'
+import InbodyDetailView from '@/views/kiosk/InbodyDetailView'
+import InbodyCreateView from '@/views/kiosk/InbodyCreateView'
+import InbodyHistoryView from '@/views/kiosk/InbodyHistoryView'
+import InbodyUpdateView from '@/views/kiosk/InbodyUpdateView'
+import PasswordUpdateView from '@/views/kiosk/PasswordUpdateView'
+import GymView from '@/views/kiosk/GymView'
 
 Vue.use(VueRouter)
 
@@ -54,8 +62,29 @@ const routes = [
   },
   {
     path: '/student',
-    name: 'student',
     component: StudentView,
+    children: [
+      {
+        path: '',
+        name: 'student',
+        component: StudentRead,
+      },
+      {
+        path: '/student/create',
+        name: 'studentCreate',
+        component: StudentCreate,
+      },
+      {
+        path: '/student/update',
+        name: 'studentUpdate',
+        component: StudentUpdate,
+      },
+      {
+        path: '/student/delete',
+        name: 'studentDelete',
+        component: StudentDelete,
+      },
+    ],
     beforeEnter(to, from, next) {
       if (store.getters.isLogin(Date.now())) {
         next()
@@ -65,23 +94,17 @@ const routes = [
       }
     },
   },
-  {
-    path: '/student/create',
-    name: 'studentCreate',
-    component: StudentCreateView,
-    beforeEnter(to, from, next) {
-      if (store.getters.isLogin(Date.now())) {
-        next()
-      } else {
-        alert('로그인 해주세요')
-        router.push({ name: 'login' })
-      }
-    },
-  },
+
   {
     path: '/attendance',
-    name: 'attendance',
-    component: AttendanceView,
+    component: AttendView,
+    children: [
+      {
+        path: '',
+        name: 'attendance',
+        component: AttendRead,
+      },
+    ],
     beforeEnter(to, from, next) {
       if (store.getters.isLogin(Date.now())) {
         next()
@@ -107,7 +130,7 @@ const routes = [
   {
     path: '/admin/inbody/date',
     name: 'adminInbodyDate',
-    component: AdminInbodyDateView,
+    component: InbodyDateView,
     beforeEnter(to, from, next) {
       if (store.getters.isLogin(Date.now())) {
         next()
@@ -120,7 +143,7 @@ const routes = [
   {
     path: '/attend',
     name: 'attend',
-    component: AttendView,
+    component: AttendCheckView,
   },
   {
     path: '/inbody',
